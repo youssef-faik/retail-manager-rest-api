@@ -1,7 +1,9 @@
 package ma.ibsys.ibsysretailmanager.invoice.entities;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -28,18 +30,17 @@ public class Invoice {
   @Column(name = "id", updatable = false)
   private int id;
 
-  @Size(
-      min = 10,
-      max = 10,
-      message = "invoiceNumber must be between {min} and {max} characters long")
-  @NotBlank(message = "invoiceNumber is mandatory")
+  @Digits(integer = 10, fraction = 0)
+  @NotNull(message = "invoiceNumber is mandatory")
   @Column(name = "invoice_number", nullable = false)
   private int invoiceNumber;
 
-  @NotBlank(message = "issueDate is mandatory")
+  @NotNull(message = "issueDate is mandatory")
   @Column(name = "issueDate", nullable = false)
   private LocalDate issueDate = LocalDate.now();
 
+  
+  @NotNull(message = "customer is mandatory")
   @ManyToOne(cascade = CascadeType.ALL)
   @JoinColumn(
       name = "customer_id",
