@@ -1,4 +1,4 @@
-package ma.ibsys.ibsysretailmanager.product.entities;
+package ma.ibsys.ibsysretailmanager.product;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -16,7 +16,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import ma.ibsys.ibsysretailmanager.product.enums.TaxRate;
 
 @Entity(name = "Product")
 @Table(

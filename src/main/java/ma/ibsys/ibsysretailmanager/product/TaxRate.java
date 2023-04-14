@@ -1,4 +1,4 @@
-package ma.ibsys.ibsysretailmanager.product.enums;
+package ma.ibsys.ibsysretailmanager.product;
 
 /*
 + STANDARD=20
