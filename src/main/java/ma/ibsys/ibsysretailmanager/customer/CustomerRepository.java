@@ -1,6 +1,5 @@
-package ma.ibsys.ibsysretailmanager.customer.repositories;
+package ma.ibsys.ibsysretailmanager.customer;
 
-import ma.ibsys.ibsysretailmanager.customer.entities.Customer;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface CustomerRepository extends JpaRepository<Customer, Integer> {}
+public interface CustomerRepository extends JpaRepository<Customer, Long> {}

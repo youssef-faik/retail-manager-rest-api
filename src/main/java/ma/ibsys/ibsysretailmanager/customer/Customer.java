@@ -1,4 +1,4 @@
-package ma.ibsys.ibsysretailmanager.customer.entities;
+package ma.ibsys.ibsysretailmanager.customer;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
@@ -10,7 +10,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import ma.ibsys.ibsysretailmanager.invoice.entities.Invoice;
+import ma.ibsys.ibsysretailmanager.invoice.Invoice;
 
 @Entity(name = "Customer")
 @Table(
@@ -27,7 +27,7 @@ public class Customer {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "id", updatable = false)
-  private int id;
+  private Long id;
 
   @Size(min = 2, max = 100, message = "name must be between {min} and {max} characters long")
   @NotBlank(message = "name is mandatory")
