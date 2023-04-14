@@ -39,10 +39,10 @@ public class Customer {
   @Column(name = "email", nullable = false)
   private String email;
   
-  @Size(min = 10, max = 10, message = "phone_number must be between {min} and {max} characters long")
-  @NotBlank(message = "phone_number is mandatory")
-  @Column(name = "phone_number", nullable = false, length = 10)
-  private String phoneNumber;
+  @Size(min = 10, max = 10, message = "phone number must be between {min} and {max} characters long")
+  @NotBlank(message = "phone number is mandatory")
+  @Column(name = "phone", nullable = false, length = 10)
+  private String phone;
 
   @Size(min = 10, max = 500, message = "address must be between {min} and {max} characters long")
   @NotBlank(message = "address is mandatory")

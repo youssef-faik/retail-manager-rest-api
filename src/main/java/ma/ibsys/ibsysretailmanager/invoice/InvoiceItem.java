@@ -8,6 +8,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import ma.ibsys.ibsysretailmanager.product.entities.Product;
 
+import java.math.BigDecimal;
+
 @Entity(name = "InvoiceItem")
 @Table(name = "invoice-item")
 @NoArgsConstructor
@@ -44,6 +46,10 @@ public class InvoiceItem {
           updatable = false
   )
   private int quantity;
+  
+  @NotNull(message = "unitPrice is mandatory")
+  @Column(name = "unit_price", nullable = false)
+  private BigDecimal unitPrice;
   
   
 }
