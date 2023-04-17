@@ -1,4 +1,4 @@
-package ma.ibsys.ibsysretailmanager.invoice.entities;
+package ma.ibsys.ibsysretailmanager.invoice;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;

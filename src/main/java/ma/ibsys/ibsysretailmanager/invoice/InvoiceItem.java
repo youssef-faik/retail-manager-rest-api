@@ -1,4 +1,4 @@
-package ma.ibsys.ibsysretailmanager.invoice.entities;
+package ma.ibsys.ibsysretailmanager.invoice;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -6,7 +6,7 @@ import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import ma.ibsys.ibsysretailmanager.product.entities.Product;
+import ma.ibsys.ibsysretailmanager.product.Product;
 
 import java.math.BigDecimal;
 

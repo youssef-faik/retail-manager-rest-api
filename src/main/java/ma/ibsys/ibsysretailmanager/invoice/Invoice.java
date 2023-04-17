@@ -1,10 +1,9 @@
-package ma.ibsys.ibsysretailmanager.invoice.entities;
+package ma.ibsys.ibsysretailmanager.invoice;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Digits;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +11,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import ma.ibsys.ibsysretailmanager.customer.entities.Customer;
+import ma.ibsys.ibsysretailmanager.customer.Customer;
 
 @Entity(name = "Invoice")
 @Table(
