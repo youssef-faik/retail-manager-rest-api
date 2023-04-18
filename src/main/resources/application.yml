@@ -1,9 +1,29 @@
 spring:
+  config:
+    activate:
+      on-profile: development
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/ibsys-retail-manager
     username: root
     password: root
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        format_sql: true
+---
+spring:
+  config:
+    activate:
+      on-profile: production
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://awseb-e-ppmm73m8mx-stack-awsebrdsdatabase-r582s3v92z42.capwucesgzey.eu-west-3.rds.amazonaws.com:3306/ibsys-retail-manager
+    username: superadmin
+    password: superadmin
   jpa:
     show-sql: true
     hibernate:
