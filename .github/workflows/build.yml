@@ -18,7 +18,7 @@ jobs:
     services:
       db:
         image: mysql:5.7
-        environment:
+        env:
           MYSQL_DATABASE: ${{ env.MYSQL_DATABASE }}
           MYSQL_ROOT_PASSWORD: ${{ env.MYSQL_ROOT_PASSWORD }}
         ports:
