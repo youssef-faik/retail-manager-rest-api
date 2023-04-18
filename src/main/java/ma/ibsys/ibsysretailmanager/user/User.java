@@ -1,22 +1,22 @@
-package ma.ibsys.ibsysretailmanager.user.entities;
+package ma.ibsys.ibsysretailmanager.user;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import jakarta.persistence.UniqueConstraint;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import ma.ibsys.ibsysretailmanager.user.enums.Role;
+import ma.ibsys.ibsysretailmanager.security.token.Token;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 @Entity(name = "User")
 @Table(
@@ -53,7 +53,7 @@ public class User {
   private String password;
 
   @Enumerated(EnumType.STRING)
-  @NotBlank(message = "role is mandatory")
+  @NotNull(message = "role is mandatory")
   @Column(name = "role", nullable = false)
   private Role role;
 }
