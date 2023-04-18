@@ -57,7 +57,7 @@ public class GlobalExceptionHandler {
     log.error("Unexpected error: {}", ex.getMessage());
     return ErrorResponse.builder()
         .httpStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-        .message("Internal server error")
+        .message(ex.getMessage())
         .timestamp(LocalDateTime.now())
         .build();
   }
