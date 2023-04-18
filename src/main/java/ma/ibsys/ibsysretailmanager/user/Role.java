@@ -1,4 +1,4 @@
-package ma.ibsys.ibsysretailmanager.user.enums;
+package ma.ibsys.ibsysretailmanager.user;
 
 public enum Role {
   ADMIN,
