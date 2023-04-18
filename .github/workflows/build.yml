@@ -23,8 +23,6 @@ jobs:
           MYSQL_ROOT_PASSWORD: ${{ env.MYSQL_ROOT_PASSWORD }}
         ports:
           - '3306:3306'
-        expose:
-          - '3306'
         volumes:
           - db_data:/var/lib/mysql
     volumes:
