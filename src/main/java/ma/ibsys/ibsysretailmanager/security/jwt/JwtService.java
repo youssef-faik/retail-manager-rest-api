@@ -22,7 +22,7 @@ public class JwtService {
    * The secret key used for signing and verifying the JWT tokens.
    */
   private static final String SECRET_KEY = "5468576D5A7134743777217A25432A462D4A404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970337336763979244226452948404D";
-  private static final long EXPIRATION_TIME_IN_SECONDS = 86_400; // 1 day
+  private static final long EXPIRATION_TIME_IN_MILLISECONDS = 86_400_000; // 1 day
   
   /**
    * Extracts the username from the JWT token.
@@ -88,7 +88,7 @@ public class JwtService {
             .setClaims(extraClaims)
             .setSubject(userDetails.getUsername())
             .setIssuedAt(new Date(System.currentTimeMillis()))
-            .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME_IN_SECONDS))
+            .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME_IN_MILLISECONDS))
             .signWith(getSignInKey(), SignatureAlgorithm.HS256)
             .compact();
   }
