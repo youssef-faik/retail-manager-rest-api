@@ -26,14 +26,14 @@ public class ProductController {
   private final ProductService productService;
   
   @GetMapping
-  @Operation(summary = "Get all products", description = "get a list contains the details for all products.")
+  @Operation(summary = "Get all products", description = "Get a list that contains the details for all products.")
   public ResponseEntity<List<ProductResponseDto>> getAllCustomers() {
     List<ProductResponseDto> products = productService.getAllProducts();
     return ResponseEntity.ok(products);
   }
 
   @GetMapping("/{id}")
-  @Operation(summary = "Get product details", description = "Get a the details of a product withe given id.")
+  @Operation(summary = "Get product details", description = "Get the details of the product with the given id.")
   public ResponseEntity<ProductResponseDto> getProduct(@PathVariable("id") int id) {
     ProductResponseDto product = productService.getProductById(id);
     return ResponseEntity.ok(product);
@@ -49,7 +49,7 @@ public class ProductController {
   }
 
   @PutMapping("/{id}")
-  @Operation(summary = "Update product details", description = "Update the details of a product with given id.")
+  @Operation(summary = "Update product details", description = "Update the details of the product with given id.")
   public ResponseEntity<ProductResponseDto> updateProduct(
       @PathVariable("id") int id, @RequestBody ProductRequestDto productRequestDto) {
     ProductResponseDto updatedProduct = productService.updateProduct(id, productRequestDto);
