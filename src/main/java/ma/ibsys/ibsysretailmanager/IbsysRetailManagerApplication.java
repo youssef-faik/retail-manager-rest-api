@@ -15,9 +15,11 @@ import ma.ibsys.ibsysretailmanager.product.TaxRate;
 import ma.ibsys.ibsysretailmanager.user.Role;
 import ma.ibsys.ibsysretailmanager.user.User;
 import ma.ibsys.ibsysretailmanager.user.UserRepository;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @SpringBootApplication
@@ -34,7 +36,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
     info =
         @Info(
             title = "IBSYS RETAIL MANAGER API",
-            version = "0.0.1",
+            version = "${app.version}",
             description =
                 "This API provides various endpoints to manage retail operations such as creating and updating products, managing inventory, and processing orders."))
 public class IbsysRetailManagerApplication implements CommandLineRunner {

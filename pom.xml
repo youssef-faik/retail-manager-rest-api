@@ -16,7 +16,7 @@
   <properties>
     <java.version>17</java.version>
     <app.image.name>ibsys-retail-manager</app.image.name>
-    <app.image.tag/>
+    <app.image.tag>x.x.x</app.image.tag>
   </properties>
   <dependencies>
     <dependency>
@@ -126,6 +126,26 @@
               <jvmFlag>-Dspring.profiles.active=production</jvmFlag>
             </jvmFlags>
           </container>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-resources-plugin</artifactId>
+        <version>3.2.0</version>
+        <executions>
+          <execution>
+            <id>filter-resources</id>
+            <phase>generate-resources</phase>
+            <goals>
+              <goal>resources</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <delimiters>
+            <delimiter>${*}</delimiter>
+          </delimiters>
+          <useDefaultDelimiters>false</useDefaultDelimiters>
         </configuration>
       </plugin>
     </plugins>

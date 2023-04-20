@@ -14,6 +14,8 @@ spring:
     properties:
       hibernate:
         format_sql: true
+app:
+  version: "${app.image.tag}"
 ---
 spring:
   config:
@@ -31,3 +33,5 @@ spring:
     properties:
       hibernate:
         format_sql: true
+app:
+  version: "${app.image.tag}"
