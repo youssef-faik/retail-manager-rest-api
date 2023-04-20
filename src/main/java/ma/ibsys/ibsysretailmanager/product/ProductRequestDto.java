@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.PositiveOrZero;
 import java.math.BigDecimal;
+
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,7 +18,12 @@ import lombok.NoArgsConstructor;
 public class ProductRequestDto {
   @NotBlank(message = "barCode is mandatory")
   private String barCode;
-
+  
+  @Size(min = 2, max = 1000, message = "name must be between {min} and {max} characters long")
+  @NotBlank(message = "name is mandatory")
+  @Column(name = "name", nullable = false)
+  private String name;
+  
   @NotBlank(message = "priceExcludingTax is mandatory")
   @PositiveOrZero(message = "priceExcludingTax must be a positive number or 0")
   private BigDecimal priceExcludingTax;

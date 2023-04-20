@@ -13,6 +13,8 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
 import java.math.BigDecimal;
+
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -37,7 +39,12 @@ public class Product {
   @NotBlank(message = "barCode is mandatory")
   @Column(name = "bar_code", nullable = false)
   private String barCode;
-
+  
+  @Size(min = 2, max = 1000, message = "name must be between {min} and {max} characters long")
+  @NotBlank(message = "name is mandatory")
+  @Column(name = "name", nullable = false)
+  private String name;
+  
   @NotNull(message = "priceExcludingTax is mandatory")
   @PositiveOrZero(message = "priceExcludingTax must be a positive number or 0")
   @Column(name = "price_excluding_tax", nullable = false)

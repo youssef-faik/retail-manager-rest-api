@@ -60,6 +60,7 @@ public class ModelMapperConfig {
     modelMapper
         .createTypeMap(ProductRequestDto.class, Product.class)
         .addMappings(mapper -> mapper.map(ProductRequestDto::getBarCode, Product::setBarCode))
+        .addMappings(mapper -> mapper.map(ProductRequestDto::getName, Product::setName))
         .addMappings(
             mapper ->
                 mapper.map(ProductRequestDto::getPriceExcludingTax, Product::setPriceExcludingTax))
@@ -70,6 +71,7 @@ public class ModelMapperConfig {
         .createTypeMap(Product.class, ProductResponseDto.class)
         .addMappings(mapper -> mapper.map(Product::getId, ProductResponseDto::setId))
         .addMappings(mapper -> mapper.map(Product::getBarCode, ProductResponseDto::setBarCode))
+        .addMappings(mapper -> mapper.map(Product::getName, ProductResponseDto::setName))
         .addMappings(
             mapper ->
                 mapper.map(Product::getPriceExcludingTax, ProductResponseDto::setPriceExcludingTax))

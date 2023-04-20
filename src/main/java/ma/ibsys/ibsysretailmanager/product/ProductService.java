@@ -41,6 +41,7 @@ public class ProductService {
             .orElseThrow(() -> new EntityNotFoundException("Product not found with id " + id));
     product.setBarCode(productRequestDto.getBarCode());
     product.setTaxRate(productRequestDto.getTaxRate());
+    product.setName(productRequestDto.getName());
     product.setPriceExcludingTax(productRequestDto.getPriceExcludingTax());
     Product updatedProduct = productRepository.save(product);
     return modelMapper.map(updatedProduct, ProductResponseDto.class);
