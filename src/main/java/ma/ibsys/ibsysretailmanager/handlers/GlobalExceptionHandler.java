@@ -1,4 +1,4 @@
-package ma.ibsys.ibsysretailmanager.exceptions;
+package ma.ibsys.ibsysretailmanager.handlers;
 
 import jakarta.persistence.EntityNotFoundException;
 import java.time.LocalDateTime;
@@ -9,18 +9,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
-import org.springframework.web.bind.annotation.ControllerAdvice;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.*;
 
-@ControllerAdvice
+@RestControllerAdvice
 @Slf4j
 public class GlobalExceptionHandler {
 
   @ExceptionHandler(EntityNotFoundException.class)
   @ResponseStatus(HttpStatus.BAD_REQUEST)
-  @ResponseBody
   public ErrorResponse handleEntityNotFoundException(EntityNotFoundException ex) {
     log.error("Entity not found error: {}", ex.getMessage());
     return ErrorResponse.builder()
@@ -32,7 +28,6 @@ public class GlobalExceptionHandler {
 
   @ExceptionHandler(MethodArgumentNotValidException.class)
   @ResponseStatus(HttpStatus.BAD_REQUEST)
-  @ResponseBody
   public ErrorResponse handleMethodArgumentNotValid(MethodArgumentNotValidException ex) {
     log.error("Validation error: {}", ex.getMessage());
     BindingResult bindingResult = ex.getBindingResult();
@@ -52,7 +47,6 @@ public class GlobalExceptionHandler {
 
   @ExceptionHandler(Exception.class)
   @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-  @ResponseBody
   public ErrorResponse handleException(Exception ex) {
     log.error("Unexpected error: {}", ex.getMessage());
     return ErrorResponse.builder()

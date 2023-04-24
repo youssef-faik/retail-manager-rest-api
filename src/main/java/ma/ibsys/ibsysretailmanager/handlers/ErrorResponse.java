@@ -1,4 +1,4 @@
-package ma.ibsys.ibsysretailmanager.exceptions;
+package ma.ibsys.ibsysretailmanager.handlers;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
