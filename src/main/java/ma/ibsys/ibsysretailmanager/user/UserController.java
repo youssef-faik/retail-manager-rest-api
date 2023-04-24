@@ -27,20 +27,19 @@ public class UserController {
       summary = "Get all users",
       description = "Get a list contains the details for all users.")
   @GetMapping
-  public List<UserDto> getAllUsers() {
+  public ResponseEntity<List<UserDto>> getAllUsers() {
     return userService.getAllUsers();
   }
 
   @GetMapping("/{id}")
   @Operation(summary = "Get user details", description = "Get the details of the given product id.")
   public ResponseEntity<UserDto> getUser(@PathVariable("id") int id) {
-    UserDto user = userService.getUserById(id);
-    return ResponseEntity.ok(user);
+    return userService.getUserById(id);
   }
 
   @PostMapping
   @Operation(summary = "Create user", description = "Create a new user with the given details.")
-  public UserDto createUser(@RequestBody UserCreateDto userCreateDto) {
+  public ResponseEntity<UserDto> createUser(@RequestBody UserCreateDto userCreateDto) {
     return userService.createUser(userCreateDto);
   }
 
@@ -48,13 +47,14 @@ public class UserController {
   @Operation(
       summary = "Update user details",
       description = "Update the details of the user with the given id.")
-  public UserDto updateUser(@PathVariable int id, @RequestBody UserCreateDto userCreateDto) {
+  public ResponseEntity<UserDto> updateUser(
+      @PathVariable int id, @RequestBody UserCreateDto userCreateDto) {
     return userService.updateUser(id, userCreateDto);
   }
 
   @DeleteMapping("/{id}")
   @Operation(summary = "Delete user", description = "Delete the user with the given id.")
-  public void deleteUser(@PathVariable int id) {
-    userService.deleteUser(id);
+  public ResponseEntity<Void> deleteUser(@PathVariable int id) {
+    return userService.deleteUser(id);
   }
 }

@@ -23,6 +23,6 @@ public class AuthenticationController {
   @PostMapping()
   public ResponseEntity<AuthenticationResponse> authenticate(
       @RequestBody AuthenticationRequest request) {
-    return ResponseEntity.ok(service.authenticate(request));
+    return service.authenticate(request);
   }
 }

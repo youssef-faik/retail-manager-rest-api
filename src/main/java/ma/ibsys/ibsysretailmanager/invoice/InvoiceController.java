@@ -1,11 +1,9 @@
 package ma.ibsys.ibsysretailmanager.invoice;
 
-import java.net.URI;
-import java.util.List;
-
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,29 +17,34 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/v1/invoices")
 @RequiredArgsConstructor
 @SecurityRequirement(name = "Bearer Authentication")
-@Tag(name = "Invoice", description = "The Invoice API. Contains all the operations that can be performed on an invoice.")
+@Tag(
+    name = "Invoice",
+    description =
+        "The Invoice API. Contains all the operations that can be performed on an invoice.")
 public class InvoiceController {
   private final InvoiceService invoiceService;
 
   @GetMapping
-  @Operation(summary = "Get all invoices", description = "Get a list that contains the details for all invoices.")
+  @Operation(
+      summary = "Get all invoices",
+      description = "Get a list that contains the details for all invoices.")
   public ResponseEntity<List<InvoiceDto>> getAllInvoices() {
-    List<InvoiceDto> invoices = invoiceService.getAllInvoices();
-    return ResponseEntity.ok(invoices);
+    return invoiceService.getAllInvoices();
   }
 
   @GetMapping("/{id}")
-  @Operation(summary = "Get invoice details", description = "Get the details of the invoice with the given id.")
+  @Operation(
+      summary = "Get invoice details",
+      description = "Get the details of the invoice with the given id.")
   public ResponseEntity<InvoiceDto> getInvoice(@PathVariable int id) {
-    InvoiceDto invoice = invoiceService.getInvoiceById(id);
-    return ResponseEntity.ok(invoice);
+    return invoiceService.getInvoiceById(id);
   }
 
   @PostMapping
-  @Operation(summary = "Create invoice", description = "Create a new invoice with the supplied details.")
+  @Operation(
+      summary = "Create invoice",
+      description = "Create a new invoice with the supplied details.")
   public ResponseEntity<InvoiceDto> createInvoice(@RequestBody InvoiceCreateDto invoiceCreateDto) {
-    InvoiceDto createdInvoice = invoiceService.createInvoice(invoiceCreateDto);
-    return ResponseEntity.created(URI.create("/invoices/" + createdInvoice.getId()))
-        .body(createdInvoice);
+    return invoiceService.createInvoice(invoiceCreateDto);
   }
 }

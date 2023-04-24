@@ -1,10 +1,12 @@
 package ma.ibsys.ibsysretailmanager.customer;
 
 import jakarta.persistence.EntityNotFoundException;
+import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -13,28 +15,31 @@ public class CustomerService {
   private final CustomerRepository customerRepository;
   private final ModelMapper modelMapper;
 
-  public List<CustomerResponseDto> getAllCustomers() {
-    List<Customer> customers = customerRepository.findAll();
-    return customers.stream()
-        .map(customer -> modelMapper.map(customer, CustomerResponseDto.class))
-        .collect(Collectors.toList());
+  public ResponseEntity<List<CustomerResponseDto>> getAllCustomers() {
+    List<CustomerResponseDto> customers =
+        customerRepository.findAll().stream()
+            .map(customer -> modelMapper.map(customer, CustomerResponseDto.class))
+            .collect(Collectors.toList());
+    return ResponseEntity.ok(customers);
   }
 
-  public CustomerResponseDto getCustomerById(Long id) {
+  public ResponseEntity<CustomerResponseDto> getCustomerById(Long id) {
     Customer customer =
         customerRepository
             .findById(id)
             .orElseThrow(() -> new EntityNotFoundException("Customer not found with id " + id));
-    return modelMapper.map(customer, CustomerResponseDto.class);
+    return ResponseEntity.ok(modelMapper.map(customer, CustomerResponseDto.class));
   }
 
-  public CustomerResponseDto createCustomer(CustomerRequestDto customerRequestDto) {
+  public ResponseEntity<CustomerResponseDto> createCustomer(CustomerRequestDto customerRequestDto) {
     Customer customer = modelMapper.map(customerRequestDto, Customer.class);
     Customer savedCustomer = customerRepository.save(customer);
-    return modelMapper.map(savedCustomer, CustomerResponseDto.class);
+
+    return ResponseEntity.created(URI.create("/api/customers/" + savedCustomer.getId())).build();
   }
 
-  public CustomerResponseDto updateCustomer(Long id, CustomerRequestDto customerRequestDto) {
+  public ResponseEntity<CustomerResponseDto> updateCustomer(
+      Long id, CustomerRequestDto customerRequestDto) {
     Customer customer =
         customerRepository
             .findById(id)
@@ -43,14 +48,15 @@ public class CustomerService {
     customer.setEmail(customerRequestDto.getEmail());
     customer.setPhone(customerRequestDto.getPhone());
     Customer updatedCustomer = customerRepository.save(customer);
-    return modelMapper.map(updatedCustomer, CustomerResponseDto.class);
+    return ResponseEntity.ok(modelMapper.map(updatedCustomer, CustomerResponseDto.class));
   }
 
-  public void deleteCustomerById(Long id) {
+  public ResponseEntity<Void> deleteCustomerById(Long id) {
     Customer customer =
         customerRepository
             .findById(id)
             .orElseThrow(() -> new EntityNotFoundException("Customer not found with id: " + id));
     customerRepository.delete(customer);
+    return ResponseEntity.noContent().build();
   }
 }

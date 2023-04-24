@@ -4,7 +4,6 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
-import java.net.URI;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -21,45 +20,50 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/v1/customers")
 @RequiredArgsConstructor
 @SecurityRequirement(name = "Bearer Authentication")
-@Tag(name = "Customer", description = "The Customer API. Contains all the operations that can be performed on a customer")
+@Tag(
+    name = "Customer",
+    description =
+        "The Customer API. Contains all the operations that can be performed on a customer")
 public class CustomerController {
   private final CustomerService customerService;
 
   @GetMapping
-  @Operation(summary = "Get all customers", description = "Get a list that contains the details for all customers.")
+  @Operation(
+      summary = "Get all customers",
+      description = "Get a list that contains the details for all customers.")
   public ResponseEntity<List<CustomerResponseDto>> getAllCustomers() {
-    List<CustomerResponseDto> customers = customerService.getAllCustomers();
-    return ResponseEntity.ok(customers);
+    return customerService.getAllCustomers();
   }
 
   @GetMapping("/{id}")
-  @Operation(summary = "Get customer details", description = "Get the details of the customer with the given id.")
+  @Operation(
+      summary = "Get customer details",
+      description = "Get the details of the customer with the given id.")
   public ResponseEntity<CustomerResponseDto> getCustomer(@PathVariable Long id) {
-    CustomerResponseDto customer = customerService.getCustomerById(id);
-    return ResponseEntity.ok(customer);
+    return customerService.getCustomerById(id);
   }
 
   @PostMapping
-  @Operation(summary = "Create customer", description = "Create a new customer with the given details.")
+  @Operation(
+      summary = "Create customer",
+      description = "Create a new customer with the given details.")
   public ResponseEntity<CustomerResponseDto> createCustomer(
       @Valid @RequestBody CustomerRequestDto customerRequestDto) {
-    CustomerResponseDto createdCustomer = customerService.createCustomer(customerRequestDto);
-    return ResponseEntity.created(URI.create("/api/customers/" + createdCustomer.getId()))
-        .body(createdCustomer);
+    return customerService.createCustomer(customerRequestDto);
   }
 
   @PutMapping("/{id}")
-  @Operation(summary = "Update customer details", description = "Update the details of the customer with given id.")
+  @Operation(
+      summary = "Update customer details",
+      description = "Update the details of the customer with given id.")
   public ResponseEntity<CustomerResponseDto> updateCustomer(
       @PathVariable Long id, @Valid @RequestBody CustomerRequestDto customerRequestDto) {
-    CustomerResponseDto updatedCustomer = customerService.updateCustomer(id, customerRequestDto);
-    return ResponseEntity.ok(updatedCustomer);
+    return customerService.updateCustomer(id, customerRequestDto);
   }
 
   @DeleteMapping("/{id}")
   @Operation(summary = "Delete customer", description = "Delete a customer with given id.")
   public ResponseEntity<Void> deleteCustomer(@PathVariable Long id) {
-    customerService.deleteCustomerById(id);
-    return ResponseEntity.noContent().build();
+    return customerService.deleteCustomerById(id);
   }
 }

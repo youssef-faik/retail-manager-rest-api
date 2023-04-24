@@ -1,10 +1,12 @@
 package ma.ibsys.ibsysretailmanager.product;
 
 import jakarta.persistence.EntityNotFoundException;
+import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -13,28 +15,32 @@ public class ProductService {
   private final ProductRepository productRepository;
   private final ModelMapper modelMapper;
 
-  public List<ProductResponseDto> getAllProducts() {
-    List<Product> products = productRepository.findAll();
-    return products.stream()
-        .map(product -> modelMapper.map(product, ProductResponseDto.class))
-        .collect(Collectors.toList());
+  public ResponseEntity<List<ProductResponseDto>> getAllProducts() {
+    List<ProductResponseDto> products =
+        productRepository.findAll().stream()
+            .map(product -> modelMapper.map(product, ProductResponseDto.class))
+            .collect(Collectors.toList());
+
+    return ResponseEntity.ok(products);
   }
 
-  public ProductResponseDto getProductById(int id) {
+  public ResponseEntity<ProductResponseDto> getProductById(int id) {
     Product product =
         productRepository
             .findById(id)
             .orElseThrow(() -> new EntityNotFoundException("Product not found with id " + id));
-    return modelMapper.map(product, ProductResponseDto.class);
+
+    return ResponseEntity.ok(modelMapper.map(product, ProductResponseDto.class));
   }
 
-  public ProductResponseDto createProduct(ProductRequestDto productRequestDto) {
+  public ResponseEntity<ProductResponseDto> createProduct(ProductRequestDto productRequestDto) {
     Product product = modelMapper.map(productRequestDto, Product.class);
     Product savedProduct = productRepository.save(product);
-    return modelMapper.map(savedProduct, ProductResponseDto.class);
+    return ResponseEntity.created(URI.create("/api/products/" + savedProduct.getId())).build();
   }
 
-  public ProductResponseDto updateProduct(int id, ProductRequestDto productRequestDto) {
+  public ResponseEntity<ProductResponseDto> updateProduct(
+      int id, ProductRequestDto productRequestDto) {
     Product product =
         productRepository
             .findById(id)
@@ -44,14 +50,17 @@ public class ProductService {
     product.setName(productRequestDto.getName());
     product.setPriceExcludingTax(productRequestDto.getPriceExcludingTax());
     Product updatedProduct = productRepository.save(product);
-    return modelMapper.map(updatedProduct, ProductResponseDto.class);
+
+    return ResponseEntity.ok(modelMapper.map(updatedProduct, ProductResponseDto.class));
   }
 
-  public void deleteProduct(int id) {
+  public ResponseEntity<Void> deleteProduct(int id) {
     Product product =
         productRepository
             .findById(id)
             .orElseThrow(() -> new EntityNotFoundException("Product not found with id " + id));
     productRepository.delete(product);
+
+    return ResponseEntity.noContent().build();
   }
 }
