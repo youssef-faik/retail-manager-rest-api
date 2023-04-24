@@ -1,9 +1,7 @@
 package ma.ibsys.ibsysretailmanager.invoice;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotNull;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,11 +12,7 @@ import lombok.NoArgsConstructor;
 import ma.ibsys.ibsysretailmanager.customer.Customer;
 
 @Entity(name = "Invoice")
-@Table(
-    name = "invoice",
-    uniqueConstraints = {
-      @UniqueConstraint(name = "invoice_invoice_number_unique", columnNames = "invoice_number")
-    })
+@Table(name = "invoice")
 @Builder
 @Data
 @NoArgsConstructor
@@ -29,16 +23,10 @@ public class Invoice {
   @Column(name = "id", updatable = false)
   private int id;
 
-  @Digits(integer = 10, fraction = 0)
-  @NotNull(message = "invoiceNumber is mandatory")
-  @Column(name = "invoice_number", nullable = false)
-  private int invoiceNumber;
-
   @NotNull(message = "issueDate is mandatory")
   @Column(name = "issueDate", nullable = false)
   private LocalDate issueDate = LocalDate.now();
 
-  
   @NotNull(message = "customer is mandatory")
   @ManyToOne(cascade = CascadeType.ALL)
   @JoinColumn(
@@ -50,8 +38,8 @@ public class Invoice {
 
   @OneToMany(cascade = CascadeType.ALL, mappedBy = "invoice")
   private List<InvoiceItem> items = new ArrayList<>();
-  
-  public void addItem(InvoiceItem invoiceItem){
+
+  public void addItem(InvoiceItem invoiceItem) {
     if (!this.items.contains(invoiceItem)) {
       this.items.add(invoiceItem);
     }

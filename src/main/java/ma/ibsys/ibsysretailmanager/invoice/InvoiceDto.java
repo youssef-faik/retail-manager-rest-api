@@ -11,7 +11,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class InvoiceDto {
   private int id;
-  private int invoiceNumber;
   private LocalDate issueDate;
   private Long customerId;
   private List<InvoiceItemDto> items;
