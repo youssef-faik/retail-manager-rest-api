@@ -62,7 +62,7 @@ public class IbsysRetailManagerApplication implements CommandLineRunner {
     Product product1 =
         Product.builder()
             .barCode("432435")
-            .taxRate(TaxRate.TAX_14)
+            .taxRate(TaxRate.FOURTEEN)
             .name("product1")
             .priceExcludingTax(BigDecimal.valueOf(200))
             .build();
@@ -71,7 +71,7 @@ public class IbsysRetailManagerApplication implements CommandLineRunner {
         Product.builder()
             .barCode("1434")
             .name("product2")
-            .taxRate(TaxRate.TAX_7)
+            .taxRate(TaxRate.SEVEN)
             .priceExcludingTax(BigDecimal.valueOf(100))
             .build();
 
