@@ -133,7 +133,6 @@ public interface ProductApi {
       })
   ResponseEntity<ProductResponseDto> createProduct(
       @Parameter(
-              description = "Product details",
               required = true,
               schema = @Schema(implementation = ProductRequestDto.class))
           @RequestBody
