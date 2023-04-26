@@ -23,7 +23,7 @@ public class ProductController implements ProductApi {
   }
 
   @Override
-  public ResponseEntity<ProductResponseDto> createProduct(
+  public ResponseEntity<Void> createProduct(
       @RequestBody ProductRequestDto productRequestDto) {
     return productService.createProduct(productRequestDto);
   }

@@ -31,7 +31,7 @@ public class CustomerService {
     return ResponseEntity.ok(modelMapper.map(customer, CustomerResponseDto.class));
   }
 
-  public ResponseEntity<CustomerResponseDto> createCustomer(CustomerRequestDto customerRequestDto) {
+  public ResponseEntity<Void> createCustomer(CustomerRequestDto customerRequestDto) {
     Customer customer = modelMapper.map(customerRequestDto, Customer.class);
     Customer savedCustomer = customerRepository.save(customer);
 

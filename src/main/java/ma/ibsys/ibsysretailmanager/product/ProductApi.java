@@ -127,7 +127,7 @@ public interface ProductApi {
                     mediaType = "application/json",
                     schema = @Schema(implementation = ErrorResponse.class)))
       })
-  ResponseEntity<ProductResponseDto> createProduct(
+  ResponseEntity<Void> createProduct(
       @Parameter(
               required = true,
               schema = @Schema(implementation = ProductRequestDto.class))

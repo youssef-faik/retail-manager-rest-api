@@ -151,7 +151,7 @@ public interface CustomerApi {
                     mediaType = "application/json",
                     schema = @Schema(implementation = ErrorResponse.class)))
       })
-  ResponseEntity<CustomerResponseDto> createCustomer(
+  ResponseEntity<Void> createCustomer(
       @Parameter(required = true, schema = @Schema(implementation = CustomerRequestDto.class))
           @Valid
           @RequestBody

@@ -33,7 +33,7 @@ public class ProductService {
     return ResponseEntity.ok(modelMapper.map(product, ProductResponseDto.class));
   }
 
-  public ResponseEntity<ProductResponseDto> createProduct(ProductRequestDto productRequestDto) {
+  public ResponseEntity<Void> createProduct(ProductRequestDto productRequestDto) {
     Product product = modelMapper.map(productRequestDto, Product.class);
     Product savedProduct = productRepository.save(product);
     return ResponseEntity.created(URI.create("/api/v1/products/" + savedProduct.getId())).build();

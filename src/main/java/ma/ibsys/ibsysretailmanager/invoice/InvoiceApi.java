@@ -148,7 +148,7 @@ public interface InvoiceApi {
                     mediaType = "application/json",
                     schema = @Schema(implementation = ErrorResponse.class)))
       })
-  ResponseEntity<InvoiceDto> createInvoice(
+  ResponseEntity<Void> createInvoice(
       @Parameter(required = true, schema = @Schema(implementation = InvoiceDto.class)) @RequestBody
           InvoiceCreateDto invoiceCreateDto);
 }

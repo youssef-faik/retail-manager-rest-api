@@ -147,7 +147,7 @@ public interface UserApi {
                     mediaType = "application/json",
                     schema = @Schema(implementation = ErrorResponse.class)))
       })
-  ResponseEntity<UserDto> createUser(
+  ResponseEntity<Void> createUser(
       @Parameter(required = true, schema = @Schema(implementation = UserCreateDto.class))
           @RequestBody
           UserCreateDto userCreateDto);

@@ -24,7 +24,7 @@ public class CustomerController implements CustomerApi {
   }
 
   @Override
-  public ResponseEntity<CustomerResponseDto> createCustomer(
+  public ResponseEntity<Void> createCustomer(
       @Valid @RequestBody CustomerRequestDto customerRequestDto) {
     return customerService.createCustomer(customerRequestDto);
   }

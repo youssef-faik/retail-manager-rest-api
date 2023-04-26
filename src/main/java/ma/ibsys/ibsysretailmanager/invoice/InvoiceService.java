@@ -33,7 +33,7 @@ public class InvoiceService {
     return ResponseEntity.ok(modelMapper.map(invoice, InvoiceDto.class));
   }
 
-  public ResponseEntity<InvoiceDto> createInvoice(InvoiceCreateDto invoiceCreateDto) {
+  public ResponseEntity<Void> createInvoice(InvoiceCreateDto invoiceCreateDto) {
     Invoice invoice = modelMapper.map(invoiceCreateDto, Invoice.class);
     for (InvoiceItem item : invoice.getItems()) {
       item.setInvoice(invoice);

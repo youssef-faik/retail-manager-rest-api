@@ -23,7 +23,7 @@ public class InvoiceController implements InvoiceApi {
   }
 
   @Override
-  public ResponseEntity<InvoiceDto> createInvoice(@RequestBody InvoiceCreateDto invoiceCreateDto) {
+  public ResponseEntity<Void> createInvoice(@RequestBody InvoiceCreateDto invoiceCreateDto) {
     return invoiceService.createInvoice(invoiceCreateDto);
   }
 }

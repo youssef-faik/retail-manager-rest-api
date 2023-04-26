@@ -22,7 +22,7 @@ public class UserController implements UserApi {
   }
 
   @Override
-  public ResponseEntity<UserDto> createUser(@RequestBody UserCreateDto userCreateDto) {
+  public ResponseEntity<Void> createUser(@RequestBody UserCreateDto userCreateDto) {
     return userService.createUser(userCreateDto);
   }
 
