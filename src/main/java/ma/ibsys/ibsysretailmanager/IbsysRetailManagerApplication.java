@@ -59,20 +59,22 @@ public class IbsysRetailManagerApplication implements CommandLineRunner {
             .email("rona@mail.ma")
             .build();
 
-    Product product1 =
+    Product mouse =
         Product.builder()
             .barCode("432435")
             .taxRate(TaxRate.FOURTEEN)
-            .name("product1")
-            .priceExcludingTax(BigDecimal.valueOf(200))
+            .name("Mouse")
+            .sellingPriceExcludingTax(BigDecimal.valueOf(199))
+            .purchasePrice(BigDecimal.valueOf(50))
             .build();
 
-    Product product2 =
+    Product laptop =
         Product.builder()
             .barCode("1434")
-            .name("product2")
+            .name("Laptop")
             .taxRate(TaxRate.SEVEN)
-            .priceExcludingTax(BigDecimal.valueOf(100))
+            .sellingPriceExcludingTax(BigDecimal.valueOf(20_000))
+            .purchasePrice(BigDecimal.valueOf(15_000))
             .build();
 
     User user =
@@ -86,8 +88,8 @@ public class IbsysRetailManagerApplication implements CommandLineRunner {
             .build();
 
     customerRepository.save(ronaSARl);
-    productRepository.save(product1);
-    productRepository.save(product2);
+    productRepository.save(mouse);
+    productRepository.save(laptop);
     userRepository.save(user);
   }
 }
