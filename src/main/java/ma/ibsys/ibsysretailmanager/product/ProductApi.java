@@ -104,11 +104,7 @@ public interface ProductApi {
       value = {
         @ApiResponse(
             responseCode = "201",
-            description = "Product created successfully.",
-            content =
-                @Content(
-                    mediaType = "application/json",
-                    schema = @Schema(implementation = ProductResponseDto.class))),
+            description = "Product created successfully."),
         @ApiResponse(
             responseCode = "400",
             description = "Bad Request. Invalid input parameters.",
