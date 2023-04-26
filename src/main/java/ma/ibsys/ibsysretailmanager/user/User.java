@@ -56,7 +56,9 @@ public class User implements UserDetails {
   @NotNull(message = "role is mandatory")
   @Column(name = "role", nullable = false)
   private Role role;
-
+  
+  @NotNull(message = "isEnabled is mandatory")
+  @Column(name = "is_enabled", nullable = false)
   private boolean isEnabled = true;
 
   @OneToMany(mappedBy = "user")
