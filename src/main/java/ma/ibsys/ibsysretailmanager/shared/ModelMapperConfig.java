@@ -28,7 +28,6 @@ import org.springframework.context.annotation.Configuration;
 @RequiredArgsConstructor
 public class ModelMapperConfig {
   private final CustomerRepository customerRepository;
-  private final ProductRepository productRepository;
 
   @Bean
   public ModelMapper modelMapper() {
@@ -60,10 +59,12 @@ public class ModelMapperConfig {
         .createTypeMap(ProductRequestDto.class, Product.class)
         .addMappings(mapper -> mapper.map(ProductRequestDto::getBarCode, Product::setBarCode))
         .addMappings(mapper -> mapper.map(ProductRequestDto::getName, Product::setName))
+        .addMappings(mapper -> mapper.map(ProductRequestDto::getTaxRate, Product::setTaxRate))
         .addMappings(
             mapper ->
                 mapper.map(ProductRequestDto::getPriceExcludingTax, Product::setPriceExcludingTax))
-        .addMappings(mapper -> mapper.map(ProductRequestDto::getTaxRate, Product::setTaxRate));
+        .addMappings(
+            mapper -> mapper.map(ProductRequestDto::getPurchasePrice, Product::setPurchasePrice));
 
     // map Product entity to ProductResponseDto
     modelMapper
@@ -71,10 +72,12 @@ public class ModelMapperConfig {
         .addMappings(mapper -> mapper.map(Product::getId, ProductResponseDto::setId))
         .addMappings(mapper -> mapper.map(Product::getBarCode, ProductResponseDto::setBarCode))
         .addMappings(mapper -> mapper.map(Product::getName, ProductResponseDto::setName))
+        .addMappings(mapper -> mapper.map(Product::getTaxRate, ProductResponseDto::setTaxRate))
         .addMappings(
             mapper ->
                 mapper.map(Product::getPriceExcludingTax, ProductResponseDto::setPriceExcludingTax))
-        .addMappings(mapper -> mapper.map(Product::getTaxRate, ProductResponseDto::setTaxRate));
+        .addMappings(
+            mapper -> mapper.map(Product::getPurchasePrice, ProductResponseDto::setPurchasePrice));
 
     // -- Invoice -------------------------------------------------------------
 

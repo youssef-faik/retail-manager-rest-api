@@ -9,12 +9,10 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.PositiveOrZero;
+import jakarta.validation.constraints.*;
+
 import java.math.BigDecimal;
 
-import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -49,6 +47,11 @@ public class Product {
   @PositiveOrZero(message = "priceExcludingTax must be a positive number or 0")
   @Column(name = "price_excluding_tax", nullable = false)
   private BigDecimal priceExcludingTax;
+  
+  @NotNull(message = "purchasePrice is mandatory")
+  @Positive(message = "priceExcludingTax must be a positive number")
+  @Column(name = "purchase-price", nullable = false)
+  private BigDecimal purchasePrice;
 
   @Enumerated(EnumType.STRING)
   @NotNull(message = "taxRate is mandatory")

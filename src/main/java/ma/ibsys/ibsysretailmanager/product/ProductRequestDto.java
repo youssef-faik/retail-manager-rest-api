@@ -2,9 +2,8 @@ package ma.ibsys.ibsysretailmanager.product;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Column;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.PositiveOrZero;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
+
 import java.math.BigDecimal;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -31,6 +30,11 @@ public class ProductRequestDto {
   @NotBlank(message = "priceExcludingTax is mandatory")
   @PositiveOrZero(message = "priceExcludingTax must be a positive number or 0")
   private BigDecimal priceExcludingTax;
+  
+  @Schema(description = "Purchase Price of the product", example = "10000.99", required = true)
+  @NotNull(message = "purchasePrice is mandatory")
+  @Positive(message = "priceExcludingTax must be a positive number")
+  private BigDecimal purchasePrice;
 
   @Schema(description = "Tax rate of the product", example = "Ten", required = true)
   @NotBlank(message = "taxRate is mandatory")

@@ -49,6 +49,7 @@ public class ProductService {
     product.setTaxRate(productRequestDto.getTaxRate());
     product.setName(productRequestDto.getName());
     product.setPriceExcludingTax(productRequestDto.getPriceExcludingTax());
+    product.setPurchasePrice(productRequestDto.getPurchasePrice());
     Product updatedProduct = productRepository.save(product);
 
     return ResponseEntity.ok(modelMapper.map(updatedProduct, ProductResponseDto.class));
