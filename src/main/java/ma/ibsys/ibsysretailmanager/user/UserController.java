@@ -28,8 +28,8 @@ public class UserController implements UserApi {
 
   @Override
   public ResponseEntity<UserDto> updateUser(
-      @PathVariable int id, @RequestBody UserCreateDto userCreateDto) {
-    return userService.updateUser(id, userCreateDto);
+      @PathVariable int id, @RequestBody UserUpdateDto userUpdateDto) {
+    return userService.updateUser(id, userUpdateDto);
   }
 
   @Override

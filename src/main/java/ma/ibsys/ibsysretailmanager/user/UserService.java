@@ -38,10 +38,15 @@ public class UserService {
     return ResponseEntity.created(URI.create("/api/users/" + savedUser.getId())).build();
   }
 
-  public ResponseEntity<UserDto> updateUser(int id, UserCreateDto userCreateDto) {
-    User user = modelMapper.map(userCreateDto, User.class);
-    user.setId(id);
-    user.setPassword(passwordEncoder.encode(userCreateDto.getPassword()));
+  public ResponseEntity<UserDto> updateUser(int id, UserUpdateDto userUpdateDto) {
+    User user =
+        userRepository
+            .findById(id)
+            .orElseThrow(() -> new EntityNotFoundException("User not found with id " + id));
+    user.setFirstName(userUpdateDto.getFirstName());
+    user.setLastName(userUpdateDto.getLastName());
+    user.setEmail(userUpdateDto.getEmail());
+    user.setRole(userUpdateDto.getRole());
     User updatedUser = userRepository.save(user);
     return ResponseEntity.ok(modelMapper.map(updatedUser, UserDto.class));
   }

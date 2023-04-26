@@ -127,7 +127,7 @@ public class ModelMapperConfig {
             });
 
     // -- InvoiceItem ---------------------------------------------------------
-    
+
     // Map InvoiceItemDto to InvoiceItem entity
     modelMapper
         .createTypeMap(InvoiceItemDto.class, InvoiceItem.class)

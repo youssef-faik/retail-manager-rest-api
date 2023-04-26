@@ -36,7 +36,7 @@ public interface UserApi {
       summary = "Update user details",
       description = "Update the details of the user with the given id.")
   ResponseEntity<UserDto> updateUser(
-      @PathVariable int id, @RequestBody UserCreateDto userCreateDto);
+      @PathVariable int id, @RequestBody UserUpdateDto userUpdateDto);
 
   @DeleteMapping("/{id}")
   @Operation(summary = "Delete user", description = "Delete the user with the given id.")
