@@ -35,7 +35,7 @@ public class CustomerService {
     Customer customer = modelMapper.map(customerRequestDto, Customer.class);
     Customer savedCustomer = customerRepository.save(customer);
 
-    return ResponseEntity.created(URI.create("/api/customers/" + savedCustomer.getId())).build();
+    return ResponseEntity.created(URI.create("/api/v1/customers/" + savedCustomer.getId())).build();
   }
 
   public ResponseEntity<CustomerResponseDto> updateCustomer(

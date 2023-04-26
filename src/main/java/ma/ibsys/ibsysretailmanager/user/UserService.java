@@ -35,7 +35,7 @@ public class UserService {
     User user = modelMapper.map(userCreateDto, User.class);
     user.setPassword(passwordEncoder.encode(userCreateDto.getPassword()));
     User savedUser = userRepository.save(user);
-    return ResponseEntity.created(URI.create("/api/users/" + savedUser.getId())).build();
+    return ResponseEntity.created(URI.create("/api/v1/users/" + savedUser.getId())).build();
   }
 
   public ResponseEntity<UserDto> updateUser(int id, UserUpdateDto userUpdateDto) {

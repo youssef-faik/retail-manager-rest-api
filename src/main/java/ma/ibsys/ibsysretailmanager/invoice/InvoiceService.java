@@ -41,6 +41,6 @@ public class InvoiceService {
 
     Invoice savedInvoice = invoiceRepository.save(invoice);
 
-    return ResponseEntity.created(URI.create("/invoices/" + savedInvoice.getId())).build();
+    return ResponseEntity.created(URI.create("/api/v1/invoices/" + savedInvoice.getId())).build();
   }
 }

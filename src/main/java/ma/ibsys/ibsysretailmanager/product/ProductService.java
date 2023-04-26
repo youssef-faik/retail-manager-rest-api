@@ -36,7 +36,7 @@ public class ProductService {
   public ResponseEntity<ProductResponseDto> createProduct(ProductRequestDto productRequestDto) {
     Product product = modelMapper.map(productRequestDto, Product.class);
     Product savedProduct = productRepository.save(product);
-    return ResponseEntity.created(URI.create("/api/products/" + savedProduct.getId())).build();
+    return ResponseEntity.created(URI.create("/api/v1/products/" + savedProduct.getId())).build();
   }
 
   public ResponseEntity<ProductResponseDto> updateProduct(
