@@ -43,10 +43,10 @@ public class Product {
   @Column(name = "name", nullable = false)
   private String name;
   
-  @NotNull(message = "priceExcludingTax is mandatory")
-  @PositiveOrZero(message = "priceExcludingTax must be a positive number or 0")
-  @Column(name = "price_excluding_tax", nullable = false)
-  private BigDecimal priceExcludingTax;
+  @NotNull(message = "sellingPriceExcludingTax is mandatory")
+  @Positive(message = "sellingPriceExcludingTax must be a positive number")
+  @Column(name = "selling_price_excluding_tax", nullable = false)
+  private BigDecimal sellingPriceExcludingTax;
   
   @NotNull(message = "purchasePrice is mandatory")
   @Positive(message = "priceExcludingTax must be a positive number")

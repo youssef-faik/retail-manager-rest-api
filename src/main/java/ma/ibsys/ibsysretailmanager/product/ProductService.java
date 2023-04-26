@@ -48,7 +48,7 @@ public class ProductService {
     product.setBarCode(productRequestDto.getBarCode());
     product.setTaxRate(productRequestDto.getTaxRate());
     product.setName(productRequestDto.getName());
-    product.setPriceExcludingTax(productRequestDto.getPriceExcludingTax());
+    product.setSellingPriceExcludingTax(productRequestDto.getSellingPriceExcludingTax());
     product.setPurchasePrice(productRequestDto.getPurchasePrice());
     Product updatedProduct = productRepository.save(product);
 

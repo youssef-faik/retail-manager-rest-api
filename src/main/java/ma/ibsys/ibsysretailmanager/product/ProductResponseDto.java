@@ -22,8 +22,8 @@ public class ProductResponseDto {
   @Schema(description = "Name of the product", example = "Laptop")
   private String name;
 
-  @Schema(description = "Price of the product excluding tax", example = "12999.99")
-  private BigDecimal priceExcludingTax;
+  @Schema(description = "Selling Price of the product excluding tax", example = "12999.99")
+  private BigDecimal sellingPriceExcludingTax;
 
   @Schema(description = "Purchase Price of the product", example = "10000.99")
   private BigDecimal purchasePrice;

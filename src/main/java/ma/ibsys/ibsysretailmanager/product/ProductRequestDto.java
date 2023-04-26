@@ -26,10 +26,10 @@ public class ProductRequestDto {
   @Column(name = "name", nullable = false)
   private String name;
 
-  @Schema(description = "Price of the product excluding tax", example = "12999.99", required = true)
-  @NotBlank(message = "priceExcludingTax is mandatory")
-  @PositiveOrZero(message = "priceExcludingTax must be a positive number or 0")
-  private BigDecimal priceExcludingTax;
+  @Schema(description = "Selling Price of the product excluding tax", example = "12999.99", required = true)
+  @NotBlank(message = "sellingPriceExcludingTax is mandatory")
+  @Positive(message = "sellingPriceExcludingTax must be a positive number")
+  private BigDecimal sellingPriceExcludingTax;
   
   @Schema(description = "Purchase Price of the product", example = "10000.99", required = true)
   @NotNull(message = "purchasePrice is mandatory")

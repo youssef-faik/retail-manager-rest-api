@@ -62,7 +62,7 @@ public class ModelMapperConfig {
         .addMappings(mapper -> mapper.map(ProductRequestDto::getTaxRate, Product::setTaxRate))
         .addMappings(
             mapper ->
-                mapper.map(ProductRequestDto::getPriceExcludingTax, Product::setPriceExcludingTax))
+                mapper.map(ProductRequestDto::getSellingPriceExcludingTax, Product::setSellingPriceExcludingTax))
         .addMappings(
             mapper -> mapper.map(ProductRequestDto::getPurchasePrice, Product::setPurchasePrice));
 
@@ -75,7 +75,7 @@ public class ModelMapperConfig {
         .addMappings(mapper -> mapper.map(Product::getTaxRate, ProductResponseDto::setTaxRate))
         .addMappings(
             mapper ->
-                mapper.map(Product::getPriceExcludingTax, ProductResponseDto::setPriceExcludingTax))
+                mapper.map(Product::getSellingPriceExcludingTax, ProductResponseDto::setSellingPriceExcludingTax))
         .addMappings(
             mapper -> mapper.map(Product::getPurchasePrice, ProductResponseDto::setPurchasePrice));
 
