@@ -12,7 +12,6 @@ import ma.ibsys.ibsysretailmanager.invoice.Invoice;
 import ma.ibsys.ibsysretailmanager.invoice.InvoiceCreateDto;
 import ma.ibsys.ibsysretailmanager.invoice.InvoiceDto;
 import ma.ibsys.ibsysretailmanager.invoice.InvoiceItem;
-import ma.ibsys.ibsysretailmanager.invoice.InvoiceItemCreateDto;
 import ma.ibsys.ibsysretailmanager.invoice.InvoiceItemDto;
 import ma.ibsys.ibsysretailmanager.product.Product;
 import ma.ibsys.ibsysretailmanager.product.ProductRepository;
@@ -128,29 +127,7 @@ public class ModelMapperConfig {
             });
 
     // -- InvoiceItem ---------------------------------------------------------
-
-    // Map InvoiceItemCreateDto to InvoiceItem entity
-    modelMapper
-        .createTypeMap(InvoiceItemCreateDto.class, InvoiceItem.class)
-        .addMappings(
-            mapper -> mapper.map(InvoiceItemCreateDto::getUnitPrice, InvoiceItem::setUnitPrice))
-        .addMappings(
-            mapper -> mapper.map(InvoiceItemCreateDto::getQuantity, InvoiceItem::setQuantity))
-        .setPostConverter(
-            context -> {
-              InvoiceItemCreateDto source = context.getSource();
-              InvoiceItem destination = context.getDestination();
-              Product product =
-                  productRepository
-                      .findById(source.getProductId())
-                      .orElseThrow(
-                          () ->
-                              new EntityNotFoundException(
-                                  "Product not found with id: " + source.getProductId()));
-              destination.setProduct(product);
-              return destination;
-            });
-
+    
     // Map InvoiceItemDto to InvoiceItem entity
     modelMapper
         .createTypeMap(InvoiceItemDto.class, InvoiceItem.class)

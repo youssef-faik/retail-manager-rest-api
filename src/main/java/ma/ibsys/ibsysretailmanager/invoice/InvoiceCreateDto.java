@@ -20,5 +20,5 @@ public class InvoiceCreateDto {
   
   @Schema(description = "The list of items and their quantities to be included in the invoice")
   @NotEmpty(message = "items list cannot be empty")
-  private List<@Valid InvoiceItemCreateDto> items;
+  private List<@Valid InvoiceItemDto> items;
 }
