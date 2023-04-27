@@ -17,6 +17,6 @@ public interface AuthenticationApi {
   @Operation(
       summary = "Authenticate user",
       description = "Allows users to authenticate and retrieve their JWT token.")
-  @PostMapping()
+  @PostMapping("/login")
   ResponseEntity<AuthenticationResponse> authenticate(@RequestBody AuthenticationRequest request);
 }
