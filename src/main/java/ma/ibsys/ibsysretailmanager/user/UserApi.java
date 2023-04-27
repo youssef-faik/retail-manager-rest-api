@@ -21,9 +21,9 @@ import org.springframework.web.bind.annotation.*;
         "The User API. Contains all the operations that can be performed on a user. Requires ADMIN role.")
 @CrossOrigin
 @SecurityRequirement(name = "Bearer Authentication")
-@PreAuthorize(value = "hasRole('ADMIN')")
 @RequestMapping("/api/v1/users")
 public interface UserApi {
+  @PreAuthorize(value = "hasRole('ADMIN')")
   @Operation(
       summary = "Get all users",
       description = "Get a list contains the details for all users.")
@@ -68,6 +68,7 @@ public interface UserApi {
       })
   ResponseEntity<List<UserDto>> getAllUsers();
 
+  @PreAuthorize(value = "hasRole('ADMIN')")
   @GetMapping("/{id}")
   @Operation(summary = "Get user details", description = "Get the details of the given product id.")
   @ApiResponses(
@@ -113,6 +114,7 @@ public interface UserApi {
           @PathVariable("id")
           int id);
 
+  @PreAuthorize(value = "hasRole('ADMIN')")
   @PostMapping
   @Operation(summary = "Create user", description = "Create a new user with the given details.")
   @ApiResponses(
@@ -152,6 +154,7 @@ public interface UserApi {
           @RequestBody
           UserCreateDto userCreateDto);
 
+  @PreAuthorize(value = "hasRole('ADMIN')")
   @PutMapping("/{id}")
   @Operation(
       summary = "Update user details",
@@ -209,6 +212,7 @@ public interface UserApi {
           @RequestBody
           UserUpdateDto userUpdateDto);
 
+  @PreAuthorize(value = "hasRole('ADMIN')")
   @DeleteMapping("/{id}")
   @Operation(summary = "Delete user", description = "Delete the user with the given id.")
   @ApiResponses(
@@ -247,4 +251,38 @@ public interface UserApi {
       @Parameter(description = "ID of the user to delete", required = true, example = "1")
           @PathVariable
           int id);
+
+  @PutMapping("/change-password")
+  @Operation(
+      summary = "Change user password",
+      description = "Updates the user's password with a new one")
+  @ApiResponses(
+      value = {
+        @ApiResponse(responseCode = "200", description = "Password successfully changed"),
+        @ApiResponse(
+            responseCode = "400",
+            description = "Invalid request body or parameters",
+            content =
+                @Content(
+                    mediaType = "application/json",
+                    schema = @Schema(implementation = ErrorResponse.class))),
+        @ApiResponse(
+            responseCode = "401",
+            description = "Unauthorized access",
+            content =
+                @Content(
+                    mediaType = "application/json",
+                    schema = @Schema(implementation = ErrorResponse.class))),
+        @ApiResponse(
+            responseCode = "500",
+            description = "Internal server error",
+            content =
+                @Content(
+                    mediaType = "application/json",
+                    schema = @Schema(implementation = ErrorResponse.class)))
+      })
+  ResponseEntity<Void> changePassword(
+      @Parameter(required = true, schema = @Schema(implementation = ChangePasswordRequest.class))
+          @RequestBody
+          ChangePasswordRequest changePasswordRequest);
 }

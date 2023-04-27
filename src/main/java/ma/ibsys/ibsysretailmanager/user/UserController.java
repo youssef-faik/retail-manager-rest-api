@@ -36,4 +36,9 @@ public class UserController implements UserApi {
   public ResponseEntity<Void> deleteUser(@PathVariable int id) {
     return userService.deleteUser(id);
   }
+  
+  @Override
+  public ResponseEntity<Void> changePassword(@RequestBody ChangePasswordRequest changePasswordRequest){
+    return userService.changePassword(changePasswordRequest);
+  }
 }

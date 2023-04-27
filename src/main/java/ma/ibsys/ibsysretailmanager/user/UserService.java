@@ -5,8 +5,11 @@ import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
+import ma.ibsys.ibsysretailmanager.exceptions.BadRequestException;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -58,5 +61,29 @@ public class UserService {
 
   private UserDto convertToDto(User user) {
     return modelMapper.map(user, UserDto.class);
+  }
+
+  public ResponseEntity<Void> changePassword(ChangePasswordRequest changePasswordRequest) {
+    // retrieve the email of the authenticated user
+    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    String userEmail = authentication.getName();
+
+    // retrieve user from database
+    User user =
+        userRepository
+            .findByEmail(userEmail)
+            .orElseThrow(
+                () -> new EntityNotFoundException("User not found with email " + userEmail));
+
+    // verify old password
+    if (!passwordEncoder.matches(changePasswordRequest.getOldPassword(), user.getPassword())) {
+      throw new BadRequestException("Invalid old password");
+    }
+
+    // update password
+    user.setPassword(passwordEncoder.encode(changePasswordRequest.getNewPassword()));
+    userRepository.save(user);
+
+    return ResponseEntity.ok().build();
   }
 }

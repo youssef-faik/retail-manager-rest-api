@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
+import ma.ibsys.ibsysretailmanager.exceptions.BadRequestException;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -44,7 +45,19 @@ public class GlobalExceptionHandler {
         .timestamp(LocalDateTime.now())
         .build();
   }
-
+  
+  @ExceptionHandler(BadRequestException.class)
+  @ResponseStatus(HttpStatus.BAD_REQUEST)
+  public ErrorResponse handleBadRequestException(BadRequestException ex) {
+    log.error("BadRequestException error: {}", ex.getMessage());
+    
+    return ErrorResponse.builder()
+                        .httpStatus(HttpStatus.BAD_REQUEST)
+                        .message(ex.getMessage())
+                        .timestamp(LocalDateTime.now())
+                        .build();
+  }
+  
   @ExceptionHandler(Exception.class)
   @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
   public ErrorResponse handleException(Exception ex) {
