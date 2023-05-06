@@ -2,6 +2,7 @@ package ma.ibsys.ibsysretailmanager.product;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -14,7 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RequestMapping("/api/v1/products")
-@SecurityRequirement(name = "Bearer Authentication")
+@SecurityRequirement(name = "Bearer_Authentication")
 @Tag(
     name = "Product",
     description = "The Product API. Contains all the operations that can be performed on a product")
@@ -31,7 +32,8 @@ public interface ProductApi {
             content =
                 @Content(
                     mediaType = "application/json",
-                    schema = @Schema(implementation = ProductResponseDto.class))),
+                    array =
+                        @ArraySchema(schema = @Schema(implementation = ProductResponseDto.class)))),
         @ApiResponse(
             responseCode = "400",
             description = "Bad Request. Invalid input parameters.",
@@ -54,7 +56,7 @@ public interface ProductApi {
                     mediaType = "application/json",
                     schema = @Schema(implementation = ErrorResponse.class)))
       })
-  ResponseEntity<List<ProductResponseDto>> getAllCustomers();
+  ResponseEntity<List<ProductResponseDto>> getAllProducts();
 
   @GetMapping("/{id}")
   @Operation(
@@ -102,9 +104,7 @@ public interface ProductApi {
       description = "Create a new product with the given details.")
   @ApiResponses(
       value = {
-        @ApiResponse(
-            responseCode = "201",
-            description = "Product created successfully."),
+        @ApiResponse(responseCode = "201", description = "Product created successfully."),
         @ApiResponse(
             responseCode = "400",
             description = "Bad Request. Invalid input parameters.",
@@ -128,9 +128,7 @@ public interface ProductApi {
                     schema = @Schema(implementation = ErrorResponse.class)))
       })
   ResponseEntity<Void> createProduct(
-      @Parameter(
-              required = true,
-              schema = @Schema(implementation = ProductRequestDto.class))
+      @Parameter(required = true, schema = @Schema(implementation = ProductRequestDto.class))
           @RequestBody
           ProductRequestDto productRequestDto);
 
@@ -211,7 +209,11 @@ public interface ProductApi {
       })
   @DeleteMapping("/{id}")
   ResponseEntity<Void> deleteProduct(
-      @Parameter(name = "id", description = "The id of the product to delete", required = true, example = "1")
+      @Parameter(
+              name = "id",
+              description = "The id of the product to delete",
+              required = true,
+              example = "1")
           @PathVariable("id")
           int id);
 }

@@ -16,7 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RequestMapping("/api/v1/customers")
-@SecurityRequirement(name = "Bearer Authentication")
+@SecurityRequirement(name = "Bearer_Authentication")
 @Tag(
     name = "Customer",
     description =

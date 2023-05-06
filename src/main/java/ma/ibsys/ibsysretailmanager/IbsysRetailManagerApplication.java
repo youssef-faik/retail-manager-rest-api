@@ -25,7 +25,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @SpringBootApplication
 @RequiredArgsConstructor
 @SecurityScheme(
-    name = "Bearer Authentication",
+    name = "Bearer_Authentication",
     type = SecuritySchemeType.HTTP,
     bearerFormat = "JWT",
     scheme = "bearer",

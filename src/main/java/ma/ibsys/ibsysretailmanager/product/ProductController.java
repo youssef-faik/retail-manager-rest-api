@@ -13,7 +13,7 @@ public class ProductController implements ProductApi {
   private final ProductService productService;
 
   @Override
-  public ResponseEntity<List<ProductResponseDto>> getAllCustomers() {
+  public ResponseEntity<List<ProductResponseDto>> getAllProducts() {
     return productService.getAllProducts();
   }
 
