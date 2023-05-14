@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {AuthenticationRequest, AuthenticationService} from "../../../../../../libs/openapi/out";
 
 @Component({
   selector: 'app-login',
@@ -7,22 +8,38 @@ import { Router, ActivatedRoute } from '@angular/router';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-
+  authenticationRequest: AuthenticationRequest = {email: "yusef@mail.com", password: "secret-password"};
   returnUrl: any;
 
-  constructor(private router: Router, private route: ActivatedRoute) { }
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private authenticationService: AuthenticationService
+  ) {
+  }
 
   ngOnInit(): void {
     // get return url from route parameters or default to '/'
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
 
-  onLoggedin(e: Event) {
+  onLoggedIn(e: Event) {
     e.preventDefault();
-    localStorage.setItem('isLoggedin', 'true');
-    if (localStorage.getItem('isLoggedin')) {
-      this.router.navigate([this.returnUrl]);
-    }
+    console.log(this.authenticationRequest)
+    debugger;
+    // @ts-ignore
+    this.authenticationService.authenticate(this.authenticationRequest, 'body', false, {httpHeaderAccept: 'application/json'}).subscribe(
+      (data) => {
+        console.log(data)
+        localStorage.setItem('authenticationResponse', JSON.stringify(data))
+        localStorage.setItem('isLoggedIn', 'true');
+        this.router.navigate([this.returnUrl]);
+      }, error => {
+        console.log(error)
+        this.router.navigate(['/auth/login'])
+      }
+    );
+
   }
 
 }

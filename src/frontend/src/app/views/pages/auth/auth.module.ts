@@ -3,6 +3,7 @@ import {CommonModule} from '@angular/common';
 import {LoginComponent} from './login/login.component';
 import {RouterModule, Routes} from '@angular/router';
 import {AuthComponent} from './auth.component';
+import {FormsModule} from "@angular/forms";
 
 const routes: Routes = [
   {
@@ -26,7 +27,8 @@ const routes: Routes = [
   declarations: [LoginComponent, AuthComponent],
   imports: [
     CommonModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    FormsModule
   ]
 })
 export class AuthModule {

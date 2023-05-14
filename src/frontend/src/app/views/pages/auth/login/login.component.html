@@ -1,27 +1,28 @@
-<div class="row w-100 mx-0 auth-page">
+<div class="row w-75 mx-0 auth-page">
   <div class="col-md-8 col-xl-6 mx-auto">
     <div class="card">
       <div class="row">
         <div class="col">
-          <div class="auth-form-wrapper px-4 pb-5 pt-3">
+          <div class="auth-form-wrapper px-4 pb-4 pt-3">
             <a class="nobleui-logo" routerLink=".">
-              <img alt="logo" src="assets/images/logo-black.png" style="height: 112px;">
+              <img alt="logo" class="rounded mx-auto d-block mb-4 mt-2" src="assets/images/logo-black.png"
+                   style="height: 104px;">
             </a>
-            <h5 class="text-muted fw-normal mb-4">Welcome back! Log in to your account.</h5>
             <form class="forms-sample">
               <div class="mb-3">
-                <label class="form-label" for="exampleInputEmail1">Email address</label>
-                <input class="form-control" id="exampleInputEmail1" placeholder="Email" type="email"
-                       value="admin@demo.com">
+                <label class="form-label" for="email">Email</label>
+                <input [ngModel]="authenticationRequest.email" class="form-control" id="email" name="email"
+                       placeholder="Email" type="email">
               </div>
               <div class="mb-3">
-                <label class="form-label" for="exampleInputPassword1">Password</label>
-                <input autocomplete="current-password" class="form-control" id="exampleInputPassword1"
-                       placeholder="Password"
-                       type="password" value="12345678">
+                <label class="form-label" for="password">Password</label>
+                <input [ngModel]="authenticationRequest.password" autocomplete="current-password" class="form-control"
+                       id="password"
+                       name="password" placeholder="Password" type="password">
               </div>
               <div>
-                <button (click)="onLoggedin($event)" class="btn btn-primary me-2 mb-2 mb-md-0" type="submit">
+                <button (click)="onLoggedIn($event)" class="btn btn-primary mx-auto d-block mt-4 rounded-pill"
+                        type="submit">
                   <i class="feather icon-log-in me-2 icon-md"></i>Login
                 </button>
               </div>

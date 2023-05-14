@@ -1,6 +1,6 @@
-import { Component, OnInit, ViewChild, ElementRef, Inject, Renderer2 } from '@angular/core';
-import { DOCUMENT } from '@angular/common';
-import { Router } from '@angular/router';
+import {Component, Inject, OnInit, Renderer2} from '@angular/core';
+import {DOCUMENT} from '@angular/common';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -10,10 +10,11 @@ import { Router } from '@angular/router';
 export class NavbarComponent implements OnInit {
 
   constructor(
-    @Inject(DOCUMENT) private document: Document, 
+    @Inject(DOCUMENT) private document: Document,
     private renderer: Renderer2,
     private router: Router
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
   }
@@ -31,9 +32,10 @@ export class NavbarComponent implements OnInit {
    */
   onLogout(e: Event) {
     e.preventDefault();
-    localStorage.removeItem('isLoggedin');
+    localStorage.removeItem('isLoggedIn');
+    localStorage.removeItem('authenticationResponse');
 
-    if (!localStorage.getItem('isLoggedin')) {
+    if (!localStorage.getItem('isLoggedIn')) {
       this.router.navigate(['/auth/login']);
     }
   }
