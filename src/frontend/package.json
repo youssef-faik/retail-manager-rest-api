@@ -7,7 +7,11 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "rtl": "webpack --config webpack-rtl.config.js"
+    "rtl": "webpack --config webpack-rtl.config.js",
+    "openapi-code-gen": "npm run openapi-code-gen:remove-old && npm run openapi-code-gen:download-doc && npm run openapi-code-gen:generate",
+    "openapi-code-gen:remove-old": "rimraf libs",
+    "openapi-code-gen:download-doc": "npx swagger-cli bundle http://localhost:8080/v3/api-docs -o libs/openapi/src/swagger.json",
+    "openapi-code-gen:generate": "npx @openapitools/openapi-generator-cli generate -g typescript-angular -i libs/openapi/src/swagger.json -o libs/openapi/out --additional-properties=usePromises=true"
   },
   "private": true,
   "dependencies": {
@@ -79,6 +83,9 @@
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "^2.0.0",
+    "ng-openapi-gen": "^0.24.1",
+    "ng-packagr": "^14.0.0",
+    "rimraf": "^5.0.0",
     "typescript": "~4.7.2",
     "webpack-cli": "^4.9.2",
     "webpack-messages": "^2.0.4"
