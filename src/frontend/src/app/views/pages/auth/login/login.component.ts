@@ -26,7 +26,6 @@ export class LoginComponent implements OnInit {
   onLoggedIn(e: Event) {
     e.preventDefault();
     console.log(this.authenticationRequest)
-    debugger;
     // @ts-ignore
     this.authenticationService.authenticate(this.authenticationRequest, 'body', false, {httpHeaderAccept: 'application/json'}).subscribe(
       (data) => {

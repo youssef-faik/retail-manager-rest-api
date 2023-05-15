@@ -1,6 +1,7 @@
 import {Component, Inject, OnInit, Renderer2} from '@angular/core';
 import {DOCUMENT} from '@angular/common';
 import {Router} from '@angular/router';
+import {UserDto} from "../../../../../libs/openapi/out";
 
 @Component({
   selector: 'app-navbar',
@@ -8,6 +9,7 @@ import {Router} from '@angular/router';
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit {
+  userDto: UserDto | undefined;
 
   constructor(
     @Inject(DOCUMENT) private document: Document,
@@ -17,6 +19,7 @@ export class NavbarComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.userDto = this.getUserDtoFromLocalStorage();
   }
 
   /**
@@ -37,6 +40,21 @@ export class NavbarComponent implements OnInit {
 
     if (!localStorage.getItem('isLoggedIn')) {
       this.router.navigate(['/auth/login']);
+    }
+  }
+
+  private getUserDtoFromLocalStorage(): UserDto | undefined {
+    try {
+      const lsValue = localStorage.getItem('authenticationResponse');
+      if (!lsValue) {
+        return undefined;
+      }
+
+      const authData = JSON.parse(lsValue);
+      return authData;
+    } catch (error) {
+      console.error(error);
+      return undefined;
     }
   }
 
