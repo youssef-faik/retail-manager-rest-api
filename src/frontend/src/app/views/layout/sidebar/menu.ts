@@ -29,6 +29,6 @@ export const MENU: MenuItem[] = [
   }, {
     label: 'users',
     icon: 'users',
-    link: '/dashboard'
+    link: '/users'
   },
 ];

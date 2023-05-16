@@ -37,6 +37,9 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [TablesComponent, BasicTableComponent, DataTableComponent, NgxDatatableComponent],
+  exports: [
+    DataTableComponent
+  ],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),

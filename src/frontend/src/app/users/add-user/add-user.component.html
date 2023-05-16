@@ -1,0 +1,65 @@
+<nav class="page-breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
+    <li class="breadcrumb-item"><a routerLink="/users">Users</a></li>
+    <li aria-current="page" class="breadcrumb-item active">Add User</li>
+  </ol>
+</nav>
+
+<div class="row ">
+  <div class="col-md-12 grid-margin stretch-card d-flex justify-content-between">
+    <h2 class="ms-1">Add user</h2>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12 stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <form (ngSubmit)="onSubmit()" [formGroup]="addUserFrom" class="forms-sample">
+          <div class="mb-3">
+            <label class="form-label" for="firstname">First name</label>
+            <input class="form-control" formControlName="firstName" id="firstname"
+                   placeholder="First name" type="text">
+            <p *ngIf="!addUserFrom?.get('firstName')?.valid && addUserFrom?.get('firstName')?.touched"
+               class="text-danger mt-1">First name is
+              required!</p>
+          </div>
+          <div class="mb-3">
+            <label class="form-label" for="lastname">Last name</label>
+            <input class="form-control" formControlName="lastName" id="lastname" placeholder="Last name" type="text">
+            <p *ngIf="!addUserFrom?.get('lastName')?.valid && addUserFrom?.get('lastName')?.touched"
+               class="text-danger mt-1">Last name is
+              required!</p>
+          </div>
+          <div class="mb-3">
+            <label class="form-label" for="email">Email</label>
+            <input class="form-control" formControlName="email" id="email" name="email" placeholder="Email"
+                   type="email">
+            <p *ngIf="!addUserFrom?.get('email')?.valid && addUserFrom?.get('email')?.touched" class="text-danger mt-1">
+              Email is required!</p>
+          </div>
+          <div class="mb-3">
+            <label class="form-label" for="password">Password</label>
+            <input class="form-control" formControlName="password" id="password" name="password" placeholder="Password"
+                   type="password">
+            <p *ngIf="!addUserFrom?.get('password')?.valid && addUserFrom?.get('password')?.touched"
+               class="text-danger mt-1">Password is
+              required!</p>
+          </div>
+          <div class="mb-3">
+            <label class="form-label" for="role">Role</label>
+            <select class="form-select" formControlName="role" id="role" name="role">
+              <option disabled selected value="none">Select role</option>
+              <option *ngFor="let role of roles" value="{{role}}">{{role}}</option>
+            </select>
+            <p *ngIf="!addUserFrom?.get('role')?.valid && addUserFrom?.get('role')?.touched" class="text-danger mt-1">
+              Role is required!</p>
+          </div>
+          <button class="btn btn-primary me-2" type="submit">Save</button>
+          <button class="btn btn-secondary" routerLink="/users">Cancel</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

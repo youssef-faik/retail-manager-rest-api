@@ -12,18 +12,32 @@ import {ErrorPageComponent} from './views/pages/error-page/error-page.component'
 
 import {HIGHLIGHT_OPTIONS} from 'ngx-highlightjs';
 import {HttpClientModule} from "@angular/common/http";
+import {UsersComponent} from './users/users.component';
+import {AddUserComponent} from './users/add-user/add-user.component';
+import {TablesModule} from "./views/pages/tables/tables.module";
+import {EditUserComponent} from './users/edit-user/edit-user.component';
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {CustomFormsModule} from "ngx-custom-validators";
+
 
 @NgModule({
   declarations: [
     AppComponent,
     ErrorPageComponent,
+    UsersComponent,
+    AddUserComponent,
+    EditUserComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     LayoutModule,
-    HttpClientModule
+    HttpClientModule,
+    TablesModule,
+    FormsModule,
+    CustomFormsModule,
+    ReactiveFormsModule
   ],
   providers: [
     AuthGuard,
