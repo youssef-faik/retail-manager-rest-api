@@ -20,11 +20,11 @@ export const MENU: MenuItem[] = [
     link: '/dashboard'
   }, {
     label: 'Customers',
-    icon: 'users',
+    icon: 'layers',
     link: '/dashboard'
   }, {
     label: 'Invoices',
-    icon: 'file',
+    icon: 'file-text',
     link: '/dashboard'
   }, {
     label: 'users',
