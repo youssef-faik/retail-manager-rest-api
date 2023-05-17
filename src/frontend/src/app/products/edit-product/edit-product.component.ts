@@ -1,11 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {
-  AuthenticationResponse,
-  ProductRequestDto,
-  ProductResponseDto,
-  ProductService
-} from "../../../../libs/openapi/out";
+import {ProductRequestDto, ProductResponseDto, ProductService} from "../../../../libs/openapi/out";
 import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
@@ -14,7 +9,6 @@ import {ActivatedRoute, Router} from "@angular/router";
   styleUrls: ['./edit-product.component.scss']
 })
 export class EditProductComponent implements OnInit {
-
   editProductFrom!: FormGroup;
   id!: number;
   taxRates = Object.values(ProductRequestDto.TaxRateEnum);
@@ -37,21 +31,22 @@ export class EditProductComponent implements OnInit {
       taxRate: new FormControl(this.taxRates[0], Validators.required)
     });
 
-    // @ts-ignore
-    this.productService.configuration.credentials = {'Bearer_Authentication': this.getUserDtoFromLocalStorage()?.token};
-    this.productService.getProduct(this.id, 'body', false, {httpHeaderAccept: 'application/json'})
-      .subscribe(
-        (data) => {
-          this.productToUpdate = data;
-          this.editProductFrom.controls['barCode'].setValue(this.productToUpdate.barCode);
-          this.editProductFrom.controls['name'].setValue(this.productToUpdate.name);
-          this.editProductFrom.controls['purchasePrice'].setValue(this.productToUpdate.purchasePrice);
-          this.editProductFrom.controls['sellingPriceExcludingTax'].setValue(this.productToUpdate.sellingPriceExcludingTax);
-          this.editProductFrom.controls['taxRate'].setValue(this.productToUpdate.taxRate);
-          console.log(this.productToUpdate)
-        }, error => {
-          console.log(error)
-        });
+    this.productService.getProduct(
+      this.id,
+      'body',
+      false,
+      {httpHeaderAccept: 'application/json'}
+    ).subscribe(
+      (data) => {
+        this.productToUpdate = data;
+        this.editProductFrom.controls['barCode'].setValue(this.productToUpdate.barCode);
+        this.editProductFrom.controls['name'].setValue(this.productToUpdate.name);
+        this.editProductFrom.controls['purchasePrice'].setValue(this.productToUpdate.purchasePrice);
+        this.editProductFrom.controls['sellingPriceExcludingTax'].setValue(this.productToUpdate.sellingPriceExcludingTax);
+        this.editProductFrom.controls['taxRate'].setValue(this.productToUpdate.taxRate);
+      }, error => {
+        console.log(error)
+      });
   }
 
   onSubmit() {
@@ -59,23 +54,23 @@ export class EditProductComponent implements OnInit {
       return
     }
 
-    console.log(this.editProductFrom.value);
     let productRequestDto: ProductRequestDto = this.editProductFrom.value;
-    // @ts-ignore
-    this.productService.configuration.credentials = {'Bearer_Authentication': this.getUserDtoFromLocalStorage()?.token};
-    this.productService.updateProduct(this.id, productRequestDto, 'body', false, {httpHeaderAccept: 'application/json'})
-      .subscribe(
-        data => {
-          console.log(this.route)
-
-          this.router.navigate(['../..'], {
+    this.productService.updateProduct(
+      this.id,
+      productRequestDto,
+      'body',
+      false,
+      {httpHeaderAccept: 'application/json'}
+    ).subscribe(
+      data => {
+        this.router.navigate(
+          ['../..'], {
             relativeTo: this.route,
             replaceUrl: true,
           });
-        }
-        , error => {
-          console.log(error)
-        })
+      }, error => {
+        console.log(error)
+      })
   }
 
   getTaxRateDisplayValue(taxRate: ProductResponseDto.TaxRateEnum | undefined): string {
@@ -93,17 +88,4 @@ export class EditProductComponent implements OnInit {
     }
   }
 
-  private getUserDtoFromLocalStorage(): AuthenticationResponse | undefined {
-    try {
-      const lsValue = localStorage.getItem('authenticationResponse');
-      if (!lsValue) {
-        return undefined;
-      }
-
-      return JSON.parse(lsValue);
-    } catch (error) {
-      console.error(error);
-      return undefined;
-    }
-  }
 }

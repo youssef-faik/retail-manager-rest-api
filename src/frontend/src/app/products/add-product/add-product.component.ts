@@ -1,10 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {
-  AuthenticationResponse,
-  ProductRequestDto,
-  ProductResponseDto,
-  ProductService
-} from "../../../../libs/openapi/out";
+import {ProductRequestDto, ProductResponseDto, ProductService} from "../../../../libs/openapi/out";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
 
@@ -42,15 +37,14 @@ export class AddProductComponent implements OnInit {
     console.log(this.addProductForm.value);
     let productRequestDto: // @ts-ignore
       ProductRequestDto = this.addProductForm.value;
-    // @ts-ignore
-    this.productService.configuration.credentials = {'Bearer_Authentication': this.getUserDtoFromLocalStorage()?.token};
     this.productService.createProduct(productRequestDto)
       .subscribe(
         data => {
-          this.router.navigate(['../'], {
-            relativeTo: this.route,
-            replaceUrl: true,
-          });
+          this.router.navigate(
+            ['../'], {
+              relativeTo: this.route,
+              replaceUrl: true,
+            });
         }
         , error => {
           console.log(error)
@@ -72,17 +66,4 @@ export class AddProductComponent implements OnInit {
     }
   }
 
-  private getUserDtoFromLocalStorage(): AuthenticationResponse | undefined {
-    try {
-      const lsValue = localStorage.getItem('authenticationResponse');
-      if (!lsValue) {
-        return undefined;
-      }
-
-      return JSON.parse(lsValue);
-    } catch (error) {
-      console.error(error);
-      return undefined;
-    }
-  }
 }

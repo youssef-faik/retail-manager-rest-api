@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {AuthenticationResponse, ChangePasswordRequest, UserService} from "../../../libs/openapi/out";
+import {ChangePasswordRequest, UserService} from "../../../libs/openapi/out";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 
 @Component({
@@ -36,8 +36,6 @@ export class ChangePasswordComponent implements OnInit {
       newPassword: this.changePasswordFrom.controls['newPassword'].value
     };
 
-    // @ts-ignore
-    this.userService.configuration.credentials = {'Bearer_Authentication': this.getUserDtoFromLocalStorage()?.token};
     this.userService.changePassword(
       changePasswordRequest,
       'body',
@@ -51,20 +49,6 @@ export class ChangePasswordComponent implements OnInit {
       }
     );
 
-  }
-
-  private getUserDtoFromLocalStorage(): AuthenticationResponse | undefined {
-    try {
-      const lsValue = localStorage.getItem('authenticationResponse');
-      if (!lsValue) {
-        return undefined;
-      }
-
-      return JSON.parse(lsValue);
-    } catch (error) {
-      console.error(error);
-      return undefined;
-    }
   }
 
 }

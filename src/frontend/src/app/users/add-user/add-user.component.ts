@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {AuthenticationResponse, UserCreateDto, UserDto, UserService} from "../../../../libs/openapi/out";
+import {UserCreateDto, UserDto, UserService} from "../../../../libs/openapi/out";
 import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
@@ -35,10 +35,7 @@ export class AddUserComponent implements OnInit {
     }
 
     console.log(this.addUserFrom.value);
-    let userCreateDto: // @ts-ignore
-      UserCreateDto = this.addUserFrom.value;
-    // @ts-ignore
-    this.userService.configuration.credentials = {'Bearer_Authentication': this.getUserDtoFromLocalStorage()?.token};
+    let userCreateDto: UserCreateDto = this.addUserFrom.value;
     this.userService.createUser(userCreateDto)
       .subscribe(
         data => {
@@ -52,18 +49,4 @@ export class AddUserComponent implements OnInit {
         })
   }
 
-
-  private getUserDtoFromLocalStorage(): AuthenticationResponse | undefined {
-    try {
-      const lsValue = localStorage.getItem('authenticationResponse');
-      if (!lsValue) {
-        return undefined;
-      }
-
-      return JSON.parse(lsValue);
-    } catch (error) {
-      console.error(error);
-      return undefined;
-    }
-  }
 }

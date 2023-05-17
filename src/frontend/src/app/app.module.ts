@@ -11,20 +11,21 @@ import {AppComponent} from './app.component';
 import {ErrorPageComponent} from './views/pages/error-page/error-page.component';
 
 import {HIGHLIGHT_OPTIONS} from 'ngx-highlightjs';
-import {HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {UsersComponent} from './users/users.component';
 import {AddUserComponent} from './users/add-user/add-user.component';
 import {TablesModule} from "./views/pages/tables/tables.module";
 import {EditUserComponent} from './users/edit-user/edit-user.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {CustomFormsModule} from "ngx-custom-validators";
-import { ProductsComponent } from './products/products.component';
-import { AddProductComponent } from './products/add-product/add-product.component';
-import { EditProductComponent } from './products/edit-product/edit-product.component';
-import { CustomersComponent } from './customers/customers.component';
-import { EditCustomerComponent } from './customers/edit-customer/edit-customer.component';
-import { AddCustomerComponent } from './customers/add-customer/add-customer.component';
-import { ChangePasswordComponent } from './change-password/change-password.component';
+import {ProductsComponent} from './products/products.component';
+import {AddProductComponent} from './products/add-product/add-product.component';
+import {EditProductComponent} from './products/edit-product/edit-product.component';
+import {CustomersComponent} from './customers/customers.component';
+import {EditCustomerComponent} from './customers/edit-customer/edit-customer.component';
+import {AddCustomerComponent} from './customers/add-customer/add-customer.component';
+import {ChangePasswordComponent} from './change-password/change-password.component';
+import {HttpInterceptorService} from "./services/http-interceptor.service";
 
 
 @NgModule({
@@ -55,6 +56,11 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
   ],
   providers: [
     AuthGuard,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpInterceptorService,
+      multi: true
+    },
     {
       provide: HIGHLIGHT_OPTIONS, // https://www.npmjs.com/package/ngx-highlightjs
       useValue: {

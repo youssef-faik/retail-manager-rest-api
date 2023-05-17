@@ -50,8 +50,7 @@ export class NavbarComponent implements OnInit {
         return undefined;
       }
 
-      const authData = JSON.parse(lsValue);
-      return authData;
+      return JSON.parse(lsValue);
     } catch (error) {
       console.error(error);
       return undefined;

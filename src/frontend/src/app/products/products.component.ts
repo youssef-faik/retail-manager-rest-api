@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {AuthenticationResponse, ProductResponseDto, ProductService} from "../../../libs/openapi/out";
+import {ProductResponseDto, ProductService} from "../../../libs/openapi/out";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
@@ -11,27 +11,14 @@ export class ProductsComponent implements OnInit {
   products: ProductResponseDto[];
   recordIdToDelete?: number;
 
-  constructor(private modalService: NgbModal, private productService: ProductService) {
+  constructor(
+    private modalService: NgbModal,
+    private productService: ProductService
+  ) {
   }
 
   ngOnInit(): void {
-    // @ts-ignore
-    this.productService.configuration.credentials = {'Bearer_Authentication': this.getUserDtoFromLocalStorage()?.token};
     this.loadProducts();
-  }
-
-  getUserDtoFromLocalStorage(): AuthenticationResponse | undefined {
-    try {
-      const lsValue = localStorage.getItem('authenticationResponse');
-      if (!lsValue) {
-        return undefined;
-      }
-
-      return JSON.parse(lsValue);
-    } catch (error) {
-      console.error(error);
-      return undefined;
-    }
   }
 
   openConfirmationModal(content: any, recordId?: number) {
@@ -39,15 +26,19 @@ export class ProductsComponent implements OnInit {
     this.modalService.open(content, {centered: true}).result.then(
       (result) => {
         if (result === 'confirm') {
-          this.productService.deleteProduct(recordId || 0, 'body', false, {httpHeaderAccept: 'application/json'})
-            .subscribe(
-              data => {
-                this.loadProducts();
-              },
-              error => {
-                console.log(error);
-              }
-            )
+          this.productService.deleteProduct(
+            recordId || 0,
+            'body',
+            false,
+            {httpHeaderAccept: 'application/json'}
+          ).subscribe(
+            data => {
+              this.loadProducts();
+            },
+            error => {
+              console.log(error);
+            }
+          )
         }
       },
       (reason) => {
@@ -55,6 +46,20 @@ export class ProductsComponent implements OnInit {
         console.log(`Modal dismissed with reason: ${reason}`);
       }
     );
+  }
+
+  private loadProducts() {
+    this.productService.getAllProducts(
+      'body',
+      false,
+      {httpHeaderAccept: 'application/json'}
+    ).subscribe(
+      (data) => {
+        console.log(data)
+        this.products = data;
+      }, error => {
+        console.log(error)
+      })
   }
 
   getTaxRateDisplayValue(taxRate: ProductResponseDto.TaxRateEnum | undefined): string {
@@ -71,15 +76,4 @@ export class ProductsComponent implements OnInit {
         return '';
     }
   }
-
-  private loadProducts() {
-    this.productService.getAllProducts('body', false, {httpHeaderAccept: 'application/json'}).subscribe(
-      (data) => {
-        console.log(data)
-        this.products = data;
-      }, error => {
-        console.log(error)
-      })
-  }
-
 }
