@@ -7,14 +7,14 @@
       <li class="nav-item nav-profile" ngbDropdown>
         <a class="nav-link" id="profileDropdown" ngbDropdownToggle>
           <img class="wd-35 ht-35 rounded-circle"
-               src="https://eu.ui-avatars.com/api/?name={{userDto?.firstName}}+{{userDto?.lastName}}&size=35">
+               src="https://eu.ui-avatars.com/api/?name={{userDto?.firstName}}+{{userDto?.lastName}}&size=35" alt="">
 
         </a>
         <div aria-labelledby="profileDropdown" class="px-0" ngbDropdownMenu>
           <div class="d-flex flex-column align-items-center border-bottom px-5 py-3">
             <div class="mb-3">
               <img class="wd-80 ht-80 rounded-circle"
-                   src="https://eu.ui-avatars.com/api/?name={{userDto?.firstName}}+{{userDto?.lastName}}&size=80">
+                   src="https://eu.ui-avatars.com/api/?name={{userDto?.firstName}}+{{userDto?.lastName}}&size=80" alt="">
             </div>
             <div class="text-center">
               <p class="tx-16 fw-bolder">{{userDto?.firstName}} {{userDto?.lastName|uppercase}}</p>
@@ -22,6 +22,12 @@
             </div>
           </div>
           <ul class="list-unstyled p-1">
+            <li class="dropdown-item py-2">
+              <a class="d-flex text-body ms-0" routerLink="change-password">
+                <i class="feather icon-refresh-ccw me-2 icon-md"></i>
+                <span>Change Password</span>
+              </a>
+            </li>
             <li class="dropdown-item py-2">
               <a (click)="onLogout($event)" class="d-flex text-body ms-0" href="">
                 <i class="feather icon-log-out me-2 icon-md"></i>

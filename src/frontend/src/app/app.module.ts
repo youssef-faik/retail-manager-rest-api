@@ -24,6 +24,7 @@ import { EditProductComponent } from './products/edit-product/edit-product.compo
 import { CustomersComponent } from './customers/customers.component';
 import { EditCustomerComponent } from './customers/edit-customer/edit-customer.component';
 import { AddCustomerComponent } from './customers/add-customer/add-customer.component';
+import { ChangePasswordComponent } from './change-password/change-password.component';
 
 
 @NgModule({
@@ -39,6 +40,7 @@ import { AddCustomerComponent } from './customers/add-customer/add-customer.comp
     CustomersComponent,
     EditCustomerComponent,
     AddCustomerComponent,
+    ChangePasswordComponent,
   ],
   imports: [
     BrowserModule,

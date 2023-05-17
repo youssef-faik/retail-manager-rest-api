@@ -12,6 +12,7 @@ import {AddProductComponent} from "./products/add-product/add-product.component"
 import {CustomersComponent} from "./customers/customers.component";
 import {AddCustomerComponent} from "./customers/add-customer/add-customer.component";
 import {EditCustomerComponent} from "./customers/edit-customer/edit-customer.component";
+import {ChangePasswordComponent} from "./change-password/change-password.component";
 
 
 const routes: Routes = [
@@ -60,6 +61,10 @@ const routes: Routes = [
       {
         path: 'customers/edit-customer/:id',
         component: EditCustomerComponent
+      },
+      {
+        path: 'change-password',
+        component: ChangePasswordComponent
       },
       {path: '', redirectTo: 'dashboard', pathMatch: 'full'}
     ]
