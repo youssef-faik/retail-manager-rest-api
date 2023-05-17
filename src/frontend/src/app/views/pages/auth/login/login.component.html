@@ -8,20 +8,30 @@
               <img alt="logo" class="rounded mx-auto d-block mb-4 mt-2" src="assets/images/logo-black.png"
                    style="height: 104px;">
             </a>
-            <form class="forms-sample">
+            <form (ngSubmit)="onSubmit()" [formGroup]="loginFrom" class="forms-sample">
               <div class="mb-3">
                 <label class="form-label" for="email">Email</label>
-                <input [ngModel]="authenticationRequest.email" class="form-control" id="email" name="email"
+                <input class="form-control" formControlName="email" id="email" name="email"
                        placeholder="Email" type="email">
+                <p
+                  *ngIf="!loginFrom?.get('email')?.valid && loginFrom?.get('email')?.touched"
+                  class="text-danger mt-1">
+                  Email is required!
+                </p>
               </div>
               <div class="mb-3">
                 <label class="form-label" for="password">Password</label>
-                <input [ngModel]="authenticationRequest.password" autocomplete="current-password" class="form-control"
+                <input autocomplete="current-password" class="form-control" formControlName="password"
                        id="password"
                        name="password" placeholder="Password" type="password">
+                <p
+                  *ngIf="!loginFrom?.get('password')?.valid && loginFrom?.get('password')?.touched"
+                  class="text-danger mt-1">
+                  Password is required!
+                </p>
               </div>
               <div>
-                <button (click)="onLoggedIn($event)" class="btn btn-primary mx-auto d-block mt-4 rounded-pill"
+                <button class="btn btn-primary mx-auto d-block mt-4 rounded-pill"
                         type="submit">
                   <i class="feather icon-log-in me-2 icon-md"></i>Login
                 </button>
