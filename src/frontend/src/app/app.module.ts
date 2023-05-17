@@ -21,6 +21,9 @@ import {CustomFormsModule} from "ngx-custom-validators";
 import { ProductsComponent } from './products/products.component';
 import { AddProductComponent } from './products/add-product/add-product.component';
 import { EditProductComponent } from './products/edit-product/edit-product.component';
+import { CustomersComponent } from './customers/customers.component';
+import { EditCustomerComponent } from './customers/edit-customer/edit-customer.component';
+import { AddCustomerComponent } from './customers/add-customer/add-customer.component';
 
 
 @NgModule({
@@ -33,6 +36,9 @@ import { EditProductComponent } from './products/edit-product/edit-product.compo
     ProductsComponent,
     AddProductComponent,
     EditProductComponent,
+    CustomersComponent,
+    EditCustomerComponent,
+    AddCustomerComponent,
   ],
   imports: [
     BrowserModule,

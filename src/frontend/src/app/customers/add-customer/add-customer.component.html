@@ -1,0 +1,55 @@
+<nav class="page-breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
+    <li class="breadcrumb-item"><a routerLink="/customers">Customers</a></li>
+    <li aria-current="page" class="breadcrumb-item active">Add Customer</li>
+  </ol>
+</nav>
+
+<div class="row ">
+  <div class="col-md-12 grid-margin stretch-card d-flex justify-content-between">
+    <h2 class="ms-1">Add Customer</h2>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12 stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <form (ngSubmit)="onSubmit()" [formGroup]="addCustomerForm" class="forms-sample">
+          <div class="mb-3">
+            <label class="form-label" for="name">Name</label>
+            <input class="form-control" formControlName="name" id="name" placeholder="Name" type="text">
+            <p *ngIf="!addCustomerForm?.get('name')?.valid && addCustomerForm?.get('name')?.touched"
+               class="text-danger mt-1">Name is required!</p>
+          </div>
+          <div class="mb-3">
+            <label class="form-label" for="phone">Phone</label>
+            <input class="form-control" formControlName="phone" id="phone"
+                   placeholder="Phone" type="text">
+            <p *ngIf="!addCustomerForm?.get('phone')?.valid && addCustomerForm?.get('phone')?.touched"
+               class="text-danger mt-1">Phone is required!</p>
+          </div>
+          <div class="mb-3">
+            <label class="form-label" for="email">Email</label>
+            <input class="form-control" formControlName="email" id="email" name="email" placeholder="Email"
+                   type="email">
+            <p *ngIf="!addCustomerForm?.get('email')?.valid && addCustomerForm?.get('email')?.touched"
+               class="text-danger mt-1">
+              Email is required!</p>
+          </div>
+          <div class="mb-3">
+            <label class="form-label" for="address">Address</label>
+            <input class="form-control" formControlName="address" id="address" name="address"
+                   placeholder="Address"
+                   type="text">
+            <p *ngIf="!addCustomerForm?.get('address')?.valid && addCustomerForm?.get('address')?.touched"
+               class="text-danger mt-1">Address is required!</p>
+          </div>
+          <button class="btn btn-primary me-2" type="submit">Save</button>
+          <button class="btn btn-secondary" routerLink="/users">Cancel</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

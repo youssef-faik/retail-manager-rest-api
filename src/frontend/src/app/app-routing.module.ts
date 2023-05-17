@@ -9,6 +9,9 @@ import {EditUserComponent} from "./users/edit-user/edit-user.component";
 import {EditProductComponent} from "./products/edit-product/edit-product.component";
 import {ProductsComponent} from "./products/products.component";
 import {AddProductComponent} from "./products/add-product/add-product.component";
+import {CustomersComponent} from "./customers/customers.component";
+import {AddCustomerComponent} from "./customers/add-customer/add-customer.component";
+import {EditCustomerComponent} from "./customers/edit-customer/edit-customer.component";
 
 
 const routes: Routes = [
@@ -45,6 +48,18 @@ const routes: Routes = [
       {
         path: 'products/edit-product/:id',
         component: EditProductComponent
+      },
+      {
+        path: 'customers',
+        component: CustomersComponent,
+      },
+      {
+        path: 'customers/add-customer',
+        component: AddCustomerComponent
+      },
+      {
+        path: 'customers/edit-customer/:id',
+        component: EditCustomerComponent
       },
       {path: '', redirectTo: 'dashboard', pathMatch: 'full'}
     ]
