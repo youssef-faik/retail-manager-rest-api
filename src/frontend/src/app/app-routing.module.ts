@@ -6,6 +6,9 @@ import {ErrorPageComponent} from './views/pages/error-page/error-page.component'
 import {UsersComponent} from "./users/users.component";
 import {AddUserComponent} from "./users/add-user/add-user.component";
 import {EditUserComponent} from "./users/edit-user/edit-user.component";
+import {EditProductComponent} from "./products/edit-product/edit-product.component";
+import {ProductsComponent} from "./products/products.component";
+import {AddProductComponent} from "./products/add-product/add-product.component";
 
 
 const routes: Routes = [
@@ -30,6 +33,18 @@ const routes: Routes = [
       {
         path: 'users/edit-user/:id',
         component: EditUserComponent
+      },
+      {
+        path: 'products',
+        component: ProductsComponent,
+      },
+      {
+        path: 'products/add-product',
+        component: AddProductComponent
+      },
+      {
+        path: 'products/edit-product/:id',
+        component: EditProductComponent
       },
       {path: '', redirectTo: 'dashboard', pathMatch: 'full'}
     ]

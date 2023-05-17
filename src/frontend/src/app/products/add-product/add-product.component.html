@@ -1,0 +1,65 @@
+<nav class="page-breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
+    <li class="breadcrumb-item"><a routerLink="/products">Products</a></li>
+    <li aria-current="page" class="breadcrumb-item active">Add Product</li>
+  </ol>
+</nav>
+
+<div class="row ">
+  <div class="col-md-12 grid-margin stretch-card d-flex justify-content-between">
+    <h2 class="ms-1">Add product</h2>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12 stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <form (ngSubmit)="onSubmit()" [formGroup]="addProductForm" class="forms-sample">
+          <div class="mb-3">
+            <label class="form-label" for="barCode">BarCode</label>
+            <input class="form-control" formControlName="barCode" id="barCode"
+                   placeholder="BarCode" type="number">
+            <p *ngIf="!addProductForm?.get('barCode')?.valid && addProductForm?.get('barCode')?.touched"
+               class="text-danger mt-1">BarCode is required!</p>
+          </div>
+          <div class="mb-3">
+            <label class="form-label" for="name">Product Name</label>
+            <input class="form-control" formControlName="name" id="name" placeholder="Product Name" type="text">
+            <p *ngIf="!addProductForm?.get('name')?.valid && addProductForm?.get('name')?.touched"
+               class="text-danger mt-1">Product name is required!</p>
+          </div>
+          <div class="mb-3">
+            <label class="form-label" for="purchasePrice">Purchase Price</label>
+            <input class="form-control" formControlName="purchasePrice" id="purchasePrice" name="purchasePrice"
+                   placeholder="Purchase Price"
+                   type="number">
+            <p *ngIf="!addProductForm?.get('purchasePrice')?.valid && addProductForm?.get('purchasePrice')?.touched"
+               class="text-danger mt-1">Purchase Price is required!</p>
+          </div>
+          <div class="mb-3">
+            <label class="form-label" for="sellingPriceExcludingTax">Selling Price Excluding Tax</label>
+            <input class="form-control" formControlName="sellingPriceExcludingTax" id="sellingPriceExcludingTax"
+                   name="sellingPriceExcludingTax" placeholder="Selling Price Excluding Tax"
+                   type="number">
+            <p
+              *ngIf="!addProductForm?.get('sellingPriceExcludingTax')?.valid && addProductForm?.get('sellingPriceExcludingTax')?.touched"
+              class="text-danger mt-1">Selling Price Excluding Tax is required!</p>
+          </div>
+          <div class="mb-3">
+            <label class="form-label" for="taxRate">Tax Rate</label>
+            <select class="form-select" formControlName="taxRate" id="taxRate" name="taxRate">
+              <option disabled selected value="none">Select Tax Rate</option>
+              <option *ngFor="let taxRate of taxRates" value="{{taxRate}}">{{taxRate}}</option>
+            </select>
+            <p *ngIf="!addProductForm?.get('taxRate')?.valid && addProductForm?.get('taxRate')?.touched"
+               class="text-danger mt-1">Tax Rate is required!</p>
+          </div>
+          <button class="btn btn-primary me-2" type="submit">Save</button>
+          <button class="btn btn-secondary" routerLink="/users">Cancel</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

@@ -18,6 +18,9 @@ import {TablesModule} from "./views/pages/tables/tables.module";
 import {EditUserComponent} from './users/edit-user/edit-user.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {CustomFormsModule} from "ngx-custom-validators";
+import { ProductsComponent } from './products/products.component';
+import { AddProductComponent } from './products/add-product/add-product.component';
+import { EditProductComponent } from './products/edit-product/edit-product.component';
 
 
 @NgModule({
@@ -27,6 +30,9 @@ import {CustomFormsModule} from "ngx-custom-validators";
     UsersComponent,
     AddUserComponent,
     EditUserComponent,
+    ProductsComponent,
+    AddProductComponent,
+    EditProductComponent,
   ],
   imports: [
     BrowserModule,

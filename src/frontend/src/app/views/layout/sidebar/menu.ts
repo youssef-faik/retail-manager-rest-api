@@ -17,7 +17,7 @@ export const MENU: MenuItem[] = [
   {
     label: 'Products',
     icon: 'box',
-    link: '/dashboard'
+    link: '/products'
   }, {
     label: 'Customers',
     icon: 'layers',
