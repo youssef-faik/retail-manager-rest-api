@@ -8,7 +8,8 @@
 <div class="row ">
   <div class="col-md-12 grid-margin stretch-card d-flex justify-content-between">
     <h2 class="ms-1">Products</h2>
-    <button class="btn btn-primary" routerLink="add-product" type="button"><i class="feather icon-plus"></i>Add Product</button>
+    <button class="btn btn-primary" routerLink="add-product" type="button"><i class="feather icon-plus"></i>Add Product
+    </button>
   </div>
 </div>
 
@@ -36,7 +37,7 @@
               <td>{{product.name}}</td>
               <td>${{product.purchasePrice}}</td>
               <td>${{product.sellingPriceExcludingTax}}</td>
-              <td>{{product.taxRate}}</td>
+              <td>{{getTaxRateDisplayValue(product.taxRate)}}</td>
               <td class="d-flex justify-content-center">
                 <button class="btn btn-primary me-2" routerLink="edit-product/{{ product.id }}" type="button">
                   <i class="feather icon-edit"></i>

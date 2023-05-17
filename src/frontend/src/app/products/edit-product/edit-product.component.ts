@@ -78,6 +78,21 @@ export class EditProductComponent implements OnInit {
         })
   }
 
+  getTaxRateDisplayValue(taxRate: ProductResponseDto.TaxRateEnum | undefined): string {
+    switch (taxRate) {
+      case ProductResponseDto.TaxRateEnum.Twenty:
+        return '20%';
+      case ProductResponseDto.TaxRateEnum.Fourteen:
+        return '14%';
+      case ProductResponseDto.TaxRateEnum.Ten:
+        return '10%';
+      case ProductResponseDto.TaxRateEnum.Seven:
+        return '7%';
+      default:
+        return '';
+    }
+  }
+
   private getUserDtoFromLocalStorage(): AuthenticationResponse | undefined {
     try {
       const lsValue = localStorage.getItem('authenticationResponse');
@@ -91,5 +106,4 @@ export class EditProductComponent implements OnInit {
       return undefined;
     }
   }
-
 }

@@ -51,7 +51,7 @@
             <label class="form-label" for="taxRate">Tax Rate</label>
             <select class="form-select" formControlName="taxRate" id="taxRate" name="taxRate">
               <option disabled selected value="none">Select Tax Rate</option>
-              <option *ngFor="let taxRate of taxRates" value="{{taxRate}}">{{taxRate}}</option>
+              <option *ngFor="let taxRate of taxRates" value="{{taxRate}}">{{getTaxRateDisplayValue(taxRate)}}</option>
             </select>
             <p *ngIf="!editProductFrom?.get('taxRate')?.valid && editProductFrom?.get('taxRate')?.touched"
                class="text-danger mt-1">Tax Rate is required!</p>

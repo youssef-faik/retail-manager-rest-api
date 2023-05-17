@@ -1,5 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {AuthenticationResponse, ProductRequestDto, ProductService} from "../../../../libs/openapi/out";
+import {
+  AuthenticationResponse,
+  ProductRequestDto,
+  ProductResponseDto,
+  ProductService
+} from "../../../../libs/openapi/out";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
 
@@ -50,6 +55,21 @@ export class AddProductComponent implements OnInit {
         , error => {
           console.log(error)
         })
+  }
+
+  getTaxRateDisplayValue(taxRate: ProductResponseDto.TaxRateEnum | undefined): string {
+    switch (taxRate) {
+      case ProductResponseDto.TaxRateEnum.Twenty:
+        return '20%';
+      case ProductResponseDto.TaxRateEnum.Fourteen:
+        return '14%';
+      case ProductResponseDto.TaxRateEnum.Ten:
+        return '10%';
+      case ProductResponseDto.TaxRateEnum.Seven:
+        return '7%';
+      default:
+        return '';
+    }
   }
 
   private getUserDtoFromLocalStorage(): AuthenticationResponse | undefined {

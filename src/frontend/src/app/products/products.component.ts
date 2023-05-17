@@ -1,11 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import {
-  AuthenticationResponse,
-  ProductResponseDto,
-  ProductService,
-  UserDto,
-  UserService
-} from "../../../libs/openapi/out";
+import {Component, OnInit} from '@angular/core';
+import {AuthenticationResponse, ProductResponseDto, ProductService} from "../../../libs/openapi/out";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
@@ -24,16 +18,6 @@ export class ProductsComponent implements OnInit {
     // @ts-ignore
     this.productService.configuration.credentials = {'Bearer_Authentication': this.getUserDtoFromLocalStorage()?.token};
     this.loadProducts();
-  }
-
-  private loadProducts() {
-    this.productService.getAllProducts('body', false, {httpHeaderAccept: 'application/json'}).subscribe(
-      (data) => {
-        console.log(data)
-        this.products = data;
-      }, error => {
-        console.log(error)
-      })
   }
 
   getUserDtoFromLocalStorage(): AuthenticationResponse | undefined {
@@ -72,4 +56,30 @@ export class ProductsComponent implements OnInit {
       }
     );
   }
+
+  getTaxRateDisplayValue(taxRate: ProductResponseDto.TaxRateEnum | undefined): string {
+    switch (taxRate) {
+      case ProductResponseDto.TaxRateEnum.Twenty:
+        return '20%';
+      case ProductResponseDto.TaxRateEnum.Fourteen:
+        return '14%';
+      case ProductResponseDto.TaxRateEnum.Ten:
+        return '10%';
+      case ProductResponseDto.TaxRateEnum.Seven:
+        return '7%';
+      default:
+        return '';
+    }
+  }
+
+  private loadProducts() {
+    this.productService.getAllProducts('body', false, {httpHeaderAccept: 'application/json'}).subscribe(
+      (data) => {
+        console.log(data)
+        this.products = data;
+      }, error => {
+        console.log(error)
+      })
+  }
+
 }
