@@ -4,6 +4,7 @@ export * from './changePasswordRequest';
 export * from './customerRequestDto';
 export * from './customerResponseDto';
 export * from './errorResponse';
+export * from './invoiceCreateDto';
 export * from './invoiceDto';
 export * from './invoiceItemDto';
 export * from './productRequestDto';

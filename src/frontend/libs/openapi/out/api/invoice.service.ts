@@ -21,6 +21,8 @@ import { Observable }                                        from 'rxjs';
 // @ts-ignore
 import { ErrorResponse } from '../model/errorResponse';
 // @ts-ignore
+import { InvoiceCreateDto } from '../model/invoiceCreateDto';
+// @ts-ignore
 import { InvoiceDto } from '../model/invoiceDto';
 
 // @ts-ignore
@@ -96,16 +98,16 @@ export class InvoiceService {
     /**
      * Create invoice
      * Create a new invoice with the supplied details.
-     * @param invoiceDto 
+     * @param invoiceCreateDto 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public createInvoice(invoiceDto: InvoiceDto, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any>;
-    public createInvoice(invoiceDto: InvoiceDto, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<any>>;
-    public createInvoice(invoiceDto: InvoiceDto, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<any>>;
-    public createInvoice(invoiceDto: InvoiceDto, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
-        if (invoiceDto === null || invoiceDto === undefined) {
-            throw new Error('Required parameter invoiceDto was null or undefined when calling createInvoice.');
+    public createInvoice(invoiceCreateDto: InvoiceCreateDto, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any>;
+    public createInvoice(invoiceCreateDto: InvoiceCreateDto, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<any>>;
+    public createInvoice(invoiceCreateDto: InvoiceCreateDto, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<any>>;
+    public createInvoice(invoiceCreateDto: InvoiceCreateDto, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
+        if (invoiceCreateDto === null || invoiceCreateDto === undefined) {
+            throw new Error('Required parameter invoiceCreateDto was null or undefined when calling createInvoice.');
         }
 
         let localVarHeaders = this.defaultHeaders;
@@ -159,7 +161,7 @@ export class InvoiceService {
         return this.httpClient.request<any>('post', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
-                body: invoiceDto,
+                body: invoiceCreateDto,
                 responseType: <any>responseType_,
                 withCredentials: this.configuration.withCredentials,
                 headers: localVarHeaders,

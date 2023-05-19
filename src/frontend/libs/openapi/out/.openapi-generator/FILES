@@ -18,6 +18,7 @@ model/changePasswordRequest.ts
 model/customerRequestDto.ts
 model/customerResponseDto.ts
 model/errorResponse.ts
+model/invoiceCreateDto.ts
 model/invoiceDto.ts
 model/invoiceItemDto.ts
 model/models.ts

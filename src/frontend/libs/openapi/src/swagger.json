@@ -1200,7 +1200,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/InvoiceDto"
+                "$ref": "#/components/schemas/InvoiceCreateDto"
               }
             }
           },
@@ -1966,20 +1966,14 @@
         },
         "description": "Request body for creating a new user."
       },
-      "InvoiceDto": {
-        "title": "Invoice Response Schema",
+      "InvoiceCreateDto": {
+        "title": "Invoice Request Schema",
+        "required": [
+          "customerId",
+          "items"
+        ],
         "type": "object",
         "properties": {
-          "id": {
-            "type": "integer",
-            "description": "The ID of the invoice",
-            "format": "int32"
-          },
-          "issueDate": {
-            "type": "string",
-            "description": "The date on which the invoice was issued",
-            "format": "date"
-          },
           "customerId": {
             "type": "integer",
             "description": "The ID of the customer who the invoice is issued to",
@@ -1987,13 +1981,13 @@
           },
           "items": {
             "type": "array",
-            "description": "The list of items and their quantities included in the invoice",
+            "description": "The list of items and their quantities to be included in the invoice",
             "items": {
               "$ref": "#/components/schemas/InvoiceItemDto"
             }
           }
         },
-        "description": "Response body for an invoice response"
+        "description": "Request body for creating an Invoice"
       },
       "InvoiceItemDto": {
         "title": "Invoice Item Schema",
@@ -2082,6 +2076,35 @@
           }
         },
         "description": "Response body for user authentication response"
+      },
+      "InvoiceDto": {
+        "title": "Invoice Response Schema",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "The ID of the invoice",
+            "format": "int32"
+          },
+          "issueDate": {
+            "type": "string",
+            "description": "The date on which the invoice was issued",
+            "format": "date"
+          },
+          "customerId": {
+            "type": "integer",
+            "description": "The ID of the customer who the invoice is issued to",
+            "format": "int64"
+          },
+          "items": {
+            "type": "array",
+            "description": "The list of items and their quantities included in the invoice",
+            "items": {
+              "$ref": "#/components/schemas/InvoiceItemDto"
+            }
+          }
+        },
+        "description": "Response body for an invoice response"
       }
     },
     "securitySchemes": {
