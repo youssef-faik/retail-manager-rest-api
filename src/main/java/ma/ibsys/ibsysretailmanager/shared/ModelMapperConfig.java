@@ -1,6 +1,8 @@
 package ma.ibsys.ibsysretailmanager.shared;
 
 import jakarta.persistence.EntityNotFoundException;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
@@ -28,6 +30,7 @@ import org.springframework.context.annotation.Configuration;
 @RequiredArgsConstructor
 public class ModelMapperConfig {
   private final CustomerRepository customerRepository;
+  private final ProductRepository productRepository;
 
   @Bean
   public ModelMapper modelMapper() {
@@ -92,13 +95,26 @@ public class ModelMapperConfig {
         .setPostConverter(
             context -> {
               InvoiceCreateDto source = context.getSource();
-              Invoice destination = context.getDestination();
 
               List<InvoiceItem> items =
                   source.getItems().stream()
-                      .map(itemDto -> modelMapper.map(itemDto, InvoiceItem.class))
+                      .map(
+                          itemDto -> {
+                            InvoiceItem invoiceItem = modelMapper.map(itemDto, InvoiceItem.class);
+
+                            Product product =
+                                productRepository
+                                    .findById(itemDto.getProductId())
+                                    .orElseThrow(
+                                        () ->
+                                            new EntityNotFoundException(
+                                                "Product not found with id: "
+                                                    + itemDto.getProductId()));
+
+                            invoiceItem.setProduct(product);
+                            return invoiceItem;
+                          })
                       .collect(Collectors.toList());
-              destination.setItems(items);
 
               Customer customer =
                   customerRepository
@@ -107,9 +123,19 @@ public class ModelMapperConfig {
                           () ->
                               new EntityNotFoundException(
                                   "Customer not found with id: " + source.getCustomerId()));
-              destination.setCustomer(customer);
 
-              return destination;
+              Invoice newInvoice =
+                  Invoice.builder()
+                      .customer(customer)
+                      .issueDate(LocalDate.now())
+                      .items(new ArrayList<>())
+                      .build();
+
+              for (InvoiceItem item : items) {
+                newInvoice.addItem(item);
+              }
+
+              return newInvoice;
             });
 
     // Map Invoice entity to InvoiceDto
