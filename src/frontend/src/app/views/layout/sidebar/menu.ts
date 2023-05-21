@@ -25,7 +25,7 @@ export const MENU: MenuItem[] = [
   }, {
     label: 'Invoices',
     icon: 'file-text',
-    link: '/dashboard'
+    link: '/invoices'
   }, {
     label: 'users',
     icon: 'users',

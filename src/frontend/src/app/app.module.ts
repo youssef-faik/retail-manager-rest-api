@@ -26,6 +26,9 @@ import {EditCustomerComponent} from './customers/edit-customer/edit-customer.com
 import {AddCustomerComponent} from './customers/add-customer/add-customer.component';
 import {ChangePasswordComponent} from './change-password/change-password.component';
 import {HttpInterceptorService} from "./services/http-interceptor.service";
+import {InvoicesComponent} from './invoices/invoices.component';
+import {AddInvoiceComponent} from './invoices/add-invoice/add-invoice.component';
+import {NgSelectModule} from "@ng-select/ng-select";
 
 
 @NgModule({
@@ -42,6 +45,8 @@ import {HttpInterceptorService} from "./services/http-interceptor.service";
     EditCustomerComponent,
     AddCustomerComponent,
     ChangePasswordComponent,
+    InvoicesComponent,
+    AddInvoiceComponent,
   ],
   imports: [
     BrowserModule,
@@ -52,7 +57,8 @@ import {HttpInterceptorService} from "./services/http-interceptor.service";
     TablesModule,
     FormsModule,
     CustomFormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgSelectModule
   ],
   providers: [
     AuthGuard,

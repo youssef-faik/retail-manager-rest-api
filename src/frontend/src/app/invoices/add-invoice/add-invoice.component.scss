@@ -1,0 +1,39 @@
+input[disabled] {
+  background-color: #fff;
+  cursor: not-allowed;
+}
+
+.invoice-total-box {
+  background: #fff;
+  border: 1px solid #e5e5e5;
+  border-radius: 4px;
+}
+
+.invoice-total-inner {
+  padding: 15px;
+}
+
+.invoice-total-box p {
+  color: #1b2559;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.invoice-total-box p span {
+  float: right;
+}
+
+.invoice-total-footer {
+  border-top: 1px solid #e5e5e5;
+  padding: 15px;
+}
+
+.invoice-total-footer h4 {
+  font-size: 20px;
+  margin-bottom: 0;
+  color: #3d5ee1;
+}
+
+.invoice-total-footer h4 span {
+  float: right;
+}

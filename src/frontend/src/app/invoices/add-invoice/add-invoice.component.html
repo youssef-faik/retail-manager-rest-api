@@ -1,0 +1,253 @@
+<nav class="page-breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
+    <li class="breadcrumb-item"><a routerLink="/invoices">Invoices</a></li>
+    <li aria-current="page" class="breadcrumb-item active">Add Invoice</li>
+  </ol>
+</nav>
+
+<div class="row ">
+  <div class="col-md-12 grid-margin stretch-card d-flex justify-content-between">
+    <h2 class="ms-1">Add invoice</h2>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12 stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <form action="#">
+          <!--------------------------------------------------------------------------------------------->
+          <!-- START INVOICE DETAILS -------------------------------------------------------------------->
+          <!--------------------------------------------------------------------------------------------->
+          <div class="row">
+            <!-- START INVOICE FROM -->
+            <div class="col-sm-6">
+              <h4 class="fw-bolder mb-3">Invoice From</h4>
+              <div>
+                <p>Name: IBSYS SARL AU</p>
+                <p>Phone: 0522456378</p>
+                <p>Email: ibsys@mail.com</p>
+                <p>Address: Boulevard Attawhid, Tit Mellil, Casablanca, 26490, Morocco.</p>
+              </div>
+            </div>
+            <!-- END INVOICE FROM -->
+
+            <!-- START INVOICE TO -->
+            <div
+              class="col-sm-6 border-start-sm border-top border-top-sm-0 pt-2 pt-sm-0">
+              <div>
+                <div class="row">
+                  <div class="col-4 pe-m">
+                    <span class="fw-bolder fs-4 text">Invoice To</span>
+                  </div>
+                  <div class="col-8 form-control-sm py-0 ps-0">
+                    <ng-select (change)="onChangeCustomer()"
+                               [(ngModel)]="selectedCustomerId"
+                               [items]="customers"
+                               [searchFn]="customSearchFn"
+                               [virtualScroll]="true"
+                               bindLabel="name"
+                               bindValue="id"
+                               name="customerId"
+                               placeholder="type to search for a customer">
+                      <ng-template let-item="item" ng-option-tmp>
+                        Name: <strong>{{item.name}}</strong><br/>
+                        <small>Contact: {{item.email}} | {{item.phone}}</small> <br/>
+                      </ng-template>
+                    </ng-select>
+                  </div>
+                </div>
+                <div *ngIf="selectedCustomerId">
+                  <p>Name: {{selectedCustomer.name}}</p>
+                  <p>Phone: ({{selectedCustomer.phone}}) </p>
+                  <p>Email: {{selectedCustomer.email}}</p>
+                  <p>Address: {{selectedCustomer.address}}</p>
+                </div>
+              </div>
+            </div>
+            <!-- END INVOICE FROM -->
+          </div>
+          <!--------------------------------------------------------------------------------------------->
+          <!-- END INVOICE DETAILS ---------------------------------------------------------------------->
+          <!--------------------------------------------------------------------------------------------->
+
+          <hr>
+
+          <!--------------------------------------------------------------------------------------------->
+          <!-- START ITEM DETAILS ----------------------------------------------------------------------->
+          <!--------------------------------------------------------------------------------------------->
+          <h4 class="my-4 fw-bolder">Item Details</h4>
+          <div class="row p-2 bg-light rounded">
+            <div class="col-12 col-sm-12 col-md-3 px-md-1">
+              <div class="fw-bolder text-uppercase">item</div>
+              <div>
+                <ng-select (change)="onChangeProduct()"
+                           [(ngModel)]="selectedProductId"
+                           [items]="products"
+                           [searchFn]="customSearchFn"
+                           [virtualScroll]="true"
+                           bindLabel="name"
+                           bindValue="id"
+                           name="productId"
+                           placeholder="type to search for a product">
+                  <ng-template let-item="item" ng-option-tmp>
+                    Name: <strong>{{item.name}}</strong><br/>
+                    <small>Tax Rate: {{getTaxRateDisplayValue(item.taxRate)}} </small> <br/>
+                    <small>Unit Price (VAT Exclusive): ${{item.sellingPriceExcludingTax}} </small> <br/>
+                    <small>Unit Price (VAT
+                      Inclusive):&nbsp;${{getSellingPriceIncludingTaxes(item.taxRate, item.sellingPriceExcludingTax)}} </small>
+                    <br/>
+                  </ng-template>
+                </ng-select>
+              </div>
+            </div>
+            <div class="col-6 col-sm-3 col-md-2 px-md-1">
+              <div class="fw-bolder text-uppercase">qty</div>
+              <div>
+                <input
+                  (change)="onChangeUnitPriceAndQuantity()"
+                  (keydown)="saveOldValue($event)"
+                  (keyup)="checkValue($event)"
+                  [(ngModel)]="item.quantity"
+                  [disabled]="products.length === 0 || !selectedProductId"
+                  class="form-control"
+                  id="quantity"
+                  name="quantity"
+                  type="number"
+                ></div>
+            </div>
+            <div class="col-6 col-sm-3 col-md-2 px-md-1">
+              <div class="fw-bolder text-uppercase">unit price</div>
+              <div>
+                <input
+                  (change)="onChangeUnitPriceAndQuantity()"
+                  (keydown)="saveOldUnitPriceValue($event)"
+                  (keyup)="checkUnitPriceValue($event)"
+                  [(ngModel)]="item.unitPrice"
+                  [disabled]="products.length === 0 || !selectedProductId"
+                  class="form-control"
+                  id="unitPrice"
+                  name="unitPrice"
+                  type="number"
+                >
+              </div>
+            </div>
+            <div class="col-6 col-sm-3 col-md-2 px-md-1">
+              <div class="fw-bolder text-uppercase">tax%</div>
+              <div>
+                <input
+                  [value]="taxPercentage"
+                  class="form-control"
+                  disabled
+                  type="text"
+                >
+              </div>
+            </div>
+            <div class="col-6 col-sm-3 col-md-2 px-md-1">
+              <div class="fw-bolder text-uppercase">amount</div>
+              <div>
+                <input
+                  [value]="amount"
+                  class="form-control"
+                  disabled
+                  type="number"
+                >
+              </div>
+            </div>
+            <div class="col-12 col-sm-12 col-md-1 px-sm-0 px-lg-1">
+              <div>&nbsp;</div>
+              <div>
+                <button
+                  (click)="addItem()"
+                  [disabled]="products.length === 0 || !selectedProductId || amount <= 0"
+                  class="btn btn-primary w-100 px-md-1">
+                  <i class="feather icon-plus"></i>Add
+                </button>
+              </div>
+            </div>
+          </div>
+          <!--------------------------------------------------------------------------------------------->
+          <!-- END ITEM DETAILS ------------------------------------------------------------------------->
+          <!--------------------------------------------------------------------------------------------->
+
+          <hr>
+
+          <!--------------------------------------------------------------------------------------------->
+          <!-- START SELECTED ITEMS --------------------------------------------------------------------->
+          <!--------------------------------------------------------------------------------------------->
+          <div *ngIf="items.length > 0">
+            <h4 class="my-4">Selected Items</h4>
+            <div class="table-responsive rounded">
+              <table class="table table-center table-striped table-bordered table-hover table-sm">
+                <thead class="table-dark">
+                <tr>
+                  <th>Item</th>
+                  <th>Quantity</th>
+                  <th>Unit Price</th>
+                  <th>Amount</th>
+                  <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let item of items" class="add-row">
+                  <td>
+                    <input [value]="item.productId" class="form-control" hidden="hidden" name="productId" type="text">
+                    <input [value]="getProductById(item.productId).name" class="form-control" disabled
+                           name="productName" type="text">
+                  </td>
+                  <td>
+                    <input [value]="item.quantity" class="form-control" disabled name="quantity" type="text">
+                  </td>
+                  <td>
+                    <input [value]="item.unitPrice" class="form-control" disabled name="unitPrice" type="text">
+                  </td>
+                  <td>
+                    <input [value]="getItemSellingPriceIncludingTaxes(item)" class="form-control" disabled type="text">
+                  </td>
+                  <td class="add-remove text-end">
+                    <button (click)="removeItem(item)" class="btn btn-danger">
+                      <i class="feather icon-trash-2"></i>&nbsp;Remove
+                    </button>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+            <hr class="mt-5">
+          </div>
+          <!--------------------------------------------------------------------------------------------->
+          <!-- END SELECTED ITEMS ----------------------------------------------------------------------->
+          <!--------------------------------------------------------------------------------------------->
+
+          <!--------------------------------------------------------------------------------------------->
+          <!-- START SUMMARY ---------------------------------------------------------------------------->
+          <!--------------------------------------------------------------------------------------------->
+          <div class="row">
+            <div class="offset-lg-7 offset-md-6  col-lg-5 col-md-6 my-4">
+              <div class="invoice-total-card">
+                <h4 class="fw-bolder mb-3">Summary</h4>
+                <div class="invoice-total-box">
+                  <div class="invoice-total-inner">
+                    <p>Total excl. VAT <span>${{totalExcludingTaxes}}</span></p>
+                    <p>Taxable Amount <span>${{total - totalExcludingTaxes}}</span></p>
+                  </div>
+                  <div class="invoice-total-footer">
+                    <h4>Total incl. VAT <span>$ {{total}}</span></h4>
+                  </div>
+                </div>
+              </div>
+              <button (click)="onSave()" [disabled]="items.length === 0 || !selectedCustomerId"
+                      class="btn btn-primary w-100 my-3 btn-lg fw-bolder" type="button">Save
+                Invoice
+              </button>
+            </div>
+          </div>
+          <!--- ----------------------------------------------------------------------------------------->
+          <!-- END SUMMARY ------------------------------------------------------------------------------>
+          <!--- ----------------------------------------------------------------------------------------->
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

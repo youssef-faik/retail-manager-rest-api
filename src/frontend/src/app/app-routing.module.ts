@@ -13,6 +13,8 @@ import {CustomersComponent} from "./customers/customers.component";
 import {AddCustomerComponent} from "./customers/add-customer/add-customer.component";
 import {EditCustomerComponent} from "./customers/edit-customer/edit-customer.component";
 import {ChangePasswordComponent} from "./change-password/change-password.component";
+import {AddInvoiceComponent} from "./invoices/add-invoice/add-invoice.component";
+import {InvoicesComponent} from "./invoices/invoices.component";
 
 
 const routes: Routes = [
@@ -65,6 +67,14 @@ const routes: Routes = [
       {
         path: 'change-password',
         component: ChangePasswordComponent
+      },
+      {
+        path: 'invoices',
+        component: InvoicesComponent,
+      },
+      {
+        path: 'invoices/add-invoice',
+        component: AddInvoiceComponent
       },
       {path: '', redirectTo: 'dashboard', pathMatch: 'full'}
     ]
