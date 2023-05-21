@@ -12,7 +12,6 @@ import ma.ibsys.ibsysretailmanager.customer.CustomerRequestDto;
 import ma.ibsys.ibsysretailmanager.customer.CustomerResponseDto;
 import ma.ibsys.ibsysretailmanager.invoice.Invoice;
 import ma.ibsys.ibsysretailmanager.invoice.InvoiceCreateDto;
-import ma.ibsys.ibsysretailmanager.invoice.InvoiceDto;
 import ma.ibsys.ibsysretailmanager.invoice.InvoiceItem;
 import ma.ibsys.ibsysretailmanager.invoice.InvoiceItemDto;
 import ma.ibsys.ibsysretailmanager.product.Product;
@@ -65,7 +64,9 @@ public class ModelMapperConfig {
         .addMappings(mapper -> mapper.map(ProductRequestDto::getTaxRate, Product::setTaxRate))
         .addMappings(
             mapper ->
-                mapper.map(ProductRequestDto::getSellingPriceExcludingTax, Product::setSellingPriceExcludingTax))
+                mapper.map(
+                    ProductRequestDto::getSellingPriceExcludingTax,
+                    Product::setSellingPriceExcludingTax))
         .addMappings(
             mapper -> mapper.map(ProductRequestDto::getPurchasePrice, Product::setPurchasePrice));
 
@@ -78,7 +79,9 @@ public class ModelMapperConfig {
         .addMappings(mapper -> mapper.map(Product::getTaxRate, ProductResponseDto::setTaxRate))
         .addMappings(
             mapper ->
-                mapper.map(Product::getSellingPriceExcludingTax, ProductResponseDto::setSellingPriceExcludingTax))
+                mapper.map(
+                    Product::getSellingPriceExcludingTax,
+                    ProductResponseDto::setSellingPriceExcludingTax))
         .addMappings(
             mapper -> mapper.map(Product::getPurchasePrice, ProductResponseDto::setPurchasePrice));
 
@@ -136,23 +139,6 @@ public class ModelMapperConfig {
               }
 
               return newInvoice;
-            });
-
-    // Map Invoice entity to InvoiceDto
-    modelMapper
-        .createTypeMap(Invoice.class, InvoiceDto.class)
-        .addMappings(
-            mapper -> mapper.map(src -> src.getCustomer().getId(), InvoiceDto::setCustomerId))
-        .setPostConverter(
-            context -> {
-              Invoice source = context.getSource();
-              InvoiceDto destination = context.getDestination();
-              List<InvoiceItemDto> items =
-                  source.getItems().stream()
-                      .map(item -> modelMapper.map(item, InvoiceItemDto.class))
-                      .collect(Collectors.toList());
-              destination.setItems(items);
-              return destination;
             });
 
     // -- InvoiceItem ---------------------------------------------------------
