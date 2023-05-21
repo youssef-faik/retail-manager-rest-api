@@ -59,7 +59,8 @@ public class IbsysRetailManagerApplication implements CommandLineRunner {
             .addMapping("/**")
             .allowedOrigins("*")
             .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
-            .allowedHeaders("*");
+            .allowedHeaders("*")
+            .exposedHeaders("*");
       }
     };
   }
