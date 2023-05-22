@@ -15,6 +15,7 @@ import {EditCustomerComponent} from "./customers/edit-customer/edit-customer.com
 import {ChangePasswordComponent} from "./change-password/change-password.component";
 import {AddInvoiceComponent} from "./invoices/add-invoice/add-invoice.component";
 import {InvoicesComponent} from "./invoices/invoices.component";
+import {PreviewInvoiceComponent} from "./invoices/preview-invoice/preview-invoice.component";
 
 
 const routes: Routes = [
@@ -75,6 +76,9 @@ const routes: Routes = [
       {
         path: 'invoices/add-invoice',
         component: AddInvoiceComponent
+      },{
+        path: 'invoices/preview-invoice/:id',
+        component: PreviewInvoiceComponent
       },
       {path: '', redirectTo: 'dashboard', pathMatch: 'full'}
     ]

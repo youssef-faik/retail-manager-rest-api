@@ -29,6 +29,7 @@ import {HttpInterceptorService} from "./services/http-interceptor.service";
 import {InvoicesComponent} from './invoices/invoices.component';
 import {AddInvoiceComponent} from './invoices/add-invoice/add-invoice.component';
 import {NgSelectModule} from "@ng-select/ng-select";
+import { PreviewInvoiceComponent } from './invoices/preview-invoice/preview-invoice.component';
 
 
 @NgModule({
@@ -47,6 +48,7 @@ import {NgSelectModule} from "@ng-select/ng-select";
     ChangePasswordComponent,
     InvoicesComponent,
     AddInvoiceComponent,
+    PreviewInvoiceComponent,
   ],
   imports: [
     BrowserModule,

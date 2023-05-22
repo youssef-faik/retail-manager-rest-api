@@ -1,0 +1,139 @@
+<nav class="page-breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
+    <li class="breadcrumb-item"><a routerLink="/invoices">Invoices</a></li>
+    <li aria-current="page" class="breadcrumb-item active">Invoice Preview</li>
+  </ol>
+</nav>
+
+<div class="row mb-3">
+  <div class="col">
+    <a
+      class="btn btn-primary float-end "
+      routerLink=".">
+      <i appFeatherIcon class="me-2 icon-md" data-feather="printer"></i>
+      Print
+    </a>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-body">
+        <div class="container-fluid d-flex justify-content-between">
+          <div class="col-lg-3 ps-0">
+            <a class="nobleui-logo" routerLink=".">
+              <img
+                alt="logo"
+                class="rounded mx-auto d-block mb-4 mt-2"
+                src="assets/images/logo-black.png"
+                style="height: 88px;">
+            </a>
+            <h3 class="mt-5 mb-2 text-muted">Invoice from :</h3>
+            <div>
+              <table class="table">
+                <tr>
+                  <th>Name:</th>
+                  <td>IBSYS SARL AU</td>
+                </tr>
+                <tr>
+                  <th>Phone:</th>
+                  <td>0522456378</td>
+                </tr>
+                <tr>
+                  <th>Email:</th>
+                  <td>ibsys@mail.com</td>
+                </tr>
+                <tr>
+                  <th>Address:</th>
+                  <td>Boulevard Attawhid, Tit Mellil, Casablanca, 26490, Morocco.</td>
+                </tr>
+              </table>
+            </div>
+          </div>
+          <div class="col-lg-3 pe-0">
+            <h4 class="fw-bold text-uppercase text-end mt-4 mb-2">invoice</h4>
+            <h6 class="text-end"># INV-{{invoice?.id}}</h6>
+            <h6 class="text-end fw-normal mb-5">
+              <span class="text-muted">Invoice Date :</span>
+              {{invoice?.issueDate}}
+            </h6>
+            <h3 class="mt-5 mb-2 text-muted">Invoice to :</h3>
+            <div>
+              <table class="table">
+                <tr>
+                  <th>Name:</th>
+                  <td>{{invoice?.customer?.name}}</td>
+                </tr>
+                <tr>
+                  <th>Phone:</th>
+                  <td>{{invoice?.customer?.phone}}</td>
+                </tr>
+                <tr>
+                  <th>Email:</th>
+                  <td>{{invoice?.customer?.email}}</td>
+                </tr>
+                <tr>
+                  <th>Address:</th>
+                  <td>{{invoice?.customer?.address}}</td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="container-fluid mt-5 d-flex justify-content-center w-100">
+          <div class="table-responsive w-100 rounded">
+            <table class="table table-bordered rounded table-striped">
+              <thead class="table-dark">
+              <tr>
+                <th class="bolder">Barcode</th>
+                <th class="bolder">Description</th>
+                <th class="text-end bolder">Quantity</th>
+                <th class="text-end bolder">Unit price</th>
+                <th class="text-end bolder">Tax rate</th>
+                <th class="text-end bolder">Total</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let item of invoice?.items" class="text-end">
+                <td class="text-start">{{item?.product?.barCode}}</td>
+                <td class="text-start">{{item?.product?.name}}</td>
+                <td>{{item?.quantity}}</td>
+                <td>$ {{item?.unitPrice}}</td>
+                <td>{{getTaxRateDisplayValue(item?.product?.taxRate)}}</td>
+                <td>
+                  $ {{  getSellingPriceIncludingTaxes(item?.product?.taxRate, item?.unitPrice) * (item?.quantity ?? 0)}}</td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="container-fluid mt-5 w-100">
+          <div class="row">
+            <div class="col-md-6 ms-auto">
+              <div class="table-responsive">
+                <table class="table">
+                  <tbody>
+                  <tr>
+                    <td>Total exclu. VTA</td>
+                    <td class="text-end">$ {{totalExcluVTA}}</td>
+                  </tr>
+                  <tr>
+                    <td>TAX</td>
+                    <td class="text-end">$ {{totalIncluVTA - totalExcluVTA}}</td>
+                  </tr>
+                  <tr class="bg-light">
+                    <td class="text-bold-800">Total inclu. VTA</td>
+                    <td class="text-bold-800 text-end">$ {{totalIncluVTA}}</td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

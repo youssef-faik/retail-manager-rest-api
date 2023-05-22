@@ -9,6 +9,7 @@ import {
   ProductService
 } from "../../../../libs/openapi/out";
 import {HttpResponse} from "@angular/common/http";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-add-invoice',
@@ -35,7 +36,10 @@ export class AddInvoiceComponent implements OnInit {
   constructor(
     private customerService: CustomerService,
     private productService: ProductService,
-    private invoiceService: InvoiceService) {
+    private invoiceService: InvoiceService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {
   }
 
   ngOnInit(): void {
@@ -240,10 +244,19 @@ export class AddInvoiceComponent implements OnInit {
       {httpHeaderAccept: 'application/json'}
     ).subscribe((response: HttpResponse<any>) => {
       // Access the Location header value
-      console.log(response.headers);
 
-      const locationHeader = response.headers.get('Location');
+      const locationHeader: string = response.headers.get('Location') || '/api/v1/invoices/0';
       console.log('Location header value:', locationHeader);
+
+      const originalString = locationHeader;
+      const prefix = '/api/v1/invoices/';
+
+      const strippedString = originalString.replace(prefix, '');
+      console.log(strippedString);
+
+
+      this.router.navigate([`invoices/preview-invoice/${strippedString}`]);
+
     }, error => {
       console.log(error)
     })
