@@ -9,7 +9,8 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { InvoiceItemDto } from './invoiceItemDto';
+import { CustomerResponseDto } from './customerResponseDto';
+import { InvoiceItemResponseDto } from './invoiceItemResponseDto';
 
 
 /**
@@ -24,13 +25,10 @@ export interface InvoiceDto {
      * The date on which the invoice was issued
      */
     issueDate?: string;
-    /**
-     * The ID of the customer who the invoice is issued to
-     */
-    customerId?: number;
+    customer?: CustomerResponseDto;
     /**
      * The list of items and their quantities included in the invoice
      */
-    items?: Array<InvoiceItemDto>;
+    items?: Array<InvoiceItemResponseDto>;
 }
 

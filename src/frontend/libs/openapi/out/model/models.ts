@@ -7,6 +7,7 @@ export * from './errorResponse';
 export * from './invoiceCreateDto';
 export * from './invoiceDto';
 export * from './invoiceItemDto';
+export * from './invoiceItemResponseDto';
 export * from './productRequestDto';
 export * from './productResponseDto';
 export * from './userCreateDto';

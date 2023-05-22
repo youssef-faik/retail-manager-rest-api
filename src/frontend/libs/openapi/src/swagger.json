@@ -2091,20 +2091,37 @@
             "description": "The date on which the invoice was issued",
             "format": "date"
           },
-          "customerId": {
-            "type": "integer",
-            "description": "The ID of the customer who the invoice is issued to",
-            "format": "int64"
+          "customer": {
+            "$ref": "#/components/schemas/CustomerResponseDto"
           },
           "items": {
             "type": "array",
             "description": "The list of items and their quantities included in the invoice",
             "items": {
-              "$ref": "#/components/schemas/InvoiceItemDto"
+              "$ref": "#/components/schemas/InvoiceItemResponseDto"
             }
           }
         },
         "description": "Response body for an invoice response"
+      },
+      "InvoiceItemResponseDto": {
+        "title": "Invoice Item Response Schema",
+        "type": "object",
+        "properties": {
+          "product": {
+            "$ref": "#/components/schemas/ProductResponseDto"
+          },
+          "quantity": {
+            "type": "integer",
+            "description": "The quantity of the product being invoiced",
+            "format": "int32"
+          },
+          "unitPrice": {
+            "type": "number",
+            "description": "The unit price of the product being invoiced"
+          }
+        },
+        "description": "Represents an item included in an invoice"
       }
     },
     "securitySchemes": {

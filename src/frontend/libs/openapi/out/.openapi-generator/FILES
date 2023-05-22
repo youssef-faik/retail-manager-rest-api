@@ -21,6 +21,7 @@ model/errorResponse.ts
 model/invoiceCreateDto.ts
 model/invoiceDto.ts
 model/invoiceItemDto.ts
+model/invoiceItemResponseDto.ts
 model/models.ts
 model/productRequestDto.ts
 model/productResponseDto.ts
