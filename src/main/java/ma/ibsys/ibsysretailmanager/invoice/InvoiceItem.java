@@ -30,7 +30,7 @@ public class InvoiceItem {
   private Invoice invoice;
   
   @NotNull(message = "product is mandatory")
-  @ManyToOne
+  @ManyToOne(cascade = CascadeType.ALL)
   @MapsId(value = "productId")
   @JoinColumn(
           name = "product_id",

@@ -149,6 +149,6 @@ public interface InvoiceApi {
                     schema = @Schema(implementation = ErrorResponse.class)))
       })
   ResponseEntity<Void> createInvoice(
-      @Parameter(required = true, schema = @Schema(implementation = InvoiceDto.class)) @RequestBody
+      @Parameter(required = true, schema = @Schema(implementation = InvoiceCreateDto.class)) @RequestBody
           InvoiceCreateDto invoiceCreateDto);
 }

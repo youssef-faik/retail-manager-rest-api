@@ -42,6 +42,7 @@ public class Invoice {
   public void addItem(InvoiceItem invoiceItem) {
     if (!this.items.contains(invoiceItem)) {
       this.items.add(invoiceItem);
+      invoiceItem.setInvoice(this);
     }
   }
 }

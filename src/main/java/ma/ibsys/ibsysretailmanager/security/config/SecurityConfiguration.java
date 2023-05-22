@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import ma.ibsys.ibsysretailmanager.security.jwt.JwtAuthenticationFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -28,6 +29,7 @@ public class SecurityConfiguration {
     http.authorizeHttpRequests()
         .requestMatchers("/swagger-ui/index.html", "/v3/api-docs", "/v3/api-docs/**", "/swagger-resources/**", "/swagger-ui.html", "/webjars/**", "/swagger.json", "/swagger-ui/**").permitAll()
         .requestMatchers("/api/v1/auth/**").permitAll()
+        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
         .anyRequest().authenticated()
         .and()
         .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)

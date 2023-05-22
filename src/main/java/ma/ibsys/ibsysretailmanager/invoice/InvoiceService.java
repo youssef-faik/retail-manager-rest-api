@@ -34,13 +34,8 @@ public class InvoiceService {
   }
 
   public ResponseEntity<Void> createInvoice(InvoiceCreateDto invoiceCreateDto) {
-    Invoice invoice = modelMapper.map(invoiceCreateDto, Invoice.class);
-    for (InvoiceItem item : invoice.getItems()) {
-      item.setInvoice(invoice);
-    }
-
-    Invoice savedInvoice = invoiceRepository.save(invoice);
-
-    return ResponseEntity.created(URI.create("/api/v1/invoices/" + savedInvoice.getId())).build();
+    Invoice mappedInvoice = modelMapper.map(invoiceCreateDto, Invoice.class);
+    int id = invoiceRepository.save(mappedInvoice).getId();
+    return ResponseEntity.created(URI.create("/api/v1/invoices/" + id)).build();
   }
 }

@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.*;
     name = "User",
     description =
         "The User API. Contains all the operations that can be performed on a user. Requires ADMIN role.")
-@CrossOrigin
 @SecurityRequirement(name = "Bearer_Authentication")
 @RequestMapping("/api/v1/users")
 public interface UserApi {

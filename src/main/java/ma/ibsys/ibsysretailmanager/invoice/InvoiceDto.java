@@ -1,12 +1,12 @@
 package ma.ibsys.ibsysretailmanager.invoice;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import java.time.LocalDate;
 import java.util.List;
-
-import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import ma.ibsys.ibsysretailmanager.customer.CustomerResponseDto;
 
 @Data
 @NoArgsConstructor
@@ -15,10 +15,13 @@ import lombok.NoArgsConstructor;
 public class InvoiceDto {
   @Schema(description = "The ID of the invoice")
   private int id;
+
   @Schema(description = "The date on which the invoice was issued")
   private LocalDate issueDate;
-  @Schema(description = "The ID of the customer who the invoice is issued to")
-  private Long customerId;
+
+  @Schema(description = "The customer who the invoice is issued to")
+  private CustomerResponseDto customer;
+
   @Schema(description = "The list of items and their quantities included in the invoice")
-  private List<InvoiceItemDto> items;
+  private List<InvoiceItemResponseDto> items;
 }
