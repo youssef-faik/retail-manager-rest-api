@@ -42,6 +42,7 @@ export class PreviewInvoiceComponent implements OnInit {
           }
         }
         , error => {
+          console.log(error)
         }
       )
   }
@@ -100,4 +101,15 @@ export class PreviewInvoiceComponent implements OnInit {
     });
   }
 
+  getDisplayDate(dateStr: string | undefined) {
+    // @ts-ignore
+    const date = new Date(dateStr);
+    const options: Intl.DateTimeFormatOptions = {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric'
+    };
+
+    return date.toLocaleDateString('en-GB', options);
+  }
 }

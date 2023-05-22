@@ -1,19 +1,16 @@
-<nav class="page-breadcrumb">
-  <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
-    <li class="breadcrumb-item"><a routerLink="/invoices">Invoices</a></li>
-    <li aria-current="page" class="breadcrumb-item active">Invoice Preview</li>
-  </ol>
-</nav>
-
 <div class="row mb-3">
   <div class="col">
     <button
       (click)="convertToPDF()"
       class="btn btn-primary float-end">
-      <i appFeatherIcon class="me-2 icon-md" data-feather="printer"></i>
+      <i class="feather icon-printer"></i>
       Print
     </button>
+    <a
+      class="btn btn-outline-primary float-start"
+      routerLink="/invoices">
+      <i class="feather icon-arrow-left"></i>
+      Back</a>
   </div>
 </div>
 
@@ -56,14 +53,14 @@
           </div>
           <div class="col-lg-3 pe-0">
             <div>
-              <h4 class="fw-bold text-uppercase text-end mt-4 mb-2">invoice</h4>
-              <h6 class="text-end"># INV-{{invoice?.id}}</h6>
+              <h4 class="fw-bold text-uppercase text-end mt-4 mb-5">invoice</h4>
+              <h6 class="text-end mb-2"># INV-{{invoice?.id}}</h6>
               <h6 class="text-end fw-normal mb-5">
                 <span class="text-muted">Invoice Date :</span>
-                {{invoice?.issueDate}}
+                {{getDisplayDate(invoice?.issueDate)}}
               </h6>
             </div>
-            <div class="my-5 pt-5">
+            <div class="my-5 pt-2">
               <h3 class="mt-5 mb-2 text-muted">Invoice to :</h3>
               <table class="table">
                 <tr>
