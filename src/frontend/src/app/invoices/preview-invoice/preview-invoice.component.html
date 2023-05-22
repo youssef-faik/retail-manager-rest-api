@@ -8,30 +8,32 @@
 
 <div class="row mb-3">
   <div class="col">
-    <a
-      class="btn btn-primary float-end "
-      routerLink=".">
+    <button
+      (click)="convertToPDF()"
+      class="btn btn-primary float-end">
       <i appFeatherIcon class="me-2 icon-md" data-feather="printer"></i>
       Print
-    </a>
+    </button>
   </div>
 </div>
 
 <div class="row">
   <div class="col-md-12">
-    <div class="card">
+    <div class="card" id="invoice" style="min-height: 1310px">
       <div class="card-body">
         <div class="container-fluid d-flex justify-content-between">
           <div class="col-lg-3 ps-0">
-            <a class="nobleui-logo" routerLink=".">
-              <img
-                alt="logo"
-                class="rounded mx-auto d-block mb-4 mt-2"
-                src="assets/images/logo-black.png"
-                style="height: 88px;">
-            </a>
-            <h3 class="mt-5 mb-2 text-muted">Invoice from :</h3>
-            <div>
+            <div class="mb-5 ">
+              <a class="nobleui-logo mb-5" routerLink=".">
+                <img
+                  alt="logo"
+                  class="rounded mx-auto d-block mb-4 mt-2"
+                  src="assets/images/logo-black.png"
+                  style="height: 88px;">
+              </a>
+            </div>
+            <div class="my-5 pt-5">
+              <h3 class="mb-2  pt-5 text-muted">Invoice from :</h3>
               <table class="table">
                 <tr>
                   <th>Name:</th>
@@ -53,14 +55,16 @@
             </div>
           </div>
           <div class="col-lg-3 pe-0">
-            <h4 class="fw-bold text-uppercase text-end mt-4 mb-2">invoice</h4>
-            <h6 class="text-end"># INV-{{invoice?.id}}</h6>
-            <h6 class="text-end fw-normal mb-5">
-              <span class="text-muted">Invoice Date :</span>
-              {{invoice?.issueDate}}
-            </h6>
-            <h3 class="mt-5 mb-2 text-muted">Invoice to :</h3>
             <div>
+              <h4 class="fw-bold text-uppercase text-end mt-4 mb-2">invoice</h4>
+              <h6 class="text-end"># INV-{{invoice?.id}}</h6>
+              <h6 class="text-end fw-normal mb-5">
+                <span class="text-muted">Invoice Date :</span>
+                {{invoice?.issueDate}}
+              </h6>
+            </div>
+            <div class="my-5 pt-5">
+              <h3 class="mt-5 mb-2 text-muted">Invoice to :</h3>
               <table class="table">
                 <tr>
                   <th>Name:</th>
@@ -82,7 +86,7 @@
             </div>
           </div>
         </div>
-        <div class="container-fluid mt-5 d-flex justify-content-center w-100">
+        <div class="container-fluid my-5 d-flex justify-content-center w-100">
           <div class="table-responsive w-100 rounded">
             <table class="table table-bordered rounded table-striped">
               <thead class="table-dark">
@@ -109,10 +113,10 @@
             </table>
           </div>
         </div>
-        <div class="container-fluid mt-5 w-100">
-          <div class="row">
+        <div class="my-5 me-5 w-100 py-5">
+          <div class="row ">
             <div class="col-md-6 ms-auto">
-              <div class="table-responsive">
+              <div class="card  table-responsive">
                 <table class="table">
                   <tbody>
                   <tr>

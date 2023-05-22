@@ -44,6 +44,8 @@
     "chart.js": "^3.9.1",
     "cropperjs": "^1.5.13",
     "feather-icons": "^4.29.0",
+    "html2canvas": "^1.4.1",
+    "jspdf": "^2.5.1",
     "metismenujs": "^1.3.1",
     "ng-apexcharts": "^1.7.4",
     "ng2-charts": "^3.1.2",

@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {InvoiceDto, InvoiceService, ProductResponseDto} from "../../../../libs/openapi/out";
+import html2canvas from "html2canvas";
+import jsPDF from "jspdf";
 
 @Component({
   selector: 'app-preview-invoice',
@@ -13,6 +15,7 @@ export class PreviewInvoiceComponent implements OnInit {
 
   totalIncluVTA: number = 0;
   totalExcluVTA: number = 0;
+  title = 'html-to-pdf-angular-application';
 
   constructor(
     private route: ActivatedRoute,
@@ -78,6 +81,23 @@ export class PreviewInvoiceComponent implements OnInit {
 
     // @ts-ignore
     return sellingPriceExcludingTaxes * (1 + taxRatePercentage);
+  }
+
+  public convertToPDF() {
+    html2canvas(document.getElementById('invoice')!).then(canvas => {
+      // Few necessary setting options
+      const contentDataURL = canvas.toDataURL('image/png')
+
+      // A4 size page of PDF
+      // @ts-ignore
+      let pdf = new jsPDF('p', 'mm', 'a4');
+      var width = pdf.internal.pageSize.getWidth();
+      var height = canvas.height * width / canvas.width;
+      pdf.addImage(contentDataURL, 'PNG', 0, 0, width, height)
+
+      // Generated PDF
+      pdf.save(`invoice-${this.id}.pdf`);
+    });
   }
 
 }
