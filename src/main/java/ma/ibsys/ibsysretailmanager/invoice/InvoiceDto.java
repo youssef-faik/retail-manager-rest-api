@@ -11,17 +11,19 @@ import ma.ibsys.ibsysretailmanager.customer.CustomerResponseDto;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Schema(title = "Invoice Response Schema", description = "Response body for an invoice response")
+@Schema(
+    title = "Schéma de réponse de facture.",
+    description = "Corps de la réponse pour une facture.")
 public class InvoiceDto {
-  @Schema(description = "The ID of the invoice")
+  @Schema(description = "L'ID de la facture")
   private int id;
 
-  @Schema(description = "The date on which the invoice was issued")
+  @Schema(description = "La date à laquelle la facture a été émise.")
   private LocalDate issueDate;
 
-  @Schema(description = "The customer who the invoice is issued to")
+  @Schema(description = "Le client auquel la facture est émise.")
   private CustomerResponseDto customer;
 
-  @Schema(description = "The list of items and their quantities included in the invoice")
+  @Schema(description = "La liste des articles et de leurs quantités inclus dans la facture.")
   private List<InvoiceItemResponseDto> items;
 }

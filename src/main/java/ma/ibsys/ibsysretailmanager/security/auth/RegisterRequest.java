@@ -1,8 +1,5 @@
 package ma.ibsys.ibsysretailmanager.security.auth;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -10,29 +7,28 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import ma.ibsys.ibsysretailmanager.user.Role;
 
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class RegisterRequest {
-  @Size(min = 2, max = 50, message = "firstName must be between {min} and {max} characters long")
-  @NotBlank(message = "firstName is mandatory")
+  @Size(min = 2, max = 50, message = "Le prénom doit contenir entre {min} et {max} caractères.")
+  @NotBlank(message = "Le prénom est obligatoire.")
   private String firstName;
-  
-  @Size(min = 2, max = 50, message = "lastName must be between {min} and {max} characters long")
-  @NotBlank(message = "lastName is mandatory")
+
+  @Size(min = 2, max = 50, message = "Le nom doit contenir entre {min} et {max} caractères.")
+  @NotBlank(message = "Le nom est obligatoire.")
   private String lastName;
-  
-  @Email(message = "email should be valid")
-  @NotBlank(message = "email is mandatory")
+
+  @Email(message = "L'email doit être valide.")
+  @NotBlank(message = "L'email est obligatoire.")
   private String email;
-  
-  @Size(min = 8, message = "password must be between {min} and {max} characters long")
-  @NotBlank(message = "password is mandatory")
+
+  @Size(min = 8, message = "Le mot de passe doit contenir entre {min} et {max} caractères.")
+  @NotBlank(message = "Le mot de passe est obligatoire.")
   private String password;
-  
-  @NotBlank(message = "role is mandatory")
+
+  @NotBlank(message = "Le rôle de l'utilisateur est obligatoire.")
   private String role;
 }

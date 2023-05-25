@@ -30,7 +30,7 @@ public class UserService {
     User user =
         userRepository
             .findById(id)
-            .orElseThrow(() -> new EntityNotFoundException("User not found with id " + id));
+            .orElseThrow(() -> new EntityNotFoundException("Utilisateur introuvable avec l'ID" + id));
     return ResponseEntity.ok(modelMapper.map(user, UserDto.class));
   }
 
@@ -45,7 +45,7 @@ public class UserService {
     User user =
         userRepository
             .findById(id)
-            .orElseThrow(() -> new EntityNotFoundException("User not found with id " + id));
+            .orElseThrow(() -> new EntityNotFoundException("Utilisateur introuvable avec l'ID" + id));
     user.setFirstName(userUpdateDto.getFirstName());
     user.setLastName(userUpdateDto.getLastName());
     user.setEmail(userUpdateDto.getEmail());
@@ -73,7 +73,7 @@ public class UserService {
         userRepository
             .findByEmail(userEmail)
             .orElseThrow(
-                () -> new EntityNotFoundException("User not found with email " + userEmail));
+                () -> new EntityNotFoundException("Utilisateur introuvable avec l'adresse e-mail " + userEmail));
 
     // verify old password
     if (!passwordEncoder.matches(changePasswordRequest.getOldPassword(), user.getPassword())) {

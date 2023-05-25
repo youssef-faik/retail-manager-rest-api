@@ -2,15 +2,15 @@ package ma.ibsys.ibsysretailmanager.product;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 
-@Schema(name = "TaxRate", description = "Enumeration of tax rates")
+@Schema(name = "TaxRate", description = "Énumération des taux de taxe")
 public enum TaxRate {
-  @Schema(name = "20% tax rate")
+  @Schema(name = "Taux de taxe de 20%")
   TWENTY(20),
-  @Schema(name = "14% tax rate")
+  @Schema(name = "Taux de taxe de 14%")
   FOURTEEN(14),
-  @Schema(name = "10% tax rate")
+  @Schema(name = "Taux de taxe de 10%")
   TEN(10),
-  @Schema(name = "7% tax rate")
+  @Schema(name = "Taux de taxe de 7%")
   SEVEN(7);
 
   private final int value;

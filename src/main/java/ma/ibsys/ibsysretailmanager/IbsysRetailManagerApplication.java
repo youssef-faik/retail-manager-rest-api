@@ -32,14 +32,14 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
     scheme = "bearer",
     in = SecuritySchemeIn.HEADER,
     description =
-        "A JWT token is required to access this API.\nJWT token can be obtained by providing email/password to the authentication API.")
+        "Un jeton JWT est requis pour accéder à cette API.\nLe jeton JWT peut être obtenu en fournissant l'e-mail/le mot de passe à l'API d'authentification.")
 @OpenAPIDefinition(
     info =
         @Info(
             title = "IBSYS RETAIL MANAGER API",
             version = "${app.version}",
             description =
-                "This API provides various endpoints to manage retail operations such as creating and updating products, managing inventory, and processing orders."))
+                "Cette API propose plusieurs points de terminaison pour gérer les opérations de vente au détail, telles que la création et la mise à jour de produits, la gestion des stocks et le traitement des commandes."))
 public class IbsysRetailManagerApplication implements CommandLineRunner {
   private final ProductRepository productRepository;
   private final CustomerRepository customerRepository;
@@ -67,12 +67,13 @@ public class IbsysRetailManagerApplication implements CommandLineRunner {
 
   @Override
   public void run(String... args) throws Exception {
-    Customer ronaSARl =
+    Customer acmeCorp =
         Customer.builder()
-            .name("Rona SARl")
-            .address("Tit Mellil, Casablanca")
+            .ICE("563456789123456")
+            .name("Acme Corp")
+            .address("123 Main St, City, State, Zip")
             .phone("0522132345")
-            .email("rona@mail.ma")
+            .email("acme-corp@mail.ma")
             .build();
 
     Product mouse =
@@ -103,7 +104,7 @@ public class IbsysRetailManagerApplication implements CommandLineRunner {
             .isEnabled(true)
             .build();
 
-    customerRepository.save(ronaSARl);
+    customerRepository.save(acmeCorp);
     productRepository.save(mouse);
     productRepository.save(laptop);
     userRepository.save(user);

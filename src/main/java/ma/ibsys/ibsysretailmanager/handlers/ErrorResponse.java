@@ -14,14 +14,16 @@ import org.springframework.http.HttpStatus;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Schema(title = "Error Response Schema", description = "Represents the error response returned by the API.")
+@Schema(
+    title = "Schéma de réponse d'erreur",
+    description = "Représente la réponse d'erreur renvoyée par l'API.")
 public class ErrorResponse {
-  @Schema(description = "The HTTP status code associated with the error.", example = "400")
+  @Schema(description = "Le code de statut HTTP associé à l'erreur.", example = "400")
   private HttpStatus httpStatus;
 
-  @Schema(description = "The timestamp when the error occurred.", example = "2023-04-26T10:30:00")
+  @Schema(description = "L'horodatage de l'erreur.", example = "2023-04-26T10:30:00")
   private LocalDateTime timestamp;
 
-  @Schema(description = "The error message.", example = "The requested entity was not found.")
+  @Schema(description = "Le message d'erreur.", example = "L'entité demandée n'a pas été trouvée.")
   private String message;
 }

@@ -5,7 +5,6 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -32,32 +31,32 @@ public class User implements UserDetails {
   @Column(name = "id", updatable = false)
   private int id;
 
-  @Size(min = 2, max = 50, message = "firstName must be between {min} and {max} characters long")
-  @NotBlank(message = "firstName is mandatory")
+  @Size(min = 2, max = 50, message = "Le prénom doit comporter entre {min} et {max} caractères.")
+  @NotBlank(message = "Le prénom est obligatoire.")
   @Column(name = "first_name", nullable = false)
   private String firstName;
 
-  @Size(min = 2, max = 50, message = "lastName must be between {min} and {max} characters long")
-  @NotBlank(message = "lastName is mandatory")
+  @Size(min = 2, max = 50, message = "Le nom doit comporter entre {min} et {max} caractères.")
+  @NotBlank(message = "Le nom est obligatoire.")
   @Column(name = "last_name", nullable = false)
   private String lastName;
 
-  @Email(message = "email should be valid")
-  @NotBlank(message = "email is mandatory")
+  @Email(message = "L'adresse e-mail doit être valide.")
+  @NotBlank(message = "L'adresse e-mail est obligatoire.")
   @Column(name = "email", nullable = false)
   private String email;
 
-  @Size(min = 8, message = "password must be between {min} and {max} characters long")
-  @NotBlank(message = "password is mandatory")
+  @Size(min = 8, message = "Le mot de passe doit comporter entre {min} et {max} caractères.")
+  @NotBlank(message = "Le mot de passe est obligatoire.")
   @Column(name = "password", nullable = false)
   private String password;
 
   @Enumerated(EnumType.STRING)
-  @NotNull(message = "role is mandatory")
+  @NotNull(message = "Le rôle est obligatoire.")
   @Column(name = "role", nullable = false)
   private Role role;
-  
-  @NotNull(message = "isEnabled is mandatory")
+
+  @NotNull(message = "est activé est obligatoire.")
   @Column(name = "is_enabled", nullable = false)
   private boolean isEnabled = true;
 

@@ -17,39 +17,41 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @RequestMapping("/api/v1/dashboard")
 @SecurityRequirement(name = "Bearer_Authentication")
-@Tag(name = "Dashboard", description = "API endpoints for dashboard metrics")
+@Tag(
+    name = "Tableau de bord",
+    description = "Points d'accès API pour les métriques du tableau de bord")
 public interface DashboardApi {
 
   @GetMapping("/sales")
   @Operation(
-      summary = "Get sales data",
-      description = "Get the number of sales within a given period of time.")
+      summary = "Obtenir les données de ventes",
+      description = "Obtenir le nombre de ventes sur une période donnée.")
   @ApiResponses(
       value = {
         @ApiResponse(
             responseCode = "200",
-            description = "Successfully retrieved sales data",
+            description = "Données de ventes récupérées avec succès",
             content =
                 @Content(
                     mediaType = "application/json",
                     schema = @Schema(implementation = ChartDataDto.class))),
         @ApiResponse(
             responseCode = "401",
-            description = "Unauthorized",
+            description = "Non autorisé",
             content =
                 @Content(
                     mediaType = "application/json",
                     schema = @Schema(implementation = ErrorResponse.class))),
         @ApiResponse(
             responseCode = "403",
-            description = "Forbidden",
+            description = "Interdit",
             content =
                 @Content(
                     mediaType = "application/json",
                     schema = @Schema(implementation = ErrorResponse.class))),
         @ApiResponse(
             responseCode = "500",
-            description = "Internal server error",
+            description = "Erreur interne du serveur",
             content =
                 @Content(
                     mediaType = "application/json",
@@ -57,93 +59,46 @@ public interface DashboardApi {
       })
   ResponseEntity<ChartDataDto> getSales(
       @Parameter(
-              description = "Start date (ISO 8601 format, e.g., 2023-05-01)",
+              description = "Date de début (format ISO 8601, par ex. : 2023-05-01)",
               example = "2023-05-01")
-          @RequestParam(value = "start_date", required = false, defaultValue = "30 days ago")
+          @RequestParam(value = "start_date", required = false, defaultValue = "il y a 30 jours")
           LocalDate startDate,
       @Parameter(
-              description = "End date (ISO 8601 format, e.g., 2023-05-31)",
+              description = "Date de fin (format ISO 8601, par ex. : 2023-05-31)",
               example = "2023-05-31")
-          @RequestParam(value = "end_date", required = false, defaultValue = "today")
-          LocalDate endDate);
-
-  @GetMapping("/revenue")
-  @Operation(
-      summary = "Get revenue data",
-      description = "Get the revenue generated within a given period of time.")
-  @ApiResponses(
-      value = {
-        @ApiResponse(
-            responseCode = "200",
-            description = "Successfully retrieved revenue data",
-            content =
-                @Content(
-                    mediaType = "application/json",
-                    schema = @Schema(implementation = ChartDataDto.class))),
-        @ApiResponse(
-            responseCode = "401",
-            description = "Unauthorized",
-            content =
-                @Content(
-                    mediaType = "application/json",
-                    schema = @Schema(implementation = ErrorResponse.class))),
-        @ApiResponse(
-            responseCode = "403",
-            description = "Forbidden",
-            content =
-                @Content(
-                    mediaType = "application/json",
-                    schema = @Schema(implementation = ErrorResponse.class))),
-        @ApiResponse(
-            responseCode = "500",
-            description = "Internal server error",
-            content =
-                @Content(
-                    mediaType = "application/json",
-                    schema = @Schema(implementation = ErrorResponse.class)))
-      })
-  ResponseEntity<ChartDataDto> getRevenue(
-      @Parameter(
-              description = "Start date (ISO 8601 format, e.g., 2023-05-01)",
-              example = "2023-05-01")
-          @RequestParam(value = "start_date", required = false, defaultValue = "30 days ago")
-          LocalDate startDate,
-      @Parameter(
-              description = "End date (ISO 8601 format, e.g., 2023-05-31)",
-              example = "2023-05-31")
-          @RequestParam(value = "end_date", required = false, defaultValue = "today")
+          @RequestParam(value = "end_date", required = false, defaultValue = "aujourd'hui")
           LocalDate endDate);
 
   @GetMapping("/orders")
   @Operation(
-      summary = "Get orders data",
-      description = "Get the number of orders created within a given period of time.")
+      summary = "Obtenir les données de commandes",
+      description = "Obtenir le nombre de commandes créées sur une période donnée.")
   @ApiResponses(
       value = {
         @ApiResponse(
             responseCode = "200",
-            description = "Successfully retrieved orders data",
+            description = "Données de commandes récupérées avec succès",
             content =
                 @Content(
                     mediaType = "application/json",
                     schema = @Schema(implementation = ChartDataDto.class))),
         @ApiResponse(
             responseCode = "401",
-            description = "Unauthorized",
+            description = "Non autorisé",
             content =
                 @Content(
                     mediaType = "application/json",
                     schema = @Schema(implementation = ErrorResponse.class))),
         @ApiResponse(
             responseCode = "403",
-            description = "Forbidden",
+            description = "Interdit",
             content =
                 @Content(
                     mediaType = "application/json",
                     schema = @Schema(implementation = ErrorResponse.class))),
         @ApiResponse(
             responseCode = "500",
-            description = "Internal server error",
+            description = "Erreur interne du serveur",
             content =
                 @Content(
                     mediaType = "application/json",
@@ -151,46 +106,46 @@ public interface DashboardApi {
       })
   ResponseEntity<ChartDataDto> getOrders(
       @Parameter(
-              description = "Start date (ISO 8601 format, e.g., 2023-05-01)",
+              description = "Date de début (format ISO 8601, par ex. : 2023-05-01)",
               example = "2023-05-01")
-          @RequestParam(value = "start_date", required = false, defaultValue = "30 days ago")
+          @RequestParam(value = "start_date", required = false, defaultValue = "il y a 30 jours")
           LocalDate startDate,
       @Parameter(
-              description = "End date (ISO 8601 format, e.g., 2023-05-31)",
+              description = "Date de fin (format ISO 8601, par ex. : 2023-05-31)",
               example = "2023-05-31")
-          @RequestParam(value = "end_date", required = false, defaultValue = "today")
+          @RequestParam(value = "end_date", required = false, defaultValue = "aujourd'hui")
           LocalDate endDate);
 
   @GetMapping("/customers")
   @Operation(
-      summary = "Get customers data",
-      description = "Get the number of customers created within a given period of time.")
+      summary = "Obtenir les données des clients",
+      description = "Obtenir le nombre de clients créés sur une période donnée.")
   @ApiResponses(
       value = {
         @ApiResponse(
             responseCode = "200",
-            description = "Successfully retrieved customers data",
+            description = "Données des clients récupérées avec succès",
             content =
                 @Content(
                     mediaType = "application/json",
                     schema = @Schema(implementation = ChartDataDto.class))),
         @ApiResponse(
             responseCode = "401",
-            description = "Unauthorized",
+            description = "Non autorisé",
             content =
                 @Content(
                     mediaType = "application/json",
                     schema = @Schema(implementation = ErrorResponse.class))),
         @ApiResponse(
             responseCode = "403",
-            description = "Forbidden",
+            description = "Interdit",
             content =
                 @Content(
                     mediaType = "application/json",
                     schema = @Schema(implementation = ErrorResponse.class))),
         @ApiResponse(
             responseCode = "500",
-            description = "Internal server error",
+            description = "Erreur interne du serveur",
             content =
                 @Content(
                     mediaType = "application/json",
@@ -198,13 +153,13 @@ public interface DashboardApi {
       })
   ResponseEntity<ChartDataDto> getCustomers(
       @Parameter(
-              description = "Start date (ISO 8601 format, e.g., 2023-05-01)",
+              description = "Date de début (format ISO 8601, par ex. : 2023-05-01)",
               example = "2023-05-01")
-          @RequestParam(value = "start_date", required = false, defaultValue = "30 days ago")
+          @RequestParam(value = "start_date", required = false, defaultValue = "il y a 30 jours")
           LocalDate startDate,
       @Parameter(
-              description = "End date (ISO 8601 format, e.g., 2023-05-31)",
+              description = "Date de fin (format ISO 8601, par ex. : 2023-05-31)",
               example = "2023-05-31")
-          @RequestParam(value = "end_date", required = false, defaultValue = "today")
+          @RequestParam(value = "end_date", required = false, defaultValue = "aujourd'hui")
           LocalDate endDate);
 }

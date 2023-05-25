@@ -40,33 +40,6 @@ public class DashboardController implements DashboardApi {
   }
 
   @Override
-  public ResponseEntity<ChartDataDto> getRevenue(
-      @RequestParam(value = "startDate", required = false) LocalDate startDate,
-      @RequestParam(value = "endDate", required = false) LocalDate endDate) {
-    // Logic to retrieve revenue data for the given period
-    // Replace this with your actual implementation
-
-    // Example data
-    List<String> dates =
-        Arrays.asList(
-            "Jan 01 2022",
-            "Jan 02 2022",
-            "Jan 03 2022",
-            "Jan 04 2022",
-            "Jan 05 2022",
-            "Jan 06 2022",
-            "Jan 07 2022",
-            "Jan 08 2022",
-            "Jan 09 2022",
-            "Jan 10 2022",
-            "Jan 11 2022");
-    List<Integer> data = Arrays.asList(500, 750, 0, 600, 800, 700, 0, 400, 650, 850, 950);
-
-    ChartDataDto chartData = new ChartDataDto(dates, data);
-    return ResponseEntity.ok(chartData);
-  }
-
-  @Override
   public ResponseEntity<ChartDataDto> getOrders(
       @RequestParam(value = "startDate", required = false) LocalDate startDate,
       @RequestParam(value = "endDate", required = false) LocalDate endDate) {

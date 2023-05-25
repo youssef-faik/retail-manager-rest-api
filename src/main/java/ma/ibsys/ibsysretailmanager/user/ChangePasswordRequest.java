@@ -1,22 +1,23 @@
 package ma.ibsys.ibsysretailmanager.user;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.persistence.Column;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 @Data
-@Schema(title = "Change Password Request Schema", description = "Request body for changing the password")
+@Schema(
+    title = "Schéma de demande de modification du mot de passe.",
+    description = "Corps de la requête pour changer le mot de passe.")
 public class ChangePasswordRequest {
-  
-  @Schema(description = "The user's old password.", required = true)
-  @Size(min = 8, message = "oldPassword must be between {min} and {max} characters long")
-  @NotBlank(message = "oldPassword is mandatory")
+
+  @Schema(description = "Ancien mot de passe de l'utilisateur.", required = true)
+  @Size(min = 8, message = "L'ancien mot de passe doit contenir entre {min} et {max} caractères.")
+  @NotBlank(message = "oldPassword est obligatoire.")
   private String oldPassword;
-  
-  @Schema(description = "The user's new password.", required = true)
-  @Size(min = 8, message = "newPassword must be between {min} and {max} characters long")
-  @NotBlank(message = "newPassword is mandatory")
+
+  @Schema(description = "Nouveau mot de passe de l'utilisateur.", required = true)
+  @Size(min = 8, message = "Le nouveau mot de passe doit contenir entre {min} et {max} caractères.")
+  @NotBlank(message = "newPassword est obligatoire.")
   private String newPassword;
 }

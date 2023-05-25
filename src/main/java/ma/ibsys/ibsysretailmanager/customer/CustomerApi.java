@@ -13,24 +13,30 @@ import jakarta.validation.Valid;
 import java.util.List;
 import ma.ibsys.ibsysretailmanager.handlers.ErrorResponse;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @RequestMapping("/api/v1/customers")
 @SecurityRequirement(name = "Bearer_Authentication")
 @Tag(
-    name = "Customer",
+    name = "Client",
     description =
-        "The Customer API. Contains all the operations that can be performed on a customer")
+        "L'API Client. Contient toutes les opérations pouvant être effectuées sur un client.")
 public interface CustomerApi {
   @GetMapping
   @Operation(
-      summary = "Get all customers",
-      description = "Get a list that contains the details for all customers.")
+      summary = "Obtenir tous les clients.",
+      description = "Obtenir une liste contenant les détails de tous les clients.")
   @ApiResponses(
       value = {
         @ApiResponse(
             responseCode = "200",
-            description = "Successfully retrieved customers",
+            description = "Clients récupérés avec succès.",
             content =
                 @Content(
                     mediaType = "application/json",
@@ -39,28 +45,21 @@ public interface CustomerApi {
                             schema = @Schema(implementation = CustomerResponseDto.class)))),
         @ApiResponse(
             responseCode = "401",
-            description = "Unauthorized",
+            description = "Non autorisé.",
             content =
                 @Content(
                     mediaType = "application/json",
                     schema = @Schema(implementation = ErrorResponse.class))),
         @ApiResponse(
             responseCode = "403",
-            description = "Forbidden",
-            content =
-                @Content(
-                    mediaType = "application/json",
-                    schema = @Schema(implementation = ErrorResponse.class))),
-        @ApiResponse(
-            responseCode = "404",
-            description = "Customers not found",
+            description = "Accès interdit.",
             content =
                 @Content(
                     mediaType = "application/json",
                     schema = @Schema(implementation = ErrorResponse.class))),
         @ApiResponse(
             responseCode = "500",
-            description = "Internal server error",
+            description = "Erreur interne du serveur.",
             content =
                 @Content(
                     mediaType = "application/json",
@@ -68,189 +67,200 @@ public interface CustomerApi {
       })
   ResponseEntity<List<CustomerResponseDto>> getAllCustomers();
 
-  @GetMapping("/{id}")
+  @GetMapping("/{ice}")
   @Operation(
-      summary = "Get customer details",
-      description = "Get the details of the customer with the given id.")
+      summary = "Obtenir les détails du client.",
+      description = "Obtenir les détails du client avec le numéro ICE donné.")
   @ApiResponses(
       value = {
         @ApiResponse(
             responseCode = "200",
-            description = "Successfully retrieved customer",
+            description = "Client récupéré avec succès.",
             content =
                 @Content(
                     mediaType = "application/json",
                     schema = @Schema(implementation = CustomerResponseDto.class))),
         @ApiResponse(
             responseCode = "401",
-            description = "Unauthorized",
+            description = "Non autorisé.",
             content =
                 @Content(
                     mediaType = "application/json",
                     schema = @Schema(implementation = ErrorResponse.class))),
         @ApiResponse(
             responseCode = "403",
-            description = "Forbidden",
+            description = "Accès interdit.",
             content =
                 @Content(
                     mediaType = "application/json",
                     schema = @Schema(implementation = ErrorResponse.class))),
         @ApiResponse(
             responseCode = "404",
-            description = "Customer not found",
+            description = "Client non trouvé.",
             content =
                 @Content(
                     mediaType = "application/json",
                     schema = @Schema(implementation = ErrorResponse.class))),
         @ApiResponse(
             responseCode = "500",
-            description = "Internal server error",
+            description = "Erreur interne du serveur.",
             content =
                 @Content(
                     mediaType = "application/json",
                     schema = @Schema(implementation = ErrorResponse.class)))
       })
   ResponseEntity<CustomerResponseDto> getCustomer(
-      @Parameter(description = "ID of the customer to retrieve", required = true, example = "1")
+      @Parameter(
+              description = "Numéro ICE du client à récupérer.",
+              required = true,
+              example = "563456789123456")
           @PathVariable
-          Long id);
+          String ice);
 
   @PostMapping
   @Operation(
-      summary = "Create customer",
-      description = "Create a new customer with the given details.")
+      summary = "Créer un client.",
+      description = "Créer un nouveau client avec les détails donnés.")
   @ApiResponses(
       value = {
-        @ApiResponse(responseCode = "201", description = "Successfully created customer"),
+        @ApiResponse(responseCode = "201", description = "Client créé avec succès."),
         @ApiResponse(
             responseCode = "400",
-            description = "Invalid input",
+            description = "Entrée non valide.",
             content =
                 @Content(
                     mediaType = "application/json",
                     schema = @Schema(implementation = ErrorResponse.class))),
         @ApiResponse(
             responseCode = "401",
-            description = "Unauthorized",
+            description = "Non autorisé.",
             content =
                 @Content(
                     mediaType = "application/json",
                     schema = @Schema(implementation = ErrorResponse.class))),
         @ApiResponse(
             responseCode = "403",
-            description = "Forbidden",
+            description = "Accès interdit",
             content =
                 @Content(
                     mediaType = "application/json",
                     schema = @Schema(implementation = ErrorResponse.class))),
         @ApiResponse(
             responseCode = "500",
-            description = "Internal server error",
+            description = "Erreur interne du serveur.",
             content =
                 @Content(
                     mediaType = "application/json",
                     schema = @Schema(implementation = ErrorResponse.class)))
       })
   ResponseEntity<Void> createCustomer(
-      @Parameter(required = true, schema = @Schema(implementation = CustomerRequestDto.class))
+      @Parameter(required = true, schema = @Schema(implementation = CustomerCreateDto.class))
           @Valid
           @RequestBody
-          CustomerRequestDto customerRequestDto);
+          CustomerCreateDto customerCreateDto);
 
-  @PutMapping("/{id}")
+  @PutMapping("/{ice}")
   @Operation(
-      summary = "Update customer details",
-      description = "Update the details of the customer with given id.")
+      summary = "Mettre à jour les détails du client.",
+      description = "Mettre à jour les détails du client avec l'ICE donné.")
   @ApiResponses(
       value = {
         @ApiResponse(
             responseCode = "200",
-            description = "Successfully updated customer",
+            description = "Client mis à jour avec succès.",
             content =
                 @Content(
                     mediaType = "application/json",
                     schema = @Schema(implementation = CustomerResponseDto.class))),
         @ApiResponse(
             responseCode = "400",
-            description = "Invalid input",
+            description = "Entrée non valide.",
             content =
                 @Content(
                     mediaType = "application/json",
                     schema = @Schema(implementation = ErrorResponse.class))),
         @ApiResponse(
             responseCode = "401",
-            description = "Unauthorized",
+            description = "Non autorisé",
             content =
                 @Content(
                     mediaType = "application/json",
                     schema = @Schema(implementation = ErrorResponse.class))),
         @ApiResponse(
             responseCode = "403",
-            description = "Forbidden",
+            description = "Accès interdit.",
             content =
                 @Content(
                     mediaType = "application/json",
                     schema = @Schema(implementation = ErrorResponse.class))),
         @ApiResponse(
             responseCode = "404",
-            description = "Customer not found",
+            description = "Client introuvable.",
             content =
                 @Content(
                     mediaType = "application/json",
                     schema = @Schema(implementation = ErrorResponse.class))),
         @ApiResponse(
             responseCode = "500",
-            description = "Internal server error",
+            description = "Erreur interne du serveur.",
             content =
                 @Content(
                     mediaType = "application/json",
                     schema = @Schema(implementation = ErrorResponse.class)))
       })
   ResponseEntity<CustomerResponseDto> updateCustomer(
-      @Parameter(description = "ID of the customer to update", required = true, example = "123")
+      @Parameter(
+              description = "ICE du client à mettre à jour.",
+              required = true,
+              example = "563456789123456")
           @PathVariable
-          Long id,
-      @Parameter(required = true, schema = @Schema(implementation = CustomerRequestDto.class))
+          String ice,
+      @Parameter(required = true, schema = @Schema(implementation = CustomerUpdateDto.class))
           @Valid
           @RequestBody
-          CustomerRequestDto customerRequestDto);
+          CustomerUpdateDto customerUpdateDto);
 
-  @DeleteMapping("/{id}")
-  @Operation(summary = "Delete customer", description = "Delete a customer with given id.")
+  @DeleteMapping("/{ice}")
+  @Operation(
+      summary = "Supprimer un client.",
+      description = "Supprimer un client avec l'ICE donné.")
   @ApiResponses(
       value = {
-        @ApiResponse(responseCode = "204", description = "Successfully deleted customer"),
+        @ApiResponse(responseCode = "204", description = "Client supprimé avec succès."),
         @ApiResponse(
             responseCode = "401",
-            description = "Unauthorized",
+            description = "Non autorisé.",
             content =
                 @Content(
                     mediaType = "application/json",
                     schema = @Schema(implementation = ErrorResponse.class))),
         @ApiResponse(
             responseCode = "403",
-            description = "Forbidden",
+            description = "Accès interdit.",
             content =
                 @Content(
                     mediaType = "application/json",
                     schema = @Schema(implementation = ErrorResponse.class))),
         @ApiResponse(
             responseCode = "404",
-            description = "Customer not found",
+            description = "Client introuvable.",
             content =
                 @Content(
                     mediaType = "application/json",
                     schema = @Schema(implementation = ErrorResponse.class))),
         @ApiResponse(
             responseCode = "500",
-            description = "Internal server error",
+            description = "Erreur interne du serveur.",
             content =
                 @Content(
                     mediaType = "application/json",
                     schema = @Schema(implementation = ErrorResponse.class)))
       })
   ResponseEntity<Void> deleteCustomer(
-      @Parameter(description = "ID of the customer to delete", required = true, example = "1")
+      @Parameter(
+              description = "ICE du client à supprimer.",
+              required = true,
+              example = "563456789123456")
           @PathVariable
-          Long id);
+          String ice);
 }

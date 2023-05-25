@@ -23,17 +23,17 @@ public class Invoice {
   @Column(name = "id", updatable = false)
   private int id;
 
-  @NotNull(message = "issueDate is mandatory")
+  @NotNull(message = "La date d'émission est obligatoire")
   @Column(name = "issueDate", nullable = false)
   private LocalDate issueDate = LocalDate.now();
 
-  @NotNull(message = "customer is mandatory")
+  @NotNull(message = "Le client est obligatoire")
   @ManyToOne(cascade = CascadeType.ALL)
   @JoinColumn(
-      name = "customer_id",
-      referencedColumnName = "id",
+      name = "customer_ice",
+      referencedColumnName = "ICE",
       nullable = false,
-      foreignKey = @ForeignKey(name = "invoice_customer_id_fk"))
+      foreignKey = @ForeignKey(name = "invoice_customer_ice_fk"))
   private Customer customer;
 
   @OneToMany(cascade = CascadeType.ALL, mappedBy = "invoice")

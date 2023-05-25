@@ -7,9 +7,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import ma.ibsys.ibsysretailmanager.customer.Customer;
+import ma.ibsys.ibsysretailmanager.customer.CustomerCreateDto;
 import ma.ibsys.ibsysretailmanager.customer.CustomerRepository;
-import ma.ibsys.ibsysretailmanager.customer.CustomerRequestDto;
 import ma.ibsys.ibsysretailmanager.customer.CustomerResponseDto;
+import ma.ibsys.ibsysretailmanager.customer.CustomerUpdateDto;
 import ma.ibsys.ibsysretailmanager.invoice.Invoice;
 import ma.ibsys.ibsysretailmanager.invoice.InvoiceCreateDto;
 import ma.ibsys.ibsysretailmanager.invoice.InvoiceItem;
@@ -37,18 +38,27 @@ public class ModelMapperConfig {
 
     // -- Customer ------------------------------------------------------------
 
-    // map CustomerRequestDto to Customer entity
+    // map CustomerCreateDto to Customer entity
     modelMapper
-        .createTypeMap(CustomerRequestDto.class, Customer.class)
-        .addMappings(mapper -> mapper.map(CustomerRequestDto::getName, Customer::setName))
-        .addMappings(mapper -> mapper.map(CustomerRequestDto::getEmail, Customer::setEmail))
-        .addMappings(mapper -> mapper.map(CustomerRequestDto::getPhone, Customer::setPhone))
-        .addMappings(mapper -> mapper.map(CustomerRequestDto::getAddress, Customer::setAddress));
+        .createTypeMap(CustomerCreateDto.class, Customer.class)
+        .addMappings(mapper -> mapper.map(CustomerCreateDto::getIce, Customer::setICE))
+        .addMappings(mapper -> mapper.map(CustomerCreateDto::getName, Customer::setName))
+        .addMappings(mapper -> mapper.map(CustomerCreateDto::getEmail, Customer::setEmail))
+        .addMappings(mapper -> mapper.map(CustomerCreateDto::getPhone, Customer::setPhone))
+        .addMappings(mapper -> mapper.map(CustomerCreateDto::getAddress, Customer::setAddress));
+
+    // map CustomerUpdateDto to Customer entity
+    modelMapper
+        .createTypeMap(CustomerUpdateDto.class, Customer.class)
+        .addMappings(mapper -> mapper.map(CustomerUpdateDto::getName, Customer::setName))
+        .addMappings(mapper -> mapper.map(CustomerUpdateDto::getEmail, Customer::setEmail))
+        .addMappings(mapper -> mapper.map(CustomerUpdateDto::getPhone, Customer::setPhone))
+        .addMappings(mapper -> mapper.map(CustomerUpdateDto::getAddress, Customer::setAddress));
 
     // map Customer entity to CustomerResponseDto
     modelMapper
         .createTypeMap(Customer.class, CustomerResponseDto.class)
-        .addMappings(mapper -> mapper.map(Customer::getId, CustomerResponseDto::setId))
+        .addMappings(mapper -> mapper.map(Customer::getICE, CustomerResponseDto::setIce))
         .addMappings(mapper -> mapper.map(Customer::getName, CustomerResponseDto::setName))
         .addMappings(mapper -> mapper.map(Customer::getEmail, CustomerResponseDto::setEmail))
         .addMappings(mapper -> mapper.map(Customer::getPhone, CustomerResponseDto::setPhone))
@@ -111,7 +121,7 @@ public class ModelMapperConfig {
                                     .orElseThrow(
                                         () ->
                                             new EntityNotFoundException(
-                                                "Product not found with id: "
+                                                "Produit introuvable avec l'ICE "
                                                     + itemDto.getProductId()));
 
                             invoiceItem.setProduct(product);
@@ -121,11 +131,11 @@ public class ModelMapperConfig {
 
               Customer customer =
                   customerRepository
-                      .findById(source.getCustomerId())
+                      .findByICE(source.getCustomerICE())
                       .orElseThrow(
                           () ->
                               new EntityNotFoundException(
-                                  "Customer not found with id: " + source.getCustomerId()));
+                                  "Client introuvable avec l'ICE " + source.getCustomerICE()));
 
               Invoice newInvoice =
                   Invoice.builder()

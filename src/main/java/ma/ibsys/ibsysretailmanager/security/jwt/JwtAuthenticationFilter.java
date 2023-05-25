@@ -20,11 +20,11 @@ import org.springframework.web.filter.OncePerRequestFilter;
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
+  private static final String AUTHORIZATION_HEADER = "Authorization";
+  private static final String TOKEN_PREFIX = "Bearer ";
   private final JwtService jwtService;
   private final UserDetailsService userDetailsService;
   private final TokenRepository tokenRepository;
-  private static final String AUTHORIZATION_HEADER = "Authorization";
-  private static final String TOKEN_PREFIX = "Bearer ";
   
   @Override
   protected void doFilterInternal(

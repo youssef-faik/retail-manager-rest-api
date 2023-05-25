@@ -14,22 +14,21 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
- 
- This class represents the configuration for the application.
- It defines beans for user details service, authentication provider, password encoder, and authentication manager.
+ * This class represents the configuration for the application. It defines beans for user details
+ * service, authentication provider, password encoder, and authentication manager.
  */
 @Configuration
 @RequiredArgsConstructor
 public class ApplicationConfig {
 
   private final UserRepository repository;
-  
+
   /**
-   
-   Creates a bean for user details service that fetches the user details from the UserRepository
-   based on the email address.
-   @return UserDetailsService - the user details service
-   @throws UsernameNotFoundException if user not found with provided username
+   * Creates a bean for user details service that fetches the user details from the UserRepository
+   * based on the email address.
+   *
+   * @return UserDetailsService - the user details service
+   * @throws UsernameNotFoundException if user not found with provided username
    */
   @Bean
   public UserDetailsService userDetailsService() {
@@ -37,14 +36,16 @@ public class ApplicationConfig {
         repository
             .findByEmail(username)
             .orElseThrow(
-                () -> new UsernameNotFoundException("User not found with username " + username));
+                () ->
+                    new UsernameNotFoundException(
+                        "Utilisateur introuvable avec l'adresse e-mail " + username));
   }
-  
+
   /**
-   
-   Creates a bean for authentication provider that uses the user details service and password
-   encoder.
-   @return AuthenticationProvider - the authentication provider
+   * Creates a bean for authentication provider that uses the user details service and password
+   * encoder.
+   *
+   * @return AuthenticationProvider - the authentication provider
    */
   @Bean
   public AuthenticationProvider authenticationProvider() {
@@ -53,22 +54,24 @@ public class ApplicationConfig {
     authProvider.setPasswordEncoder(passwordEncoder());
     return authProvider;
   }
-  
+
   /**
-   Creates a bean for password encoder that uses the BCrypt algorithm.
-   @return PasswordEncoder - the password encoder
+   * Creates a bean for password encoder that uses the BCrypt algorithm.
+   *
+   * @return PasswordEncoder - the password encoder
    */
   @Bean
   public PasswordEncoder passwordEncoder() {
     return new BCryptPasswordEncoder();
   }
-  
+
   /**
-   Creates a bean for authentication manager that gets the authentication manager from the
-   AuthenticationConfiguration.
-   @param config - the authentication configuration
-   @return AuthenticationManager - the authentication manager
-   @throws Exception if there is an error getting the authentication manager
+   * Creates a bean for authentication manager that gets the authentication manager from the
+   * AuthenticationConfiguration.
+   *
+   * @param config - the authentication configuration
+   * @return AuthenticationManager - the authentication manager
+   * @throws Exception if there is an error getting the authentication manager
    */
   @Bean
   public AuthenticationManager authenticationManager(AuthenticationConfiguration config)

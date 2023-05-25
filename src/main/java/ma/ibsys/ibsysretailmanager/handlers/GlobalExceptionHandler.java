@@ -19,7 +19,7 @@ public class GlobalExceptionHandler {
   @ExceptionHandler(EntityNotFoundException.class)
   @ResponseStatus(HttpStatus.BAD_REQUEST)
   public ErrorResponse handleEntityNotFoundException(EntityNotFoundException ex) {
-    log.error("Entity not found error: {}", ex.getMessage());
+    log.error("Erreur d'entité introuvable: {}", ex.getMessage());
     return ErrorResponse.builder()
         .httpStatus(HttpStatus.BAD_REQUEST)
         .message(ex.getMessage())
@@ -30,7 +30,7 @@ public class GlobalExceptionHandler {
   @ExceptionHandler(MethodArgumentNotValidException.class)
   @ResponseStatus(HttpStatus.BAD_REQUEST)
   public ErrorResponse handleMethodArgumentNotValid(MethodArgumentNotValidException ex) {
-    log.error("Validation error: {}", ex.getMessage());
+    log.error("Erreur de validation: {}", ex.getMessage());
     BindingResult bindingResult = ex.getBindingResult();
     List<FieldError> fieldErrors = bindingResult.getFieldErrors();
 
@@ -45,23 +45,23 @@ public class GlobalExceptionHandler {
         .timestamp(LocalDateTime.now())
         .build();
   }
-  
+
   @ExceptionHandler(BadRequestException.class)
   @ResponseStatus(HttpStatus.BAD_REQUEST)
   public ErrorResponse handleBadRequestException(BadRequestException ex) {
-    log.error("BadRequestException error: {}", ex.getMessage());
-    
+    log.error("Erreur BadRequestException: {}", ex.getMessage());
+
     return ErrorResponse.builder()
-                        .httpStatus(HttpStatus.BAD_REQUEST)
-                        .message(ex.getMessage())
-                        .timestamp(LocalDateTime.now())
-                        .build();
+        .httpStatus(HttpStatus.BAD_REQUEST)
+        .message(ex.getMessage())
+        .timestamp(LocalDateTime.now())
+        .build();
   }
-  
+
   @ExceptionHandler(Exception.class)
   @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
   public ErrorResponse handleException(Exception ex) {
-    log.error("Unexpected error: {}", ex.getMessage());
+    log.error("Erreur inattendue: {}", ex.getMessage());
     return ErrorResponse.builder()
         .httpStatus(HttpStatus.INTERNAL_SERVER_ERROR)
         .message(ex.getMessage())

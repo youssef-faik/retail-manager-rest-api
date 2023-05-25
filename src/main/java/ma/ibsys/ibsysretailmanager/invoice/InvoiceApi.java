@@ -17,47 +17,47 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/v1/invoices")
 @SecurityRequirement(name = "Bearer_Authentication")
 @Tag(
-    name = "Invoice",
+    name = "Facture",
     description =
-        "The Invoice API. Contains all the operations that can be performed on an invoice.")
+        "API Facture. Contient toutes les opérations pouvant être effectuées sur une facture.")
 public interface InvoiceApi {
   @GetMapping
   @Operation(
-      summary = "Get all invoices",
-      description = "Get a list that contains the details for all invoices.")
+      summary = "Obtenir toutes les factures.",
+      description = "Obtenir une liste contenant les détails de toutes les factures.")
   @ApiResponses(
       value = {
         @ApiResponse(
             responseCode = "200",
-            description = "Successfully retrieved invoices",
+            description = "Factures récupérées avec succès.",
             content =
                 @Content(
                     mediaType = "application/json",
                     array = @ArraySchema(schema = @Schema(implementation = InvoiceDto.class)))),
         @ApiResponse(
             responseCode = "401",
-            description = "Unauthorized",
+            description = "Non autorisé.",
             content =
                 @Content(
                     mediaType = "application/json",
                     schema = @Schema(implementation = ErrorResponse.class))),
         @ApiResponse(
             responseCode = "403",
-            description = "Forbidden",
+            description = "Interdit",
             content =
                 @Content(
                     mediaType = "application/json",
                     schema = @Schema(implementation = ErrorResponse.class))),
         @ApiResponse(
             responseCode = "404",
-            description = "Customers not found",
+            description = "Factures non trouvées.",
             content =
                 @Content(
                     mediaType = "application/json",
                     schema = @Schema(implementation = ErrorResponse.class))),
         @ApiResponse(
             responseCode = "500",
-            description = "Internal server error",
+            description = "Erreur interne du serveur.",
             content =
                 @Content(
                     mediaType = "application/json",
@@ -67,88 +67,89 @@ public interface InvoiceApi {
 
   @GetMapping("/{id}")
   @Operation(
-      summary = "Get invoice details",
-      description = "Get the details of the invoice with the given id.")
+      summary = "Obtenir les détails d'une facture.",
+      description = "Obtenir les détails de la facture avec l'identifiant donné.")
   @ApiResponses(
       value = {
         @ApiResponse(
             responseCode = "200",
-            description = "Successfully retrieved invoice",
+            description = "Facture récupérée avec succès.",
             content =
                 @Content(
                     mediaType = "application/json",
                     schema = @Schema(implementation = InvoiceDto.class))),
         @ApiResponse(
             responseCode = "401",
-            description = "Unauthorized",
+            description = "Non autorisé.",
             content =
                 @Content(
                     mediaType = "application/json",
                     schema = @Schema(implementation = ErrorResponse.class))),
         @ApiResponse(
             responseCode = "403",
-            description = "Forbidden",
+            description = "Interdit.",
             content =
                 @Content(
                     mediaType = "application/json",
                     schema = @Schema(implementation = ErrorResponse.class))),
         @ApiResponse(
             responseCode = "404",
-            description = "Invoice not found",
+            description = "Facture non trouvée.",
             content =
                 @Content(
                     mediaType = "application/json",
                     schema = @Schema(implementation = ErrorResponse.class))),
         @ApiResponse(
             responseCode = "500",
-            description = "Internal server error",
+            description = "Erreur interne du serveur.",
             content =
                 @Content(
                     mediaType = "application/json",
                     schema = @Schema(implementation = ErrorResponse.class)))
       })
   ResponseEntity<InvoiceDto> getInvoice(
-      @Parameter(description = "ID of the invoice to retrieve", required = true, example = "1")
+      @Parameter(description = "ID de la facture à récupérer.", required = true, example = "1")
           @PathVariable
           int id);
 
   @PostMapping
   @Operation(
-      summary = "Create invoice",
-      description = "Create a new invoice with the supplied details.")
+      summary = "Créer une facture.",
+      description = "Créer une nouvelle facture avec les détails fournis.")
   @ApiResponses(
       value = {
-        @ApiResponse(responseCode = "201", description = "Successfully created invoice"),
+        @ApiResponse(responseCode = "201", description = "Facture créée avec succès."),
         @ApiResponse(
             responseCode = "400",
-            description = "Invalid input",
+            description = "Entrée invalide.",
             content =
                 @Content(
                     mediaType = "application/json",
                     schema = @Schema(implementation = ErrorResponse.class))),
         @ApiResponse(
             responseCode = "401",
-            description = "Unauthorized",
+            description = "Non autorisé.",
             content =
                 @Content(
                     mediaType = "application/json",
                     schema = @Schema(implementation = ErrorResponse.class))),
         @ApiResponse(
             responseCode = "403",
-            description = "Forbidden",
+            description = "Interdit",
             content =
                 @Content(
                     mediaType = "application/json",
                     schema = @Schema(implementation = ErrorResponse.class))),
         @ApiResponse(
             responseCode = "500",
-            description = "Internal server error",
+            description = "Erreur interne du serveur.",
             content =
                 @Content(
                     mediaType = "application/json",
                     schema = @Schema(implementation = ErrorResponse.class)))
       })
   ResponseEntity<Void> createInvoice(
-      @Parameter(required = true, schema = @Schema(implementation = InvoiceCreateDto.class)) @RequestBody
+      @Parameter(required = true, schema = @Schema(implementation = InvoiceCreateDto.class))
+          @RequestBody
           InvoiceCreateDto invoiceCreateDto);
 }

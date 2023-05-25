@@ -11,15 +11,15 @@ import ma.ibsys.ibsysretailmanager.product.ProductResponseDto;
 @NoArgsConstructor
 @AllArgsConstructor
 @Schema(
-    title = "Invoice Item Response Schema",
-    description = "Represents an item included in an invoice")
+    title = "Schéma de réponse des éléments de facture.",
+    description = "Représente un article inclus dans une facture.")
 public class InvoiceItemResponseDto {
-  @Schema(description = "The product being invoiced", implementation = ProductResponseDto.class)
+  @Schema(description = "Le produit facturé.", implementation = ProductResponseDto.class)
   private ProductResponseDto product;
 
-  @Schema(description = "The quantity of the product being invoiced")
+  @Schema(description = "La quantité du produit facturé.")
   private Integer quantity;
 
-  @Schema(description = "The unit price of the product being invoiced")
+  @Schema(description = "Le prix unitaire du produit facturé.")
   private BigDecimal unitPrice;
 }

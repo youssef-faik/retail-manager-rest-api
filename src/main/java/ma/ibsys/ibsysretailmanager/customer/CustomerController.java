@@ -19,24 +19,24 @@ public class CustomerController implements CustomerApi {
   }
 
   @Override
-  public ResponseEntity<CustomerResponseDto> getCustomer(@PathVariable Long id) {
-    return customerService.getCustomerById(id);
+  public ResponseEntity<CustomerResponseDto> getCustomer(@PathVariable String ice) {
+    return customerService.getCustomerByICE(ice);
   }
 
   @Override
   public ResponseEntity<Void> createCustomer(
-      @Valid @RequestBody CustomerRequestDto customerRequestDto) {
-    return customerService.createCustomer(customerRequestDto);
+      @Valid @RequestBody CustomerCreateDto customerCreateDto) {
+    return customerService.createCustomer(customerCreateDto);
   }
 
   @Override
   public ResponseEntity<CustomerResponseDto> updateCustomer(
-      @PathVariable Long id, @Valid @RequestBody CustomerRequestDto customerRequestDto) {
-    return customerService.updateCustomer(id, customerRequestDto);
+      @PathVariable String ice, @Valid @RequestBody CustomerUpdateDto customerUpdateDto) {
+    return customerService.updateCustomer(ice, customerUpdateDto);
   }
 
   @Override
-  public ResponseEntity<Void> deleteCustomer(@PathVariable Long id) {
-    return customerService.deleteCustomerById(id);
+  public ResponseEntity<Void> deleteCustomer(@PathVariable String ice) {
+    return customerService.deleteCustomerByICE(ice);
   }
 }

@@ -29,7 +29,8 @@ public class InvoiceService {
     Invoice invoice =
         invoiceRepository
             .findById(id)
-            .orElseThrow(() -> new EntityNotFoundException("Invoice not found with id: " + id));
+            .orElseThrow(
+                () -> new EntityNotFoundException("Facture non trouvée avec l'identifiant " + id));
     return ResponseEntity.ok(modelMapper.map(invoice, InvoiceDto.class));
   }
 

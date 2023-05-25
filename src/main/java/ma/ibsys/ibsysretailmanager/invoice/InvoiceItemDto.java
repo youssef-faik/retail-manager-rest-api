@@ -1,11 +1,10 @@
 package ma.ibsys.ibsysretailmanager.invoice;
 
-import java.math.BigDecimal;
-
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
+import java.math.BigDecimal;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,19 +12,21 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Schema(title = "Invoice Item Schema", description = "Represents an item included in an invoice")
+@Schema(
+    title = "Schéma des éléments de facture.",
+    description = "Représente un article inclus dans une facture.")
 public class InvoiceItemDto {
-  @Schema(description = "The ID of the product being invoiced")
-  @NotNull(message = "Product ID cannot be null")
+  @Schema(description = "L'ID du produit facturé.")
+  @NotNull(message = "L'ID du produit ne peut pas être null.")
   private Integer productId;
-  
-  @Schema(description = "The quantity of the product being invoiced")
-  @NotNull(message = "Quantity cannot be null")
-  @Min(value = 1, message = "Quantity must be at least 1")
+
+  @Schema(description = "La quantité du produit facturé.")
+  @NotNull(message = "La quantité ne peut pas être null.")
+  @Min(value = 1, message = "La quantité doit être d'au moins 1.")
   private Integer quantity;
-  
-  @Schema(description = "The unit price of the product being invoiced")
-  @NotNull(message = "Unit price cannot be null")
-  @DecimalMin(value = "1", message = "Unit price must be greater than or equal to {value}")
+
+  @Schema(description = "Le prix unitaire du produit facturé.")
+  @NotNull(message = "Le prix unitaire ne peut pas être null.")
+  @DecimalMin(value = "1", message = "Le prix unitaire doit être supérieur ou égal à {value}.")
   private BigDecimal unitPrice;
 }

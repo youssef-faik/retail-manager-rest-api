@@ -11,12 +11,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/api/v1/auth")
 @CrossOrigin
 @Tag(
-    name = "Authentication",
-    description = "The Authentication API. Contains authentication end-point.")
+    name = "Authentification",
+    description = "L'API d'authentification. Contient le point de terminaison d'authentification.")
 public interface AuthenticationApi {
   @Operation(
-      summary = "Authenticate user",
-      description = "Allows users to authenticate and retrieve their JWT token.")
+      summary = "Authentifier l'utilisateur.",
+      description = "Permet aux utilisateurs de s'authentifier et de récupérer leur jeton JWT.")
   @PostMapping("/login")
   ResponseEntity<AuthenticationResponse> authenticate(@RequestBody AuthenticationRequest request);
 }

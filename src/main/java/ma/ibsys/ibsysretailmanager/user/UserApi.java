@@ -16,50 +16,50 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @Tag(
-    name = "User",
+    name = "Utilisateur",
     description =
-        "The User API. Contains all the operations that can be performed on a user. Requires ADMIN role.")
+        "API Utilisateur. Contient toutes les opérations pouvant être effectuées sur un utilisateur. Nécessite le rôle ADMIN.")
 @SecurityRequirement(name = "Bearer_Authentication")
 @RequestMapping("/api/v1/users")
 public interface UserApi {
   @PreAuthorize(value = "hasRole('ADMIN')")
   @Operation(
-      summary = "Get all users",
-      description = "Get a list contains the details for all users.")
+      summary = "Obtenir tous les utilisateurs.",
+      description = "Obtenir une liste contenant les détails de tous les utilisateurs.")
   @GetMapping
   @ApiResponses(
       value = {
         @ApiResponse(
             responseCode = "200",
-            description = "Successfully retrieved users",
+            description = "Utilisateurs récupérés avec succès.",
             content =
                 @Content(
                     mediaType = "application/json",
                     array = @ArraySchema(schema = @Schema(implementation = UserDto.class)))),
         @ApiResponse(
             responseCode = "401",
-            description = "Unauthorized",
+            description = "Non autorisé.",
             content =
                 @Content(
                     mediaType = "application/json",
                     schema = @Schema(implementation = ErrorResponse.class))),
         @ApiResponse(
             responseCode = "403",
-            description = "Forbidden",
+            description = "Interdit.",
             content =
                 @Content(
                     mediaType = "application/json",
                     schema = @Schema(implementation = ErrorResponse.class))),
         @ApiResponse(
             responseCode = "404",
-            description = "Users not found",
+            description = "Utilisateurs introuvables.",
             content =
                 @Content(
                     mediaType = "application/json",
                     schema = @Schema(implementation = ErrorResponse.class))),
         @ApiResponse(
             responseCode = "500",
-            description = "Internal server error",
+            description = "Erreur interne du serveur.",
             content =
                 @Content(
                     mediaType = "application/json",
@@ -69,80 +69,84 @@ public interface UserApi {
 
   @PreAuthorize(value = "hasRole('ADMIN')")
   @GetMapping("/{id}")
-  @Operation(summary = "Get user details", description = "Get the details of the given product id.")
+  @Operation(
+      summary = "Obtenir les détails de l'utilisateur.",
+      description = "Obtenir les détails de l'utilisateur avec l'ID donné.")
   @ApiResponses(
       value = {
         @ApiResponse(
             responseCode = "200",
-            description = "Successfully retrieved user",
+            description = "Utilisateur récupéré avec succès.",
             content =
                 @Content(
                     mediaType = "application/json",
                     schema = @Schema(implementation = UserDto.class))),
         @ApiResponse(
             responseCode = "401",
-            description = "Unauthorized",
+            description = "Non autorisé.",
             content =
                 @Content(
                     mediaType = "application/json",
                     schema = @Schema(implementation = ErrorResponse.class))),
         @ApiResponse(
             responseCode = "403",
-            description = "Forbidden",
+            description = "Interdit.",
             content =
                 @Content(
                     mediaType = "application/json",
                     schema = @Schema(implementation = ErrorResponse.class))),
         @ApiResponse(
             responseCode = "404",
-            description = "User not found",
+            description = "Utilisateur introuvable.",
             content =
                 @Content(
                     mediaType = "application/json",
                     schema = @Schema(implementation = ErrorResponse.class))),
         @ApiResponse(
             responseCode = "500",
-            description = "Internal server error",
+            description = "Erreur interne du serveur.",
             content =
                 @Content(
                     mediaType = "application/json",
                     schema = @Schema(implementation = ErrorResponse.class)))
       })
   ResponseEntity<UserDto> getUser(
-      @Parameter(description = "ID of the user to retrieve", required = true, example = "1")
+      @Parameter(description = "ID de l'utilisateur à récupérer.", required = true, example = "1")
           @PathVariable("id")
           int id);
 
   @PreAuthorize(value = "hasRole('ADMIN')")
   @PostMapping
-  @Operation(summary = "Create user", description = "Create a new user with the given details.")
+  @Operation(
+      summary = "Créer un utilisateur.",
+      description = "Créer un nouvel utilisateur avec les détails donnés.")
   @ApiResponses(
       value = {
-        @ApiResponse(responseCode = "201", description = "Successfully created user"),
+        @ApiResponse(responseCode = "201", description = "Utilisateur créé avec succès."),
         @ApiResponse(
             responseCode = "400",
-            description = "Invalid input",
+            description = "Entrée non valide.",
             content =
                 @Content(
                     mediaType = "application/json",
                     schema = @Schema(implementation = ErrorResponse.class))),
         @ApiResponse(
             responseCode = "401",
-            description = "Unauthorized",
+            description = "Non autorisé.",
             content =
                 @Content(
                     mediaType = "application/json",
                     schema = @Schema(implementation = ErrorResponse.class))),
         @ApiResponse(
             responseCode = "403",
-            description = "Forbidden",
+            description = "Interdit.",
             content =
                 @Content(
                     mediaType = "application/json",
                     schema = @Schema(implementation = ErrorResponse.class))),
         @ApiResponse(
             responseCode = "500",
-            description = "Internal server error",
+            description = "Erreur interne du serveur.",
             content =
                 @Content(
                     mediaType = "application/json",
@@ -156,55 +160,58 @@ public interface UserApi {
   @PreAuthorize(value = "hasRole('ADMIN')")
   @PutMapping("/{id}")
   @Operation(
-      summary = "Update user details",
-      description = "Update the details of the user with the given id.")
+      summary = "Mettre à jour les détails de l'utilisateur.",
+      description = "Mettre à jour les détails de l'utilisateur avec l'ID donné.")
   @ApiResponses(
       value = {
         @ApiResponse(
             responseCode = "200",
-            description = "Successfully updated user",
+            description = "Utilisateur mis à jour avec succès.",
             content =
                 @Content(
                     mediaType = "application/json",
                     schema = @Schema(implementation = UserDto.class))),
         @ApiResponse(
             responseCode = "400",
-            description = "Invalid input",
+            description = "Entrée non valide.",
             content =
                 @Content(
                     mediaType = "application/json",
                     schema = @Schema(implementation = ErrorResponse.class))),
         @ApiResponse(
             responseCode = "401",
-            description = "Unauthorized",
+            description = "Non autorisé.",
             content =
                 @Content(
                     mediaType = "application/json",
                     schema = @Schema(implementation = ErrorResponse.class))),
         @ApiResponse(
             responseCode = "403",
-            description = "Forbidden",
+            description = "Interdit.",
             content =
                 @Content(
                     mediaType = "application/json",
                     schema = @Schema(implementation = ErrorResponse.class))),
         @ApiResponse(
             responseCode = "404",
-            description = "User not found",
+            description = "Utilisateur introuvable.",
             content =
                 @Content(
                     mediaType = "application/json",
                     schema = @Schema(implementation = ErrorResponse.class))),
         @ApiResponse(
             responseCode = "500",
-            description = "Internal server error",
+            description = "Erreur interne du serveur.",
             content =
                 @Content(
                     mediaType = "application/json",
                     schema = @Schema(implementation = ErrorResponse.class)))
       })
   ResponseEntity<UserDto> updateUser(
-      @Parameter(description = "ID of the user to update", required = true, example = "123")
+      @Parameter(
+              description = "ID de l'utilisateur à mettre à jour.",
+              required = true,
+              example = "123")
           @PathVariable
           int id,
       @Parameter(required = true, schema = @Schema(implementation = UserUpdateDto.class))
@@ -213,68 +220,70 @@ public interface UserApi {
 
   @PreAuthorize(value = "hasRole('ADMIN')")
   @DeleteMapping("/{id}")
-  @Operation(summary = "Delete user", description = "Delete the user with the given id.")
+  @Operation(
+      summary = "Supprimer un utilisateur.",
+      description = "Supprimer l'utilisateur avec l'ID donné.")
   @ApiResponses(
       value = {
-        @ApiResponse(responseCode = "204", description = "Successfully deleted user"),
+        @ApiResponse(responseCode = "204", description = "Utilisateur supprimé avec succès."),
         @ApiResponse(
             responseCode = "401",
-            description = "Unauthorized",
+            description = "Non autorisé.",
             content =
                 @Content(
                     mediaType = "application/json",
                     schema = @Schema(implementation = ErrorResponse.class))),
         @ApiResponse(
             responseCode = "403",
-            description = "Forbidden",
+            description = "Interdit",
             content =
                 @Content(
                     mediaType = "application/json",
                     schema = @Schema(implementation = ErrorResponse.class))),
         @ApiResponse(
             responseCode = "404",
-            description = "Customer not found",
+            description = "Utilisateur introuvable.",
             content =
                 @Content(
                     mediaType = "application/json",
                     schema = @Schema(implementation = ErrorResponse.class))),
         @ApiResponse(
             responseCode = "500",
-            description = "Internal server error",
+            description = "Erreur interne du serveur.",
             content =
                 @Content(
                     mediaType = "application/json",
                     schema = @Schema(implementation = ErrorResponse.class)))
       })
   ResponseEntity<Void> deleteUser(
-      @Parameter(description = "ID of the user to delete", required = true, example = "1")
+      @Parameter(description = "ID de l'utilisateur à supprimer.", required = true, example = "1")
           @PathVariable
           int id);
 
   @PutMapping("/change-password")
   @Operation(
-      summary = "Change user password",
-      description = "Updates the user's password with a new one")
+      summary = "Modifier le mot de passe de l'utilisateur.",
+      description = "Met à jour le mot de passe de l'utilisateur avec un nouveau.")
   @ApiResponses(
       value = {
-        @ApiResponse(responseCode = "200", description = "Password successfully changed"),
+        @ApiResponse(responseCode = "200", description = "Mot de passe modifié avec succès."),
         @ApiResponse(
             responseCode = "400",
-            description = "Invalid request body or parameters",
+            description = "Requête ou paramètres non valides.",
             content =
                 @Content(
                     mediaType = "application/json",
                     schema = @Schema(implementation = ErrorResponse.class))),
         @ApiResponse(
             responseCode = "401",
-            description = "Unauthorized access",
+            description = "Accès non autorisé",
             content =
                 @Content(
                     mediaType = "application/json",
                     schema = @Schema(implementation = ErrorResponse.class))),
         @ApiResponse(
             responseCode = "500",
-            description = "Internal server error",
+            description = "Erreur interne du serveur.",
             content =
                 @Content(
                     mediaType = "application/json",

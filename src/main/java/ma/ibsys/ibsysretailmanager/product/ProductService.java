@@ -28,7 +28,7 @@ public class ProductService {
     Product product =
         productRepository
             .findById(id)
-            .orElseThrow(() -> new EntityNotFoundException("Product not found with id " + id));
+            .orElseThrow(() -> new EntityNotFoundException("Produit non trouvé avec l'ID " + id));
 
     return ResponseEntity.ok(modelMapper.map(product, ProductResponseDto.class));
   }
@@ -44,7 +44,8 @@ public class ProductService {
     Product product =
         productRepository
             .findById(id)
-            .orElseThrow(() -> new EntityNotFoundException("Product not found with id " + id));
+            .orElseThrow(() -> new EntityNotFoundException("Produit non trouvé avec l'ID " + id));
+    
     product.setBarCode(productRequestDto.getBarCode());
     product.setTaxRate(productRequestDto.getTaxRate());
     product.setName(productRequestDto.getName());
@@ -59,7 +60,7 @@ public class ProductService {
     Product product =
         productRepository
             .findById(id)
-            .orElseThrow(() -> new EntityNotFoundException("Product not found with id " + id));
+            .orElseThrow(() -> new EntityNotFoundException("Produit non trouvé avec l'ID " + id));
     productRepository.delete(product);
 
     return ResponseEntity.noContent().build();
