@@ -1,119 +1,66 @@
 <div class="d-flex justify-content-between align-items-center flex-wrap grid-margin">
   <div>
-    <h4 class="mb-3 mb-md-0">Dashboard</h4>
+    <h3 class="mb-3 mb-md-0 fw-bolder">Dashboard</h3>
   </div>
 </div>
 
 <div class="row">
   <div class="col-12 col-xl-12 stretch-card">
     <div class="row flex-grow-1">
-      <div class="col-md-4 grid-margin stretch-card">
+      <div class="col-md-6 grid-margin stretch-card">
         <div class="card">
           <div class="card-body">
             <div class="d-flex justify-content-between align-items-baseline mb-3">
-              <h6 class="card-title mb-0">New Customers</h6>
+              <h6 class="card-title mb-0 fw-bolder">New Orders</h6>
             </div>
-            <div class="row">
-              <div class="col-6 col-md-12 col-xl-5">
-                <h3 class="mb-2">3,897</h3>
-              </div>
-              <div class="col-6 col-md-12 col-xl-7">
-                <div class="mt-md-3 mt-xl-0">
-                  <apx-chart
-                    [chart]="customersChartOptions.chart"
-                    [colors]="customersChartOptions.colors"
-                    [markers]="customersChartOptions.markers"
-                    [series]="customersChartOptions.series"
-                    [stroke]="customersChartOptions.stroke"
-                    [xaxis]="customersChartOptions.xaxis"
-                  ></apx-chart>
+            <ng-container *ngIf="isOrdersDataLoaded">
+              <div class="row">
+                <div class="col-6 col-md-12 col-xl-5">
+                  <h3 class="mb-2">{{getTotal(orders)}}</h3>
+                </div>
+                <div class="col-6 col-md-12 col-xl-7">
+                  <div class="mt-md-3 mt-xl-0">
+                    <apx-chart
+                      [chart]="ordersChartOptions.chart"
+                      [colors]="ordersChartOptions.colors"
+                      [plotOptions]="ordersChartOptions.plotOptions"
+                      [series]="ordersChartOptions.series"
+                      [xaxis]="ordersChartOptions.xaxis"
+                    ></apx-chart>
+                  </div>
                 </div>
               </div>
-            </div>
+            </ng-container>
           </div>
         </div>
       </div>
 
-      <div class="col-md-4 grid-margin stretch-card">
+      <div class="col-md-6 grid-margin stretch-card">
         <div class="card">
           <div class="card-body">
             <div class="d-flex justify-content-between align-items-baseline mb-3">
-              <h6 class="card-title mb-0">New Orders</h6>
+              <h6 class="card-title mb-0 fw-bolder">New Customers</h6>
             </div>
-            <div class="row">
-              <div class="col-6 col-md-12 col-xl-5">
-                <h3 class="mb-2">35,084</h3>
-              </div>
-              <div class="col-6 col-md-12 col-xl-7">
-                <div class="mt-md-3 mt-xl-0">
-                  <apx-chart
-                    [chart]="ordersChartOptions.chart"
-                    [colors]="ordersChartOptions.colors"
-                    [plotOptions]="ordersChartOptions.plotOptions"
-                    [series]="ordersChartOptions.series"
-                    [xaxis]="ordersChartOptions.xaxis"
-                  ></apx-chart>
+            <ng-container *ngIf="isCustomersDataLoaded">
+              <div class="row">
+                <div class="col-6 col-md-12 col-xl-5">
+                  <h3 class="mb-2">{{getTotal(customers)}}</h3>
+                </div>
+                <div class="col-6 col-md-12 col-xl-7">
+                  <div class="mt-md-3 mt-xl-0">
+                    <apx-chart
+                      [chart]="customersChartOptions.chart"
+                      [colors]="customersChartOptions.colors"
+                      [markers]="customersChartOptions.markers"
+                      [series]="customersChartOptions.series"
+                      [stroke]="customersChartOptions.stroke"
+                      [xaxis]="customersChartOptions.xaxis"
+                    ></apx-chart>
+                  </div>
                 </div>
               </div>
-            </div>
+            </ng-container>
           </div>
-        </div>
-      </div>
-
-      <div class="col-md-4 grid-margin stretch-card">
-        <div class="card">
-          <div class="card-body">
-            <div class="d-flex justify-content-between align-items-baseline mb-3">
-              <h6 class="card-title mb-0">Growth</h6>
-            </div>
-            <div class="row">
-              <div class="col-6 col-md-12 col-xl-5">
-                <h3 class="mb-2">89.87%</h3>
-              </div>
-              <div class="col-6 col-md-12 col-xl-7">
-                <div class="mt-md-3 mt-xl-0">
-                  <apx-chart
-                    [chart]="growthChartOptions.chart"
-                    [colors]="growthChartOptions.colors"
-                    [markers]="growthChartOptions.markers"
-                    [series]="growthChartOptions.series"
-                    [stroke]="growthChartOptions.stroke"
-                    [xaxis]="growthChartOptions.xaxis"
-                  ></apx-chart>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div> <!-- row -->
-
-<div class="row">
-  <div class="col-12 col-xl-12 grid-margin stretch-card">
-    <div class="card overflow-hidden">
-      <div class="card-body">
-        <div class="d-flex justify-content-between align-items-baseline mb-4 mb-md-3">
-          <h6 class="card-title mb-0">Revenue</h6>
-        </div>
-        <div class="row align-items-start">
-          <div class="col-md-7">
-            <p class="text-muted tx-13 mb-3 mb-md-0">Revenue is the income that a business has from its normal business
-              activities, usually from the sale of goods and services to customers.</p>
-          </div>
-        </div>
-        <div class="flot-wrapper">
-          <apx-chart
-            [chart]="revenueChartOptions.chart"
-            [colors]="revenueChartOptions.colors"
-            [grid]="revenueChartOptions.grid"
-            [markers]="revenueChartOptions.markers"
-            [series]="revenueChartOptions.series"
-            [stroke]="revenueChartOptions.stroke"
-            [xaxis]="revenueChartOptions.xaxis"
-            [yaxis]="revenueChartOptions.yaxis"
-          ></apx-chart>
         </div>
       </div>
     </div>
@@ -125,23 +72,24 @@
     <div class="card">
       <div class="card-body">
         <div class="d-flex justify-content-between align-items-baseline mb-2">
-          <h6 class="card-title mb-0">Monthly sales</h6>
+          <h6 class="card-title mb-0 fw-bolder">Monthly sales</h6>
+          <h6 class="card-title mb-0 fw-bolder">Total sales: <span class="text-primary">$ {{getTotal(sales)}}</span></h6>
         </div>
-        <p class="text-muted">Sales are activities related to selling or the number of goods or services sold in a given
-          time period.</p>
-        <apx-chart
-          [chart]="monthlySalesChartOptions.chart"
-          [colors]="monthlySalesChartOptions.colors"
-          [dataLabels]="monthlySalesChartOptions.dataLabels"
-          [fill]="monthlySalesChartOptions.fill"
-          [grid]="monthlySalesChartOptions.grid"
-          [legend]="monthlySalesChartOptions.legend"
-          [plotOptions]="monthlySalesChartOptions.plotOptions"
-          [series]="monthlySalesChartOptions.series"
-          [stroke]="monthlySalesChartOptions.stroke"
-          [xaxis]="monthlySalesChartOptions.xaxis"
-          [yaxis]="monthlySalesChartOptions.yaxis"
-        ></apx-chart>
+        <ng-container *ngIf="isSalesDataLoaded">
+          <apx-chart
+            [chart]="monthlySalesChartOptions.chart"
+            [colors]="monthlySalesChartOptions.colors"
+            [dataLabels]="monthlySalesChartOptions.dataLabels"
+            [fill]="monthlySalesChartOptions.fill"
+            [grid]="monthlySalesChartOptions.grid"
+            [legend]="monthlySalesChartOptions.legend"
+            [plotOptions]="monthlySalesChartOptions.plotOptions"
+            [series]="monthlySalesChartOptions.series"
+            [stroke]="monthlySalesChartOptions.stroke"
+            [xaxis]="monthlySalesChartOptions.xaxis"
+            [yaxis]="monthlySalesChartOptions.yaxis"
+          ></apx-chart>
+        </ng-container>
       </div>
     </div>
   </div>
