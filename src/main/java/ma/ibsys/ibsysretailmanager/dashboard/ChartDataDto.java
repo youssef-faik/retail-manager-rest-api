@@ -14,5 +14,5 @@ import lombok.*;
     description = "Corps de la réponse pour les données du graphique")
 public class ChartDataDto {
   private List<String> dates;
-  private List<Integer> data;
+  private List<Float> data;
 }

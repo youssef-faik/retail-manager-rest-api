@@ -16,7 +16,9 @@ import lombok.NoArgsConstructor;
     title = "Schéma de demande de facture.",
     description = "Corps de la demande pour créer une facture.")
 public class InvoiceCreateDto {
-  @Schema(description = "Le numéro ICE du client auquel la facture est émise.")
+  @Schema(
+      description = "Le numéro ICE du client auquel la facture est émise.",
+      example = "563456789123456")
   @NotNull(message = "customerICE ne peut pas être null.")
   private String customerICE;
 
