@@ -12,27 +12,23 @@
 
 
 /**
- * Corps de réponse pour un client.
+ * Corps de requête pour mettre à jour un client
  */
-export interface CustomerResponseDto { 
+export interface CustomerUpdateDto { 
     /**
-     * ICE du client.
-     */
-    ice: string;
-    /**
-     * Nom du client.
+     * Nom du client
      */
     name: string;
     /**
-     * Adresse e-mail du client.
+     * Adresse e-mail du client
      */
     email: string;
     /**
-     * Numéro de téléphone du client.
+     * Numéro de téléphone du client
      */
     phone: string;
     /**
-     * Adresse du client.
+     * Adresse du client
      */
     address: string;
 }

@@ -1,6 +1,6 @@
 /**
  * IBSYS RETAIL MANAGER API
- * This API provides various endpoints to manage retail operations such as creating and updating products, managing inventory, and processing orders.
+ * Cette API propose plusieurs points de terminaison pour gérer les opérations de vente au détail, telles que la création et la mise à jour de produits, la gestion des stocks et le traitement des commandes.
  *
  * The version of the OpenAPI document: x.x.x
  * 
@@ -12,27 +12,27 @@
 
 
 /**
- * Response body for user details.
+ * Corps de réponse pour les détails de l\'utilisateur.
  */
 export interface UserDto { 
     /**
-     * ID of the user.
+     * ID de l\'utilisateur.
      */
     id?: number;
     /**
-     * First name of the user.
+     * Prénom de l\'utilisateur.
      */
     firstName?: string;
     /**
-     * Last name of the user.
+     * Nom de famille de l\'utilisateur.
      */
     lastName?: string;
     /**
-     * Email address of the user.
+     * Adresse e-mail de l\'utilisateur.
      */
     email?: string;
     /**
-     * Enumeration of user roles
+     * Énumération des rôles utilisateur
      */
     role?: UserDto.RoleEnum;
 }

@@ -1,6 +1,6 @@
 /**
  * IBSYS RETAIL MANAGER API
- * This API provides various endpoints to manage retail operations such as creating and updating products, managing inventory, and processing orders.
+ * Cette API propose plusieurs points de terminaison pour gérer les opérations de vente au détail, telles que la création et la mise à jour de produits, la gestion des stocks et le traitement des commandes.
  *
  * The version of the OpenAPI document: x.x.x
  * 
@@ -34,7 +34,7 @@ import { Configuration }                                     from '../configurat
 @Injectable({
   providedIn: 'root'
 })
-export class InvoiceService {
+export class FactureService {
 
     protected basePath = 'http://localhost:8080';
     public defaultHeaders = new HttpHeaders();
@@ -96,8 +96,8 @@ export class InvoiceService {
     }
 
     /**
-     * Create invoice
-     * Create a new invoice with the supplied details.
+     * Créer une facture.
+     * Créer une nouvelle facture avec les détails fournis.
      * @param invoiceCreateDto 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
@@ -172,8 +172,8 @@ export class InvoiceService {
     }
 
     /**
-     * Get all invoices
-     * Get a list that contains the details for all invoices.
+     * Obtenir toutes les factures.
+     * Obtenir une liste contenant les détails de toutes les factures.
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
@@ -235,9 +235,9 @@ export class InvoiceService {
     }
 
     /**
-     * Get invoice details
-     * Get the details of the invoice with the given id.
-     * @param id ID of the invoice to retrieve
+     * Obtenir les détails d\&#39;une facture.
+     * Obtenir les détails de la facture avec l\&#39;identifiant donné.
+     * @param id ID de la facture à récupérer.
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */

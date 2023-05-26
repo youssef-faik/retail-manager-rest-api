@@ -1,6 +1,6 @@
 /**
  * IBSYS RETAIL MANAGER API
- * This API provides various endpoints to manage retail operations such as creating and updating products, managing inventory, and processing orders.
+ * Cette API propose plusieurs points de terminaison pour gérer les opérations de vente au détail, telles que la création et la mise à jour de produits, la gestion des stocks et le traitement des commandes.
  *
  * The version of the OpenAPI document: x.x.x
  * 
@@ -12,19 +12,19 @@
 
 
 /**
- * Represents the error response returned by the API.
+ * Représente la réponse d\'erreur renvoyée par l\'API.
  */
 export interface ErrorResponse { 
     /**
-     * The HTTP status code associated with the error.
+     * Le code de statut HTTP associé à l\'erreur.
      */
     httpStatus?: ErrorResponse.HttpStatusEnum;
     /**
-     * The timestamp when the error occurred.
+     * L\'horodatage de l\'erreur.
      */
     timestamp?: string;
     /**
-     * The error message.
+     * Le message d\'erreur.
      */
     message?: string;
 }

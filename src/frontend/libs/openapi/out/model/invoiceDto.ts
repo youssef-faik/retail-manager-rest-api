@@ -1,6 +1,6 @@
 /**
  * IBSYS RETAIL MANAGER API
- * This API provides various endpoints to manage retail operations such as creating and updating products, managing inventory, and processing orders.
+ * Cette API propose plusieurs points de terminaison pour gérer les opérations de vente au détail, telles que la création et la mise à jour de produits, la gestion des stocks et le traitement des commandes.
  *
  * The version of the OpenAPI document: x.x.x
  * 
@@ -14,20 +14,20 @@ import { InvoiceItemResponseDto } from './invoiceItemResponseDto';
 
 
 /**
- * Response body for an invoice response
+ * Corps de la réponse pour une facture.
  */
 export interface InvoiceDto { 
     /**
-     * The ID of the invoice
+     * L\'ID de la facture
      */
     id?: number;
     /**
-     * The date on which the invoice was issued
+     * La date à laquelle la facture a été émise.
      */
     issueDate?: string;
     customer?: CustomerResponseDto;
     /**
-     * The list of items and their quantities included in the invoice
+     * La liste des articles et de leurs quantités inclus dans la facture.
      */
     items?: Array<InvoiceItemResponseDto>;
 }

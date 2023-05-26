@@ -12,28 +12,10 @@
 
 
 /**
- * Corps de réponse pour un client.
+ * Corps de la réponse pour les données du graphique
  */
-export interface CustomerResponseDto { 
-    /**
-     * ICE du client.
-     */
-    ice: string;
-    /**
-     * Nom du client.
-     */
-    name: string;
-    /**
-     * Adresse e-mail du client.
-     */
-    email: string;
-    /**
-     * Numéro de téléphone du client.
-     */
-    phone: string;
-    /**
-     * Adresse du client.
-     */
-    address: string;
+export interface ChartDataDto { 
+    dates?: Array<string>;
+    data?: Array<number>;
 }
 

@@ -2,7 +2,7 @@
   "openapi": "3.0.1",
   "info": {
     "title": "IBSYS RETAIL MANAGER API",
-    "description": "This API provides various endpoints to manage retail operations such as creating and updating products, managing inventory, and processing orders.",
+    "description": "Cette API propose plusieurs points de terminaison pour gérer les opérations de vente au détail, telles que la création et la mise à jour de produits, la gestion des stocks et le traitement des commandes.",
     "version": "x.x.x"
   },
   "servers": [
@@ -13,40 +13,44 @@
   ],
   "tags": [
     {
-      "name": "Invoice",
-      "description": "The Invoice API. Contains all the operations that can be performed on an invoice."
+      "name": "Produit",
+      "description": "L'API Produit. Contient toutes les opérations pouvant être effectuées sur un produit"
     },
     {
-      "name": "Authentication",
-      "description": "The Authentication API. Contains authentication end-point."
+      "name": "Utilisateur",
+      "description": "API Utilisateur. Contient toutes les opérations pouvant être effectuées sur un utilisateur. Nécessite le rôle ADMIN."
     },
     {
-      "name": "Customer",
-      "description": "The Customer API. Contains all the operations that can be performed on a customer"
+      "name": "Facture",
+      "description": "API Facture. Contient toutes les opérations pouvant être effectuées sur une facture."
     },
     {
-      "name": "Product",
-      "description": "The Product API. Contains all the operations that can be performed on a product"
+      "name": "Tableau de bord",
+      "description": "Points d'accès API pour les métriques du tableau de bord"
     },
     {
-      "name": "User",
-      "description": "The User API. Contains all the operations that can be performed on a user. Requires ADMIN role."
+      "name": "Client",
+      "description": "L'API Client. Contient toutes les opérations pouvant être effectuées sur un client."
+    },
+    {
+      "name": "Authentification",
+      "description": "L'API d'authentification. Contient le point de terminaison d'authentification."
     }
   ],
   "paths": {
     "/api/v1/users/{id}": {
       "get": {
         "tags": [
-          "User"
+          "Utilisateur"
         ],
-        "summary": "Get user details",
-        "description": "Get the details of the given product id.",
+        "summary": "Obtenir les détails de l'utilisateur.",
+        "description": "Obtenir les détails de l'utilisateur avec l'ID donné.",
         "operationId": "getUser",
         "parameters": [
           {
             "name": "id",
             "in": "path",
-            "description": "ID of the user to retrieve",
+            "description": "ID de l'utilisateur à récupérer.",
             "required": true,
             "schema": {
               "type": "integer",
@@ -57,7 +61,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Successfully retrieved user",
+            "description": "Utilisateur récupéré avec succès.",
             "content": {
               "application/json": {
                 "schema": {
@@ -77,7 +81,7 @@
             }
           },
           "401": {
-            "description": "Unauthorized",
+            "description": "Non autorisé.",
             "content": {
               "application/json": {
                 "schema": {
@@ -87,7 +91,7 @@
             }
           },
           "403": {
-            "description": "Forbidden",
+            "description": "Interdit.",
             "content": {
               "application/json": {
                 "schema": {
@@ -97,7 +101,7 @@
             }
           },
           "404": {
-            "description": "User not found",
+            "description": "Utilisateur introuvable.",
             "content": {
               "application/json": {
                 "schema": {
@@ -107,7 +111,7 @@
             }
           },
           "500": {
-            "description": "Internal server error",
+            "description": "Erreur interne du serveur.",
             "content": {
               "application/json": {
                 "schema": {
@@ -125,16 +129,16 @@
       },
       "put": {
         "tags": [
-          "User"
+          "Utilisateur"
         ],
-        "summary": "Update user details",
-        "description": "Update the details of the user with the given id.",
+        "summary": "Mettre à jour les détails de l'utilisateur.",
+        "description": "Mettre à jour les détails de l'utilisateur avec l'ID donné.",
         "operationId": "updateUser",
         "parameters": [
           {
             "name": "id",
             "in": "path",
-            "description": "ID of the user to update",
+            "description": "ID de l'utilisateur à mettre à jour.",
             "required": true,
             "schema": {
               "type": "integer",
@@ -155,7 +159,7 @@
         },
         "responses": {
           "200": {
-            "description": "Successfully updated user",
+            "description": "Utilisateur mis à jour avec succès.",
             "content": {
               "application/json": {
                 "schema": {
@@ -165,7 +169,7 @@
             }
           },
           "400": {
-            "description": "Invalid input",
+            "description": "Entrée non valide.",
             "content": {
               "application/json": {
                 "schema": {
@@ -175,7 +179,7 @@
             }
           },
           "401": {
-            "description": "Unauthorized",
+            "description": "Non autorisé.",
             "content": {
               "application/json": {
                 "schema": {
@@ -185,7 +189,7 @@
             }
           },
           "403": {
-            "description": "Forbidden",
+            "description": "Interdit.",
             "content": {
               "application/json": {
                 "schema": {
@@ -195,7 +199,7 @@
             }
           },
           "404": {
-            "description": "User not found",
+            "description": "Utilisateur introuvable.",
             "content": {
               "application/json": {
                 "schema": {
@@ -205,7 +209,7 @@
             }
           },
           "500": {
-            "description": "Internal server error",
+            "description": "Erreur interne du serveur.",
             "content": {
               "application/json": {
                 "schema": {
@@ -223,16 +227,16 @@
       },
       "delete": {
         "tags": [
-          "User"
+          "Utilisateur"
         ],
-        "summary": "Delete user",
-        "description": "Delete the user with the given id.",
+        "summary": "Supprimer un utilisateur.",
+        "description": "Supprimer l'utilisateur avec l'ID donné.",
         "operationId": "deleteUser",
         "parameters": [
           {
             "name": "id",
             "in": "path",
-            "description": "ID of the user to delete",
+            "description": "ID de l'utilisateur à supprimer.",
             "required": true,
             "schema": {
               "type": "integer",
@@ -243,7 +247,7 @@
         ],
         "responses": {
           "204": {
-            "description": "Successfully deleted user"
+            "description": "Utilisateur supprimé avec succès."
           },
           "400": {
             "description": "Bad Request",
@@ -256,7 +260,7 @@
             }
           },
           "401": {
-            "description": "Unauthorized",
+            "description": "Non autorisé.",
             "content": {
               "application/json": {
                 "schema": {
@@ -266,7 +270,7 @@
             }
           },
           "403": {
-            "description": "Forbidden",
+            "description": "Interdit",
             "content": {
               "application/json": {
                 "schema": {
@@ -276,7 +280,7 @@
             }
           },
           "404": {
-            "description": "Customer not found",
+            "description": "Utilisateur introuvable.",
             "content": {
               "application/json": {
                 "schema": {
@@ -286,7 +290,7 @@
             }
           },
           "500": {
-            "description": "Internal server error",
+            "description": "Erreur interne du serveur.",
             "content": {
               "application/json": {
                 "schema": {
@@ -306,10 +310,10 @@
     "/api/v1/users/change-password": {
       "put": {
         "tags": [
-          "User"
+          "Utilisateur"
         ],
-        "summary": "Change user password",
-        "description": "Updates the user's password with a new one",
+        "summary": "Modifier le mot de passe de l'utilisateur.",
+        "description": "Met à jour le mot de passe de l'utilisateur avec un nouveau.",
         "operationId": "changePassword",
         "requestBody": {
           "content": {
@@ -323,10 +327,10 @@
         },
         "responses": {
           "200": {
-            "description": "Password successfully changed"
+            "description": "Mot de passe modifié avec succès."
           },
           "400": {
-            "description": "Invalid request body or parameters",
+            "description": "Requête ou paramètres non valides.",
             "content": {
               "application/json": {
                 "schema": {
@@ -336,7 +340,7 @@
             }
           },
           "401": {
-            "description": "Unauthorized access",
+            "description": "Accès non autorisé",
             "content": {
               "application/json": {
                 "schema": {
@@ -346,7 +350,7 @@
             }
           },
           "500": {
-            "description": "Internal server error",
+            "description": "Erreur interne du serveur.",
             "content": {
               "application/json": {
                 "schema": {
@@ -366,16 +370,16 @@
     "/api/v1/products/{id}": {
       "get": {
         "tags": [
-          "Product"
+          "Produit"
         ],
-        "summary": "Get product details",
-        "description": "Get the details of the product with the given id.",
+        "summary": "Obtenir les détails du produit",
+        "description": "Obtenir les détails du produit avec l'ID donné.",
         "operationId": "getProduct",
         "parameters": [
           {
             "name": "id",
             "in": "path",
-            "description": "The id of the product to retrieve",
+            "description": "L'ID du produit à récupérer.",
             "required": true,
             "schema": {
               "type": "integer",
@@ -386,7 +390,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Product details",
+            "description": "Détails du produit",
             "content": {
               "application/json": {
                 "schema": {
@@ -396,7 +400,7 @@
             }
           },
           "400": {
-            "description": "Bad Request. Invalid input parameters.",
+            "description": "Requête incorrecte. Paramètres d'entrée non valides.",
             "content": {
               "application/json": {
                 "schema": {
@@ -406,7 +410,7 @@
             }
           },
           "401": {
-            "description": "Unauthorized. Authentication credentials are missing or invalid.",
+            "description": "Non autorisé. Les informations d'authentification sont manquantes ou invalides.",
             "content": {
               "application/json": {
                 "schema": {
@@ -416,7 +420,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error. An error occurred while processing the request.",
+            "description": "Erreur interne du serveur. Une erreur s'est produite lors du traitement de la requête.",
             "content": {
               "application/json": {
                 "schema": {
@@ -434,16 +438,16 @@
       },
       "put": {
         "tags": [
-          "Product"
+          "Produit"
         ],
-        "summary": "Update product details",
-        "description": "Update the details of the product with given id.",
+        "summary": "Mettre à jour les détails du produit.",
+        "description": "Mettre à jour les détails du produit avec l'ID donné.",
         "operationId": "updateProduct",
         "parameters": [
           {
             "name": "id",
             "in": "path",
-            "description": "The id of the product to update",
+            "description": "L'ID du produit à mettre à jour.",
             "required": true,
             "schema": {
               "type": "integer",
@@ -464,7 +468,7 @@
         },
         "responses": {
           "200": {
-            "description": "Product updated successfully",
+            "description": "Produit mis à jour avec succès.",
             "content": {
               "application/json": {
                 "schema": {
@@ -474,7 +478,7 @@
             }
           },
           "400": {
-            "description": "Bad Request. Invalid input parameters.",
+            "description": "Requête incorrecte. Paramètres d'entrée non valides.",
             "content": {
               "application/json": {
                 "schema": {
@@ -484,7 +488,7 @@
             }
           },
           "401": {
-            "description": "Unauthorized. Authentication credentials are missing or invalid.",
+            "description": "Non autorisé. Les informations d'authentification sont manquantes ou invalides.",
             "content": {
               "application/json": {
                 "schema": {
@@ -494,7 +498,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error. An error occurred while processing the request.",
+            "description": "Erreur interne du serveur. Une erreur s'est produite lors du traitement de la requête.",
             "content": {
               "application/json": {
                 "schema": {
@@ -512,16 +516,16 @@
       },
       "delete": {
         "tags": [
-          "Product"
+          "Produit"
         ],
-        "summary": "Delete product",
-        "description": "Delete a product with given id.",
+        "summary": "Supprimer un produit",
+        "description": "Supprimer un produit avec l'ID donné.",
         "operationId": "deleteProduct",
         "parameters": [
           {
             "name": "id",
             "in": "path",
-            "description": "The id of the product to delete",
+            "description": "L'ID du produit à supprimer.",
             "required": true,
             "schema": {
               "type": "integer",
@@ -532,13 +536,13 @@
         ],
         "responses": {
           "204": {
-            "description": "Product deleted successfully.",
+            "description": "Produit supprimé avec succès.",
             "content": {
               "application/json": {}
             }
           },
           "400": {
-            "description": "Bad Request. Invalid input parameters.",
+            "description": "Requête incorrecte. Paramètres d'entrée non valides.",
             "content": {
               "application/json": {
                 "schema": {
@@ -548,7 +552,7 @@
             }
           },
           "401": {
-            "description": "Unauthorized. Authentication credentials are missing or invalid.",
+            "description": "Non autorisé. Les informations d'authentification sont manquantes ou invalides.",
             "content": {
               "application/json": {
                 "schema": {
@@ -558,7 +562,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error. An error occurred while processing the request.",
+            "description": "Erreur interne du serveur. Une erreur s'est produite lors du traitement de la requête.",
             "content": {
               "application/json": {
                 "schema": {
@@ -575,30 +579,29 @@
         ]
       }
     },
-    "/api/v1/customers/{id}": {
+    "/api/v1/customers/{ice}": {
       "get": {
         "tags": [
-          "Customer"
+          "Client"
         ],
-        "summary": "Get customer details",
-        "description": "Get the details of the customer with the given id.",
+        "summary": "Obtenir les détails du client.",
+        "description": "Obtenir les détails du client avec le numéro ICE donné.",
         "operationId": "getCustomer",
         "parameters": [
           {
-            "name": "id",
+            "name": "ice",
             "in": "path",
-            "description": "ID of the customer to retrieve",
+            "description": "Numéro ICE du client à récupérer.",
             "required": true,
             "schema": {
-              "type": "integer",
-              "format": "int64"
+              "type": "string"
             },
-            "example": 1
+            "example": 563456789123456
           }
         ],
         "responses": {
           "200": {
-            "description": "Successfully retrieved customer",
+            "description": "Client récupéré avec succès.",
             "content": {
               "application/json": {
                 "schema": {
@@ -618,7 +621,7 @@
             }
           },
           "401": {
-            "description": "Unauthorized",
+            "description": "Non autorisé.",
             "content": {
               "application/json": {
                 "schema": {
@@ -628,7 +631,7 @@
             }
           },
           "403": {
-            "description": "Forbidden",
+            "description": "Accès interdit.",
             "content": {
               "application/json": {
                 "schema": {
@@ -638,7 +641,7 @@
             }
           },
           "404": {
-            "description": "Customer not found",
+            "description": "Client non trouvé.",
             "content": {
               "application/json": {
                 "schema": {
@@ -648,7 +651,7 @@
             }
           },
           "500": {
-            "description": "Internal server error",
+            "description": "Erreur interne du serveur.",
             "content": {
               "application/json": {
                 "schema": {
@@ -666,29 +669,28 @@
       },
       "put": {
         "tags": [
-          "Customer"
+          "Client"
         ],
-        "summary": "Update customer details",
-        "description": "Update the details of the customer with given id.",
+        "summary": "Mettre à jour les détails du client.",
+        "description": "Mettre à jour les détails du client avec l'ICE donné.",
         "operationId": "updateCustomer",
         "parameters": [
           {
-            "name": "id",
+            "name": "ice",
             "in": "path",
-            "description": "ID of the customer to update",
+            "description": "ICE du client à mettre à jour.",
             "required": true,
             "schema": {
-              "type": "integer",
-              "format": "int64"
+              "type": "string"
             },
-            "example": 123
+            "example": 563456789123456
           }
         ],
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CustomerRequestDto"
+                "$ref": "#/components/schemas/CustomerUpdateDto"
               }
             }
           },
@@ -696,7 +698,7 @@
         },
         "responses": {
           "200": {
-            "description": "Successfully updated customer",
+            "description": "Client mis à jour avec succès.",
             "content": {
               "application/json": {
                 "schema": {
@@ -706,7 +708,7 @@
             }
           },
           "400": {
-            "description": "Invalid input",
+            "description": "Entrée non valide.",
             "content": {
               "application/json": {
                 "schema": {
@@ -716,7 +718,7 @@
             }
           },
           "401": {
-            "description": "Unauthorized",
+            "description": "Non autorisé",
             "content": {
               "application/json": {
                 "schema": {
@@ -726,7 +728,7 @@
             }
           },
           "403": {
-            "description": "Forbidden",
+            "description": "Accès interdit.",
             "content": {
               "application/json": {
                 "schema": {
@@ -736,7 +738,7 @@
             }
           },
           "404": {
-            "description": "Customer not found",
+            "description": "Client introuvable.",
             "content": {
               "application/json": {
                 "schema": {
@@ -746,7 +748,7 @@
             }
           },
           "500": {
-            "description": "Internal server error",
+            "description": "Erreur interne du serveur.",
             "content": {
               "application/json": {
                 "schema": {
@@ -764,27 +766,26 @@
       },
       "delete": {
         "tags": [
-          "Customer"
+          "Client"
         ],
-        "summary": "Delete customer",
-        "description": "Delete a customer with given id.",
+        "summary": "Supprimer un client.",
+        "description": "Supprimer un client avec l'ICE donné.",
         "operationId": "deleteCustomer",
         "parameters": [
           {
-            "name": "id",
+            "name": "ice",
             "in": "path",
-            "description": "ID of the customer to delete",
+            "description": "ICE du client à supprimer.",
             "required": true,
             "schema": {
-              "type": "integer",
-              "format": "int64"
+              "type": "string"
             },
-            "example": 1
+            "example": 563456789123456
           }
         ],
         "responses": {
           "204": {
-            "description": "Successfully deleted customer"
+            "description": "Client supprimé avec succès."
           },
           "400": {
             "description": "Bad Request",
@@ -797,7 +798,7 @@
             }
           },
           "401": {
-            "description": "Unauthorized",
+            "description": "Non autorisé.",
             "content": {
               "application/json": {
                 "schema": {
@@ -807,7 +808,7 @@
             }
           },
           "403": {
-            "description": "Forbidden",
+            "description": "Accès interdit.",
             "content": {
               "application/json": {
                 "schema": {
@@ -817,7 +818,7 @@
             }
           },
           "404": {
-            "description": "Customer not found",
+            "description": "Client introuvable.",
             "content": {
               "application/json": {
                 "schema": {
@@ -827,7 +828,7 @@
             }
           },
           "500": {
-            "description": "Internal server error",
+            "description": "Erreur interne du serveur.",
             "content": {
               "application/json": {
                 "schema": {
@@ -847,14 +848,14 @@
     "/api/v1/users": {
       "get": {
         "tags": [
-          "User"
+          "Utilisateur"
         ],
-        "summary": "Get all users",
-        "description": "Get a list contains the details for all users.",
+        "summary": "Obtenir tous les utilisateurs.",
+        "description": "Obtenir une liste contenant les détails de tous les utilisateurs.",
         "operationId": "getAllUsers",
         "responses": {
           "200": {
-            "description": "Successfully retrieved users",
+            "description": "Utilisateurs récupérés avec succès.",
             "content": {
               "application/json": {
                 "schema": {
@@ -877,7 +878,7 @@
             }
           },
           "401": {
-            "description": "Unauthorized",
+            "description": "Non autorisé.",
             "content": {
               "application/json": {
                 "schema": {
@@ -887,7 +888,7 @@
             }
           },
           "403": {
-            "description": "Forbidden",
+            "description": "Interdit.",
             "content": {
               "application/json": {
                 "schema": {
@@ -897,7 +898,7 @@
             }
           },
           "404": {
-            "description": "Users not found",
+            "description": "Utilisateurs introuvables.",
             "content": {
               "application/json": {
                 "schema": {
@@ -907,7 +908,7 @@
             }
           },
           "500": {
-            "description": "Internal server error",
+            "description": "Erreur interne du serveur.",
             "content": {
               "application/json": {
                 "schema": {
@@ -925,10 +926,10 @@
       },
       "post": {
         "tags": [
-          "User"
+          "Utilisateur"
         ],
-        "summary": "Create user",
-        "description": "Create a new user with the given details.",
+        "summary": "Créer un utilisateur.",
+        "description": "Créer un nouvel utilisateur avec les détails donnés.",
         "operationId": "createUser",
         "requestBody": {
           "content": {
@@ -942,10 +943,10 @@
         },
         "responses": {
           "201": {
-            "description": "Successfully created user"
+            "description": "Utilisateur créé avec succès."
           },
           "400": {
-            "description": "Invalid input",
+            "description": "Entrée non valide.",
             "content": {
               "application/json": {
                 "schema": {
@@ -955,7 +956,7 @@
             }
           },
           "401": {
-            "description": "Unauthorized",
+            "description": "Non autorisé.",
             "content": {
               "application/json": {
                 "schema": {
@@ -965,7 +966,7 @@
             }
           },
           "403": {
-            "description": "Forbidden",
+            "description": "Interdit.",
             "content": {
               "application/json": {
                 "schema": {
@@ -975,7 +976,7 @@
             }
           },
           "500": {
-            "description": "Internal server error",
+            "description": "Erreur interne du serveur.",
             "content": {
               "application/json": {
                 "schema": {
@@ -995,14 +996,14 @@
     "/api/v1/products": {
       "get": {
         "tags": [
-          "Product"
+          "Produit"
         ],
-        "summary": "Get all products",
-        "description": "Get a list that contains the details for all products.",
+        "summary": "Obtenir tous les produits",
+        "description": "Obtenir une liste contenant les détails de tous les produits.",
         "operationId": "getAllProducts",
         "responses": {
           "200": {
-            "description": "Successfully Retrieved the list of all products",
+            "description": "Liste de tous les produits récupérée avec succès.",
             "content": {
               "application/json": {
                 "schema": {
@@ -1015,7 +1016,7 @@
             }
           },
           "400": {
-            "description": "Bad Request. Invalid input parameters.",
+            "description": "Requête incorrecte. Paramètres d'entrée non valides.",
             "content": {
               "application/json": {
                 "schema": {
@@ -1025,7 +1026,7 @@
             }
           },
           "401": {
-            "description": "Unauthorized. Authentication credentials are missing or invalid.",
+            "description": "Non autorisé. Les informations d'authentification sont manquantes ou invalides.",
             "content": {
               "application/json": {
                 "schema": {
@@ -1035,7 +1036,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error. An error occurred while processing the request.",
+            "description": "Erreur interne du serveur. Une erreur s'est produite lors du traitement de la requête.",
             "content": {
               "application/json": {
                 "schema": {
@@ -1053,10 +1054,10 @@
       },
       "post": {
         "tags": [
-          "Product"
+          "Produit"
         ],
-        "summary": "Create product",
-        "description": "Create a new product with the given details.",
+        "summary": "Créer un produit.",
+        "description": "Créer un nouveau produit avec les détails donnés.",
         "operationId": "createProduct",
         "requestBody": {
           "content": {
@@ -1070,10 +1071,10 @@
         },
         "responses": {
           "201": {
-            "description": "Product created successfully."
+            "description": "Produit créé avec succès."
           },
           "400": {
-            "description": "Bad Request. Invalid input parameters.",
+            "description": "Requête incorrecte. Paramètres d'entrée non valides.",
             "content": {
               "application/json": {
                 "schema": {
@@ -1083,7 +1084,7 @@
             }
           },
           "401": {
-            "description": "Unauthorized. Authentication credentials are missing or invalid.",
+            "description": "Non autorisé. Les informations d'authentification sont manquantes ou invalides.",
             "content": {
               "application/json": {
                 "schema": {
@@ -1093,7 +1094,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error. An error occurred while processing the request.",
+            "description": "Erreur interne du serveur. Une erreur s'est produite lors du traitement de la requête.",
             "content": {
               "application/json": {
                 "schema": {
@@ -1113,14 +1114,14 @@
     "/api/v1/invoices": {
       "get": {
         "tags": [
-          "Invoice"
+          "Facture"
         ],
-        "summary": "Get all invoices",
-        "description": "Get a list that contains the details for all invoices.",
+        "summary": "Obtenir toutes les factures.",
+        "description": "Obtenir une liste contenant les détails de toutes les factures.",
         "operationId": "getAllInvoices",
         "responses": {
           "200": {
-            "description": "Successfully retrieved invoices",
+            "description": "Factures récupérées avec succès.",
             "content": {
               "application/json": {
                 "schema": {
@@ -1143,7 +1144,7 @@
             }
           },
           "401": {
-            "description": "Unauthorized",
+            "description": "Non autorisé.",
             "content": {
               "application/json": {
                 "schema": {
@@ -1153,7 +1154,7 @@
             }
           },
           "403": {
-            "description": "Forbidden",
+            "description": "Interdit",
             "content": {
               "application/json": {
                 "schema": {
@@ -1163,7 +1164,7 @@
             }
           },
           "404": {
-            "description": "Customers not found",
+            "description": "Factures non trouvées.",
             "content": {
               "application/json": {
                 "schema": {
@@ -1173,7 +1174,7 @@
             }
           },
           "500": {
-            "description": "Internal server error",
+            "description": "Erreur interne du serveur.",
             "content": {
               "application/json": {
                 "schema": {
@@ -1191,10 +1192,10 @@
       },
       "post": {
         "tags": [
-          "Invoice"
+          "Facture"
         ],
-        "summary": "Create invoice",
-        "description": "Create a new invoice with the supplied details.",
+        "summary": "Créer une facture.",
+        "description": "Créer une nouvelle facture avec les détails fournis.",
         "operationId": "createInvoice",
         "requestBody": {
           "content": {
@@ -1208,10 +1209,10 @@
         },
         "responses": {
           "201": {
-            "description": "Successfully created invoice"
+            "description": "Facture créée avec succès."
           },
           "400": {
-            "description": "Invalid input",
+            "description": "Entrée invalide.",
             "content": {
               "application/json": {
                 "schema": {
@@ -1221,7 +1222,7 @@
             }
           },
           "401": {
-            "description": "Unauthorized",
+            "description": "Non autorisé.",
             "content": {
               "application/json": {
                 "schema": {
@@ -1231,7 +1232,7 @@
             }
           },
           "403": {
-            "description": "Forbidden",
+            "description": "Interdit",
             "content": {
               "application/json": {
                 "schema": {
@@ -1241,7 +1242,7 @@
             }
           },
           "500": {
-            "description": "Internal server error",
+            "description": "Erreur interne du serveur.",
             "content": {
               "application/json": {
                 "schema": {
@@ -1261,14 +1262,14 @@
     "/api/v1/customers": {
       "get": {
         "tags": [
-          "Customer"
+          "Client"
         ],
-        "summary": "Get all customers",
-        "description": "Get a list that contains the details for all customers.",
+        "summary": "Obtenir tous les clients.",
+        "description": "Obtenir une liste contenant les détails de tous les clients.",
         "operationId": "getAllCustomers",
         "responses": {
           "200": {
-            "description": "Successfully retrieved customers",
+            "description": "Clients récupérés avec succès.",
             "content": {
               "application/json": {
                 "schema": {
@@ -1291,7 +1292,7 @@
             }
           },
           "401": {
-            "description": "Unauthorized",
+            "description": "Non autorisé.",
             "content": {
               "application/json": {
                 "schema": {
@@ -1301,17 +1302,7 @@
             }
           },
           "403": {
-            "description": "Forbidden",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Customers not found",
+            "description": "Accès interdit.",
             "content": {
               "application/json": {
                 "schema": {
@@ -1321,7 +1312,7 @@
             }
           },
           "500": {
-            "description": "Internal server error",
+            "description": "Erreur interne du serveur.",
             "content": {
               "application/json": {
                 "schema": {
@@ -1339,16 +1330,16 @@
       },
       "post": {
         "tags": [
-          "Customer"
+          "Client"
         ],
-        "summary": "Create customer",
-        "description": "Create a new customer with the given details.",
+        "summary": "Créer un client.",
+        "description": "Créer un nouveau client avec les détails donnés.",
         "operationId": "createCustomer",
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CustomerRequestDto"
+                "$ref": "#/components/schemas/CustomerCreateDto"
               }
             }
           },
@@ -1356,10 +1347,10 @@
         },
         "responses": {
           "201": {
-            "description": "Successfully created customer"
+            "description": "Client créé avec succès."
           },
           "400": {
-            "description": "Invalid input",
+            "description": "Entrée non valide.",
             "content": {
               "application/json": {
                 "schema": {
@@ -1369,7 +1360,7 @@
             }
           },
           "401": {
-            "description": "Unauthorized",
+            "description": "Non autorisé.",
             "content": {
               "application/json": {
                 "schema": {
@@ -1379,7 +1370,7 @@
             }
           },
           "403": {
-            "description": "Forbidden",
+            "description": "Accès interdit",
             "content": {
               "application/json": {
                 "schema": {
@@ -1389,7 +1380,7 @@
             }
           },
           "500": {
-            "description": "Internal server error",
+            "description": "Erreur interne du serveur.",
             "content": {
               "application/json": {
                 "schema": {
@@ -1409,10 +1400,10 @@
     "/api/v1/auth/login": {
       "post": {
         "tags": [
-          "Authentication"
+          "Authentification"
         ],
-        "summary": "Authenticate user",
-        "description": "Allows users to authenticate and retrieve their JWT token.",
+        "summary": "Authentifier l'utilisateur.",
+        "description": "Permet aux utilisateurs de s'authentifier et de récupérer leur jeton JWT.",
         "operationId": "authenticate",
         "requestBody": {
           "content": {
@@ -1461,16 +1452,16 @@
     "/api/v1/invoices/{id}": {
       "get": {
         "tags": [
-          "Invoice"
+          "Facture"
         ],
-        "summary": "Get invoice details",
-        "description": "Get the details of the invoice with the given id.",
+        "summary": "Obtenir les détails d'une facture.",
+        "description": "Obtenir les détails de la facture avec l'identifiant donné.",
         "operationId": "getInvoice",
         "parameters": [
           {
             "name": "id",
             "in": "path",
-            "description": "ID of the invoice to retrieve",
+            "description": "ID de la facture à récupérer.",
             "required": true,
             "schema": {
               "type": "integer",
@@ -1481,7 +1472,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Successfully retrieved invoice",
+            "description": "Facture récupérée avec succès.",
             "content": {
               "application/json": {
                 "schema": {
@@ -1501,7 +1492,7 @@
             }
           },
           "401": {
-            "description": "Unauthorized",
+            "description": "Non autorisé.",
             "content": {
               "application/json": {
                 "schema": {
@@ -1511,7 +1502,7 @@
             }
           },
           "403": {
-            "description": "Forbidden",
+            "description": "Interdit.",
             "content": {
               "application/json": {
                 "schema": {
@@ -1521,7 +1512,7 @@
             }
           },
           "404": {
-            "description": "Invoice not found",
+            "description": "Facture non trouvée.",
             "content": {
               "application/json": {
                 "schema": {
@@ -1531,7 +1522,280 @@
             }
           },
           "500": {
-            "description": "Internal server error",
+            "description": "Erreur interne du serveur.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer_Authentication": []
+          }
+        ]
+      }
+    },
+    "/api/v1/dashboard/sales": {
+      "get": {
+        "tags": [
+          "Tableau de bord"
+        ],
+        "summary": "Obtenir les données de ventes",
+        "description": "Obtenir le nombre de ventes sur une période donnée.",
+        "operationId": "getSales",
+        "parameters": [
+          {
+            "name": "startDate",
+            "in": "query",
+            "description": "Date de début (format ISO 8601, par ex. : 2023-05-01)",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            },
+            "example": "2023-05-01"
+          },
+          {
+            "name": "endDate",
+            "in": "query",
+            "description": "Date de fin (format ISO 8601, par ex. : 2023-05-31)",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            },
+            "example": "2023-05-31"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Données de ventes récupérées avec succès",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ChartDataDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Non autorisé",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Interdit",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Erreur interne du serveur",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer_Authentication": []
+          }
+        ]
+      }
+    },
+    "/api/v1/dashboard/orders": {
+      "get": {
+        "tags": [
+          "Tableau de bord"
+        ],
+        "summary": "Obtenir les données de commandes",
+        "description": "Obtenir le nombre de commandes créées sur une période donnée.",
+        "operationId": "getOrders",
+        "parameters": [
+          {
+            "name": "startDate",
+            "in": "query",
+            "description": "Date de début (format ISO 8601, par ex. : 2023-05-01)",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            },
+            "example": "2023-05-01"
+          },
+          {
+            "name": "endDate",
+            "in": "query",
+            "description": "Date de fin (format ISO 8601, par ex. : 2023-05-31)",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            },
+            "example": "2023-05-31"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Données de commandes récupérées avec succès",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ChartDataDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Non autorisé",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Interdit",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Erreur interne du serveur",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer_Authentication": []
+          }
+        ]
+      }
+    },
+    "/api/v1/dashboard/customers": {
+      "get": {
+        "tags": [
+          "Tableau de bord"
+        ],
+        "summary": "Obtenir les données des clients",
+        "description": "Obtenir le nombre de clients créés sur une période donnée.",
+        "operationId": "getCustomers",
+        "parameters": [
+          {
+            "name": "startDate",
+            "in": "query",
+            "description": "Date de début (format ISO 8601, par ex. : 2023-05-01)",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            },
+            "example": "2023-05-01"
+          },
+          {
+            "name": "endDate",
+            "in": "query",
+            "description": "Date de fin (format ISO 8601, par ex. : 2023-05-31)",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            },
+            "example": "2023-05-31"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Données des clients récupérées avec succès",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ChartDataDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Non autorisé",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Interdit",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Erreur interne du serveur",
             "content": {
               "application/json": {
                 "schema": {
@@ -1552,12 +1816,12 @@
   "components": {
     "schemas": {
       "ErrorResponse": {
-        "title": "Error Response Schema",
+        "title": "Schéma de réponse d'erreur",
         "type": "object",
         "properties": {
           "httpStatus": {
             "type": "string",
-            "description": "The HTTP status code associated with the error.",
+            "description": "Le code de statut HTTP associé à l'erreur.",
             "example": "400",
             "enum": [
               "100 CONTINUE",
@@ -1633,19 +1897,19 @@
           },
           "timestamp": {
             "type": "string",
-            "description": "The timestamp when the error occurred.",
+            "description": "L'horodatage de l'erreur.",
             "format": "date-time"
           },
           "message": {
             "type": "string",
-            "description": "The error message.",
-            "example": "The requested entity was not found."
+            "description": "Le message d'erreur.",
+            "example": "L'entité demandée n'a pas été trouvée."
           }
         },
-        "description": "Represents the error response returned by the API."
+        "description": "Représente la réponse d'erreur renvoyée par l'API."
       },
       "UserUpdateDto": {
-        "title": "User Update Request Schema",
+        "title": "Schéma de demande de mise à jour d'utilisateur",
         "required": [
           "email",
           "firstName",
@@ -1658,24 +1922,24 @@
             "maxLength": 50,
             "minLength": 2,
             "type": "string",
-            "description": "First name of the user.",
+            "description": "Prénom de l'utilisateur.",
             "example": "Said"
           },
           "lastName": {
             "maxLength": 50,
             "minLength": 2,
             "type": "string",
-            "description": "Last name of the user.",
+            "description": "Nom de famille de l'utilisateur.",
             "example": "Alami"
           },
           "email": {
             "type": "string",
-            "description": "Email address of the user.",
+            "description": "Adresse e-mail de l'utilisateur.",
             "example": "said.alami@example.com"
           },
           "role": {
             "type": "string",
-            "description": "Enumeration of user roles",
+            "description": "Énumération des rôles utilisateur",
             "example": "MANAGER",
             "enum": [
               "ADMIN",
@@ -1684,36 +1948,36 @@
             ]
           }
         },
-        "description": "Request body for updating an existing user."
+        "description": "Corps de la demande de mise à jour d'un utilisateur existant."
       },
       "UserDto": {
-        "title": "User Response Schema",
+        "title": "Schéma de réponse utilisateur",
         "type": "object",
         "properties": {
           "id": {
             "type": "integer",
-            "description": "ID of the user.",
+            "description": "ID de l'utilisateur.",
             "format": "int32",
             "example": 2
           },
           "firstName": {
             "type": "string",
-            "description": "First name of the user.",
+            "description": "Prénom de l'utilisateur.",
             "example": "Said"
           },
           "lastName": {
             "type": "string",
-            "description": "Last name of the user.",
+            "description": "Nom de famille de l'utilisateur.",
             "example": "Alami"
           },
           "email": {
             "type": "string",
-            "description": "Email address of the user.",
+            "description": "Adresse e-mail de l'utilisateur.",
             "example": "said.alami@example.com"
           },
           "role": {
             "type": "string",
-            "description": "Enumeration of user roles",
+            "description": "Énumération des rôles utilisateur",
             "example": "MANAGER",
             "enum": [
               "ADMIN",
@@ -1722,10 +1986,10 @@
             ]
           }
         },
-        "description": "Response body for user details."
+        "description": "Corps de réponse pour les détails de l'utilisateur."
       },
       "ChangePasswordRequest": {
-        "title": "Change Password Request Schema",
+        "title": "Schéma de demande de modification du mot de passe.",
         "required": [
           "newPassword",
           "oldPassword"
@@ -1736,19 +2000,19 @@
             "maxLength": 2147483647,
             "minLength": 8,
             "type": "string",
-            "description": "The user's old password."
+            "description": "Ancien mot de passe de l'utilisateur."
           },
           "newPassword": {
             "maxLength": 2147483647,
             "minLength": 8,
             "type": "string",
-            "description": "The user's new password."
+            "description": "Nouveau mot de passe de l'utilisateur."
           }
         },
-        "description": "Request body for changing the password"
+        "description": "Corps de la requête pour changer le mot de passe."
       },
       "ProductRequestDto": {
-        "title": "Product Request Schema",
+        "title": "Schéma de demande de produit.",
         "required": [
           "barCode",
           "name",
@@ -1760,73 +2024,29 @@
         "properties": {
           "barCode": {
             "type": "string",
-            "description": "Barcode of the product",
+            "description": "Code-barres du produit.",
             "example": "1234567890"
           },
           "name": {
             "maxLength": 1000,
             "minLength": 2,
             "type": "string",
-            "description": "Name of the product",
-            "example": "Laptop"
+            "description": "Nom du produit.",
+            "example": "Ordinateur portable"
           },
           "sellingPriceExcludingTax": {
             "type": "number",
-            "description": "Selling Price of the product excluding tax",
+            "description": "Prix de vente du produit hors taxe.",
             "example": 12999.99
           },
           "purchasePrice": {
             "type": "number",
-            "description": "Purchase Price of the product",
+            "description": "Prix d'achat du produit.",
             "example": 10000.99
           },
           "taxRate": {
             "type": "string",
-            "description": "Enumeration of tax rates",
-            "example": "Ten",
-            "enum": [
-              "TWENTY",
-              "FOURTEEN",
-              "TEN",
-              "SEVEN"
-            ]
-          }
-        },
-        "description": "Request body for creating/updating a product"
-      },
-      "ProductResponseDto": {
-        "title": "Product Response Schema",
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer",
-            "description": "ID of the product",
-            "format": "int32",
-            "example": 1
-          },
-          "barCode": {
-            "type": "string",
-            "description": "Barcode of the product",
-            "example": "1234567890"
-          },
-          "name": {
-            "type": "string",
-            "description": "Name of the product",
-            "example": "Laptop"
-          },
-          "sellingPriceExcludingTax": {
-            "type": "number",
-            "description": "Selling Price of the product excluding tax",
-            "example": 12999.99
-          },
-          "purchasePrice": {
-            "type": "number",
-            "description": "Purchase Price of the product",
-            "example": 10000.99
-          },
-          "taxRate": {
-            "type": "string",
-            "description": "Enumeration of tax rates",
+            "description": "Énumération des taux de taxe",
             "example": "TEN",
             "enum": [
               "TWENTY",
@@ -1836,10 +2056,54 @@
             ]
           }
         },
-        "description": "Response body for retrieving a product"
+        "description": "Corps de la demande pour la création/mise à jour d'un produit."
       },
-      "CustomerRequestDto": {
-        "title": "Customer Request Schema",
+      "ProductResponseDto": {
+        "title": "Schéma de réponse de produit.",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "ID du produit.",
+            "format": "int32",
+            "example": 1
+          },
+          "barCode": {
+            "type": "string",
+            "description": "Code-barres du produit.",
+            "example": "1234567890"
+          },
+          "name": {
+            "type": "string",
+            "description": "Nom du produit.",
+            "example": "Ordinateur portable"
+          },
+          "sellingPriceExcludingTax": {
+            "type": "number",
+            "description": "Prix de vente du produit hors taxe.",
+            "example": 12999.99
+          },
+          "purchasePrice": {
+            "type": "number",
+            "description": "Prix d'achat du produit.",
+            "example": 10000.99
+          },
+          "taxRate": {
+            "type": "string",
+            "description": "Énumération des taux de taxe",
+            "example": "TEN",
+            "enum": [
+              "TWENTY",
+              "FOURTEEN",
+              "TEN",
+              "SEVEN"
+            ]
+          }
+        },
+        "description": "Corps de réponse pour la récupération d'un produit."
+      },
+      "CustomerUpdateDto": {
+        "title": "Schéma de requête de mis à jour du client",
         "required": [
           "address",
           "email",
@@ -1852,72 +2116,71 @@
             "maxLength": 100,
             "minLength": 2,
             "type": "string",
-            "description": "Name of the customer",
-            "example": "Rona SARL"
+            "description": "Nom du client",
+            "example": "Acme Corp"
           },
           "email": {
             "type": "string",
-            "description": "Email address of the customer",
-            "example": "rona-sarl@example.com"
+            "description": "Adresse e-mail du client",
+            "example": "acme-corp@example.com"
           },
           "phone": {
-            "maxLength": 10,
-            "minLength": 10,
+            "pattern": "^0\\d{9}$",
             "type": "string",
-            "description": "Phone number of the customer",
-            "example": "1234567890"
+            "description": "Numéro de téléphone du client",
+            "example": "0522567890"
           },
           "address": {
             "maxLength": 500,
             "minLength": 10,
             "type": "string",
-            "description": "Address of the customer",
-            "example": "123 Main St, City, State, Zip"
+            "description": "Adresse du client",
+            "example": "123 Rue Principale, Ville, État, Code postal"
           }
         },
-        "description": "Request body for creating/updating a customer"
+        "description": "Corps de requête pour mettre à jour un client"
       },
       "CustomerResponseDto": {
-        "title": "Customer Response Schema",
+        "title": "Schéma de réponse du client.",
         "required": [
           "address",
           "email",
+          "ice",
           "name",
           "phone"
         ],
         "type": "object",
         "properties": {
-          "id": {
-            "type": "integer",
-            "description": "ID of the customer",
-            "format": "int64",
-            "example": 1
+          "ice": {
+            "type": "string",
+            "description": "ICE du client.",
+            "example": "563456789123456"
           },
           "name": {
             "type": "string",
-            "description": "Name of the customer",
-            "example": "Rona SARL"
+            "description": "Nom du client.",
+            "example": "Acme Corp"
           },
           "email": {
             "type": "string",
-            "description": "Email address of the customer",
-            "example": "rona-sarl@example.com"
+            "description": "Adresse e-mail du client.",
+            "example": "acme-corp@example.com"
           },
           "phone": {
             "type": "string",
-            "description": "Phone number of the customer",
-            "example": "1234567890"
+            "description": "Numéro de téléphone du client.",
+            "example": "0522567890"
           },
           "address": {
             "type": "string",
-            "description": "Address of the customer",
-            "example": "123 Main St, City, State, Zip"
+            "description": "Adresse du client.",
+            "example": "123 Rue Principale, Ville, État, Code postal."
           }
         },
-        "description": "Response body for a customer response"
+        "description": "Corps de réponse pour un client."
       },
       "UserCreateDto": {
-        "title": "User Create Request Schema",
+        "title": "Schéma de requête de création d'utilisateur.",
         "required": [
           "email",
           "firstName",
@@ -1931,31 +2194,31 @@
             "maxLength": 50,
             "minLength": 2,
             "type": "string",
-            "description": "First name of the user.",
+            "description": "Prénom de l'utilisateur.",
             "example": "Said"
           },
           "lastName": {
             "maxLength": 50,
             "minLength": 2,
             "type": "string",
-            "description": "Last name of the user.",
+            "description": "Le nom de l'utilisateur.",
             "example": "Alami"
           },
           "email": {
             "type": "string",
-            "description": "Email address of the user.",
+            "description": "Adresse e-mail de l'utilisateur.",
             "example": "said.alami@example.com"
           },
           "password": {
             "maxLength": 2147483647,
             "minLength": 8,
             "type": "string",
-            "description": "Password of the user.",
-            "example": "my-password"
+            "description": "Mot de passe de l'utilisateur.",
+            "example": "mot-de-passe"
           },
           "role": {
             "type": "string",
-            "description": "Enumeration of user roles",
+            "description": "Énumération des rôles utilisateur",
             "example": "MANAGER",
             "enum": [
               "ADMIN",
@@ -1964,33 +2227,33 @@
             ]
           }
         },
-        "description": "Request body for creating a new user."
+        "description": "Corps de la requête pour créer un nouvel utilisateur."
       },
       "InvoiceCreateDto": {
-        "title": "Invoice Request Schema",
+        "title": "Schéma de demande de facture.",
         "required": [
-          "customerId",
+          "customerICE",
           "items"
         ],
         "type": "object",
         "properties": {
-          "customerId": {
-            "type": "integer",
-            "description": "The ID of the customer who the invoice is issued to",
-            "format": "int64"
+          "customerICE": {
+            "type": "string",
+            "description": "Le numéro ICE du client auquel la facture est émise.",
+            "example": "563456789123456"
           },
           "items": {
             "type": "array",
-            "description": "The list of items and their quantities to be included in the invoice",
+            "description": "La liste des articles et de leurs quantités à inclure dans la facture.",
             "items": {
               "$ref": "#/components/schemas/InvoiceItemDto"
             }
           }
         },
-        "description": "Request body for creating an Invoice"
+        "description": "Corps de la demande pour créer une facture."
       },
       "InvoiceItemDto": {
-        "title": "Invoice Item Schema",
+        "title": "Schéma des éléments de facture.",
         "required": [
           "productId",
           "quantity",
@@ -2000,26 +2263,71 @@
         "properties": {
           "productId": {
             "type": "integer",
-            "description": "The ID of the product being invoiced",
+            "description": "L'ID du produit facturé.",
             "format": "int32"
           },
           "quantity": {
             "minimum": 1,
             "type": "integer",
-            "description": "The quantity of the product being invoiced",
+            "description": "La quantité du produit facturé.",
             "format": "int32"
           },
           "unitPrice": {
             "minimum": 1,
             "exclusiveMinimum": false,
             "type": "number",
-            "description": "The unit price of the product being invoiced"
+            "description": "Le prix unitaire du produit facturé."
           }
         },
-        "description": "Represents an item included in an invoice"
+        "description": "Représente un article inclus dans une facture."
+      },
+      "CustomerCreateDto": {
+        "title": "Schéma de requête de création du client",
+        "required": [
+          "address",
+          "email",
+          "ice",
+          "name",
+          "phone"
+        ],
+        "type": "object",
+        "properties": {
+          "ice": {
+            "pattern": "^\\d{15}$",
+            "type": "string",
+            "description": "ICE du client",
+            "example": "563456789123456"
+          },
+          "name": {
+            "maxLength": 100,
+            "minLength": 2,
+            "type": "string",
+            "description": "Nom du client",
+            "example": "Acme Corp"
+          },
+          "email": {
+            "type": "string",
+            "description": "Adresse e-mail du client",
+            "example": "acme-corp@example.com"
+          },
+          "phone": {
+            "pattern": "^0\\d{9}$",
+            "type": "string",
+            "description": "Numéro de téléphone du client",
+            "example": "0522567890"
+          },
+          "address": {
+            "maxLength": 500,
+            "minLength": 10,
+            "type": "string",
+            "description": "Adresse du client",
+            "example": "123 Rue Principale, Ville, État, Code postal"
+          }
+        },
+        "description": "Corps de requête pour créer un client"
       },
       "AuthenticationRequest": {
-        "title": "Authentication Request Schema",
+        "title": "Schéma de la demande d'authentification.",
         "required": [
           "email",
           "password"
@@ -2028,40 +2336,40 @@
         "properties": {
           "email": {
             "type": "string",
-            "description": "User email",
+            "description": "Email de l'utilisateur.",
             "example": "yusef@mail.com"
           },
           "password": {
             "type": "string",
-            "description": "User password",
+            "description": "Mot de passe de l'utilisateur.",
             "example": "secret-password"
           }
         },
-        "description": "Request body for user authentication"
+        "description": "Corps de la demande d'authentification de l'utilisateur."
       },
       "AuthenticationResponse": {
-        "title": "Authentication Response Schema",
+        "title": "Schéma de la réponse d'authentification",
         "type": "object",
         "properties": {
           "token": {
             "type": "string",
-            "description": "JWT token",
+            "description": "Jeton JWT",
             "example": "eyJhbGciOiJIUzI1NiJ9..."
           },
           "id": {
             "type": "integer",
-            "description": "User ID",
+            "description": "ID de l'utilisateur",
             "format": "int64",
             "example": 1
           },
           "firstName": {
             "type": "string",
-            "description": "First name",
+            "description": "Prénom",
             "example": "Youssef"
           },
           "lastName": {
             "type": "string",
-            "description": "Last name",
+            "description": "Nom",
             "example": "Faik"
           },
           "email": {
@@ -2071,24 +2379,24 @@
           },
           "role": {
             "type": "string",
-            "description": "User role",
+            "description": "Rôle de l'utilisateur",
             "example": "ADMIN"
           }
         },
-        "description": "Response body for user authentication response"
+        "description": "Corps de la réponse d'authentification de l'utilisateur"
       },
       "InvoiceDto": {
-        "title": "Invoice Response Schema",
+        "title": "Schéma de réponse de facture.",
         "type": "object",
         "properties": {
           "id": {
             "type": "integer",
-            "description": "The ID of the invoice",
+            "description": "L'ID de la facture",
             "format": "int32"
           },
           "issueDate": {
             "type": "string",
-            "description": "The date on which the invoice was issued",
+            "description": "La date à laquelle la facture a été émise.",
             "format": "date"
           },
           "customer": {
@@ -2096,16 +2404,16 @@
           },
           "items": {
             "type": "array",
-            "description": "The list of items and their quantities included in the invoice",
+            "description": "La liste des articles et de leurs quantités inclus dans la facture.",
             "items": {
               "$ref": "#/components/schemas/InvoiceItemResponseDto"
             }
           }
         },
-        "description": "Response body for an invoice response"
+        "description": "Corps de la réponse pour une facture."
       },
       "InvoiceItemResponseDto": {
-        "title": "Invoice Item Response Schema",
+        "title": "Schéma de réponse des éléments de facture.",
         "type": "object",
         "properties": {
           "product": {
@@ -2113,21 +2421,41 @@
           },
           "quantity": {
             "type": "integer",
-            "description": "The quantity of the product being invoiced",
+            "description": "La quantité du produit facturé.",
             "format": "int32"
           },
           "unitPrice": {
             "type": "number",
-            "description": "The unit price of the product being invoiced"
+            "description": "Le prix unitaire du produit facturé."
           }
         },
-        "description": "Represents an item included in an invoice"
+        "description": "Représente un article inclus dans une facture."
+      },
+      "ChartDataDto": {
+        "title": "Schéma de réponse des données du graphique",
+        "type": "object",
+        "properties": {
+          "dates": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "number",
+              "format": "float"
+            }
+          }
+        },
+        "description": "Corps de la réponse pour les données du graphique"
       }
     },
     "securitySchemes": {
       "Bearer_Authentication": {
         "type": "http",
-        "description": "A JWT token is required to access this API.\nJWT token can be obtained by providing email/password to the authentication API.",
+        "description": "Un jeton JWT est requis pour accéder à cette API.\nLe jeton JWT peut être obtenu en fournissant l'e-mail/le mot de passe à l'API d'authentification.",
         "in": "header",
         "scheme": "bearer",
         "bearerFormat": "JWT"

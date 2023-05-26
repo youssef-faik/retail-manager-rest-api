@@ -1,6 +1,6 @@
 /**
  * IBSYS RETAIL MANAGER API
- * This API provides various endpoints to manage retail operations such as creating and updating products, managing inventory, and processing orders.
+ * Cette API propose plusieurs points de terminaison pour gérer les opérations de vente au détail, telles que la création et la mise à jour de produits, la gestion des stocks et le traitement des commandes.
  *
  * The version of the OpenAPI document: x.x.x
  * 
@@ -12,27 +12,27 @@
 
 
 /**
- * Request body for creating/updating a product
+ * Corps de la demande pour la création/mise à jour d\'un produit.
  */
 export interface ProductRequestDto { 
     /**
-     * Barcode of the product
+     * Code-barres du produit.
      */
     barCode: string;
     /**
-     * Name of the product
+     * Nom du produit.
      */
     name: string;
     /**
-     * Selling Price of the product excluding tax
+     * Prix de vente du produit hors taxe.
      */
     sellingPriceExcludingTax: number;
     /**
-     * Purchase Price of the product
+     * Prix d\'achat du produit.
      */
     purchasePrice: number;
     /**
-     * Enumeration of tax rates
+     * Énumération des taux de taxe
      */
     taxRate: ProductRequestDto.TaxRateEnum;
 }

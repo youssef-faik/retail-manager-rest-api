@@ -1,6 +1,6 @@
 /**
  * IBSYS RETAIL MANAGER API
- * This API provides various endpoints to manage retail operations such as creating and updating products, managing inventory, and processing orders.
+ * Cette API propose plusieurs points de terminaison pour gérer les opérations de vente au détail, telles que la création et la mise à jour de produits, la gestion des stocks et le traitement des commandes.
  *
  * The version of the OpenAPI document: x.x.x
  * 
@@ -12,15 +12,15 @@
 
 
 /**
- * Request body for user authentication
+ * Corps de la demande d\'authentification de l\'utilisateur.
  */
 export interface AuthenticationRequest { 
     /**
-     * User email
+     * Email de l\'utilisateur.
      */
     email: string;
     /**
-     * User password
+     * Mot de passe de l\'utilisateur.
      */
     password: string;
 }
