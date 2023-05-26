@@ -30,6 +30,7 @@ import {InvoicesComponent} from './invoices/invoices.component';
 import {AddInvoiceComponent} from './invoices/add-invoice/add-invoice.component';
 import {NgSelectModule} from "@ng-select/ng-select";
 import { PreviewInvoiceComponent } from './invoices/preview-invoice/preview-invoice.component';
+import {ArchwizardModule} from "angular-archwizard";
 
 
 @NgModule({
@@ -50,18 +51,19 @@ import { PreviewInvoiceComponent } from './invoices/preview-invoice/preview-invo
     AddInvoiceComponent,
     PreviewInvoiceComponent,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    LayoutModule,
-    HttpClientModule,
-    TablesModule,
-    FormsModule,
-    CustomFormsModule,
-    ReactiveFormsModule,
-    NgSelectModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        LayoutModule,
+        HttpClientModule,
+        TablesModule,
+        FormsModule,
+        CustomFormsModule,
+        ReactiveFormsModule,
+        NgSelectModule,
+        ArchwizardModule
+    ],
   providers: [
     AuthGuard,
     {

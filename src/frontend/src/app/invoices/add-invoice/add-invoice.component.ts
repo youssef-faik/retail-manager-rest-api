@@ -4,12 +4,15 @@ import {
   CustomerResponseDto,
   FactureService,
   InvoiceCreateDto,
+  InvoiceDto,
   InvoiceItemDto,
   ProductResponseDto,
   ProduitService
 } from "../../../../libs/openapi/out";
 import {HttpResponse} from "@angular/common/http";
 import {ActivatedRoute, Router} from "@angular/router";
+import html2canvas from "html2canvas";
+import jsPDF from "jspdf";
 
 @Component({
   selector: 'app-add-invoice',
@@ -32,6 +35,10 @@ export class AddInvoiceComponent implements OnInit {
   selectedUnitPrice: number | undefined = 0;
   item: InvoiceItemDto = {productId: 0, quantity: 1, unitPrice: 0};
 
+  savedInvoice: InvoiceDto;
+
+  totalIncluVTA: number = 0;
+  totalExcluVTA: number = 0;
 
   constructor(
     private customerService: ClientService,
@@ -167,7 +174,7 @@ export class AddInvoiceComponent implements OnInit {
 
   getSellingPriceIncludingTaxes(
     taxRate: ProductResponseDto.TaxRateEnum | undefined,
-    sellingPriceExcludingTaxes: number
+    sellingPriceExcludingTaxes: number | undefined
   ): number {
     let taxRatePercentage;
 
@@ -183,6 +190,7 @@ export class AddInvoiceComponent implements OnInit {
       taxRatePercentage = 0;
     }
 
+    // @ts-ignore
     return sellingPriceExcludingTaxes * (1 + taxRatePercentage);
   }
 
@@ -244,22 +252,67 @@ export class AddInvoiceComponent implements OnInit {
       {httpHeaderAccept: 'application/json'}
     ).subscribe((response: HttpResponse<any>) => {
       // Access the Location header value
-
       const locationHeader: string = response.headers.get('Location') || '/api/v1/invoices/0';
       console.log('Location header value:', locationHeader);
 
       const originalString = locationHeader;
       const prefix = '/api/v1/invoices/';
 
-      const strippedString = originalString.replace(prefix, '');
-      console.log(strippedString);
+      const strippedId = originalString.replace(prefix, '');
+      console.log(strippedId);
 
 
-      this.router.navigate([`invoices/preview-invoice/${strippedString}`]);
+      this.invoiceService.getInvoice(+strippedId)
+        .subscribe(
+          data => {
+            this.savedInvoice = data;
+
+            // @ts-ignore
+            for (let item of this.savedInvoice.items) {
+              // @ts-ignore
+              this.totalExcluVTA += item.quantity * item.unitPrice;
+
+              // @ts-ignore
+              this.totalIncluVTA += item.quantity * this.getSellingPriceIncludingTaxes(item.product?.taxRate, item.unitPrice);
+            }
+          }
+          , error => {
+            console.log(error)
+          }
+        )
 
     }, error => {
       console.log(error)
     })
+  }
+
+  public convertToPDF() {
+    html2canvas(document.getElementById('invoice')!).then(canvas => {
+      // Few necessary setting options
+      const contentDataURL = canvas.toDataURL('image/png')
+
+      // A4 size page of PDF
+      // @ts-ignore
+      let pdf = new jsPDF('p', 'mm', 'a4');
+      var width = pdf.internal.pageSize.getWidth();
+      var height = canvas.height * width / canvas.width;
+      pdf.addImage(contentDataURL, 'PNG', 0, 0, width, height)
+
+      // Generated PDF
+      pdf.save(`invoice-${this.savedInvoice.id}.pdf`);
+    });
+  }
+
+  getDisplayDate(dateStr: string | undefined) {
+    // @ts-ignore
+    const date = new Date(dateStr);
+    const options: Intl.DateTimeFormatOptions = {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric'
+    };
+
+    return date.toLocaleDateString('en-GB', options);
   }
 
   loadCustomers() {
