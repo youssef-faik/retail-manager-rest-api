@@ -56,7 +56,7 @@
             <p *ngIf="!addUserFrom?.get('role')?.valid && addUserFrom?.get('role')?.touched" class="text-danger mt-1">
               Role is required!</p>
           </div>
-          <button class="btn btn-primary me-2" type="submit">Save</button>
+          <button [disabled]="!addUserFrom.valid" class="btn btn-primary me-2" type="submit">Save</button>
           <button class="btn btn-secondary" routerLink="/users">Cancel</button>
         </form>
       </div>

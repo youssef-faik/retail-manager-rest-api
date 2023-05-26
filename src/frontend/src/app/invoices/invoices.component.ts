@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {InvoiceDto, InvoiceItemResponseDto, InvoiceService, ProductResponseDto} from "../../../libs/openapi/out";
+import {InvoiceDto, InvoiceItemResponseDto, FactureService, ProductResponseDto} from "../../../libs/openapi/out";
 
 @Component({
   selector: 'app-invoices',
@@ -10,7 +10,7 @@ export class InvoicesComponent implements OnInit {
 
   invoices: InvoiceDto[];
 
-  constructor(private invoiceService: InvoiceService) {
+  constructor(private invoiceService: FactureService) {
   }
 
   ngOnInit(): void {

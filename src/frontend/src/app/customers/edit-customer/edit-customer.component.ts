@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {CustomerRequestDto, CustomerResponseDto, CustomerService} from "../../../../libs/openapi/out";
+import {ClientService, CustomerResponseDto, CustomerUpdateDto,} from "../../../../libs/openapi/out";
 import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
@@ -10,18 +10,18 @@ import {ActivatedRoute, Router} from "@angular/router";
 })
 export class EditCustomerComponent implements OnInit {
   editCustomerFrom!: FormGroup;
-  id!: number;
+  id!: string | null;
   customerToUpdate: CustomerResponseDto;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private customerService: CustomerService
+    private customerService: ClientService
   ) {
   }
 
   ngOnInit(): void {
-    this.id = Number(this.route.snapshot.paramMap.get('id'));
+    this.id = this.route.snapshot.paramMap.get('id');
     this.editCustomerFrom = new FormGroup({
       'name': new FormControl(null, Validators.required),
       'phone': new FormControl(null, [Validators.required, Validators.minLength(10), Validators.maxLength(10)]),
@@ -30,6 +30,7 @@ export class EditCustomerComponent implements OnInit {
     });
 
     this.customerService.getCustomer(
+    // @ts-ignore
       this.id,
       'body',
       false,
@@ -51,8 +52,9 @@ export class EditCustomerComponent implements OnInit {
       return
     }
 
-    let customerRequestDto: CustomerRequestDto = this.editCustomerFrom.value;
+    let customerRequestDto: CustomerUpdateDto = this.editCustomerFrom.value;
     this.customerService.updateCustomer(
+      // @ts-ignore
       this.id, customerRequestDto,
       'body',
       false,

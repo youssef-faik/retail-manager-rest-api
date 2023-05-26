@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
-import {InvoiceDto, InvoiceService, ProductResponseDto} from "../../../../libs/openapi/out";
+import {InvoiceDto, FactureService, ProductResponseDto} from "../../../../libs/openapi/out";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 
@@ -20,7 +20,7 @@ export class PreviewInvoiceComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private invoiceService: InvoiceService
+    private invoiceService: FactureService
   ) {
   }
 

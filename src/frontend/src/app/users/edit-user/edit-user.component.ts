@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
-import {UserDto, UserService, UserUpdateDto} from "../../../../libs/openapi/out";
+import {UserDto, UtilisateurService, UserUpdateDto} from "../../../../libs/openapi/out";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 
 @Component({
@@ -17,7 +17,7 @@ export class EditUserComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private userService: UserService
+    private userService: UtilisateurService
   ) {
   }
 

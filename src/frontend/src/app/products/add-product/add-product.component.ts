@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ProductRequestDto, ProductResponseDto, ProductService} from "../../../../libs/openapi/out";
+import {ProductRequestDto, ProductResponseDto, ProduitService} from "../../../../libs/openapi/out";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
 
@@ -13,7 +13,7 @@ export class AddProductComponent implements OnInit {
   addProductForm: FormGroup;
 
   constructor(
-    private productService: ProductService,
+    private productService: ProduitService,
     private router: Router,
     private route: ActivatedRoute
   ) {

@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {UserCreateDto, UserDto, UserService} from "../../../../libs/openapi/out";
+import {UserCreateDto, UserDto, UtilisateurService} from "../../../../libs/openapi/out";
 import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
@@ -13,7 +13,7 @@ export class AddUserComponent implements OnInit {
   addUserFrom: FormGroup;
 
   constructor(
-    private userService: UserService,
+    private userService: UtilisateurService,
     private router: Router,
     private route: ActivatedRoute
   ) {

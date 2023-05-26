@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {ChangePasswordRequest, UserService} from "../../../libs/openapi/out";
+import {ChangePasswordRequest, UtilisateurService} from "../../../libs/openapi/out";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 
 @Component({
@@ -14,7 +14,7 @@ export class ChangePasswordComponent implements OnInit {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private userService: UserService
+    private userService: UtilisateurService
   ) {
   }
 

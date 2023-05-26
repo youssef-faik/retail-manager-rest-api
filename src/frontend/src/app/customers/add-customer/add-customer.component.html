@@ -18,6 +18,12 @@
       <div class="card-body">
         <form (ngSubmit)="onSubmit()" [formGroup]="addCustomerForm" class="forms-sample">
           <div class="mb-3">
+            <label class="form-label" for="name">ICE</label>
+            <input class="form-control" formControlName="ice" id="ice" placeholder="ICE" type="text">
+            <p *ngIf="!addCustomerForm?.get('ice')?.valid && addCustomerForm?.get('ice')?.touched"
+               class="text-danger mt-1">ICE is required!</p>
+          </div>
+          <div class="mb-3">
             <label class="form-label" for="name">Name</label>
             <input class="form-control" formControlName="name" id="name" placeholder="Name" type="text">
             <p *ngIf="!addCustomerForm?.get('name')?.valid && addCustomerForm?.get('name')?.touched"
@@ -46,7 +52,7 @@
             <p *ngIf="!addCustomerForm?.get('address')?.valid && addCustomerForm?.get('address')?.touched"
                class="text-danger mt-1">Address is required!</p>
           </div>
-          <button class="btn btn-primary me-2" type="submit">Save</button>
+          <button [disabled]="!addCustomerForm.valid" class="btn btn-primary me-2" type="submit">Save</button>
           <button class="btn btn-secondary" routerLink="/users">Cancel</button>
         </form>
       </div>

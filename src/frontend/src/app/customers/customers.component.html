@@ -23,24 +23,24 @@
           <table class="table table-hover" id="customersDataTable">
             <thead>
             <tr>
+              <th>ICE</th>
               <th>Name</th>
               <th>Phone</th>
-              <th>Email</th>
               <th>Address</th>
               <th></th>
             </tr>
             </thead>
             <tbody>
             <tr *ngFor="let customer of customers">
+              <td>{{customer.ice}}</td>
               <td>{{customer.name}}</td>
               <td>{{customer.phone}}</td>
-              <td>{{customer.email}}</td>
               <td>{{customer.address}}</td>
               <td class="d-flex justify-content-center">
-                <button class="btn btn-primary me-2" routerLink="edit-customer/{{ customer.id }}" type="button">
+                <button class="btn btn-primary me-2" routerLink="edit-customer/{{ customer.ice }}" type="button">
                   <i class="feather icon-edit"></i>
                 </button>
-                <button (click)="openConfirmationModal(deleteConfirmationModal, customer.id)" class="btn btn-danger">
+                <button (click)="openConfirmationModal(deleteConfirmationModal, customer.ice)" class="btn btn-danger">
                   <i class="feather icon-trash"></i>
                 </button>
               </td>

@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {AuthenticationRequest, AuthenticationService} from "../../../../../../libs/openapi/out";
+import {AuthenticationRequest, AuthentificationService} from "../../../../../../libs/openapi/out";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 
 @Component({
@@ -15,7 +15,7 @@ export class LoginComponent implements OnInit {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private authenticationService: AuthenticationService
+    private authenticationService: AuthentificationService
   ) {
   }
 

@@ -26,8 +26,8 @@
               <h4 class="fw-bolder mb-3">Invoice From</h4>
               <div>
                 <p>Name: IBSYS SARL AU</p>
+                <p>ICE: 234567890123456</p>
                 <p>Phone: 0522456378</p>
-                <p>Email: ibsys@mail.com</p>
                 <p>Address: Boulevard Attawhid, Tit Mellil, Casablanca, 26490, Morocco.</p>
               </div>
             </div>
@@ -43,25 +43,27 @@
                   </div>
                   <div class="col-8 form-control-sm py-0 ps-0">
                     <ng-select (change)="onChangeCustomer()"
-                               [(ngModel)]="selectedCustomerId"
+                               [(ngModel)]="selectedCustomerIce"
                                [items]="customers"
                                [searchFn]="customSearchFn"
                                [virtualScroll]="true"
                                bindLabel="name"
-                               bindValue="id"
+                               bindValue="ice"
                                name="customerId"
                                placeholder="type to search for a customer">
                       <ng-template let-item="item" ng-option-tmp>
+                        ICE: <strong>{{item.ice}}</strong><br/>
                         Name: <strong>{{item.name}}</strong><br/>
-                        <small>Contact: {{item.email}} | {{item.phone}}</small> <br/>
+                        <small>Phone: {{item.phone}}</small> <br/>
+                        <small>Adresse: {{item.address}}</small> <br/>
                       </ng-template>
                     </ng-select>
                   </div>
                 </div>
-                <div *ngIf="selectedCustomerId">
+                <div *ngIf="selectedCustomerIce">
                   <p>Name: {{selectedCustomer.name}}</p>
+                  <p>ICE: {{selectedCustomer.ice}}</p>
                   <p>Phone: ({{selectedCustomer.phone}}) </p>
-                  <p>Email: {{selectedCustomer.email}}</p>
                   <p>Address: {{selectedCustomer.address}}</p>
                 </div>
               </div>
@@ -237,7 +239,7 @@
                   </div>
                 </div>
               </div>
-              <button (click)="onSave()" [disabled]="items.length === 0 || !selectedCustomerId"
+              <button (click)="onSave()" [disabled]="items.length === 0 || !selectedCustomerIce"
                       class="btn btn-primary w-100 my-3 btn-lg fw-bolder" type="button">Save
                 Invoice
               </button>

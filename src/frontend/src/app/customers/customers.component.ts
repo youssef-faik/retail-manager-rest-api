@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {CustomerResponseDto, CustomerService} from "../../../libs/openapi/out";
+import {CustomerResponseDto, ClientService} from "../../../libs/openapi/out";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
@@ -9,11 +9,11 @@ import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 })
 export class CustomersComponent implements OnInit {
   customers: CustomerResponseDto[];
-  recordIdToDelete?: number;
+  recordIdToDelete?: string;
 
   constructor(
     private modalService: NgbModal,
-    private customerService: CustomerService
+    private customerService: ClientService
   ) {
   }
 
@@ -22,13 +22,13 @@ export class CustomersComponent implements OnInit {
   }
 
 
-  openConfirmationModal(content: any, recordId?: number) {
+  openConfirmationModal(content: any, recordId?: string) {
     this.recordIdToDelete = recordId;
     this.modalService.open(content, {centered: true}).result.then(
       (result) => {
         if (result === 'confirm') {
           this.customerService.deleteCustomer(
-            recordId || 0,
+            recordId || '0',
             'body',
             false,
             {httpHeaderAccept: 'application/json'}

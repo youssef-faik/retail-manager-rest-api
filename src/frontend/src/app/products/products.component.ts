@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ProductResponseDto, ProductService} from "../../../libs/openapi/out";
+import {ProductResponseDto, ProduitService} from "../../../libs/openapi/out";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
@@ -13,7 +13,7 @@ export class ProductsComponent implements OnInit {
 
   constructor(
     private modalService: NgbModal,
-    private productService: ProductService
+    private productService: ProduitService
   ) {
   }
 

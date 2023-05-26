@@ -56,7 +56,7 @@
             <p *ngIf="!addProductForm?.get('taxRate')?.valid && addProductForm?.get('taxRate')?.touched"
                class="text-danger mt-1">Tax Rate is required!</p>
           </div>
-          <button class="btn btn-primary me-2" type="submit">Save</button>
+          <button [disabled]="!addProductForm.valid" class="btn btn-primary me-2" type="submit">Save</button>
           <button class="btn btn-secondary" routerLink="/users">Cancel</button>
         </form>
       </div>

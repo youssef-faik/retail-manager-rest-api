@@ -1,12 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 import {
+  ClientService,
   CustomerResponseDto,
-  CustomerService,
+  FactureService,
   InvoiceCreateDto,
   InvoiceItemDto,
-  InvoiceService,
   ProductResponseDto,
-  ProductService
+  ProduitService
 } from "../../../../libs/openapi/out";
 import {HttpResponse} from "@angular/common/http";
 import {ActivatedRoute, Router} from "@angular/router";
@@ -25,7 +25,7 @@ export class AddInvoiceComponent implements OnInit {
   amount: number = 0;
   total: number = 0;
   totalExcludingTaxes: number = 0;
-  selectedCustomerId: string;
+  selectedCustomerIce: string;
   selectedProductId: string;
   selectedCustomer: CustomerResponseDto;
   selectedProduct: ProductResponseDto;
@@ -34,9 +34,9 @@ export class AddInvoiceComponent implements OnInit {
 
 
   constructor(
-    private customerService: CustomerService,
-    private productService: ProductService,
-    private invoiceService: InvoiceService,
+    private customerService: ClientService,
+    private productService: ProduitService,
+    private invoiceService: FactureService,
     private route: ActivatedRoute,
     private router: Router
   ) {
@@ -111,9 +111,9 @@ export class AddInvoiceComponent implements OnInit {
   }
 
   onChangeCustomer() {
-    if (this.selectedCustomerId) {
+    if (this.selectedCustomerIce) {
       this.selectedCustomer = this.customers.filter(customer => {
-        return customer.id == +this.selectedCustomerId
+        return customer.ice == this.selectedCustomerIce
       })[0];
     }
   }
@@ -234,7 +234,7 @@ export class AddInvoiceComponent implements OnInit {
 
   onSave() {
     // @ts-ignore
-    let invoiceCreateDto: InvoiceCreateDto = {customerId: this.selectedCustomerId, items: this.items};
+    let invoiceCreateDto: InvoiceCreateDto = {customerICE: this.selectedCustomerIce, items: this.items};
 
     this.invoiceService.createInvoice(
       // @ts-ignore

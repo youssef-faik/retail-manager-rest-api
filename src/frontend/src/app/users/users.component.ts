@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
-import {UserDto, UserService} from "../../../libs/openapi/out";
+import {UserDto, UtilisateurService} from "../../../libs/openapi/out";
 
 @Component({
   selector: 'app-users',
@@ -13,7 +13,7 @@ export class UsersComponent implements OnInit {
 
   constructor(
     private modalService: NgbModal,
-    private usersService: UserService
+    private usersService: UtilisateurService
   ) {
   }
 
