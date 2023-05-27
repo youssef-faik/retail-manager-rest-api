@@ -20,9 +20,9 @@ export class DashboardComponent implements OnInit {
   public isSalesDataLoaded = false;
   public isOrdersDataLoaded = false;
   public isCustomersDataLoaded = false;
-  public sales: Array<number> | undefined;
-  public orders: Array<number> | undefined;
-  public customers: Array<number> | undefined;
+  public salesData: Array<number> | undefined;
+  public ordersData: Array<number> | undefined;
+  public customersData: Array<number> | undefined;
 
   // colors and font variables for apex chart
   obj = {
@@ -59,7 +59,7 @@ export class DashboardComponent implements OnInit {
       data => {
         this.monthlySalesChartOptions = getMonthlySalesChartOptions(this.obj, data);
         this.isSalesDataLoaded = true;
-        this.sales = data.data
+        this.salesData = data.data
       },
       error => {
       }
@@ -69,7 +69,7 @@ export class DashboardComponent implements OnInit {
       data => {
         this.ordersChartOptions = getOrdersChartOptions(this.obj, data);
         this.isOrdersDataLoaded = true;
-        this.orders = data.data;
+        this.ordersData = data.data;
       },
       error => {
       }
@@ -79,7 +79,7 @@ export class DashboardComponent implements OnInit {
       data => {
         this.customersChartOptions = getCustomersChartOptions(this.obj, data);
         this.isCustomersDataLoaded = true;
-        this.customers = data.data;
+        this.customersData = data.data;
       },
       error => {
       }
@@ -87,7 +87,7 @@ export class DashboardComponent implements OnInit {
   }
 
 
-  getTotal(numbers: Array<number> | undefined): number {
+  getTotal(numbers: number[] | undefined): number {
     let total: number = 0;
     // @ts-ignore
     for (const number of numbers) {
@@ -112,15 +112,66 @@ function getCustomersChartOptions(obj: any, ordersData: ChartDataDto) {
         enabled: false
       },
       type: "line",
-      height: 60,
-      sparkline: {
-        enabled: !0
+      height: 240,
+      parentHeightOffset: 0,
+      foreColor: obj.bodyColor,
+      background: obj.cardBg,
+      toolbar: {
+        show: false
       }
     },
     colors: [obj.primary],
+    plotOptions: {
+      line: {
+
+        dataLabels: {
+          show: false
+        }
+      }
+    }, grid: {
+      padding: {
+        bottom: -4
+      },
+      borderColor: obj.gridBorder,
+      xaxis: {
+        lines: {
+          show: false
+        }
+      },
+
+    },
     xaxis: {
       type: 'datetime',
       categories: ordersData.dates,
+      axisBorder: {
+        color: obj.gridBorder,
+      },
+      axisTicks: {
+        color: obj.gridBorder,
+      },
+    },
+    yaxis: {
+      title: {
+        text: 'Number of customers',
+        style: {
+          size: 9,
+          color: obj.muted
+        }
+      },
+      labels: {
+
+        offsetX: 0,
+      },
+    },
+    legend: {
+      show: true,
+      position: "top",
+      horizontalAlign: 'center',
+      fontFamily: obj.fontFamily,
+      itemMargin: {
+        horizontal: 8,
+        vertical: 0
+      },
     },
     stroke: {
       width: 2,
@@ -139,7 +190,7 @@ function getCustomersChartOptions(obj: any, ordersData: ChartDataDto) {
 function getOrdersChartOptions(obj: any, ordersData: ChartDataDto) {
   return {
     series: [{
-      name: '',
+      name: 'Orders',
       data: ordersData.data
     }],
     chart: {
@@ -147,21 +198,79 @@ function getOrdersChartOptions(obj: any, ordersData: ChartDataDto) {
         enabled: false
       },
       type: "bar",
-      height: 60,
-      sparkline: {
-        enabled: !0
+      height: 240,
+      parentHeightOffset: 0,
+      foreColor: obj.bodyColor,
+      background: obj.cardBg,
+      toolbar: {
+        show: false
       }
     },
     colors: [obj.primary],
     plotOptions: {
       bar: {
         borderRadius: 2,
-        columnWidth: "60%"
+        columnWidth: "60%",
+        dataLabels: {
+          position: 'top',
+          orientation: 'vertical',
+        }
       }
+    },
+    grid: {
+      padding: {
+        bottom: -4
+      },
+      borderColor: obj.gridBorder,
+      xaxis: {
+        lines: {
+          show: false
+        }
+      },
+
     },
     xaxis: {
       type: 'datetime',
       categories: ordersData.dates,
+      axisBorder: {
+        color: obj.gridBorder,
+      },
+      axisTicks: {
+        color: obj.gridBorder,
+      },
+    },
+    yaxis: {
+      title: {
+        text: 'Number of orders',
+        style: {
+          size: 9,
+          color: obj.muted
+        }
+      },
+      labels: {
+        offsetX: 0,
+      },
+    },
+    legend: {
+      show: true,
+      position: "top",
+      horizontalAlign: 'center',
+      fontFamily: obj.fontFamily,
+      itemMargin: {
+        horizontal: 8,
+        vertical: 0
+      },
+    },
+    stroke: {
+      width: 0
+    },
+    dataLabels: {
+      enabled: true,
+      style: {
+        fontSize: '10px',
+        fontFamily: obj.fontFamily,
+      },
+      offsetY: -27
     }
   }
 }
@@ -199,7 +308,7 @@ function getMonthlySalesChartOptions(obj: any, salesData: ChartDataDto) {
       borderColor: obj.gridBorder,
       xaxis: {
         lines: {
-          show: true
+          show: false
         }
       }
     },
@@ -249,7 +358,7 @@ function getMonthlySalesChartOptions(obj: any, salesData: ChartDataDto) {
     plotOptions: {
       bar: {
         columnWidth: "50%",
-        borderRadius: 4,
+        borderRadius: 2,
         dataLabels: {
           position: 'top',
           orientation: 'vertical',

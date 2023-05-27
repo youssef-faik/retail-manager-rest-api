@@ -11,26 +11,36 @@
         <div class="card">
           <div class="card-body">
             <div class="d-flex justify-content-between align-items-baseline mb-3">
-              <h6 class="card-title mb-0 fw-bolder">New Orders</h6>
+              <p class="card-title mb-0 fw-bolder fw-6">New Orders</p>
+              <p *ngIf="isOrdersDataLoaded" class="card-title mb-2 fw-bolder">Total : <span
+                class="text-primary">{{getTotal(ordersData)}}</span></p>
             </div>
             <ng-container *ngIf="isOrdersDataLoaded">
               <div class="row">
-                <div class="col-6 col-md-12 col-xl-5">
-                  <h3 class="mb-2">{{getTotal(orders)}}</h3>
-                </div>
-                <div class="col-6 col-md-12 col-xl-7">
+                <div class="">
                   <div class="mt-md-3 mt-xl-0">
                     <apx-chart
                       [chart]="ordersChartOptions.chart"
                       [colors]="ordersChartOptions.colors"
+                      [dataLabels]="ordersChartOptions.dataLabels"
+                      [fill]="ordersChartOptions.fill"
+                      [grid]="ordersChartOptions.grid"
+                      [legend]="ordersChartOptions.legend"
                       [plotOptions]="ordersChartOptions.plotOptions"
                       [series]="ordersChartOptions.series"
+                      [stroke]="ordersChartOptions.stroke"
                       [xaxis]="ordersChartOptions.xaxis"
+                      [yaxis]="ordersChartOptions.yaxis"
                     ></apx-chart>
                   </div>
                 </div>
               </div>
             </ng-container>
+            <div *ngIf="!isOrdersDataLoaded" class="d-flex justify-content-center">
+              <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -39,27 +49,36 @@
         <div class="card">
           <div class="card-body">
             <div class="d-flex justify-content-between align-items-baseline mb-3">
-              <h6 class="card-title mb-0 fw-bolder">New Customers</h6>
+              <p class="card-title mb-0 fw-bolder fw-6">New Customers</p>
+              <p *ngIf="isCustomersDataLoaded" class="card-title mb-2 fw-bolder">Total : <span
+                class="text-primary">{{getTotal(customersData)}}</span></p>
             </div>
             <ng-container *ngIf="isCustomersDataLoaded">
               <div class="row">
-                <div class="col-6 col-md-12 col-xl-5">
-                  <h3 class="mb-2">{{getTotal(customers)}}</h3>
-                </div>
-                <div class="col-6 col-md-12 col-xl-7">
+                <div class="">
                   <div class="mt-md-3 mt-xl-0">
                     <apx-chart
                       [chart]="customersChartOptions.chart"
                       [colors]="customersChartOptions.colors"
-                      [markers]="customersChartOptions.markers"
+                      [dataLabels]="customersChartOptions.dataLabels"
+                      [fill]="customersChartOptions.fill"
+                      [grid]="customersChartOptions.grid"
+                      [legend]="customersChartOptions.legend"
+                      [plotOptions]="customersChartOptions.plotOptions"
                       [series]="customersChartOptions.series"
                       [stroke]="customersChartOptions.stroke"
                       [xaxis]="customersChartOptions.xaxis"
+                      [yaxis]="customersChartOptions.yaxis"
                     ></apx-chart>
                   </div>
                 </div>
               </div>
             </ng-container>
+            <div *ngIf="!isCustomersDataLoaded" class="d-flex justify-content-center">
+              <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -73,7 +92,9 @@
       <div class="card-body">
         <div class="d-flex justify-content-between align-items-baseline mb-2">
           <h6 class="card-title mb-0 fw-bolder">Monthly sales</h6>
-          <h6 class="card-title mb-0 fw-bolder">Total sales: <span class="text-primary">$ {{getTotal(sales)}}</span></h6>
+          <h6 *ngIf="isSalesDataLoaded" class="card-title mb-0 fw-bolder">Total : <span
+            class="text-primary">$ {{getTotal(salesData)}}</span>
+          </h6>
         </div>
         <ng-container *ngIf="isSalesDataLoaded">
           <apx-chart
@@ -90,6 +111,11 @@
             [yaxis]="monthlySalesChartOptions.yaxis"
           ></apx-chart>
         </ng-container>
+        <div *ngIf="!isSalesDataLoaded" class="d-flex justify-content-center">
+          <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+        </div>
       </div>
     </div>
   </div>
