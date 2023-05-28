@@ -13,6 +13,11 @@ import {HttpResponse} from "@angular/common/http";
 import {ActivatedRoute, Router} from "@angular/router";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {NgxQrcodeElementTypes, NgxQrcodeErrorCorrectionLevels} from "@techiediaries/ngx-qrcode";
+import {CartItemService} from "../../services/cartItem.service";
+import {ICartItem} from "../../services/cartItem.model";
+import {MovingDirection} from "angular-archwizard";
 
 @Component({
   selector: 'app-add-invoice',
@@ -40,18 +45,36 @@ export class AddInvoiceComponent implements OnInit {
   totalIncluVTA: number = 0;
   totalExcluVTA: number = 0;
 
+  cartId: string = (Math.floor(Math.random() * 9000000) + 1000000).toString();
+  displayScannerButton: boolean = false;
+
+  elementType: NgxQrcodeElementTypes = NgxQrcodeElementTypes.URL;
+  errorCorrectionLevel: NgxQrcodeErrorCorrectionLevels = NgxQrcodeErrorCorrectionLevels.LOW;
+
   constructor(
     private customerService: ClientService,
     private productService: ProduitService,
     private invoiceService: FactureService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private modalService: NgbModal,
+    private cartItemService: CartItemService
   ) {
   }
 
   ngOnInit(): void {
     this.loadCustomers();
     this.loadProducts();
+
+    // @ts-ignore
+    this.cartItemService.cartId = this.cartId;
+    this.cartItemService.updateEvents.subscribe(
+      data => {
+        console.log('updateEvents')
+        console.log(data)
+        this.handleAddEvent(data.addedCartItem);
+      }
+    );
   }
 
   addItem() {
@@ -350,6 +373,36 @@ export class AddInvoiceComponent implements OnInit {
         });
       }, error => {
         console.log(error)
-      })
+      }
+    )
   }
+
+  openGenerateQRCodeModal(content: any) {
+    this.modalService.open(content, {centered: true}).result.then(
+      (result) => {
+      },
+      (reason) => {
+        // Handle modal dismissal (e.g., cancel button clicked)
+        console.log(`Modal dismissed with reason: ${reason}`);
+      }
+    );
+  }
+
+
+  handleAddEvent(addedCartItem: ICartItem): void {
+    console.log('updateEvents')
+    console.log(addedCartItem)
+    this.cartItemService.getCartItem(addedCartItem.id).subscribe(
+      data => {
+        this.selectedProductId = data.productId;
+      }, error => {
+        console.log(error)
+      }
+    );
+  }
+
+  enterExitStepToggle($event: MovingDirection) {
+    this.displayScannerButton = !this.displayScannerButton;
+  }
+
 }

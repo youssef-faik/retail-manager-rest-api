@@ -33,7 +33,12 @@
               "quill",
               "dayjs",
               "metismenujs",
-              "feather-icons"
+              "feather-icons",
+              "raf",
+              "rgbcolor",
+              "qrcode",
+              "html2canvas",
+              "js'. CommonJS or AMD dependencies "
             ],
             "index": "src/index.html",
             "main": "src/main.ts",
