@@ -27,12 +27,25 @@ public class SecurityConfiguration {
   public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
     http.csrf().disable();
     http.authorizeHttpRequests()
-        .requestMatchers("/swagger-ui/index.html", "/v3/api-docs", "/v3/api-docs/**", "/swagger-resources/**", "/swagger-ui.html", "/webjars/**", "/swagger.json", "/swagger-ui/**").permitAll()
-        .requestMatchers("/api/v1/auth/**").permitAll()
-        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-        .anyRequest().authenticated()
+        .requestMatchers(
+            "/swagger-ui/index.html",
+            "/v3/api-docs",
+            "/v3/api-docs/**",
+            "/swagger-resources/**",
+            "/swagger-ui.html",
+            "/webjars/**",
+            "/swagger.json",
+            "/swagger-ui/**")
+        .permitAll()
+        .requestMatchers("/api/v1/auth/**", "/api/v1/cart/**")
+        .permitAll()
+        .requestMatchers(HttpMethod.OPTIONS, "/**")
+        .permitAll()
+        .anyRequest()
+        .authenticated()
         .and()
-        .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+        .sessionManagement()
+        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
         .and()
         .authenticationProvider(authenticationProvider)
         .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
