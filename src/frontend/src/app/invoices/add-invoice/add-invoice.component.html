@@ -6,11 +6,6 @@
   </ol>
 </nav>
 
-<div class="row ">
-  <div class="col-md-12 grid-margin stretch-card d-flex justify-content-between">
-    <h2 class="ms-1">Add invoice</h2>
-  </div>
-</div>
 
 <div class="row mb-5">
   <div class="col-md-12 stretch-card">
@@ -84,11 +79,41 @@
           <!--------------------------------------------------------------------------------------------->
           <!-- START STEP 2 ----------------------------------------------------------------------------->
           <!--------------------------------------------------------------------------------------------->
-          <aw-wizard-step stepTitle="Add Items">
+          <aw-wizard-step
+            (stepEnter)="enterExitStepToggle($event)"
+            (stepExit)="enterExitStepToggle($event)"
+            stepTitle="Add Items">
             <!--------------------------------------------------------------------------------------------->
             <!-- START ITEM DETAILS ----------------------------------------------------------------------->
             <!--------------------------------------------------------------------------------------------->
-            <h4 class="fw-bold mb-4 mt-5">Choose or search for a items from the list below.</h4>
+
+            <div class="row mt-4 mb-3">
+              <div class="col-md-12 d-flex justify-content-between align-items-center">
+                <h4 class="fw-bold">Choose or search for a items from the list below.</h4>
+                <button (click)="openGenerateQRCodeModal(generateQRCodeModal)"
+                        [hidden]="!displayScannerButton"
+                        class="btn btn-primary btn-sm position-relative"
+                        id="scannerBtn"
+                        type="button">
+                  <svg
+                    class="bi bi-upc-scan"
+                    fill="currentColor"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    width="16"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M1.5 1a.5.5 0 0 0-.5.5v3a.5.5 0 0 1-1 0v-3A1.5 1.5 0 0 1 1.5 0h3a.5.5 0 0 1 0 1h-3zM11 .5a.5.5 0 0 1 .5-.5h3A1.5 1.5 0 0 1 16 1.5v3a.5.5 0 0 1-1 0v-3a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 1-.5-.5zM.5 11a.5.5 0 0 1 .5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 1 0 1h-3A1.5 1.5 0 0 1 0 14.5v-3a.5.5 0 0 1 .5-.5zm15 0a.5.5 0 0 1 .5.5v3a1.5 1.5 0 0 1-1.5 1.5h-3a.5.5 0 0 1 0-1h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 1 .5-.5zM3 4.5a.5.5 0 0 1 1 0v7a.5.5 0 0 1-1 0v-7zm2 0a.5.5 0 0 1 1 0v7a.5.5 0 0 1-1 0v-7zm2 0a.5.5 0 0 1 1 0v7a.5.5 0 0 1-1 0v-7zm2 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-7zm3 0a.5.5 0 0 1 1 0v7a.5.5 0 0 1-1 0v-7z"/>
+                  </svg>&nbsp;Connect scanner
+                  <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                    New
+                    <span class="visually-hidden">unread messages</span>
+                  </span>
+                </button>
+              </div>
+            </div>
+
+
             <div class="row p-2 bg-light rounded">
               <div class="col-12 col-sm-12 col-md-3 px-md-1">
                 <div class="fw-bold text-uppercase">item</div>
@@ -428,3 +453,24 @@
     </div>
   </div>
 </div>
+
+<ng-template #generateQRCodeModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Scan the QR Code to connect you scanner</h4>
+    <button (click)="modal.dismiss('cancel')" aria-label="Close" class="btn-close" type="button"></button>
+  </div>
+  <div class="modal-body d-flex justify-content-center">
+    <div>
+      <ngx-qrcode
+        [elementType]="elementType"
+        [errorCorrectionLevel]="errorCorrectionLevel"
+        [margin]="2"
+        [scale]="6"
+        [value]="cartId">
+      </ngx-qrcode>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button (click)="modal.dismiss('cancel')" class="btn btn-primary" type="button">close</button>
+  </div>
+</ng-template>

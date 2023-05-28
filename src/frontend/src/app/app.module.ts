@@ -29,8 +29,9 @@ import {HttpInterceptorService} from "./services/http-interceptor.service";
 import {InvoicesComponent} from './invoices/invoices.component';
 import {AddInvoiceComponent} from './invoices/add-invoice/add-invoice.component';
 import {NgSelectModule} from "@ng-select/ng-select";
-import { PreviewInvoiceComponent } from './invoices/preview-invoice/preview-invoice.component';
+import {PreviewInvoiceComponent} from './invoices/preview-invoice/preview-invoice.component';
 import {ArchwizardModule} from "angular-archwizard";
+import {NgxQRCodeModule} from '@techiediaries/ngx-qrcode';
 
 
 @NgModule({
@@ -49,21 +50,22 @@ import {ArchwizardModule} from "angular-archwizard";
     ChangePasswordComponent,
     InvoicesComponent,
     AddInvoiceComponent,
-    PreviewInvoiceComponent,
+    PreviewInvoiceComponent
   ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        BrowserAnimationsModule,
-        LayoutModule,
-        HttpClientModule,
-        TablesModule,
-        FormsModule,
-        CustomFormsModule,
-        ReactiveFormsModule,
-        NgSelectModule,
-        ArchwizardModule
-    ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    LayoutModule,
+    HttpClientModule,
+    TablesModule,
+    FormsModule,
+    CustomFormsModule,
+    ReactiveFormsModule,
+    NgSelectModule,
+    ArchwizardModule,
+    NgxQRCodeModule
+  ],
   providers: [
     AuthGuard,
     {
