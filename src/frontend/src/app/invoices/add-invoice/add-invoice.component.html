@@ -16,7 +16,7 @@
           <!-- START STEP 1 ----------------------------------------------------------------------------->
           <!--------------------------------------------------------------------------------------------->
           <aw-wizard-step stepTitle="Select customer">
-            <div class="row d-flex justify-content-center my-5">
+            <div class="row d-flex justify-content-center mt-5 mb-3">
               <div class="col-8">
                 <h4 class="fw-bold mb-3 text-center">Choose or search for a customer from the list below.</h4>
                 <div class="">
@@ -67,7 +67,7 @@
               </div>
             </div>
 
-            <div class="d-flex justify-content-center mt-2">
+            <div class="d-flex justify-content-center">
               <button [disabled]="!selectedCustomerIce" awNextStep class="btn btn-primary w-25" type="button">Continue
               </button>
             </div>
@@ -215,15 +215,15 @@
             <div class="row">
               <h4 class="my-4">Selected items details</h4>
               <div class="table-responsive px-0 rounded">
-                <table class="table table-bordered table-hover table-sm">
+                <table class="table table-bordered table-hover ">
                   <thead class="table-dark">
                   <tr>
-                    <th class="fw-bolder">Item</th>
-                    <th class="fw-bolder">Quantity</th>
-                    <th class="fw-bolder">Unit Price</th>
-                    <th class="fw-bolder">Tax%</th>
-                    <th class="fw-bolder">Amount</th>
-                    <th class="fw-bolder">Action</th>
+                    <th class="fw-bolder py-2">Item</th>
+                    <th class="fw-bolder py-2">Quantity</th>
+                    <th class="fw-bolder py-2">Unit Price</th>
+                    <th class="fw-bolder py-2">Tax%</th>
+                    <th class="fw-bolder py-2">Amount</th>
+                    <th class="fw-bolder py-2">Action</th>
                   </tr>
                   </thead>
                   <tbody>
@@ -231,28 +231,31 @@
                     <td class="text-center" colspan="6">No items have been selected yet.</td>
                   </tr>
                   <tr *ngFor="let item of items" class="add-row">
-                    <td>
+                    <td class="py-1">
                       <input [value]="item.productId" class="form-control" hidden="hidden" name="productId"
                              type="text">
-                      <input [value]="getProductById(item.productId).name" class="form-control" disabled
+                      <input [value]="getProductById(item.productId).name" class="form-control form-control-sm" disabled
                              name="productName" type="text">
                     </td>
-                    <td>
-                      <input [value]="item.quantity" class="form-control" disabled name="quantity" type="text">
-                    </td>
-                    <td>
-                      <input [value]="item.unitPrice" class="form-control" disabled name="unitPrice" type="text">
-                    </td>
-                    <td>
-                      <input [value]="getTaxRateDisplayValue(getProductById(item.productId).taxRate)"
-                             class="form-control" disabled name="unitPrice" type="text">
-                    </td>
-                    <td>
-                      <input [value]="getItemSellingPriceIncludingTaxes(item)" class="form-control" disabled
+                    <td class="py-1">
+                      <input [value]="item.quantity" class="form-control form-control-sm" disabled name="quantity"
                              type="text">
                     </td>
-                    <td class="add-remove text-end">
-                      <button (click)="removeItem(item)" class="btn btn-danger">
+                    <td class="py-1">
+                      <input [value]="item.unitPrice" class="form-control form-control-sm" disabled name="unitPrice"
+                             type="text">
+                    </td>
+                    <td class="py-1">
+                      <input [value]="getTaxRateDisplayValue(getProductById(item.productId).taxRate)"
+                             class="form-control form-control-sm" disabled name="unitPrice" type="text">
+                    </td>
+                    <td class="py-1">
+                      <input [value]="getItemSellingPriceIncludingTaxes(item)" class="form-control form-control-sm"
+                             disabled
+                             type="text">
+                    </td>
+                    <td class="add-remove text-end py-1">
+                      <button (click)="removeItem(item)" class="btn btn-danger btn-sm">
                         <i class="feather icon-trash-2"></i>&nbsp;Remove
                       </button>
                     </td>
@@ -456,7 +459,7 @@
 
 <ng-template #generateQRCodeModal let-modal>
   <div class="modal-header">
-    <h4 class="modal-title">Scan the QR Code to connect you scanner</h4>
+    <h4 class="modal-title text-center">Scan this QR Code to link you scanner.</h4>
     <button (click)="modal.dismiss('cancel')" aria-label="Close" class="btn-close" type="button"></button>
   </div>
   <div class="modal-body d-flex justify-content-center">

@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
-import {InvoiceDto, FactureService, ProductResponseDto} from "../../../../libs/openapi/out";
+import {FactureService, InvoiceDto, ProductResponseDto} from "../../../../libs/openapi/out";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 
@@ -11,7 +11,7 @@ import jsPDF from "jspdf";
 })
 export class PreviewInvoiceComponent implements OnInit {
   id!: number;
-  invoice: InvoiceDto;
+  invoice: InvoiceDto | undefined;
 
   totalIncluVTA: number = 0;
   totalExcluVTA: number = 0;
@@ -97,7 +97,8 @@ export class PreviewInvoiceComponent implements OnInit {
       pdf.addImage(contentDataURL, 'PNG', 0, 0, width, height)
 
       // Generated PDF
-      pdf.save(`invoice-${this.id}.pdf`);
+      let filename = `invoice${this.invoice != undefined ? '-' + this.invoice.id : ''}.pdf`;
+      pdf.save(filename);
     });
   }
 

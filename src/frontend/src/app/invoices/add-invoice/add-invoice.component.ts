@@ -40,7 +40,7 @@ export class AddInvoiceComponent implements OnInit {
   selectedUnitPrice: number | undefined = 0;
   item: InvoiceItemDto = {productId: 0, quantity: 1, unitPrice: 0};
 
-  savedInvoice: InvoiceDto;
+  savedInvoice: InvoiceDto | undefined;
 
   totalIncluVTA: number = 0;
   totalExcluVTA: number = 0;
@@ -322,7 +322,8 @@ export class AddInvoiceComponent implements OnInit {
       pdf.addImage(contentDataURL, 'PNG', 0, 0, width, height)
 
       // Generated PDF
-      pdf.save(`invoice-${this.savedInvoice.id}.pdf`);
+      let filename = `invoice${this.savedInvoice != undefined ? '-' + this.savedInvoice.id : ''}.pdf`;
+      pdf.save(filename);
     });
   }
 
@@ -378,12 +379,11 @@ export class AddInvoiceComponent implements OnInit {
   }
 
   openGenerateQRCodeModal(content: any) {
-    this.modalService.open(content, {centered: true}).result.then(
+    this.modalService.open(content, {centered: true, size: "sm"}).result.then(
       (result) => {
       },
       (reason) => {
         // Handle modal dismissal (e.g., cancel button clicked)
-        console.log(`Modal dismissed with reason: ${reason}`);
       }
     );
   }
