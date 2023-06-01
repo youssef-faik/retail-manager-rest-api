@@ -16,16 +16,37 @@ declare var Stomp;
 export class CartItemService {
   public updateEvents: Subject<IUpdateMessage>;
   public cartId = '';
+  public oldCartId = '';
   private resourceUrl = `http://localhost:8080/api/v1/cart-item`;
-  private stompClient;
+  private stompClient: any;
+  private ws: any;
 
   constructor(private http: HttpClient) {
     this.updateEvents = new Subject<IUpdateMessage>();
 
-    const ws = new SockJS(SERVER_URL);
+    this.ws = new SockJS(SERVER_URL);
+    this.stompClient = Stomp.over(this.ws);
+  }
 
-    this.stompClient = Stomp.over(ws);
+  resetStompClient() {
+    console.log(this.stompClient)
+    if (this.stompClient.connected && this.oldCartId != this.cartId) {
+      this.stompClient.unsubscribe('/cart/' + this.oldCartId);
+      this.oldCartId = this.cartId;
+
+      // @ts-ignore
+      this.stompClient.subscribe('/cart/' + this.cartId, (message) => {
+        if (message.body) {
+          this.updateEvents.next(JSON.parse(message.body));
+        }
+      });
+      return;
+    }
+
+    // first connection
     this.stompClient.connect({}, () => {
+      this.oldCartId = this.cartId;
+
       // @ts-ignore
       this.stompClient.subscribe('/cart/' + this.cartId, (message) => {
         if (message.body) {
@@ -33,6 +54,7 @@ export class CartItemService {
         }
       });
     });
+    console.log(this.stompClient)
 
   }
 

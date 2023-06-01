@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {
   ClientService,
   CustomerResponseDto,
@@ -17,7 +17,7 @@ import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {NgxQrcodeElementTypes, NgxQrcodeErrorCorrectionLevels} from "@techiediaries/ngx-qrcode";
 import {CartItemService} from "../../services/cartItem.service";
 import {ICartItem} from "../../services/cartItem.model";
-import {MovingDirection} from "angular-archwizard";
+import {SwalComponent} from "@sweetalert2/ngx-sweetalert2";
 
 @Component({
   selector: 'app-add-invoice',
@@ -46,10 +46,13 @@ export class AddInvoiceComponent implements OnInit {
   totalExcluVTA: number = 0;
 
   cartId: string = (Math.floor(Math.random() * 9000000) + 1000000).toString();
-  displayScannerButton: boolean = false;
 
   elementType: NgxQrcodeElementTypes = NgxQrcodeElementTypes.URL;
   errorCorrectionLevel: NgxQrcodeErrorCorrectionLevels = NgxQrcodeErrorCorrectionLevels.LOW;
+
+  @ViewChild('swal')
+  public readonly swal!: SwalComponent;
+  isScannerConnected: boolean = false;
 
   constructor(
     private customerService: ClientService,
@@ -68,6 +71,8 @@ export class AddInvoiceComponent implements OnInit {
 
     // @ts-ignore
     this.cartItemService.cartId = this.cartId;
+    this.cartItemService.resetStompClient();
+
     this.cartItemService.updateEvents.subscribe(
       data => {
         console.log('updateEvents')
@@ -394,6 +399,16 @@ export class AddInvoiceComponent implements OnInit {
     console.log(addedCartItem)
     this.cartItemService.getCartItem(addedCartItem.id).subscribe(
       data => {
+
+        if (data.barcode == '101') {
+          this.modalService.dismissAll();
+          this.isScannerConnected = true;
+          this.swal.title = 'Scanner was connecter successfully.';
+          this.swal.icon = 'success';
+          this.swal.fire();
+          return;
+        }
+
         let itemsFilter = this.items.filter(item => {
           return item.productId == data.productId;
         });
@@ -414,10 +429,6 @@ export class AddInvoiceComponent implements OnInit {
         console.log(error)
       }
     );
-  }
-
-  enterExitStepToggle($event: MovingDirection) {
-    this.displayScannerButton = !this.displayScannerButton;
   }
 
 }

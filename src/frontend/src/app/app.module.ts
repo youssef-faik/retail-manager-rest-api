@@ -32,6 +32,7 @@ import {NgSelectModule} from "@ng-select/ng-select";
 import {PreviewInvoiceComponent} from './invoices/preview-invoice/preview-invoice.component';
 import {ArchwizardModule} from "angular-archwizard";
 import {NgxQRCodeModule} from '@techiediaries/ngx-qrcode';
+import {SweetAlert2Module} from "@sweetalert2/ngx-sweetalert2";
 
 
 @NgModule({
@@ -64,7 +65,9 @@ import {NgxQRCodeModule} from '@techiediaries/ngx-qrcode';
     ReactiveFormsModule,
     NgSelectModule,
     ArchwizardModule,
-    NgxQRCodeModule
+    NgxQRCodeModule,
+    SweetAlert2Module,
+    SweetAlert2Module.forRoot(),
   ],
   providers: [
     AuthGuard,

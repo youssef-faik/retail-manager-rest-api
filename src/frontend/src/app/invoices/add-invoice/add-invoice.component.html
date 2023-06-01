@@ -79,10 +79,7 @@
           <!--------------------------------------------------------------------------------------------->
           <!-- START STEP 2 ----------------------------------------------------------------------------->
           <!--------------------------------------------------------------------------------------------->
-          <aw-wizard-step
-            (stepEnter)="enterExitStepToggle($event)"
-            (stepExit)="enterExitStepToggle($event)"
-            stepTitle="Add Items">
+          <aw-wizard-step stepTitle="Add Items">
             <!--------------------------------------------------------------------------------------------->
             <!-- START ITEM DETAILS ----------------------------------------------------------------------->
             <!--------------------------------------------------------------------------------------------->
@@ -91,7 +88,6 @@
               <div class="col-md-12 d-flex justify-content-between align-items-center">
                 <h4 class="fw-bold">Choose or search for a items from the list below.</h4>
                 <button (click)="openGenerateQRCodeModal(generateQRCodeModal)"
-                        [hidden]="!displayScannerButton"
                         class="btn btn-primary btn-sm position-relative"
                         id="scannerBtn"
                         type="button">
@@ -215,7 +211,7 @@
             <div class="row">
               <h4 class="my-4">Selected items details</h4>
               <div class="table-responsive px-0 rounded">
-                <table class="table table-bordered table-hover ">
+                <table class="table table-bordered table-hover table-striped">
                   <thead class="table-dark">
                   <tr>
                     <th class="fw-bolder py-2">Item</th>
@@ -477,3 +473,15 @@
     <button (click)="modal.dismiss('cancel')" class="btn btn-primary" type="button">close</button>
   </div>
 </ng-template>
+
+
+<swal
+  #swal
+  [showConfirmButton]=false
+  [timerProgressBar]="true"
+  [timer]="3000"
+  [toast]="true"
+  icon="error"
+  position="top-end"
+  title="">
+</swal>
