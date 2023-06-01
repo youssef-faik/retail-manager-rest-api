@@ -1,8 +1,8 @@
 <nav class="page-breadcrumb">
   <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
-    <li class="breadcrumb-item"><a routerLink="/invoices">Invoices</a></li>
-    <li aria-current="page" class="breadcrumb-item active">Add Invoice</li>
+    <li class="breadcrumb-item"><a routerLink="/">Accueil</a></li>
+    <li class="breadcrumb-item"><a routerLink="/invoices">Factures</a></li>
+    <li aria-current="page" class="breadcrumb-item active">Ajouter une facture</li>
   </ol>
 </nav>
 
@@ -15,10 +15,10 @@
           <!--------------------------------------------------------------------------------------------->
           <!-- START STEP 1 ----------------------------------------------------------------------------->
           <!--------------------------------------------------------------------------------------------->
-          <aw-wizard-step stepTitle="Select customer">
+          <aw-wizard-step stepTitle="Sélectionner le client">
             <div class="row d-flex justify-content-center mt-5 mb-3">
               <div class="col-8">
-                <h4 class="fw-bold mb-3 text-center">Choose or search for a customer from the list below.</h4>
+                <h4 class="fw-bold mb-3 text-center">Choisissez ou recherchez un client dans la liste ci-dessous.</h4>
                 <div class="">
                   <ng-select (change)="onChangeCustomer()"
                              [(ngModel)]="selectedCustomerIce"
@@ -28,12 +28,12 @@
                              bindLabel="name"
                              bindValue="ice"
                              name="customerId"
-                             placeholder="type to search for a customer">
+                             placeholder="Tapez pour rechercher un client">
                     <ng-template let-item="item" ng-option-tmp>
-                      ICE: <strong>{{item.ice}}</strong><br/>
-                      Name: <strong>{{item.name}}</strong><br/>
-                      <small>Phone: {{item.phone}}</small> <br/>
-                      <small>Adresse: {{item.address}}</small> <br/>
+                      ICE : <strong>{{item.ice}}</strong><br/>
+                      Nom : <strong>{{item.name}}</strong><br/>
+                      <small>Téléphone : {{item.phone}}</small> <br/>
+                      <small>Adresse : {{item.address}}</small> <br/>
                     </ng-template>
                   </ng-select>
                 </div>
@@ -41,26 +41,25 @@
                 <div *ngIf="selectedCustomerIce" class=" ">
                   <div class="card mt-4 ">
                     <div class="card-body">
-                      <h4 class="fw-bolder text-center mb-4 text-primary">Selected customer details</h4>
+                      <h4 class="fw-bolder text-center mb-4 text-primary">Détails du client sélectionné</h4>
                       <table class="table">
                         <tr>
-                          <th>ICE:</th>
+                          <th>ICE :</th>
                           <td>{{selectedCustomer.ice}}</td>
                         </tr>
                         <tr>
-                          <th>Name:</th>
+                          <th>Nom :</th>
                           <td>{{selectedCustomer.name}}</td>
                         </tr>
                         <tr>
-                          <th>Phone:</th>
+                          <th>Téléphone :</th>
                           <td>({{selectedCustomer.phone}})</td>
                         </tr>
                         <tr>
-                          <th>Adresse:</th>
+                          <th>Adresse :</th>
                           <td>{{selectedCustomer.address}}</td>
                         </tr>
                       </table>
-
                     </div>
                   </div>
                 </div>
@@ -68,7 +67,8 @@
             </div>
 
             <div class="d-flex justify-content-center">
-              <button [disabled]="!selectedCustomerIce" awNextStep class="btn btn-primary w-25" type="button">Continue
+              <button [disabled]="!selectedCustomerIce" awNextStep class="btn btn-primary w-25" type="button">
+                Continuer
               </button>
             </div>
           </aw-wizard-step>
@@ -79,14 +79,14 @@
           <!--------------------------------------------------------------------------------------------->
           <!-- START STEP 2 ----------------------------------------------------------------------------->
           <!--------------------------------------------------------------------------------------------->
-          <aw-wizard-step stepTitle="Add Items">
+          <aw-wizard-step stepTitle="Ajouter des articles">
             <!--------------------------------------------------------------------------------------------->
             <!-- START ITEM DETAILS ----------------------------------------------------------------------->
             <!--------------------------------------------------------------------------------------------->
 
             <div class="row mt-4 mb-3">
               <div class="col-md-12 d-flex justify-content-between align-items-center">
-                <h4 class="fw-bold">Choose or search for a items from the list below.</h4>
+                <h4 class="fw-bold">Choisissez ou recherchez des articles dans la liste ci-dessous.</h4>
                 <button (click)="openGenerateQRCodeModal(generateQRCodeModal)"
                         class="btn btn-primary btn-sm position-relative"
                         id="scannerBtn"
@@ -102,7 +102,7 @@
                       d="M1.5 1a.5.5 0 0 0-.5.5v3a.5.5 0 0 1-1 0v-3A1.5 1.5 0 0 1 1.5 0h3a.5.5 0 0 1 0 1h-3zM11 .5a.5.5 0 0 1 .5-.5h3A1.5 1.5 0 0 1 16 1.5v3a.5.5 0 0 1-1 0v-3a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 1-.5-.5zM.5 11a.5.5 0 0 1 .5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 1 0 1h-3A1.5 1.5 0 0 1 0 14.5v-3a.5.5 0 0 1 .5-.5zm15 0a.5.5 0 0 1 .5.5v3a1.5 1.5 0 0 1-1.5 1.5h-3a.5.5 0 0 1 0-1h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 1 .5-.5zM3 4.5a.5.5 0 0 1 1 0v7a.5.5 0 0 1-1 0v-7zm2 0a.5.5 0 0 1 1 0v7a.5.5 0 0 1-1 0v-7zm2 0a.5.5 0 0 1 1 0v7a.5.5 0 0 1-1 0v-7zm2 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-7zm3 0a.5.5 0 0 1 1 0v7a.5.5 0 0 1-1 0v-7z"/>
                   </svg>&nbsp;Connect scanner
                   <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                    New
+                    Nouveau
                     <span class="visually-hidden">unread messages</span>
                   </span>
                 </button>
@@ -112,7 +112,7 @@
 
             <div class="row p-2 bg-light rounded">
               <div class="col-12 col-sm-12 col-md-3 px-md-1">
-                <div class="fw-bold text-uppercase">item</div>
+                <div class="fw-bold text-uppercase">Article</div>
                 <div>
                   <ng-select (change)="onChangeProduct()"
                              [(ngModel)]="selectedProductId"
@@ -122,20 +122,20 @@
                              bindLabel="name"
                              bindValue="id"
                              name="productId"
-                             placeholder="type to search for a product">
+                             placeholder="Tapez pour rechercher un produit">
                     <ng-template let-item="item" ng-option-tmp>
-                      Name: <strong>{{item.name}}</strong><br/>
-                      <small>Tax Rate: {{getTaxRateDisplayValue(item.taxRate)}} </small> <br/>
-                      <small>Unit Price (VAT Exclusive): ${{item.sellingPriceExcludingTax}} </small> <br/>
-                      <small>Unit Price (VAT
-                        Inclusive):&nbsp;${{getSellingPriceIncludingTaxes(item.taxRate, item.sellingPriceExcludingTax)}} </small>
+                      Nom : <strong>{{item.name}}</strong><br/>
+                      <small>Taux de taxe : {{getTaxRateDisplayValue(item.taxRate)}} </small> <br/>
+                      <small>Prix unitaire (hors taxe) : {{item.sellingPriceExcludingTax}} </small> <br/>
+                      <small>Prix unitaire (toutes taxes comprises)
+                        :&nbsp;{{getSellingPriceIncludingTaxes(item.taxRate, item.sellingPriceExcludingTax)}} </small>
                       <br/>
                     </ng-template>
                   </ng-select>
                 </div>
               </div>
               <div class="col-6 col-sm-3 col-md-2 px-md-1">
-                <div class="fw-bold text-uppercase">QUANTITY</div>
+                <div class="fw-bold text-uppercase">quantité</div>
                 <div>
                   <input
                     (change)="onChangeUnitPriceAndQuantity()"
@@ -150,7 +150,7 @@
                   ></div>
               </div>
               <div class="col-6 col-sm-3 col-md-2 px-md-1">
-                <div class="fw-bold text-uppercase">unit price</div>
+                <div class="fw-bold text-uppercase">prix unitaire</div>
                 <div>
                   <input
                     (change)="onChangeUnitPriceAndQuantity()"
@@ -166,7 +166,7 @@
                 </div>
               </div>
               <div class="col-6 col-sm-3 col-md-2 px-md-1">
-                <div class="fw-bold text-uppercase">tax%</div>
+                <div class="fw-bold text-uppercase">Taux de taxe %</div>
                 <div>
                   <input
                     [value]="taxPercentage"
@@ -177,10 +177,10 @@
                 </div>
               </div>
               <div class="col-6 col-sm-3 col-md-2 px-md-1">
-                <div class="fw-bold text-uppercase">amount</div>
+                <div class="fw-bold text-uppercase">Montant</div>
                 <div>
                   <input
-                    [value]="amount"
+                    [value]="amount.toFixed(2)"
                     class="form-control"
                     disabled
                     type="number"
@@ -194,7 +194,7 @@
                     (click)="addItem()"
                     [disabled]="products.length === 0 || !selectedProductId || amount <= 0"
                     class="btn btn-primary w-100 px-md-1">
-                    <i class="feather icon-plus"></i>Add
+                    <i class="feather icon-plus"></i>Ajouter
                   </button>
                 </div>
               </div>
@@ -209,22 +209,22 @@
             <!-- START SELECTED ITEMS --------------------------------------------------------------------->
             <!--------------------------------------------------------------------------------------------->
             <div class="row">
-              <h4 class="my-4">Selected items details</h4>
+              <h4 class="my-4">Détails des articles sélectionnés</h4>
               <div class="table-responsive px-0 rounded">
                 <table class="table table-bordered table-hover table-striped">
                   <thead class="table-dark">
                   <tr>
-                    <th class="fw-bolder py-2">Item</th>
-                    <th class="fw-bolder py-2">Quantity</th>
-                    <th class="fw-bolder py-2">Unit Price</th>
-                    <th class="fw-bolder py-2">Tax%</th>
-                    <th class="fw-bolder py-2">Amount</th>
+                    <th class="fw-bolder py-2">Article</th>
+                    <th class="fw-bolder py-2">Quantité</th>
+                    <th class="fw-bolder py-2">Prix unitaire</th>
+                    <th class="fw-bolder py-2">Taux de taxe %</th>
+                    <th class="fw-bolder py-2">Montant</th>
                     <th class="fw-bolder py-2">Action</th>
                   </tr>
                   </thead>
                   <tbody>
                   <tr *ngIf="!(items.length > 0)">
-                    <td class="text-center" colspan="6">No items have been selected yet.</td>
+                    <td class="text-center" colspan="6">Aucun article n'a encore été sélectionné.</td>
                   </tr>
                   <tr *ngFor="let item of items" class="add-row">
                     <td class="py-1">
@@ -246,13 +246,13 @@
                              class="form-control form-control-sm" disabled name="unitPrice" type="text">
                     </td>
                     <td class="py-1">
-                      <input [value]="getItemSellingPriceIncludingTaxes(item)" class="form-control form-control-sm"
+                      <input [value]="getItemSellingPriceIncludingTaxes(item).toFixed(2)" class="form-control form-control-sm"
                              disabled
                              type="text">
                     </td>
                     <td class="add-remove text-end py-1">
                       <button (click)="removeItem(item)" class="btn btn-danger btn-sm">
-                        <i class="feather icon-trash-2"></i>&nbsp;Remove
+                        <i class="feather icon-trash-2"></i>&nbsp;Supprimer
                       </button>
                     </td>
                   </tr>
@@ -273,14 +273,14 @@
                 <div class="invoice-total-card">
                   <div class="invoice-total-box">
                     <div class="invoice-total-inner">
-                      <h4 class="my-1">Summary</h4>
+                      <h4 class="my-1">Résumé</h4>
                     </div>
                     <div class="invoice-total-inner">
-                      <p>Total excl. VAT <span>${{totalExcludingTaxes}}</span></p>
-                      <p>Taxable Amount <span>${{total - totalExcludingTaxes}}</span></p>
+                      <p>Total hors TVA <span>{{totalExcludingTaxes.toFixed(2)}}</span></p>
+                      <p>Montant taxable <span>{{(total - totalExcludingTaxes).toFixed(2)}}</span></p>
                     </div>
                     <div class="invoice-total-footer">
-                      <h4>Total incl. VAT <span>$ {{total}}</span></h4>
+                      <h4>Total TTC <span>{{total.toFixed(2)}}</span></h4>
                     </div>
                   </div>
                 </div>
@@ -290,12 +290,11 @@
             <!-- END SUMMARY ------------------------------------------------------------------------------>
             <!--- ----------------------------------------------------------------------------------------->
 
-
             <div class="d-flex justify-content-center mt-2">
-              <button awPreviousStep class="btn btn-secondary me-5 w-25" type="button">Back</button>
+              <button awPreviousStep class="btn btn-secondary me-5 w-25" type="button">Retour</button>
               <button (click)="onSave()" [disabled]="items.length === 0 || !selectedCustomerIce" awNextStep
                       class="btn btn-primary w-25"
-                      type="button"> Save & Continue
+                      type="button"> Enregistrer et continuer
               </button>
             </div>
           </aw-wizard-step>
@@ -306,14 +305,14 @@
           <!--------------------------------------------------------------------------------------------->
           <!-- START STEP 3 ----------------------------------------------------------------------------->
           <!--------------------------------------------------------------------------------------------->
-          <aw-wizard-completion-step stepTitle="Print Invoice">
+          <aw-wizard-completion-step stepTitle="Imprimer la facture">
             <div class="row my-3">
               <div class="d-flex justify-content-end">
                 <button
                   (click)="convertToPDF()"
                   class="btn btn-primary float-end w-25">
                   <i class="feather icon-printer"></i>
-                  Print
+                  Imprimer
                 </button>
               </div>
             </div>
@@ -333,53 +332,53 @@
                         </a>
                       </div>
                       <div class="my-5 pt-5">
-                        <h3 class="mb-2  pt-5 text-muted">Invoice from :</h3>
+                        <h3 class="mb-2  pt-5 text-muted">Facture de :</h3>
                         <table class="table">
                           <tr>
-                            <th>Name:</th>
+                            <th>Nom :</th>
                             <td>IBSYS SARL AU</td>
                           </tr>
                           <tr>
-                            <th>Phone:</th>
+                            <th>Téléphone :</th>
                             <td>0522456378</td>
                           </tr>
                           <tr>
-                            <th>Email:</th>
+                            <th>Email :</th>
                             <td>ibsys@mail.com</td>
                           </tr>
                           <tr>
-                            <th>Address:</th>
-                            <td>Boulevard Attawhid, Tit Mellil, Casablanca, 26490, Morocco.</td>
+                            <th>Adresse :</th>
+                            <td>Boulevard Attawhid, Tit Mellil, Casablanca, 26490, Maroc.</td>
                           </tr>
                         </table>
                       </div>
                     </div>
                     <div class="col-lg-3 pe-0">
                       <div>
-                        <h4 class="fw-bold text-uppercase text-end mt-4 mb-5">invoice</h4>
-                        <h6 class="text-end mb-2"># INV-{{savedInvoice?.id}}</h6>
+                        <h4 class="fw-bold text-uppercase text-end mt-4 mb-5">Facture</h4>
+                        <h6 class="text-end mb-2"># FACT-{{savedInvoice?.id}}</h6>
                         <h6 class="text-end fw-normal mb-5">
-                          <span class="text-muted">Invoice Date :</span>
+                          <span class="text-muted">Date de la facture :</span>
                           {{getDisplayDate(savedInvoice?.issueDate)}}
                         </h6>
                       </div>
                       <div class="my-5 pt-2">
-                        <h3 class="mt-5 mb-2 text-muted">Invoice to :</h3>
+                        <h3 class="mt-5 mb-2 text-muted">Facturé à :</h3>
                         <table class="table">
                           <tr>
-                            <th>Name:</th>
+                            <th>Nom :</th>
                             <td>{{savedInvoice?.customer?.name}}</td>
                           </tr>
                           <tr>
-                            <th>Phone:</th>
+                            <th>Téléphone :</th>
                             <td>{{savedInvoice?.customer?.phone}}</td>
                           </tr>
                           <tr>
-                            <th>Email:</th>
+                            <th>Email :</th>
                             <td>{{savedInvoice?.customer?.email}}</td>
                           </tr>
                           <tr>
-                            <th>Address:</th>
+                            <th>Adresse :</th>
                             <td>{{savedInvoice?.customer?.address}}</td>
                           </tr>
                         </table>
@@ -391,11 +390,11 @@
                       <table class="table table-bordered rounded table-striped">
                         <thead class="table-dark">
                         <tr>
-                          <th class="bolder">Barcode</th>
+                          <th class="bolder">Code-barres</th>
                           <th class="bolder">Description</th>
-                          <th class="text-end bolder">Quantity</th>
-                          <th class="text-end bolder">Unit price</th>
-                          <th class="text-end bolder">Tax rate</th>
+                          <th class="text-end bolder">Quantité</th>
+                          <th class="text-end bolder">Prix unitaire</th>
+                          <th class="text-end bolder">Taux de taxe</th>
                           <th class="text-end bolder">Total</th>
                         </tr>
                         </thead>
@@ -404,10 +403,9 @@
                           <td class="text-start">{{item?.product?.barCode}}</td>
                           <td class="text-start">{{item?.product?.name}}</td>
                           <td>{{item?.quantity}}</td>
-                          <td>$ {{item?.unitPrice}}</td>
+                          <td>{{item?.unitPrice}}</td>
                           <td>{{getTaxRateDisplayValue(item?.product?.taxRate)}}</td>
-                          <td>
-                            $ {{  getSellingPriceIncludingTaxes(item?.product?.taxRate, item?.unitPrice) * (item?.quantity ?? 0)}}</td>
+                          <td>{{  getSellingPriceIncludingTaxes(item?.product?.taxRate, item?.unitPrice) * (item?.quantity ?? 0)}}</td>
                         </tr>
                         </tbody>
                       </table>
@@ -420,16 +418,16 @@
                           <table class="table">
                             <tbody>
                             <tr>
-                              <td>Total exclu. VTA</td>
-                              <td class="text-end">$ {{totalExcluVTA}}</td>
+                              <td>Total exclu. TVA</td>
+                              <td class="text-end">{{totalExcluVTA}}</td>
                             </tr>
                             <tr>
-                              <td>TAX</td>
-                              <td class="text-end">$ {{totalIncluVTA - totalExcluVTA}}</td>
+                              <td>TVA</td>
+                              <td class="text-end">{{totalIncluVTA - totalExcluVTA}}</td>
                             </tr>
                             <tr class="bg-light">
-                              <td class="text-bold-800">Total inclu. VTA</td>
-                              <td class="text-bold-800 text-end">$ {{totalIncluVTA}}</td>
+                              <td class="text-bold-800">Total inclu. TVA</td>
+                              <td class="text-bold-800 text-end">{{totalIncluVTA}}</td>
                             </tr>
                             </tbody>
                           </table>
@@ -441,7 +439,7 @@
               </div>
             </div>
             <div class="d-flex justify-content-center mt-2">
-              <button class="btn btn-success w-25" routerLink="/invoices" type="button">Finish</button>
+              <button class="btn btn-success w-25" routerLink="/invoices" type="button">Terminer</button>
             </div>
           </aw-wizard-completion-step>
           <!--------------------------------------------------------------------------------------------->

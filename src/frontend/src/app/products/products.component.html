@@ -1,14 +1,14 @@
 <nav class="page-breadcrumb">
   <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
-    <li aria-current="page" class="breadcrumb-item active">Products</li>
+    <li class="breadcrumb-item"><a routerLink="/">Accueil</a></li>
+    <li aria-current="page" class="breadcrumb-item active">Produits</li>
   </ol>
 </nav>
 
 <div class="row ">
   <div class="col-md-12 grid-margin stretch-card d-flex justify-content-between">
-    <h2 class="ms-1">Products</h2>
-    <button class="btn btn-primary" routerLink="add-product" type="button"><i class="feather icon-plus"></i>Add Product
+    <h2 class="ms-1">Produits</h2>
+    <button class="btn btn-primary" routerLink="add-product" type="button"><i class="feather icon-plus"></i>Ajouter
     </button>
   </div>
 </div>
@@ -23,11 +23,11 @@
           <table class="table table-hover" id="productsDataTable">
             <thead>
             <tr>
-              <th>BarCode</th>
-              <th>Name</th>
-              <th>Purchase Price</th>
-              <th>Selling Price Excluding Tax</th>
-              <th>taxRate</th>
+              <th>Code-barres</th>
+              <th>Nom</th>
+              <th>Prix d'achat (MAD)</th>
+              <th>Prix de vente hors taxe (MAD)</th>
+              <th>Taux de taxe</th>
               <th></th>
             </tr>
             </thead>
@@ -35,16 +35,18 @@
             <tr *ngFor="let product of products">
               <td>{{product.barCode}}</td>
               <td>{{product.name}}</td>
-              <td>${{product.purchasePrice}}</td>
-              <td>${{product.sellingPriceExcludingTax}}</td>
+              <td>{{product.purchasePrice}}</td>
+              <td>{{product.sellingPriceExcludingTax}}</td>
               <td>{{getTaxRateDisplayValue(product.taxRate)}}</td>
               <td class="d-flex justify-content-center">
-                <button class="btn btn-primary me-2" routerLink="edit-product/{{ product.id }}" type="button">
-                  <i class="feather icon-edit"></i>
-                </button>
-                <button (click)="openConfirmationModal(deleteConfirmationModal, product.id)" class="btn btn-danger">
-                  <i class="feather icon-trash"></i>
-                </button>
+                <div aria-label="Basic example" class="btn-group" role="group">
+                  <button class="btn btn-primary" routerLink="edit-product/{{ product.id }}" type="button">
+                    <i class="feather icon-edit"></i>
+                  </button>
+                  <button (click)="openConfirmationModal(deleteConfirmationModal, product.id)" class="btn btn-danger">
+                    <i class="feather icon-trash"></i>
+                  </button>
+                </div>
               </td>
             </tr>
             </tbody>
@@ -58,14 +60,14 @@
 
 <ng-template #deleteConfirmationModal let-modal>
   <div class="modal-header">
-    <h4 class="modal-title">Delete Product Confirmation</h4>
+    <h4 class="modal-title">Confirmation de suppression du produit</h4>
     <button (click)="modal.dismiss('cancel')" aria-label="Close" class="btn-close" type="button"></button>
   </div>
   <div class="modal-body">
-    <p>Do you really want to delete this product?</p>
+    <p>Voulez-vous vraiment supprimer ce produit ?</p>
   </div>
   <div class="modal-footer">
-    <button (click)="modal.close('confirm')" class="btn btn-danger" type="button">Delete</button>
-    <button (click)="modal.dismiss('cancel')" class="btn btn-secondary" type="button">Cancel</button>
+    <button (click)="modal.close('confirm')" class="btn btn-danger" type="button">Supprimer</button>
+    <button (click)="modal.dismiss('cancel')" class="btn btn-secondary" type="button">Annuler</button>
   </div>
 </ng-template>

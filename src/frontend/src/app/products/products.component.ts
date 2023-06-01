@@ -48,20 +48,6 @@ export class ProductsComponent implements OnInit {
     );
   }
 
-  private loadProducts() {
-    this.productService.getAllProducts(
-      'body',
-      false,
-      {httpHeaderAccept: 'application/json'}
-    ).subscribe(
-      (data) => {
-        console.log(data)
-        this.products = data;
-      }, error => {
-        console.log(error)
-      })
-  }
-
   getTaxRateDisplayValue(taxRate: ProductResponseDto.TaxRateEnum | undefined): string {
     switch (taxRate) {
       case ProductResponseDto.TaxRateEnum.Twenty:
@@ -75,5 +61,19 @@ export class ProductsComponent implements OnInit {
       default:
         return '';
     }
+  }
+
+  private loadProducts() {
+    this.productService.getAllProducts(
+      'body',
+      false,
+      {httpHeaderAccept: 'application/json'}
+    ).subscribe(
+      (data) => {
+        console.log(data)
+        this.products = data;
+      }, error => {
+        console.log(error)
+      })
   }
 }

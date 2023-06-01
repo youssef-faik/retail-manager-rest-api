@@ -14,10 +14,10 @@
 
       <!-- Spinner for lazyload modules -->
       <div *ngIf="isLoading" class="spinner-wrapper">
-        <div class="spinner">Loading...</div>
+        <div class="spinner">Chargement en cours...</div>
       </div>
 
-      <div contentAnimate *ngIf="!isLoading">
+      <div *ngIf="!isLoading" contentAnimate>
         <router-outlet></router-outlet>
       </div>
 

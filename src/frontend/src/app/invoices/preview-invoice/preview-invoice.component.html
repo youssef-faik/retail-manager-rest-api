@@ -4,13 +4,13 @@
       (click)="convertToPDF()"
       class="btn btn-primary float-end">
       <i class="feather icon-printer"></i>
-      Print
+      Imprimer
     </button>
     <a
       class="btn btn-outline-primary float-start"
       routerLink="/invoices">
       <i class="feather icon-arrow-left"></i>
-      Back</a>
+      Retour</a>
   </div>
 </div>
 
@@ -30,53 +30,53 @@
               </a>
             </div>
             <div class="my-5 pt-5">
-              <h3 class="mb-2  pt-5 text-muted">Invoice from :</h3>
+              <h3 class="mb-2  pt-5 text-muted">Facture de :</h3>
               <table class="table">
                 <tr>
-                  <th>Name:</th>
+                  <th>Nom :</th>
                   <td>IBSYS SARL AU</td>
                 </tr>
                 <tr>
-                  <th>Phone:</th>
+                  <th>Téléphone :</th>
                   <td>0522456378</td>
                 </tr>
                 <tr>
-                  <th>Email:</th>
+                  <th>E-mail :</th>
                   <td>ibsys@mail.com</td>
                 </tr>
                 <tr>
-                  <th>Address:</th>
-                  <td>Boulevard Attawhid, Tit Mellil, Casablanca, 26490, Morocco.</td>
+                  <th>Adresse :</th>
+                  <td>Boulevard Attawhid, Tit Mellil, Casablanca, 26490, Maroc.</td>
                 </tr>
               </table>
             </div>
           </div>
           <div class="col-lg-3 pe-0">
             <div>
-              <h4 class="fw-bold text-uppercase text-end mt-4 mb-5">invoice</h4>
-              <h6 class="text-end mb-2"># INV-{{invoice?.id}}</h6>
+              <h4 class="fw-bold text-uppercase text-end mt-4 mb-5">facture</h4>
+              <h6 class="text-end mb-2"># FACT-{{invoice?.id}}</h6>
               <h6 class="text-end fw-normal mb-5">
-                <span class="text-muted">Invoice Date :</span>
+                <span class="text-muted">Date de facturation :</span>
                 {{getDisplayDate(invoice?.issueDate)}}
               </h6>
             </div>
             <div class="my-5 pt-2">
-              <h3 class="mt-5 mb-2 text-muted">Invoice to :</h3>
+              <h3 class="mt-5 mb-2 text-muted">Facturé à :</h3>
               <table class="table">
                 <tr>
-                  <th>Name:</th>
+                  <th>Nom :</th>
                   <td>{{invoice?.customer?.name}}</td>
                 </tr>
                 <tr>
-                  <th>Phone:</th>
+                  <th>Téléphone :</th>
                   <td>{{invoice?.customer?.phone}}</td>
                 </tr>
                 <tr>
-                  <th>Email:</th>
+                  <th>E-mail :</th>
                   <td>{{invoice?.customer?.email}}</td>
                 </tr>
                 <tr>
-                  <th>Address:</th>
+                  <th>Adresse :</th>
                   <td>{{invoice?.customer?.address}}</td>
                 </tr>
               </table>
@@ -88,11 +88,11 @@
             <table class="table table-bordered rounded table-striped">
               <thead class="table-dark">
               <tr>
-                <th class="bolder">Barcode</th>
+                <th class="bolder">Code-barres</th>
                 <th class="bolder">Description</th>
-                <th class="text-end bolder">Quantity</th>
-                <th class="text-end bolder">Unit price</th>
-                <th class="text-end bolder">Tax rate</th>
+                <th class="text-end bolder">Quantité</th>
+                <th class="text-end bolder">Prix unitaire</th>
+                <th class="text-end bolder">Taux de taxe</th>
                 <th class="text-end bolder">Total</th>
               </tr>
               </thead>
@@ -101,10 +101,9 @@
                 <td class="text-start">{{item?.product?.barCode}}</td>
                 <td class="text-start">{{item?.product?.name}}</td>
                 <td>{{item?.quantity}}</td>
-                <td>$ {{item?.unitPrice}}</td>
+                <td>{{item?.unitPrice?.toFixed(2)}}</td>
                 <td>{{getTaxRateDisplayValue(item?.product?.taxRate)}}</td>
-                <td>
-                  $ {{  getSellingPriceIncludingTaxes(item?.product?.taxRate, item?.unitPrice) * (item?.quantity ?? 0)}}</td>
+                <td>{{  (getSellingPriceIncludingTaxes(item?.product?.taxRate, item?.unitPrice) * (item?.quantity ?? 0)).toFixed(2)}}</td>
               </tr>
               </tbody>
             </table>
@@ -117,16 +116,16 @@
                 <table class="table">
                   <tbody>
                   <tr>
-                    <td>Total exclu. VTA</td>
-                    <td class="text-end">$ {{totalExcluVTA}}</td>
+                    <td>Total hors TVA</td>
+                    <td class="text-end">{{totalExcluVTA.toFixed(2)}}</td>
                   </tr>
                   <tr>
-                    <td>TAX</td>
-                    <td class="text-end">$ {{totalIncluVTA - totalExcluVTA}}</td>
+                    <td>TVA</td>
+                    <td class="text-end">{{(totalIncluVTA - totalExcluVTA).toFixed(2)}}</td>
                   </tr>
                   <tr class="bg-light">
-                    <td class="text-bold-800">Total inclu. VTA</td>
-                    <td class="text-bold-800 text-end">$ {{totalIncluVTA}}</td>
+                    <td class="text-bold-800">Total TTC</td>
+                    <td class="text-bold-800 text-end">{{totalIncluVTA.toFixed(2)}}</td>
                   </tr>
                   </tbody>
                 </table>

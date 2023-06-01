@@ -1,14 +1,14 @@
 <nav class="page-breadcrumb">
   <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
-    <li class="breadcrumb-item"><a routerLink="/products">Products</a></li>
-    <li aria-current="page" class="breadcrumb-item active">Edit Product</li>
+    <li class="breadcrumb-item"><a routerLink="/">Accueil</a></li>
+    <li class="breadcrumb-item"><a routerLink="/products">Produits</a></li>
+    <li aria-current="page" class="breadcrumb-item active">Modifier un produit</li>
   </ol>
 </nav>
 
 <div class="row ">
   <div class="col-md-12 grid-margin stretch-card d-flex justify-content-between">
-    <h2 class="ms-1">Edit product</h2>
+    <h2 class="ms-1">Modifier un produit</h2>
   </div>
 </div>
 
@@ -18,46 +18,47 @@
       <div class="card-body">
         <form (ngSubmit)="onSubmit()" [formGroup]="editProductFrom" class="forms-sample">
           <div class="mb-3">
-            <label class="form-label" for="barCode">BarCode</label>
+            <label class="form-label" for="barCode">Code-barres</label>
             <input class="form-control" formControlName="barCode" id="barCode"
-                   placeholder="BarCode" type="number">
+                   placeholder="Code-barres" type="number">
             <p *ngIf="!editProductFrom?.get('barCode')?.valid && editProductFrom?.get('barCode')?.touched"
-               class="text-danger mt-1">BarCode is required!</p>
+               class="text-danger mt-1">Le code-barres est requis !</p>
           </div>
           <div class="mb-3">
-            <label class="form-label" for="name">Product Name</label>
-            <input class="form-control" formControlName="name" id="name" placeholder="Product Name" type="text">
+            <label class="form-label" for="name">Nom du produit</label>
+            <input class="form-control" formControlName="name" id="name" placeholder="Nom du produit" type="text">
             <p *ngIf="!editProductFrom?.get('name')?.valid && editProductFrom?.get('name')?.touched"
-               class="text-danger mt-1">Product name is required!</p>
+               class="text-danger mt-1">Le nom du produit est requis !</p>
           </div>
           <div class="mb-3">
-            <label class="form-label" for="purchasePrice">Purchase Price</label>
+            <label class="form-label" for="purchasePrice">Prix d'achat</label>
             <input class="form-control" formControlName="purchasePrice" id="purchasePrice" name="purchasePrice"
-                   placeholder="Purchase Price"
+                   placeholder="Prix d'achat"
                    type="number">
             <p *ngIf="!editProductFrom?.get('purchasePrice')?.valid && editProductFrom?.get('purchasePrice')?.touched"
-               class="text-danger mt-1">Purchase Price is required!</p>
+               class="text-danger mt-1">Le prix d'achat est requis !</p>
           </div>
           <div class="mb-3">
-            <label class="form-label" for="sellingPriceExcludingTax">Selling Price Excluding Tax</label>
+            <label class="form-label" for="sellingPriceExcludingTax">Prix de vente hors taxe</label>
             <input class="form-control" formControlName="sellingPriceExcludingTax" id="sellingPriceExcludingTax"
-                   name="sellingPriceExcludingTax" placeholder="Selling Price Excluding Tax"
+                   name="sellingPriceExcludingTax" placeholder="Prix de vente hors taxe"
                    type="number">
             <p
               *ngIf="!editProductFrom?.get('sellingPriceExcludingTax')?.valid && editProductFrom?.get('sellingPriceExcludingTax')?.touched"
-              class="text-danger mt-1">Selling Price Excluding Tax is required!</p>
+              class="text-danger mt-1">Le prix de vente hors taxe est requis !</p>
           </div>
           <div class="mb-3">
-            <label class="form-label" for="taxRate">Tax Rate</label>
+            <label class="form-label" for="taxRate">Taux de taxe</label>
             <select class="form-select" formControlName="taxRate" id="taxRate" name="taxRate">
-              <option disabled selected value="none">Select Tax Rate</option>
-              <option *ngFor="let taxRate of taxRates" value="{{taxRate}}">{{getTaxRateDisplayValue(taxRate)}}</option>
+              <option disabled selected value="none">Sélectionner le taux de taxe</option>
+              <option
+                *ngFor="let taxRate of taxRates" value="{{taxRate}}">{{getTaxRateDisplayValue(taxRate)}}</option>
             </select>
             <p *ngIf="!editProductFrom?.get('taxRate')?.valid && editProductFrom?.get('taxRate')?.touched"
-               class="text-danger mt-1">Tax Rate is required!</p>
+               class="text-danger mt-1">Le taux de taxe est requis !</p>
           </div>
-          <button [disabled]="!editProductFrom.valid" class="btn btn-primary me-2" type="submit">Save</button>
-          <button class="btn btn-secondary" routerLink="/users">Cancel</button>
+          <button [disabled]="!editProductFrom.valid" class="btn btn-primary me-2" type="submit">Enregistrer</button>
+          <button class="btn btn-secondary" routerLink="/products">Annuler</button>
         </form>
       </div>
     </div>

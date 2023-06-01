@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 
 import {NgbCalendar, NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
-import {ChartDataDto, TableauDeBordService} from "../../../../../libs/openapi/out";
+import {ChartDataDto, TableauDeBordService} from "../../../libs/openapi/out";
 
 @Component({
   selector: 'app-dashboard',
@@ -152,7 +152,7 @@ function getCustomersChartOptions(obj: any, ordersData: ChartDataDto) {
     },
     yaxis: {
       title: {
-        text: 'Number of customers',
+        text: 'Nombre de clients',
         style: {
           size: 9,
           color: obj.muted
@@ -190,7 +190,7 @@ function getCustomersChartOptions(obj: any, ordersData: ChartDataDto) {
 function getOrdersChartOptions(obj: any, ordersData: ChartDataDto) {
   return {
     series: [{
-      name: 'Orders',
+      name: 'Commandes',
       data: ordersData.data
     }],
     chart: {
@@ -241,7 +241,7 @@ function getOrdersChartOptions(obj: any, ordersData: ChartDataDto) {
     },
     yaxis: {
       title: {
-        text: 'Number of orders',
+        text: 'Nombre de commandes',
         style: {
           size: 9,
           color: obj.muted
@@ -281,7 +281,7 @@ function getOrdersChartOptions(obj: any, ordersData: ChartDataDto) {
 function getMonthlySalesChartOptions(obj: any, salesData: ChartDataDto) {
   return {
     series: [{
-      name: 'Sales',
+      name: 'Ventes',
       data: salesData.data
     }],
     chart: {
@@ -324,7 +324,7 @@ function getMonthlySalesChartOptions(obj: any, salesData: ChartDataDto) {
     },
     yaxis: {
       title: {
-        text: 'Total of Sales in $',
+        text: 'Total des ventes en MAD',
         style: {
           size: 9,
           color: obj.muted

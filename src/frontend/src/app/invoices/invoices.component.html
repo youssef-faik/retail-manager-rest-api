@@ -1,16 +1,15 @@
 <nav class="page-breadcrumb">
   <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
-    <li aria-current="page" class="breadcrumb-item active">Invoices</li>
+    <li class="breadcrumb-item"><a routerLink="/">Accueil</a></li>
+    <li aria-current="page" class="breadcrumb-item active">Factures</li>
   </ol>
 </nav>
 
 <div class="row ">
   <div class="col-md-12 grid-margin stretch-card d-flex justify-content-between">
-    <h2 class="ms-1">Invoices</h2>
+    <h2 class="ms-1">Factures</h2>
     <button class="btn btn-primary" routerLink="add-invoice" type="button">
-      <i class="feather icon-plus"></i>
-      Add Invoice
+      <i class="feather icon-plus"></i>Ajouter
     </button>
   </div>
 </div>
@@ -26,25 +25,28 @@
             <thead>
             <tr>
               <th>ID</th>
-              <th>Customer Name</th>
-              <th>Issue Date</th>
-              <th>Total Exclu. VTA</th>
-              <th>Total Taxes</th>
-              <th>Total Inclu. VTA</th>
+              <th>Nom du client</th>
+              <th>Date d'émission</th>
+              <th>Total hors TVA (MAD)</th>
+              <th>Total Taxes (MAD)</th>
+              <th>Total TTC (MAD)</th>
               <th></th>
             </tr>
             </thead>
             <tbody>
             <tr *ngFor="let invoice of invoices">
-              <td>INV-{{invoice?.id}}</td>
+              <td>FACT-{{invoice?.id}}</td>
               <td>{{invoice?.customer?.name}}</td>
               <td>{{getDisplayDate(invoice?.issueDate)}}</td>
-              <td>${{getTotalExcluVTA(invoice?.items)}}</td>
-              <td>${{getTotalIncluVTA(invoice?.items) - getTotalExcluVTA(invoice?.items)}}</td>
-              <td>${{getTotalIncluVTA(invoice?.items)}}</td>
+              <td>{{getTotalExcluVTA(invoice?.items).toFixed(2)}}</td>
+              <td>{{(getTotalIncluVTA(invoice?.items) - getTotalExcluVTA(invoice?.items)).toFixed(2)}}</td>
+              <td>{{getTotalIncluVTA(invoice?.items).toFixed(2)}}</td>
               <td class="d-flex justify-content-center">
-                <button class="btn btn-primary me-2 btn-sm" routerLink="preview-invoice/{{ invoice?.id }}" type="button">
-                  <i class="feather icon-printer"></i>&nbsp;Print & Preview</button>
+                <button
+                  class="btn btn-primary me-2 btn-sm"
+                  routerLink="preview-invoice/{{ invoice?.id }}"
+                  type="button"><i class="feather icon-printer"></i>&nbsp;Aperçu et Imprimer
+                </button>
               </td>
             </tr>
             </tbody>

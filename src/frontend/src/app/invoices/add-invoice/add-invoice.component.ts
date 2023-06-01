@@ -327,7 +327,7 @@ export class AddInvoiceComponent implements OnInit {
       pdf.addImage(contentDataURL, 'PNG', 0, 0, width, height)
 
       // Generated PDF
-      let filename = `invoice${this.savedInvoice != undefined ? '-' + this.savedInvoice.id : ''}.pdf`;
+      let filename = `facture${this.savedInvoice != undefined ? '-' + this.savedInvoice.id : ''}.pdf`;
       pdf.save(filename);
     });
   }
@@ -403,7 +403,7 @@ export class AddInvoiceComponent implements OnInit {
         if (data.barcode == '101') {
           this.modalService.dismissAll();
           this.isScannerConnected = true;
-          this.swal.title = 'Scanner was connecter successfully.';
+          this.swal.title = 'Le scanner a été connecté avec succès.';
           this.swal.icon = 'success';
           this.swal.fire();
           return;

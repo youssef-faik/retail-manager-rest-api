@@ -1,7 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {ProductRequestDto, ProductResponseDto, ProduitService} from "../../../../libs/openapi/out";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
+import {SwalComponent} from '@sweetalert2/ngx-sweetalert2';
 
 @Component({
   selector: 'app-add-product',
@@ -11,6 +12,8 @@ import {ActivatedRoute, Router} from "@angular/router";
 export class AddProductComponent implements OnInit {
   taxRates = Object.values(ProductRequestDto.TaxRateEnum);
   addProductForm: FormGroup;
+  @ViewChild('errorSwal')
+  public readonly errorSwal!: SwalComponent;
 
   constructor(
     private productService: ProduitService,
@@ -37,18 +40,24 @@ export class AddProductComponent implements OnInit {
     console.log(this.addProductForm.value);
     let productRequestDto: // @ts-ignore
       ProductRequestDto = this.addProductForm.value;
-    this.productService.createProduct(productRequestDto)
-      .subscribe(
-        data => {
-          this.router.navigate(
-            ['../'], {
-              relativeTo: this.route,
-              replaceUrl: true,
-            });
-        }
-        , error => {
-          console.log(error)
-        })
+    this.productService.createProduct(productRequestDto).subscribe(
+      data => {
+        this.router.navigate(
+          ['../'], {
+            relativeTo: this.route,
+            replaceUrl: true,
+          });
+        this.errorSwal.title = 'Le produit a été ajouté avec succès.';
+        this.errorSwal.icon = 'success';
+
+        this.errorSwal.fire();
+      }
+      , error => {
+        this.errorSwal.title = error.message;
+        this.errorSwal.fire();
+        console.log(error)
+      }
+    )
   }
 
   getTaxRateDisplayValue(taxRate: ProductResponseDto.TaxRateEnum | undefined): string {

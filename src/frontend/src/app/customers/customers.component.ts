@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {CustomerResponseDto, ClientService} from "../../../libs/openapi/out";
+import {ClientService, CustomerResponseDto} from "../../../libs/openapi/out";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 
 @Component({

@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {InvoiceDto, InvoiceItemResponseDto, FactureService, ProductResponseDto} from "../../../libs/openapi/out";
+import {FactureService, InvoiceDto, InvoiceItemResponseDto, ProductResponseDto} from "../../../libs/openapi/out";
 
 @Component({
   selector: 'app-invoices',

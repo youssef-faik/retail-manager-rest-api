@@ -97,7 +97,7 @@ export class PreviewInvoiceComponent implements OnInit {
       pdf.addImage(contentDataURL, 'PNG', 0, 0, width, height)
 
       // Generated PDF
-      let filename = `invoice${this.invoice != undefined ? '-' + this.invoice.id : ''}.pdf`;
+      let filename = `facture${this.invoice != undefined ? '-' + this.invoice.id : ''}.pdf`;
       pdf.save(filename);
     });
   }

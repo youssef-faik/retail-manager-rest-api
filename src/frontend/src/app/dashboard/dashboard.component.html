@@ -1,6 +1,6 @@
 <div class="d-flex justify-content-between align-items-center flex-wrap grid-margin">
   <div>
-    <h3 class="mb-3 mb-md-0 fw-bolder">Dashboard</h3>
+    <h3 class="mb-3 mb-md-0 fw-bolder">Tableau de bord</h3>
   </div>
 </div>
 
@@ -11,7 +11,7 @@
         <div class="card">
           <div class="card-body">
             <div class="d-flex justify-content-between align-items-baseline mb-3">
-              <p class="card-title mb-0 fw-bolder fw-6">New Orders</p>
+              <p class="card-title mb-0 fw-bolder fw-6">Nouvelles commandes</p>
               <p *ngIf="isOrdersDataLoaded" class="card-title mb-2 fw-bolder">Total : <span
                 class="text-primary">{{getTotal(ordersData)}}</span></p>
             </div>
@@ -38,7 +38,7 @@
             </ng-container>
             <div *ngIf="!isOrdersDataLoaded" class="d-flex justify-content-center">
               <div class="spinner-border text-primary" role="status">
-                <span class="visually-hidden">Loading...</span>
+                <span class="visually-hidden">Chargement en cours...</span>
               </div>
             </div>
           </div>
@@ -49,7 +49,7 @@
         <div class="card">
           <div class="card-body">
             <div class="d-flex justify-content-between align-items-baseline mb-3">
-              <p class="card-title mb-0 fw-bolder fw-6">New Customers</p>
+              <p class="card-title mb-0 fw-bolder fw-6">Nouveaux clients</p>
               <p *ngIf="isCustomersDataLoaded" class="card-title mb-2 fw-bolder">Total : <span
                 class="text-primary">{{getTotal(customersData)}}</span></p>
             </div>
@@ -75,8 +75,10 @@
               </div>
             </ng-container>
             <div *ngIf="!isCustomersDataLoaded" class="d-flex justify-content-center">
+
+
               <div class="spinner-border text-primary" role="status">
-                <span class="visually-hidden">Loading...</span>
+                <span class="visually-hidden">Chargement en cours...</span>
               </div>
             </div>
           </div>
@@ -91,9 +93,9 @@
     <div class="card">
       <div class="card-body">
         <div class="d-flex justify-content-between align-items-baseline mb-2">
-          <h6 class="card-title mb-0 fw-bolder">Monthly sales</h6>
+          <h6 class="card-title mb-0 fw-bolder">Ventes mensuelles</h6>
           <h6 *ngIf="isSalesDataLoaded" class="card-title mb-0 fw-bolder">Total : <span
-            class="text-primary">$ {{getTotal(salesData)}}</span>
+            class="text-primary">{{getTotal(salesData).toFixed(2)}}</span> MAD
           </h6>
         </div>
         <ng-container *ngIf="isSalesDataLoaded">
@@ -113,7 +115,7 @@
         </ng-container>
         <div *ngIf="!isSalesDataLoaded" class="d-flex justify-content-center">
           <div class="spinner-border text-primary" role="status">
-            <span class="visually-hidden">Loading...</span>
+            <span class="visually-hidden">Chargement en cours...</span>
           </div>
         </div>
       </div>

@@ -1,14 +1,14 @@
 <nav class="page-breadcrumb">
   <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
-    <li class="breadcrumb-item"><a routerLink="/customers">Customers</a></li>
-    <li aria-current="page" class="breadcrumb-item active">Add Customer</li>
+    <li class="breadcrumb-item"><a routerLink="/">Accueil</a></li>
+    <li class="breadcrumb-item"><a routerLink="/customers">Clients</a></li>
+    <li aria-current="page" class="breadcrumb-item active">Ajouter un client</li>
   </ol>
 </nav>
 
 <div class="row ">
   <div class="col-md-12 grid-margin stretch-card d-flex justify-content-between">
-    <h2 class="ms-1">Add Customer</h2>
+    <h2 class="ms-1">Ajouter un client</h2>
   </div>
 </div>
 
@@ -21,39 +21,39 @@
             <label class="form-label" for="name">ICE</label>
             <input class="form-control" formControlName="ice" id="ice" placeholder="ICE" type="text">
             <p *ngIf="!addCustomerForm?.get('ice')?.valid && addCustomerForm?.get('ice')?.touched"
-               class="text-danger mt-1">ICE is required!</p>
+               class="text-danger mt-1">ICE est requis !</p>
           </div>
           <div class="mb-3">
-            <label class="form-label" for="name">Name</label>
-            <input class="form-control" formControlName="name" id="name" placeholder="Name" type="text">
+            <label class="form-label" for="name">Nom</label>
+            <input class="form-control" formControlName="name" id="name" placeholder="Nom" type="text">
             <p *ngIf="!addCustomerForm?.get('name')?.valid && addCustomerForm?.get('name')?.touched"
-               class="text-danger mt-1">Name is required!</p>
+               class="text-danger mt-1">Le nom est requis !</p>
           </div>
           <div class="mb-3">
-            <label class="form-label" for="phone">Phone</label>
+            <label class="form-label" for="phone">Téléphone</label>
             <input class="form-control" formControlName="phone" id="phone"
-                   placeholder="Phone" type="text">
+                   placeholder="Téléphone" type="text">
             <p *ngIf="!addCustomerForm?.get('phone')?.valid && addCustomerForm?.get('phone')?.touched"
-               class="text-danger mt-1">Phone is required!</p>
+               class="text-danger mt-1">Le téléphone est requis !</p>
           </div>
           <div class="mb-3">
-            <label class="form-label" for="email">Email</label>
-            <input class="form-control" formControlName="email" id="email" name="email" placeholder="Email"
+            <label class="form-label" for="email">E-mail</label>
+            <input class="form-control" formControlName="email" id="email" name="email" placeholder="E-mail"
                    type="email">
             <p *ngIf="!addCustomerForm?.get('email')?.valid && addCustomerForm?.get('email')?.touched"
                class="text-danger mt-1">
-              Email is required!</p>
+              L'e-mail est requis !</p>
           </div>
           <div class="mb-3">
-            <label class="form-label" for="address">Address</label>
+            <label class="form-label" for="address">Adresse</label>
             <input class="form-control" formControlName="address" id="address" name="address"
-                   placeholder="Address"
+                   placeholder="Adresse"
                    type="text">
             <p *ngIf="!addCustomerForm?.get('address')?.valid && addCustomerForm?.get('address')?.touched"
-               class="text-danger mt-1">Address is required!</p>
+               class="text-danger mt-1">L'adresse est requise !</p>
           </div>
-          <button [disabled]="!addCustomerForm.valid" class="btn btn-primary me-2" type="submit">Save</button>
-          <button class="btn btn-secondary" routerLink="/users">Cancel</button>
+          <button [disabled]="!addCustomerForm.valid" class="btn btn-primary me-2" type="submit">Enregistrer</button>
+          <button class="btn btn-secondary" routerLink="/customers">Annuler</button>
         </form>
       </div>
     </div>

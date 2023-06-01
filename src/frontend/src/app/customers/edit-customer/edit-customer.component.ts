@@ -30,7 +30,7 @@ export class EditCustomerComponent implements OnInit {
     });
 
     this.customerService.getCustomer(
-    // @ts-ignore
+      // @ts-ignore
       this.id,
       'body',
       false,

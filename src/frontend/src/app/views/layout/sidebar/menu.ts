@@ -2,32 +2,35 @@ import {MenuItem} from './menu.model';
 
 export const MENU: MenuItem[] = [
   {
-    label: 'Main',
+    label: 'Accueil',
     isTitle: true
   },
   {
-    label: 'Dashboard',
+    label: 'Tableau de bord',
     icon: 'grid',
     link: '/dashboard'
   },
   {
-    label: 'Management',
+    label: 'Gestion',
     isTitle: true
   },
   {
-    label: 'Products',
+    label: 'Produits',
     icon: 'box',
     link: '/products'
-  }, {
-    label: 'Customers',
+  },
+  {
+    label: 'Clients',
     icon: 'layers',
     link: '/customers'
-  }, {
-    label: 'Invoices',
+  },
+  {
+    label: 'Factures',
     icon: 'file-text',
     link: '/invoices'
-  }, {
-    label: 'users',
+  },
+  {
+    label: 'Utilisateurs',
     icon: 'users',
     link: '/users'
   },

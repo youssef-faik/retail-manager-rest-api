@@ -1,4 +1,4 @@
-import { Directive, AfterViewInit } from '@angular/core';
+import {AfterViewInit, Directive} from '@angular/core';
 import * as feather from 'feather-icons';
 
 @Directive({
@@ -6,7 +6,8 @@ import * as feather from 'feather-icons';
 })
 export class FeatherIconDirective implements AfterViewInit {
 
-  constructor() { }
+  constructor() {
+  }
 
   ngAfterViewInit() {
     // feather icon

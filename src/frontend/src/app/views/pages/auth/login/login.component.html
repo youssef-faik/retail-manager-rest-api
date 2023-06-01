@@ -16,24 +16,24 @@
                 <p
                   *ngIf="!loginFrom?.get('email')?.valid && loginFrom?.get('email')?.touched"
                   class="text-danger mt-1">
-                  Email is required!
+                  Email est requis !
                 </p>
               </div>
               <div class="mb-3">
-                <label class="form-label" for="password">Password</label>
+                <label class="form-label" for="password">Mot de passe</label>
                 <input autocomplete="current-password" class="form-control" formControlName="password"
                        id="password"
-                       name="password" placeholder="Password" type="password">
+                       name="password" placeholder="Mot de passe" type="password">
                 <p
                   *ngIf="!loginFrom?.get('password')?.valid && loginFrom?.get('password')?.touched"
                   class="text-danger mt-1">
-                  Password is required!
+                  Mot de passe est requis !
                 </p>
               </div>
               <div>
                 <button class="btn btn-primary mx-auto d-block mt-4 rounded-pill"
                         type="submit">
-                  <i class="feather icon-log-in me-2 icon-md"></i>Login
+                  <i class="feather icon-log-in me-2 icon-md"></i>Se connecter
                 </button>
               </div>
             </form>

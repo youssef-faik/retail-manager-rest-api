@@ -1,7 +1,7 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
 
-import { FeatherIconDirective } from './feather-icon.directive';
+import {FeatherIconDirective} from './feather-icon.directive';
 
 @NgModule({
   declarations: [FeatherIconDirective],
@@ -10,4 +10,5 @@ import { FeatherIconDirective } from './feather-icon.directive';
   ],
   exports: [FeatherIconDirective]
 })
-export class FeatherIconModule { }
+export class FeatherIconModule {
+}

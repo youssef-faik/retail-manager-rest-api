@@ -1,14 +1,14 @@
 <nav class="page-breadcrumb">
   <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
-    <li class="breadcrumb-item"><a routerLink="/users">Users</a></li>
-    <li aria-current="page" class="breadcrumb-item active">Edit User</li>
+    <li class="breadcrumb-item"><a routerLink="/">Accueil</a></li>
+    <li class="breadcrumb-item"><a routerLink="/users">Utilisateurs</a></li>
+    <li aria-current="page" class="breadcrumb-item active">Modifier l'utilisateur</li>
   </ol>
 </nav>
 
 <div class="row ">
   <div class="col-md-12 grid-margin stretch-card d-flex justify-content-between">
-    <h2 class="ms-1">Edit user</h2>
+    <h2 class="ms-1">Modifier l'utilisateur</h2>
   </div>
 </div>
 
@@ -18,20 +18,18 @@
       <div class="card-body">
         <form (ngSubmit)="onSubmit()" [formGroup]="editUserFrom" class="forms-sample">
           <div class="mb-3">
-            <label class="form-label" for="firstname">First name</label>
+            <label class="form-label" for="firstname">Prénom</label>
             <input class="form-control" formControlName="firstName"
-                   id="firstname" placeholder="First name" type="text">
+                   id="firstname" placeholder="Prénom" type="text">
             <p *ngIf="!editUserFrom?.get('firstName')?.valid && editUserFrom?.get('firstName')?.touched"
-               class="text-danger mt-1">First name is
-              required!</p>
+               class="text-danger mt-1">Le prénom est obligatoire !</p>
           </div>
           <div class="mb-3">
-            <label class="form-label" for="lastname">Last name</label>
-            <input class="form-control" formControlName="lastName" id="lastname" placeholder="Last name"
+            <label class="form-label" for="lastname">Nom</label>
+            <input class="form-control" formControlName="lastName" id="lastname" placeholder="Nom"
                    type="text">
             <p *ngIf="!editUserFrom?.get('lastName')?.valid && editUserFrom?.get('lastName')?.touched"
-               class="text-danger mt-1">Last name is
-              required!</p>
+               class="text-danger mt-1">Le nom est obligatoire !</p>
           </div>
           <div class="mb-3">
             <label class="form-label" for="email">Email</label>
@@ -39,17 +37,17 @@
                    placeholder="Email"
                    type="email">
             <p *ngIf="!editUserFrom?.get('email')?.valid && editUserFrom?.get('email')?.touched"
-               class="text-danger mt-1">Email is required!</p>
+               class="text-danger mt-1">L'email est obligatoire !</p>
           </div>
           <div class="mb-3">
-            <label class="form-label" for="role">Role</label>
+            <label class="form-label" for="role">Rôle</label>
             <select class="form-select" formControlName="role" id="role" name="role">
-              <option disabled selected>Select role</option>
+              <option disabled selected>Sélectionner le rôle</option>
               <option *ngFor="let role of roles" value="{{role}}">{{role}}</option>
             </select>
           </div>
-          <button [disabled]="!editUserFrom.valid" class="btn btn-primary me-2" type="submit">Save</button>
-          <button class="btn btn-secondary" routerLink="/users">Cancel</button>
+          <button [disabled]="!editUserFrom.valid" class="btn btn-primary me-2" type="submit">Enregistrer</button>
+          <button class="btn btn-secondary" routerLink="/users">Annuler</button>
         </form>
       </div>
     </div>
