@@ -1,7 +1,11 @@
 export * from './authentification.service';
 import { AuthentificationService } from './authentification.service';
+export * from './categorie.service';
+import { CategorieService } from './categorie.service';
 export * from './client.service';
 import { ClientService } from './client.service';
+export * from './elementPanier.service';
+import { ElementPanierService } from './elementPanier.service';
 export * from './facture.service';
 import { FactureService } from './facture.service';
 export * from './produit.service';
@@ -10,4 +14,4 @@ export * from './tableauDeBord.service';
 import { TableauDeBordService } from './tableauDeBord.service';
 export * from './utilisateur.service';
 import { UtilisateurService } from './utilisateur.service';
-export const APIS = [AuthentificationService, ClientService, FactureService, ProduitService, TableauDeBordService, UtilisateurService];
+export const APIS = [AuthentificationService, CategorieService, ClientService, ElementPanierService, FactureService, ProduitService, TableauDeBordService, UtilisateurService];

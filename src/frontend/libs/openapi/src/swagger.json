@@ -21,12 +21,20 @@
       "description": "API Utilisateur. Contient toutes les opérations pouvant être effectuées sur un utilisateur. Nécessite le rôle ADMIN."
     },
     {
+      "name": "Categorie",
+      "description": "L'API Catégorie. Contient toutes les opérations pouvant être effectuées sur une Catégorie."
+    },
+    {
       "name": "Facture",
       "description": "API Facture. Contient toutes les opérations pouvant être effectuées sur une facture."
     },
     {
       "name": "Tableau de bord",
       "description": "Points d'accès API pour les métriques du tableau de bord"
+    },
+    {
+      "name": "Element Panier",
+      "description": "API pour gérer les éléments du panier."
     },
     {
       "name": "Client",
@@ -845,6 +853,268 @@
         ]
       }
     },
+    "/api/v1/categories/{id}": {
+      "get": {
+        "tags": [
+          "Categorie"
+        ],
+        "summary": "Obtenir les détails d'une catégorie.",
+        "description": "Obtenir les détails d'une catégorie avec le numéro ID donné.",
+        "operationId": "getCategoryById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Numéro ID de la catégorie à récupérer.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "example": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Catégorie récupérée avec succès.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Category"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Non autorisé.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Accès interdit.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Catégorie non trouvée.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Erreur interne du serveur.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer_Authentication": []
+          }
+        ]
+      },
+      "put": {
+        "tags": [
+          "Categorie"
+        ],
+        "summary": "Mettre à jour les détails de la catégorie.",
+        "description": "Mettre à jour les détails de la catégorie avec l'ID donné.",
+        "operationId": "updateCategory",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID de la catégorie à mettre à jour.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "example": 1
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CategoryCreateDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Catégorie mise à jour avec succès."
+          },
+          "400": {
+            "description": "Entrée non valide.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Non autorisé",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Accès interdit.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Catégorie introuvable.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Erreur interne du serveur.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer_Authentication": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "Categorie"
+        ],
+        "summary": "Supprimer une catégorie.",
+        "description": "Supprimer une catégorie avec l'ID donné.",
+        "operationId": "deleteCategory",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID de la catégorie à supprimer.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "example": 1
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Catégorie supprimée avec succès."
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Non autorisé.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Accès interdit.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Catégorie introuvable.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Erreur interne du serveur.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer_Authentication": []
+          }
+        ]
+      }
+    },
     "/api/v1/users": {
       "get": {
         "tags": [
@@ -1397,6 +1667,197 @@
         ]
       }
     },
+    "/api/v1/categories": {
+      "get": {
+        "tags": [
+          "Categorie"
+        ],
+        "summary": "Obtenir toutes les catégories.",
+        "description": "Obtenir une liste de toutes les catégories.",
+        "operationId": "getAllCategories",
+        "responses": {
+          "200": {
+            "description": "Catégories récupérées avec succès.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Category"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Non autorisé.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Accès interdit.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Erreur interne du serveur.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer_Authentication": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "Categorie"
+        ],
+        "summary": "Créer une catégorie.",
+        "description": "Créer une nouvelle catégorie avec les détails donnés.",
+        "operationId": "createCategory",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CategoryCreateDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Catégorie créée avec succès."
+          },
+          "400": {
+            "description": "Entrée non valide.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Non autorisé.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Accès interdit",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Erreur interne du serveur.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer_Authentication": []
+          }
+        ]
+      }
+    },
+    "/api/v1/cart-item": {
+      "post": {
+        "tags": [
+          "Element Panier"
+        ],
+        "summary": "Enregistrer un élément du panier.",
+        "description": "Enregistre un nouvel élément du panier.",
+        "operationId": "saveCartItem",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CartItemRequestDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Élément du panier enregistré."
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Produit non trouvé."
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer_Authentication": []
+          }
+        ]
+      }
+    },
     "/api/v1/auth/login": {
       "post": {
         "tags": [
@@ -1811,6 +2272,76 @@
           }
         ]
       }
+    },
+    "/api/v1/cart-item/{id}": {
+      "get": {
+        "tags": [
+          "Element Panier"
+        ],
+        "summary": "Obtenir un élément du panier par ID.",
+        "description": "Récupère un élément du panier en utilisant son ID.",
+        "operationId": "geCartItemById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID de l'élément du panier.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "example": 563456789123456
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Élément du panier trouvé.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CartItem"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Élément du panier non trouvé.",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/CartItem"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer_Authentication": []
+          }
+        ]
+      }
     }
   },
   "components": {
@@ -2015,6 +2546,7 @@
         "title": "Schéma de demande de produit.",
         "required": [
           "barCode",
+          "category",
           "name",
           "purchasePrice",
           "sellingPriceExcludingTax",
@@ -2054,6 +2586,12 @@
               "TEN",
               "SEVEN"
             ]
+          },
+          "category": {
+            "type": "integer",
+            "description": "ID de la catégorie du produit.",
+            "format": "int32",
+            "example": 1
           }
         },
         "description": "Corps de la demande pour la création/mise à jour d'un produit."
@@ -2098,6 +2636,12 @@
               "TEN",
               "SEVEN"
             ]
+          },
+          "category": {
+            "type": "integer",
+            "description": "ID de la catégorie du produit.",
+            "format": "int32",
+            "example": 1
           }
         },
         "description": "Corps de réponse pour la récupération d'un produit."
@@ -2178,6 +2722,30 @@
           }
         },
         "description": "Corps de réponse pour un client."
+      },
+      "CategoryCreateDto": {
+        "title": "Schéma de requête de création/mise a jour d'une catégorie",
+        "required": [
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "maxLength": 100,
+            "minLength": 0,
+            "type": "string",
+            "description": "Nom de la catégorie",
+            "example": "Électronique"
+          },
+          "description": {
+            "maxLength": 500,
+            "minLength": 0,
+            "type": "string",
+            "description": "Description de la catégorie",
+            "example": "Catégorie pour les produits électroniques"
+          }
+        },
+        "description": "Corps de requête pour créer/mise a jour d'une catégorie"
       },
       "UserCreateDto": {
         "title": "Schéma de requête de création d'utilisateur.",
@@ -2326,6 +2894,28 @@
         },
         "description": "Corps de requête pour créer un client"
       },
+      "CartItemRequestDto": {
+        "required": [
+          "barcode",
+          "cartId"
+        ],
+        "type": "object",
+        "properties": {
+          "cartId": {
+            "pattern": "^\\d{7}$",
+            "type": "string",
+            "description": "L'ID du panier.",
+            "example": "1234567"
+          },
+          "barcode": {
+            "pattern": "^\\d*$",
+            "type": "string",
+            "description": "Le code-barres du produit.",
+            "example": "1234567890"
+          }
+        },
+        "description": "Schéma de demande pour l'élément du panier."
+      },
       "AuthenticationRequest": {
         "title": "Schéma de la demande d'authentification.",
         "required": [
@@ -2337,7 +2927,7 @@
           "email": {
             "type": "string",
             "description": "Email de l'utilisateur.",
-            "example": "yusef@mail.com"
+            "example": "admin@mail.com"
           },
           "password": {
             "type": "string",
@@ -2450,6 +3040,44 @@
           }
         },
         "description": "Corps de la réponse pour les données du graphique"
+      },
+      "Category": {
+        "required": [
+          "description",
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "maxLength": 500,
+            "minLength": 0,
+            "type": "string"
+          }
+        }
+      },
+      "CartItem": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "productId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "barcode": {
+            "pattern": "^\\d*$",
+            "type": "string"
+          }
+        }
       }
     },
     "securitySchemes": {

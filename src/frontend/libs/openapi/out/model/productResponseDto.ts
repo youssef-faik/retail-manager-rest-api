@@ -39,6 +39,10 @@ export interface ProductResponseDto {
      * Énumération des taux de taxe
      */
     taxRate?: ProductResponseDto.TaxRateEnum;
+    /**
+     * ID de la catégorie du produit.
+     */
+    category?: number;
 }
 export namespace ProductResponseDto {
     export type TaxRateEnum = 'TWENTY' | 'FOURTEEN' | 'TEN' | 'SEVEN';
