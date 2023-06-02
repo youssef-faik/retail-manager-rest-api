@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
     title = "Schéma de la demande d'authentification.",
     description = "Corps de la demande d'authentification de l'utilisateur.")
 public class AuthenticationRequest {
-  @Schema(description = "Email de l'utilisateur.", example = "yusef@mail.com")
+  @Schema(description = "Email de l'utilisateur.", example = "admin@mail.com")
   @Email(message = "l'email doit être valide.")
   @NotBlank(message = "l'email est obligatoire.")
   private String email;

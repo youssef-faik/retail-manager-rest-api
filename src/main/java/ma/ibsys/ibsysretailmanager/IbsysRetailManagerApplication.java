@@ -76,22 +76,58 @@ public class IbsysRetailManagerApplication implements CommandLineRunner {
             .email("acme-corp@mail.ma")
             .build();
 
-    Product mouse =
-        Product.builder()
-            .barCode("432435")
-            .taxRate(TaxRate.FOURTEEN)
-            .name("Mouse")
-            .sellingPriceExcludingTax(BigDecimal.valueOf(199))
-            .purchasePrice(BigDecimal.valueOf(50))
+    Customer myCorp =
+        Customer.builder()
+            .ICE("857356789123456")
+            .name("My Corp")
+            .address("123 Main St, City, State, Zip")
+            .phone("0522132345")
+            .email("my-corp@mail.ma")
             .build();
 
-    Product laptop =
+    Product watterBottle =
         Product.builder()
-            .barCode("1434")
-            .name("Laptop")
-            .taxRate(TaxRate.SEVEN)
-            .sellingPriceExcludingTax(BigDecimal.valueOf(20_000))
-            .purchasePrice(BigDecimal.valueOf(15_000))
+            .barCode("6111035001673")
+            .taxRate(TaxRate.TWENTY)
+            .name("Watter Bottle")
+            .purchasePrice(BigDecimal.valueOf(23))
+            .sellingPriceExcludingTax(BigDecimal.valueOf(3.5))
+            .build();
+
+    Product oilBottle =
+        Product.builder()
+            .barCode("6111024001585")
+            .taxRate(TaxRate.TWENTY)
+            .name("Oil Bottle")
+            .purchasePrice(BigDecimal.valueOf(80))
+            .sellingPriceExcludingTax(BigDecimal.valueOf(90))
+            .build();
+
+    Product deodorantGel =
+        Product.builder()
+            .barCode("4005900640253")
+            .name("Deodorant gel")
+            .taxRate(TaxRate.TWENTY)
+            .purchasePrice(BigDecimal.valueOf(30))
+            .sellingPriceExcludingTax(BigDecimal.valueOf(35))
+            .build();
+
+    Product handCream =
+        Product.builder()
+            .barCode("6111251490619")
+            .name("Hand Cream")
+            .taxRate(TaxRate.TWENTY)
+            .purchasePrice(BigDecimal.valueOf(20))
+            .sellingPriceExcludingTax(BigDecimal.valueOf(25))
+            .build();
+
+    Product cheese =
+        Product.builder()
+            .barCode("3073781154481")
+            .name("cheese")
+            .taxRate(TaxRate.TWENTY)
+            .purchasePrice(BigDecimal.valueOf(12))
+            .sellingPriceExcludingTax(BigDecimal.valueOf(24))
             .build();
 
     User user =
@@ -104,9 +140,35 @@ public class IbsysRetailManagerApplication implements CommandLineRunner {
             .isEnabled(true)
             .build();
 
+    User appUser =
+        User.builder()
+            .firstName("user")
+            .lastName("user")
+            .email("user@mail.com")
+            .role(Role.ADMIN)
+            .password(passwordEncoder.encode("secret-password"))
+            .isEnabled(true)
+            .build();
+
+    User admin =
+        User.builder()
+            .firstName("admin")
+            .lastName("admin")
+            .email("admin@mail.com")
+            .role(Role.ADMIN)
+            .password(passwordEncoder.encode("secret-password"))
+            .isEnabled(true)
+            .build();
+
     customerRepository.save(acmeCorp);
-    productRepository.save(mouse);
-    productRepository.save(laptop);
+    customerRepository.save(myCorp);
+    productRepository.save(watterBottle);
+    productRepository.save(oilBottle);
+    productRepository.save(deodorantGel);
+    productRepository.save(cheese);
+    productRepository.save(handCream);
     userRepository.save(user);
+    userRepository.save(appUser);
+    userRepository.save(admin);
   }
 }
