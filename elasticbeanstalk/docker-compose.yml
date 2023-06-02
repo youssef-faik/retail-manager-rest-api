@@ -1,6 +1,6 @@
 services:
   backend:
-    image: "faikyoussef/ibsys-retail-manager:latest"
+    image: "faikyoussef/ibsys-retail-manager:27.5.2023.12.40.36"
     ports:
       - "80:8080"
     restart: "always"
