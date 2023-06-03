@@ -6,6 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
+import ma.ibsys.ibsysretailmanager.category.Category;
+import ma.ibsys.ibsysretailmanager.category.CategoryCreateDto;
+import ma.ibsys.ibsysretailmanager.category.CategoryRepository;
 import ma.ibsys.ibsysretailmanager.customer.Customer;
 import ma.ibsys.ibsysretailmanager.customer.CustomerCreateDto;
 import ma.ibsys.ibsysretailmanager.customer.CustomerRepository;
@@ -31,6 +34,7 @@ import org.springframework.context.annotation.Configuration;
 public class ModelMapperConfig {
   private final CustomerRepository customerRepository;
   private final ProductRepository productRepository;
+  private final CategoryRepository categoryRepository;
 
   @Bean
   public ModelMapper modelMapper() {
@@ -72,13 +76,31 @@ public class ModelMapperConfig {
         .addMappings(mapper -> mapper.map(ProductRequestDto::getBarCode, Product::setBarCode))
         .addMappings(mapper -> mapper.map(ProductRequestDto::getName, Product::setName))
         .addMappings(mapper -> mapper.map(ProductRequestDto::getTaxRate, Product::setTaxRate))
+        .addMappings(mapper -> mapper.map(ProductRequestDto::getCategory, Product::setCategory))
         .addMappings(
             mapper ->
                 mapper.map(
                     ProductRequestDto::getSellingPriceExcludingTax,
                     Product::setSellingPriceExcludingTax))
         .addMappings(
-            mapper -> mapper.map(ProductRequestDto::getPurchasePrice, Product::setPurchasePrice));
+            mapper -> mapper.map(ProductRequestDto::getPurchasePrice, Product::setPurchasePrice))
+        .setPostConverter(
+            context -> {
+              ProductRequestDto source = context.getSource();
+              Product destination = context.getDestination();
+
+              Category category =
+                  categoryRepository
+                      .findById(source.getCategory())
+                      .orElseThrow(
+                          () ->
+                              new EntityNotFoundException(
+                                  "Categorie introuvable avec l'ID " + source.getCategory()));
+
+              destination.setCategory(category);
+
+              return destination;
+            });
 
     // map Product entity to ProductResponseDto
     modelMapper
@@ -88,12 +110,23 @@ public class ModelMapperConfig {
         .addMappings(mapper -> mapper.map(Product::getName, ProductResponseDto::setName))
         .addMappings(mapper -> mapper.map(Product::getTaxRate, ProductResponseDto::setTaxRate))
         .addMappings(
+            mapper -> mapper.map(src -> src.getCategory().getId(), ProductResponseDto::setCategory))
+        .addMappings(
             mapper ->
                 mapper.map(
                     Product::getSellingPriceExcludingTax,
                     ProductResponseDto::setSellingPriceExcludingTax))
         .addMappings(
             mapper -> mapper.map(Product::getPurchasePrice, ProductResponseDto::setPurchasePrice));
+
+    // -- Category ---------------------------------------------------------
+
+    // Map CategoryCreateDto to Category entity
+    modelMapper
+        .createTypeMap(CategoryCreateDto.class, Category.class)
+        .addMappings(mapper -> mapper.map(CategoryCreateDto::getName, Category::setName))
+        .addMappings(
+            mapper -> mapper.map(CategoryCreateDto::getDescription, Category::setDescription));
 
     // -- Invoice -------------------------------------------------------------
 

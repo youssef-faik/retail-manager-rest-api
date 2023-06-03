@@ -5,6 +5,8 @@ import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
+import ma.ibsys.ibsysretailmanager.category.Category;
+import ma.ibsys.ibsysretailmanager.category.CategoryRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -14,6 +16,7 @@ import org.springframework.stereotype.Service;
 public class ProductService {
   private final ProductRepository productRepository;
   private final ModelMapper modelMapper;
+  private final CategoryRepository categoryRepository;
 
   public ResponseEntity<List<ProductResponseDto>> getAllProducts() {
     List<ProductResponseDto> products =
@@ -45,9 +48,18 @@ public class ProductService {
         productRepository
             .findById(id)
             .orElseThrow(() -> new EntityNotFoundException("Produit non trouvé avec l'ID " + id));
-    
+
+    Category category =
+        categoryRepository
+            .findById(productRequestDto.getCategory())
+            .orElseThrow(
+                () ->
+                    new EntityNotFoundException(
+                        "Categorie introuvable avec l'ID " + productRequestDto.getCategory()));
+
     product.setBarCode(productRequestDto.getBarCode());
     product.setTaxRate(productRequestDto.getTaxRate());
+    product.setCategory(category);
     product.setName(productRequestDto.getName());
     product.setSellingPriceExcludingTax(productRequestDto.getSellingPriceExcludingTax());
     product.setPurchasePrice(productRequestDto.getPurchasePrice());

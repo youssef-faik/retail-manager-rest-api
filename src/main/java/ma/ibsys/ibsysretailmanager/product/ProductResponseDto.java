@@ -32,4 +32,7 @@ public class ProductResponseDto {
 
   @Schema(description = "Taux de taxe du produit.", example = "TEN")
   private TaxRate taxRate;
+
+  @Schema(description = "ID de la catégorie du produit.", example = "1")
+  private int category;
 }

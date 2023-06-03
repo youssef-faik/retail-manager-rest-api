@@ -27,7 +27,10 @@ public class ProductRequestDto {
   @Column(name = "name", nullable = false)
   private String name;
 
-  @Schema(description = "Prix de vente du produit hors taxe.", example = "12999.99", required = true)
+  @Schema(
+      description = "Prix de vente du produit hors taxe.",
+      example = "12999.99",
+      required = true)
   @NotBlank(message = "Le prix de vente hors taxe est obligatoire.")
   @Positive(message = "Le prix de vente hors taxe doit être un nombre positif.")
   private BigDecimal sellingPriceExcludingTax;
@@ -40,4 +43,8 @@ public class ProductRequestDto {
   @Schema(description = "Taux de taxe du produit.", example = "TEN", required = true)
   @NotBlank(message = "Le taux de taxe est obligatoire.")
   private TaxRate taxRate;
+
+  @Schema(description = "ID de la catégorie du produit.", example = "1", required = true)
+  @NotNull(message = "ID de la catégorie est obligatoire")
+  private int category;
 }

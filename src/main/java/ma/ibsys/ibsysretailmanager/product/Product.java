@@ -1,5 +1,6 @@
 package ma.ibsys.ibsysretailmanager.product;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -7,6 +8,8 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 import jakarta.validation.constraints.*;
@@ -15,6 +18,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import ma.ibsys.ibsysretailmanager.category.Category;
 
 @Entity(name = "Product")
 @Table(
@@ -55,4 +59,9 @@ public class Product {
   @NotNull(message = "Le taux de TVA est obligatoire")
   @Column(name = "tax_rate", nullable = false)
   private TaxRate taxRate;
+
+  @NotNull(message = "La catégorie est obligatoire")
+  @ManyToOne(cascade = CascadeType.MERGE)
+  @JoinColumn(name = "category_id", nullable = false)
+  private Category category;
 }

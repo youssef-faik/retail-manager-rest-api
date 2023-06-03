@@ -7,6 +7,8 @@ import io.swagger.v3.oas.annotations.info.Info;
 import io.swagger.v3.oas.annotations.security.SecurityScheme;
 import java.math.BigDecimal;
 import lombok.RequiredArgsConstructor;
+import ma.ibsys.ibsysretailmanager.category.Category;
+import ma.ibsys.ibsysretailmanager.category.CategoryRepository;
 import ma.ibsys.ibsysretailmanager.customer.Customer;
 import ma.ibsys.ibsysretailmanager.customer.CustomerRepository;
 import ma.ibsys.ibsysretailmanager.product.Product;
@@ -44,6 +46,7 @@ public class IbsysRetailManagerApplication implements CommandLineRunner {
   private final ProductRepository productRepository;
   private final CustomerRepository customerRepository;
   private final UserRepository userRepository;
+  private final CategoryRepository categoryRepository;
   private final PasswordEncoder passwordEncoder;
 
   public static void main(String[] args) {
@@ -85,6 +88,19 @@ public class IbsysRetailManagerApplication implements CommandLineRunner {
             .email("my-corp@mail.ma")
             .build();
 
+    Category category =
+        Category.builder().name("Électronique").description("Électronique categorie").build();
+    Category category1 = Category.builder().name("Autre").description("Autre categorie").build();
+    Category category2 =
+        Category.builder().name("Cuisine").description("Cuisine categorie").build();
+    Category category3 =
+        Category.builder().name("Cosmetique").description("Cosmetique categorie").build();
+    categoryRepository.save(category);
+
+    Category autre = categoryRepository.save(category1);
+    Category cuisine = categoryRepository.save(category2);
+    Category cosmetique = categoryRepository.save(category3);
+
     Product watterBottle =
         Product.builder()
             .barCode("6111035001673")
@@ -92,6 +108,7 @@ public class IbsysRetailManagerApplication implements CommandLineRunner {
             .name("Watter Bottle")
             .purchasePrice(BigDecimal.valueOf(23))
             .sellingPriceExcludingTax(BigDecimal.valueOf(3.5))
+            .category(autre)
             .build();
 
     Product oilBottle =
@@ -101,6 +118,7 @@ public class IbsysRetailManagerApplication implements CommandLineRunner {
             .name("Oil Bottle")
             .purchasePrice(BigDecimal.valueOf(80))
             .sellingPriceExcludingTax(BigDecimal.valueOf(90))
+            .category(autre)
             .build();
 
     Product deodorantGel =
@@ -110,6 +128,7 @@ public class IbsysRetailManagerApplication implements CommandLineRunner {
             .taxRate(TaxRate.TWENTY)
             .purchasePrice(BigDecimal.valueOf(30))
             .sellingPriceExcludingTax(BigDecimal.valueOf(35))
+            .category(cosmetique)
             .build();
 
     Product handCream =
@@ -119,6 +138,7 @@ public class IbsysRetailManagerApplication implements CommandLineRunner {
             .taxRate(TaxRate.TWENTY)
             .purchasePrice(BigDecimal.valueOf(20))
             .sellingPriceExcludingTax(BigDecimal.valueOf(25))
+            .category(cosmetique)
             .build();
 
     Product cheese =
@@ -128,7 +148,14 @@ public class IbsysRetailManagerApplication implements CommandLineRunner {
             .taxRate(TaxRate.TWENTY)
             .purchasePrice(BigDecimal.valueOf(12))
             .sellingPriceExcludingTax(BigDecimal.valueOf(24))
+            .category(cuisine)
             .build();
+
+    productRepository.save(watterBottle);
+    productRepository.save(oilBottle);
+    productRepository.save(deodorantGel);
+    productRepository.save(cheese);
+    productRepository.save(handCream);
 
     User user =
         User.builder()
@@ -162,11 +189,7 @@ public class IbsysRetailManagerApplication implements CommandLineRunner {
 
     customerRepository.save(acmeCorp);
     customerRepository.save(myCorp);
-    productRepository.save(watterBottle);
-    productRepository.save(oilBottle);
-    productRepository.save(deodorantGel);
-    productRepository.save(cheese);
-    productRepository.save(handCream);
+
     userRepository.save(user);
     userRepository.save(appUser);
     userRepository.save(admin);
