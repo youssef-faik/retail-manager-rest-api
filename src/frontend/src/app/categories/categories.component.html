@@ -1,14 +1,14 @@
 <nav class="page-breadcrumb">
   <ol class="breadcrumb">
     <li class="breadcrumb-item"><a routerLink="/">Accueil</a></li>
-    <li aria-current="page" class="breadcrumb-item active">Utilisateurs</li>
+    <li aria-current="page" class="breadcrumb-item active">Categories</li>
   </ol>
 </nav>
 
 <div class="row ">
   <div class="col-md-12 grid-margin stretch-card d-flex justify-content-between">
-    <h2 class="ms-1">Utilisateurs</h2>
-    <button class="btn btn-primary" routerLink="add-user" type="button"><i class="feather icon-plus"></i>Ajouter
+    <h2 class="ms-1">Categories</h2>
+    <button class="btn btn-primary" routerLink="add-category" type="button"><i class="feather icon-plus"></i>Ajouter
     </button>
   </div>
 </div>
@@ -19,33 +19,24 @@
       <div class="card-body">
 
         <div class="table-responsive">
-          <table class="table table-hover" id="usersDataTable">
+          <table class="table table-hover" id="productsDataTable">
             <thead>
             <tr>
-              <th></th>
-              <th>Prénom</th>
               <th>Nom</th>
-              <th>Email</th>
-              <th>Rôle</th>
+              <th>Description</th>
               <th></th>
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let user of users">
-              <td>
-                <img class="wd-35 ht-35 rounded-circle"
-                     src="https://eu.ui-avatars.com/api/?name={{user.firstName}}+{{user.lastName}}&size=35">
-              </td>
-              <td>{{user.firstName}}</td>
-              <td>{{user.lastName|uppercase}}</td>
-              <td>{{user.email}}</td>
-              <td>{{user.role}}</td>
+            <tr *ngFor="let category of categories">
+              <td>{{category.name}}</td>
+              <td>{{category.description}}</td>
               <td class="d-flex justify-content-end">
                 <div aria-label="Basic example" class="btn-group" role="group">
-                  <button class="btn btn-primary" routerLink="edit-user/{{ user.id }}" type="button">
+                  <button class="btn btn-primary" routerLink="edit-category/{{ category.id }}" type="button">
                     <i class="feather icon-edit"></i>
                   </button>
-                  <button (click)="openConfirmationModal(deleteConfirmationModal, user.id)" class="btn btn-danger">
+                  <button (click)="openConfirmationModal(deleteConfirmationModal, category.id)" class="btn btn-danger">
                     <i class="feather icon-trash"></i>
                   </button>
                 </div>
@@ -59,13 +50,14 @@
   </div>
 </div>
 
+
 <ng-template #deleteConfirmationModal let-modal>
   <div class="modal-header">
-    <h4 class="modal-title">Confirmation de suppression d'utilisateur</h4>
+    <h4 class="modal-title">Confirmation de suppression du categorie</h4>
     <button (click)="modal.dismiss('cancel')" aria-label="Close" class="btn-close" type="button"></button>
   </div>
   <div class="modal-body">
-    <p>Voulez-vous vraiment supprimer cet utilisateur ?</p>
+    <p>Voulez-vous vraiment supprimer cette categorie ?</p>
   </div>
   <div class="modal-footer">
     <button (click)="modal.close('confirm')" class="btn btn-danger" type="button">Supprimer</button>

@@ -20,6 +20,11 @@ export const MENU: MenuItem[] = [
     link: '/products'
   },
   {
+    label: 'Categories',
+    icon: 'tag',
+    link: '/categories'
+  },
+  {
     label: 'Clients',
     icon: 'layers',
     link: '/customers'

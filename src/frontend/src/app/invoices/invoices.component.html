@@ -41,7 +41,7 @@
               <td>{{getTotalExcluVTA(invoice?.items).toFixed(2)}}</td>
               <td>{{(getTotalIncluVTA(invoice?.items) - getTotalExcluVTA(invoice?.items)).toFixed(2)}}</td>
               <td>{{getTotalIncluVTA(invoice?.items).toFixed(2)}}</td>
-              <td class="d-flex justify-content-center">
+              <td class="d-flex justify-content-end">
                 <button
                   class="btn btn-primary me-2 btn-sm"
                   routerLink="preview-invoice/{{ invoice?.id }}"

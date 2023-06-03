@@ -33,6 +33,9 @@ import {PreviewInvoiceComponent} from './invoices/preview-invoice/preview-invoic
 import {ArchwizardModule} from "angular-archwizard";
 import {NgxQRCodeModule} from '@techiediaries/ngx-qrcode';
 import {SweetAlert2Module} from "@sweetalert2/ngx-sweetalert2";
+import {CategoriesComponent} from './categories/categories.component';
+import {AddCategoryComponent} from './categories/add-category/add-category.component';
+import {EditCategoryComponent} from './categories/edit-category/edit-category.component';
 
 
 @NgModule({
@@ -51,7 +54,10 @@ import {SweetAlert2Module} from "@sweetalert2/ngx-sweetalert2";
     ChangePasswordComponent,
     InvoicesComponent,
     AddInvoiceComponent,
-    PreviewInvoiceComponent
+    PreviewInvoiceComponent,
+    CategoriesComponent,
+    AddCategoryComponent,
+    EditCategoryComponent
   ],
   imports: [
     BrowserModule,

@@ -1,5 +1,11 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {ProductRequestDto, ProductResponseDto, ProduitService} from "../../../../libs/openapi/out";
+import {
+  CategorieService,
+  Category,
+  ProductRequestDto,
+  ProductResponseDto,
+  ProduitService
+} from "../../../../libs/openapi/out";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
 import {SwalComponent} from '@sweetalert2/ngx-sweetalert2';
@@ -11,24 +17,40 @@ import {SwalComponent} from '@sweetalert2/ngx-sweetalert2';
 })
 export class AddProductComponent implements OnInit {
   taxRates = Object.values(ProductRequestDto.TaxRateEnum);
+  categories: Category[] = [];
   addProductForm: FormGroup;
   @ViewChild('errorSwal')
   public readonly errorSwal!: SwalComponent;
 
   constructor(
     private productService: ProduitService,
+    private categoryService: CategorieService,
     private router: Router,
     private route: ActivatedRoute
   ) {
   }
 
   ngOnInit(): void {
+    this.categoryService.getAllCategories('body',
+      false,
+      {httpHeaderAccept: 'application/json'}
+    ).subscribe(
+      (data) => {
+        console.log(data)
+        this.categories = data;
+        this.addProductForm.controls['category'].setValue(this.categories[0].id);
+      }, error => {
+        console.log(error)
+      }
+    );
+
     this.addProductForm = new FormGroup({
       'barCode': new FormControl(null, Validators.required),
       'name': new FormControl(null, Validators.required),
       'purchasePrice': new FormControl(null, Validators.required),
       'sellingPriceExcludingTax': new FormControl(null, Validators.required),
-      'taxRate': new FormControl(this.taxRates[0], Validators.required)
+      'taxRate': new FormControl(this.taxRates[0], Validators.required),
+      'category': new FormControl(null, Validators.required)
     });
   }
 

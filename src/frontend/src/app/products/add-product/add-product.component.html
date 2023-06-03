@@ -56,6 +56,16 @@
             <p *ngIf="!addProductForm?.get('taxRate')?.valid && addProductForm?.get('taxRate')?.touched"
                class="text-danger mt-1">Le taux de taxe est requis !</p>
           </div>
+          <div class="mb-3">
+            <label class="form-label" for="category">Categorie</label>
+            <select class="form-select" formControlName="category" id="category" name="category">
+              <option disabled selected value="none">Sélectionner une categorie</option>
+              <option *ngFor="let category of categories" value="{{category.id}}">{{category.name|titlecase}}</option>
+            </select>
+            <p *ngIf="!addProductForm?.get('category')?.valid && addProductForm?.get('category')?.touched"
+               class="text-danger mt-1">
+              La categorie est requis !</p>
+          </div>
           <button [disabled]="!addProductForm.valid" class="btn btn-primary me-2" type="submit">Enregistrer</button>
           <button class="btn btn-secondary" routerLink="/products">Annuler</button>
         </form>

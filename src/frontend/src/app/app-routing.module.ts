@@ -16,6 +16,9 @@ import {ChangePasswordComponent} from "./change-password/change-password.compone
 import {AddInvoiceComponent} from "./invoices/add-invoice/add-invoice.component";
 import {InvoicesComponent} from "./invoices/invoices.component";
 import {PreviewInvoiceComponent} from "./invoices/preview-invoice/preview-invoice.component";
+import {CategoriesComponent} from "./categories/categories.component";
+import {AddCategoryComponent} from "./categories/add-category/add-category.component";
+import {EditCategoryComponent} from "./categories/edit-category/edit-category.component";
 
 
 const routes: Routes = [
@@ -52,6 +55,18 @@ const routes: Routes = [
       {
         path: 'products/edit-product/:id',
         component: EditProductComponent
+      },
+      {
+        path: 'categories',
+        component: CategoriesComponent,
+      },
+      {
+        path: 'categories/add-category',
+        component: AddCategoryComponent
+      },
+      {
+        path: 'categories/edit-category/:id',
+        component: EditCategoryComponent
       },
       {
         path: 'customers',

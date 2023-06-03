@@ -1,6 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {ProductRequestDto, ProductResponseDto, ProduitService} from "../../../../libs/openapi/out";
+import {
+  CategorieService,
+  Category,
+  ProductRequestDto,
+  ProductResponseDto,
+  ProduitService
+} from "../../../../libs/openapi/out";
 import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
@@ -13,10 +19,12 @@ export class EditProductComponent implements OnInit {
   id!: number;
   taxRates = Object.values(ProductRequestDto.TaxRateEnum);
   productToUpdate: ProductResponseDto;
+  categories: Category[] = [];
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
+    private categoryService: CategorieService,
     private productService: ProduitService
   ) {
   }
@@ -28,8 +36,22 @@ export class EditProductComponent implements OnInit {
       name: new FormControl('', Validators.required),
       purchasePrice: new FormControl('', Validators.required),
       sellingPriceExcludingTax: new FormControl('', Validators.required),
-      taxRate: new FormControl(this.taxRates[0], Validators.required)
+      taxRate: new FormControl(this.taxRates[0], Validators.required),
+      category: new FormControl(null, Validators.required)
     });
+
+    this.categoryService.getAllCategories('body',
+      false,
+      {httpHeaderAccept: 'application/json'}
+    ).subscribe(
+      (data) => {
+        console.log(data)
+        this.categories = data;
+      }, error => {
+        console.log(error)
+      }
+    );
+
 
     this.productService.getProduct(
       this.id,
@@ -44,6 +66,7 @@ export class EditProductComponent implements OnInit {
         this.editProductFrom.controls['purchasePrice'].setValue(this.productToUpdate.purchasePrice);
         this.editProductFrom.controls['sellingPriceExcludingTax'].setValue(this.productToUpdate.sellingPriceExcludingTax);
         this.editProductFrom.controls['taxRate'].setValue(this.productToUpdate.taxRate);
+        this.editProductFrom.controls['category'].setValue(this.productToUpdate.category);
       }, error => {
         console.log(error)
       });

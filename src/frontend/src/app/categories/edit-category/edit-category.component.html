@@ -1,0 +1,40 @@
+<nav class="page-breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a routerLink="/">Accueil</a></li>
+    <li class="breadcrumb-item"><a routerLink="/categories">Categories</a></li>
+    <li aria-current="page" class="breadcrumb-item active">Modifier une categorie</li>
+  </ol>
+</nav>
+
+<div class="row ">
+  <div class="col-md-12 grid-margin stretch-card d-flex justify-content-between">
+    <h2 class="ms-1">Modifier une categorie</h2>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12 stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <form (ngSubmit)="onSubmit()" [formGroup]="editCategoryFrom" class="forms-sample">
+          <div class="mb-3">
+            <label class="form-label" for="name">Nom categorie</label>
+            <input class="form-control" formControlName="name" id="name"
+                   placeholder="Nom de la categorie" type="text">
+            <p *ngIf="!editCategoryFrom?.get('name')?.valid && editCategoryFrom?.get('name')?.touched"
+               class="text-danger mt-1">Le nom de le categorie est requis !</p>
+          </div>
+          <div class="mb-3">
+            <label class="form-label" for="description">Description</label>
+            <input class="form-control" formControlName="description" id="description"
+                   placeholder="Description de la categorie" type="text">
+            <p *ngIf="!editCategoryFrom?.get('description')?.valid && editCategoryFrom?.get('description')?.touched"
+               class="text-danger mt-1">La description de la categorie est requise !</p>
+          </div>
+          <button [disabled]="!editCategoryFrom.valid" class="btn btn-primary me-2" type="submit">Enregistrer</button>
+          <button class="btn btn-secondary" routerLink="/categories">Annuler</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
