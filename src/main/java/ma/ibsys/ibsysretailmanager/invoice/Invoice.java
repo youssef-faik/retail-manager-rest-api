@@ -19,7 +19,6 @@ import ma.ibsys.ibsysretailmanager.customer.Customer;
 @AllArgsConstructor
 public class Invoice {
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "id", updatable = false)
   private int id;
 
