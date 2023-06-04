@@ -6,6 +6,7 @@ export * from './category';
 export * from './categoryCreateDto';
 export * from './changePasswordRequest';
 export * from './chartDataDto';
+export * from './configOption';
 export * from './customerCreateDto';
 export * from './customerResponseDto';
 export * from './customerUpdateDto';

@@ -17,6 +17,10 @@
       "description": "L'API Produit. Contient toutes les opérations pouvant être effectuées sur un produit"
     },
     {
+      "name": "Configuration",
+      "description": "API Configuration. Contient toutes les opérations de configuration de l'API"
+    },
+    {
       "name": "Utilisateur",
       "description": "API Utilisateur. Contient toutes les opérations pouvant être effectuées sur un utilisateur. Nécessite le rôle ADMIN."
     },
@@ -827,6 +831,157 @@
           },
           "404": {
             "description": "Client introuvable.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Erreur interne du serveur.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer_Authentication": []
+          }
+        ]
+      }
+    },
+    "/api/v1/configurations": {
+      "get": {
+        "tags": [
+          "Configuration"
+        ],
+        "summary": "Obtenir toutes les configurations.",
+        "description": "Obtenir une liste contenant les détails de toutes les configurations.",
+        "operationId": "getAllConfigurations",
+        "responses": {
+          "200": {
+            "description": "Configurations récupérées avec succès.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ConfigOption"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Non autorisé.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Interdit",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Configurations non trouvées.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Erreur interne du serveur.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer_Authentication": []
+          }
+        ]
+      },
+      "put": {
+        "tags": [
+          "Configuration"
+        ],
+        "summary": "Définir une ou plusieurs valeurs de configuration",
+        "description": "Définir les valeurs d'une ou plusieurs configurations",
+        "operationId": "setConfigurationValues",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/ConfigOption"
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "204": {
+            "description": "Valeurs de configuration définies avec succès"
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Non autorisé.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Interdit",
             "content": {
               "application/json": {
                 "schema": {
@@ -2273,6 +2428,100 @@
         ]
       }
     },
+    "/api/v1/configurations/{key}": {
+      "get": {
+        "tags": [
+          "Configuration"
+        ],
+        "summary": "Obtenir un paramètre de configuration.",
+        "description": "Obtenir un paramètre de configuration avec la clé donnée.",
+        "operationId": "getConfigurationValue",
+        "parameters": [
+          {
+            "name": "key",
+            "in": "path",
+            "description": "Clé de configuration",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Énumération des options de configuration.",
+              "enum": [
+                "LAST_INVOICE_NUMBER",
+                "LAST_BL_NUMBER"
+              ]
+            },
+            "example": "LAST_INVOICE_NUMBER"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Paramètre récupéré avec succès.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ConfigOption"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Non autorisé.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Interdit.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Paramètre non trouvé.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Erreur interne du serveur.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer_Authentication": []
+          }
+        ]
+      }
+    },
     "/api/v1/cart-item/{id}": {
       "get": {
         "tags": [
@@ -2722,6 +2971,22 @@
           }
         },
         "description": "Corps de réponse pour un client."
+      },
+      "ConfigOption": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string",
+            "description": "Énumération des options de configuration.",
+            "enum": [
+              "LAST_INVOICE_NUMBER",
+              "LAST_BL_NUMBER"
+            ]
+          },
+          "value": {
+            "type": "string"
+          }
+        }
       },
       "CategoryCreateDto": {
         "title": "Schéma de requête de création/mise a jour d'une catégorie",

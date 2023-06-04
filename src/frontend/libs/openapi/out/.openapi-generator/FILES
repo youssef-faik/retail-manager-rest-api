@@ -6,6 +6,7 @@ api/api.ts
 api/authentification.service.ts
 api/categorie.service.ts
 api/client.service.ts
+api/configuration.service.ts
 api/elementPanier.service.ts
 api/facture.service.ts
 api/produit.service.ts
@@ -23,6 +24,7 @@ model/category.ts
 model/categoryCreateDto.ts
 model/changePasswordRequest.ts
 model/chartDataDto.ts
+model/configOption.ts
 model/customerCreateDto.ts
 model/customerResponseDto.ts
 model/customerUpdateDto.ts
