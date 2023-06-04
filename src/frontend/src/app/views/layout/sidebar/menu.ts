@@ -39,4 +39,13 @@ export const MENU: MenuItem[] = [
     icon: 'users',
     link: '/users'
   },
+  {
+    label: 'Configuration',
+    isTitle: true
+  },
+  {
+    label: 'Paramètres',
+    icon: 'settings',
+    link: '/configuration'
+  }
 ];

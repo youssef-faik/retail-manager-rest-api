@@ -19,6 +19,7 @@ import {PreviewInvoiceComponent} from "./invoices/preview-invoice/preview-invoic
 import {CategoriesComponent} from "./categories/categories.component";
 import {AddCategoryComponent} from "./categories/add-category/add-category.component";
 import {EditCategoryComponent} from "./categories/edit-category/edit-category.component";
+import {ConfigurationComponent} from "./configuration/configuration.component";
 
 
 const routes: Routes = [
@@ -94,6 +95,10 @@ const routes: Routes = [
       }, {
         path: 'invoices/preview-invoice/:id',
         component: PreviewInvoiceComponent
+      },
+      {
+        path: 'configuration',
+        component: ConfigurationComponent,
       },
       {path: '', redirectTo: 'dashboard', pathMatch: 'full'}
     ]

@@ -36,6 +36,7 @@ import {SweetAlert2Module} from "@sweetalert2/ngx-sweetalert2";
 import {CategoriesComponent} from './categories/categories.component';
 import {AddCategoryComponent} from './categories/add-category/add-category.component';
 import {EditCategoryComponent} from './categories/edit-category/edit-category.component';
+import { ConfigurationComponent } from './configuration/configuration.component';
 
 
 @NgModule({
@@ -57,7 +58,8 @@ import {EditCategoryComponent} from './categories/edit-category/edit-category.co
     PreviewInvoiceComponent,
     CategoriesComponent,
     AddCategoryComponent,
-    EditCategoryComponent
+    EditCategoryComponent,
+    ConfigurationComponent
   ],
   imports: [
     BrowserModule,
