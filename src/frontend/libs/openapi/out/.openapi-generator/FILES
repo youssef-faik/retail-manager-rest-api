@@ -24,7 +24,6 @@ model/category.ts
 model/categoryCreateDto.ts
 model/changePasswordRequest.ts
 model/chartDataDto.ts
-model/configOption.ts
 model/customerCreateDto.ts
 model/customerResponseDto.ts
 model/customerUpdateDto.ts

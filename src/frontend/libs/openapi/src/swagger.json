@@ -870,11 +870,8 @@
             "description": "Configurations récupérées avec succès.",
             "content": {
               "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/ConfigOption"
-                  }
+                "example": {
+                  "NEXT_INVOICE_NUMBER": "123"
                 }
               }
             }
@@ -947,9 +944,9 @@
           "content": {
             "application/json": {
               "schema": {
-                "type": "array",
-                "items": {
-                  "$ref": "#/components/schemas/ConfigOption"
+                "type": "object",
+                "additionalProperties": {
+                  "type": "string"
                 }
               }
             }
@@ -2446,11 +2443,10 @@
               "type": "string",
               "description": "Énumération des options de configuration.",
               "enum": [
-                "LAST_INVOICE_NUMBER",
-                "LAST_BL_NUMBER"
+                "NEXT_INVOICE_NUMBER"
               ]
             },
-            "example": "LAST_INVOICE_NUMBER"
+            "example": "NEXT_INVOICE_NUMBER"
           }
         ],
         "responses": {
@@ -2458,8 +2454,8 @@
             "description": "Paramètre récupéré avec succès.",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ConfigOption"
+                "example": {
+                  "NEXT_INVOICE_NUMBER": "123"
                 }
               }
             }
@@ -2971,22 +2967,6 @@
           }
         },
         "description": "Corps de réponse pour un client."
-      },
-      "ConfigOption": {
-        "type": "object",
-        "properties": {
-          "key": {
-            "type": "string",
-            "description": "Énumération des options de configuration.",
-            "enum": [
-              "LAST_INVOICE_NUMBER",
-              "LAST_BL_NUMBER"
-            ]
-          },
-          "value": {
-            "type": "string"
-          }
-        }
       },
       "CategoryCreateDto": {
         "title": "Schéma de requête de création/mise a jour d'une catégorie",

@@ -19,8 +19,6 @@ import { CustomHttpParameterCodec }                          from '../encoder';
 import { Observable }                                        from 'rxjs';
 
 // @ts-ignore
-import { ConfigOption } from '../model/configOption';
-// @ts-ignore
 import { ErrorResponse } from '../model/errorResponse';
 
 // @ts-ignore
@@ -99,9 +97,9 @@ export class ConfigurationService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getAllConfigurations(observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json' | '*/*', context?: HttpContext}): Observable<Array<ConfigOption>>;
-    public getAllConfigurations(observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json' | '*/*', context?: HttpContext}): Observable<HttpResponse<Array<ConfigOption>>>;
-    public getAllConfigurations(observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json' | '*/*', context?: HttpContext}): Observable<HttpEvent<Array<ConfigOption>>>;
+    public getAllConfigurations(observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json' | '*/*', context?: HttpContext}): Observable<any>;
+    public getAllConfigurations(observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json' | '*/*', context?: HttpContext}): Observable<HttpResponse<any>>;
+    public getAllConfigurations(observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json' | '*/*', context?: HttpContext}): Observable<HttpEvent<any>>;
     public getAllConfigurations(observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json' | '*/*', context?: HttpContext}): Observable<any> {
 
         let localVarHeaders = this.defaultHeaders;
@@ -144,7 +142,7 @@ export class ConfigurationService {
         }
 
         let localVarPath = `/api/v1/configurations`;
-        return this.httpClient.request<Array<ConfigOption>>('get', `${this.configuration.basePath}${localVarPath}`,
+        return this.httpClient.request<any>('get', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
                 responseType: <any>responseType_,
@@ -163,10 +161,10 @@ export class ConfigurationService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getConfigurationValue(key: 'LAST_INVOICE_NUMBER' | 'LAST_BL_NUMBER', observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json' | '*/*', context?: HttpContext}): Observable<ConfigOption>;
-    public getConfigurationValue(key: 'LAST_INVOICE_NUMBER' | 'LAST_BL_NUMBER', observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json' | '*/*', context?: HttpContext}): Observable<HttpResponse<ConfigOption>>;
-    public getConfigurationValue(key: 'LAST_INVOICE_NUMBER' | 'LAST_BL_NUMBER', observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json' | '*/*', context?: HttpContext}): Observable<HttpEvent<ConfigOption>>;
-    public getConfigurationValue(key: 'LAST_INVOICE_NUMBER' | 'LAST_BL_NUMBER', observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json' | '*/*', context?: HttpContext}): Observable<any> {
+    public getConfigurationValue(key: 'NEXT_INVOICE_NUMBER', observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json' | '*/*', context?: HttpContext}): Observable<any>;
+    public getConfigurationValue(key: 'NEXT_INVOICE_NUMBER', observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json' | '*/*', context?: HttpContext}): Observable<HttpResponse<any>>;
+    public getConfigurationValue(key: 'NEXT_INVOICE_NUMBER', observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json' | '*/*', context?: HttpContext}): Observable<HttpEvent<any>>;
+    public getConfigurationValue(key: 'NEXT_INVOICE_NUMBER', observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json' | '*/*', context?: HttpContext}): Observable<any> {
         if (key === null || key === undefined) {
             throw new Error('Required parameter key was null or undefined when calling getConfigurationValue.');
         }
@@ -210,8 +208,8 @@ export class ConfigurationService {
             }
         }
 
-        let localVarPath = `/api/v1/configurations/${this.configuration.encodeParam({name: "key", value: key, in: "path", style: "simple", explode: false, dataType: "'LAST_INVOICE_NUMBER' | 'LAST_BL_NUMBER'", dataFormat: undefined})}`;
-        return this.httpClient.request<ConfigOption>('get', `${this.configuration.basePath}${localVarPath}`,
+        let localVarPath = `/api/v1/configurations/${this.configuration.encodeParam({name: "key", value: key, in: "path", style: "simple", explode: false, dataType: "'NEXT_INVOICE_NUMBER'", dataFormat: undefined})}`;
+        return this.httpClient.request<any>('get', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
                 responseType: <any>responseType_,
@@ -226,16 +224,16 @@ export class ConfigurationService {
     /**
      * Définir une ou plusieurs valeurs de configuration
      * Définir les valeurs d\&#39;une ou plusieurs configurations
-     * @param configOption 
+     * @param requestBody 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public setConfigurationValues(configOption: Array<ConfigOption>, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*' | 'application/json', context?: HttpContext}): Observable<any>;
-    public setConfigurationValues(configOption: Array<ConfigOption>, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*' | 'application/json', context?: HttpContext}): Observable<HttpResponse<any>>;
-    public setConfigurationValues(configOption: Array<ConfigOption>, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*' | 'application/json', context?: HttpContext}): Observable<HttpEvent<any>>;
-    public setConfigurationValues(configOption: Array<ConfigOption>, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: '*/*' | 'application/json', context?: HttpContext}): Observable<any> {
-        if (configOption === null || configOption === undefined) {
-            throw new Error('Required parameter configOption was null or undefined when calling setConfigurationValues.');
+    public setConfigurationValues(requestBody: { [key: string]: string; }, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*' | 'application/json', context?: HttpContext}): Observable<any>;
+    public setConfigurationValues(requestBody: { [key: string]: string; }, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*' | 'application/json', context?: HttpContext}): Observable<HttpResponse<any>>;
+    public setConfigurationValues(requestBody: { [key: string]: string; }, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*' | 'application/json', context?: HttpContext}): Observable<HttpEvent<any>>;
+    public setConfigurationValues(requestBody: { [key: string]: string; }, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: '*/*' | 'application/json', context?: HttpContext}): Observable<any> {
+        if (requestBody === null || requestBody === undefined) {
+            throw new Error('Required parameter requestBody was null or undefined when calling setConfigurationValues.');
         }
 
         let localVarHeaders = this.defaultHeaders;
@@ -290,7 +288,7 @@ export class ConfigurationService {
         return this.httpClient.request<any>('put', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
-                body: configOption,
+                body: requestBody,
                 responseType: <any>responseType_,
                 withCredentials: this.configuration.withCredentials,
                 headers: localVarHeaders,

@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {ConfigOption, ConfigurationService, ErrorResponse} from "../../../libs/openapi/out";
+import {ConfigurationService} from "../../../libs/openapi/out";
 import {SwalComponent} from "@sweetalert2/ngx-sweetalert2";
 
 @Component({
@@ -10,7 +10,7 @@ import {SwalComponent} from "@sweetalert2/ngx-sweetalert2";
 })
 export class ConfigurationComponent implements OnInit {
   configOptionsFrom: FormGroup;
-  configurations: ConfigOption[];
+  NEXT_INVOICE_NUMBER: any;
 
   @ViewChild('errorSwal')
   public readonly swalComponent!: SwalComponent;
@@ -20,8 +20,7 @@ export class ConfigurationComponent implements OnInit {
 
   ngOnInit(): void {
     this.configOptionsFrom = new FormGroup({
-      'LAST_INVOICE_NUMBER': new FormControl(null, Validators.required),
-      'LAST_BL_NUMBER': new FormControl(null, Validators.required)
+      'NEXT_INVOICE_NUMBER': new FormControl(null, Validators.required),
     });
 
     this.configurationService.getAllConfigurations(
@@ -30,18 +29,9 @@ export class ConfigurationComponent implements OnInit {
       {httpHeaderAccept: 'application/json'}
     ).subscribe(
       (data) => {
-        this.configurations = data;
-
-        let invoiceNumberOption = this.configurations.filter(option => {
-          return option.key === ConfigOption.KeyEnum.InvoiceNumber
-        });
-
-        let BlNumberOption = this.configurations.filter(option => {
-          return option.key === ConfigOption.KeyEnum.BlNumber
-        });
-
-        this.configOptionsFrom.controls['LAST_INVOICE_NUMBER'].setValue(invoiceNumberOption[0].value);
-        this.configOptionsFrom.controls['LAST_BL_NUMBER'].setValue(BlNumberOption[0].value);
+        // @ts-ignore
+        this.configOptionsFrom.controls['NEXT_INVOICE_NUMBER'].setValue(data['NEXT_INVOICE_NUMBER']);
+        this.NEXT_INVOICE_NUMBER = data['NEXT_INVOICE_NUMBER'];
       }, error => {
         console.log(error)
       });
@@ -52,36 +42,22 @@ export class ConfigurationComponent implements OnInit {
       return
     }
 
-    // this.configurations = data;
-
-    let invoiceNumberOption = this.configurations.filter(option => {
-      return option.key === ConfigOption.KeyEnum.InvoiceNumber
-    });
-
-    for (const option of this.configurations) {
-      if (option.key === ConfigOption.KeyEnum.InvoiceNumber) {
-        option.value = this.configOptionsFrom.controls['LAST_INVOICE_NUMBER'].value;
-        continue
-      }
-      if (option.key === ConfigOption.KeyEnum.BlNumber) {
-        option.value = this.configOptionsFrom.controls['LAST_BL_NUMBER'].value;
-
-      }
-    }
-
     this.configurationService.setConfigurationValues(
-      this.configurations,
+      {'NEXT_INVOICE_NUMBER': this.configOptionsFrom.controls['NEXT_INVOICE_NUMBER'].value},
       'body',
       false,
       {httpHeaderAccept: 'application/json'}
     ).subscribe(
-      (data) => {
+      () => {
         this.swalComponent.title = 'La configuration a été mise à jour avec succès.';
         this.swalComponent.icon = 'success';
         this.swalComponent.fire();
       }, error => {
         this.swalComponent.title = error.error.message;
+        this.swalComponent.icon = 'error';
         this.swalComponent.fire();
+
+        this.configOptionsFrom.controls['NEXT_INVOICE_NUMBER'].setValue(this.NEXT_INVOICE_NUMBER);
       }
     );
 

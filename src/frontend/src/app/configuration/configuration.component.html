@@ -17,23 +17,14 @@
       <div class="card-body">
         <form (ngSubmit)="onSubmit()" [formGroup]="configOptionsFrom" class="forms-sample">
           <div class="mb-3">
-            <label class="form-label" for="LAST_INVOICE_NUMBER">Dernier numéro de facture</label>
-            <input class="form-control" formControlName="LAST_INVOICE_NUMBER" id="LAST_INVOICE_NUMBER"
-                   name="LAST_INVOICE_NUMBER"
+            <label class="form-label" for="NEXT_INVOICE_NUMBER">Numéro de facture suivante</label>
+            <input class="form-control" formControlName="NEXT_INVOICE_NUMBER" id="NEXT_INVOICE_NUMBER"
+                   name="NEXT_INVOICE_NUMBER"
                    placeholder="Exemple : 12"
                    type="number">
             <p
-              *ngIf="!configOptionsFrom?.get('LAST_INVOICE_NUMBER')?.valid && configOptionsFrom?.get('LAST_INVOICE_NUMBER')?.touched"
+              *ngIf="!configOptionsFrom?.get('NEXT_INVOICE_NUMBER')?.valid && configOptionsFrom?.get('NEXT_INVOICE_NUMBER')?.touched"
               class="text-danger mt-1">Le champ du dernier numéro de facture est requis !</p>
-          </div>
-          <div class="mb-3">
-            <label class="form-label" for="LAST_BL_NUMBER">Dernier numéro du bon de livraison</label>
-            <input class="form-control" formControlName="LAST_BL_NUMBER" id="LAST_BL_NUMBER" name="LAST_BL_NUMBER"
-                   placeholder="Exemple : 48"
-                   type="number">
-            <p
-              *ngIf="!configOptionsFrom?.get('LAST_BL_NUMBER')?.valid && configOptionsFrom?.get('LAST_BL_NUMBER')?.touched"
-              class="text-danger mt-1">Le champ du dernier numéro du bon de livraison est requis !</p>
           </div>
           <button [disabled]="!configOptionsFrom.valid" class="btn btn-primary me-2" type="submit">Enregistrer</button>
           <button class="btn btn-secondary" routerLink="/">Annuler</button>
