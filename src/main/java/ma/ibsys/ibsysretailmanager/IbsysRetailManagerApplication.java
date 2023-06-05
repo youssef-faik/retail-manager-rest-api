@@ -101,11 +101,11 @@ public class IbsysRetailManagerApplication implements CommandLineRunner {
     Category cuisine = categoryRepository.save(category2);
     Category cosmetique = categoryRepository.save(category3);
 
-    Product watterBottle =
+    Product waterBottle =
         Product.builder()
             .barCode("6111035001673")
             .taxRate(TaxRate.TWENTY)
-            .name("Watter Bottle")
+            .name("Bouteille d'eau")
             .purchasePrice(BigDecimal.valueOf(23))
             .sellingPriceExcludingTax(BigDecimal.valueOf(3.5))
             .category(autre)
@@ -115,7 +115,7 @@ public class IbsysRetailManagerApplication implements CommandLineRunner {
         Product.builder()
             .barCode("6111024001585")
             .taxRate(TaxRate.TWENTY)
-            .name("Oil Bottle")
+            .name("Bouteille d'huile")
             .purchasePrice(BigDecimal.valueOf(80))
             .sellingPriceExcludingTax(BigDecimal.valueOf(90))
             .category(autre)
@@ -124,7 +124,7 @@ public class IbsysRetailManagerApplication implements CommandLineRunner {
     Product deodorantGel =
         Product.builder()
             .barCode("4005900640253")
-            .name("Deodorant gel")
+            .name("Gel déodorant")
             .taxRate(TaxRate.TWENTY)
             .purchasePrice(BigDecimal.valueOf(30))
             .sellingPriceExcludingTax(BigDecimal.valueOf(35))
@@ -134,7 +134,7 @@ public class IbsysRetailManagerApplication implements CommandLineRunner {
     Product handCream =
         Product.builder()
             .barCode("6111251490619")
-            .name("Hand Cream")
+            .name("Crème pour les mains")
             .taxRate(TaxRate.TWENTY)
             .purchasePrice(BigDecimal.valueOf(20))
             .sellingPriceExcludingTax(BigDecimal.valueOf(25))
@@ -144,14 +144,14 @@ public class IbsysRetailManagerApplication implements CommandLineRunner {
     Product cheese =
         Product.builder()
             .barCode("3073781154481")
-            .name("cheese")
+            .name("Fromage")
             .taxRate(TaxRate.TWENTY)
             .purchasePrice(BigDecimal.valueOf(12))
             .sellingPriceExcludingTax(BigDecimal.valueOf(24))
             .category(cuisine)
             .build();
 
-    productRepository.save(watterBottle);
+    productRepository.save(waterBottle);
     productRepository.save(oilBottle);
     productRepository.save(deodorantGel);
     productRepository.save(cheese);

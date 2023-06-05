@@ -2,15 +2,15 @@ package ma.ibsys.ibsysretailmanager.configuration;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.constraints.NotEmpty;
-import java.util.List;
+import java.util.Map;
 import ma.ibsys.ibsysretailmanager.handlers.ErrorResponse;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -38,7 +38,7 @@ public interface AppConfigurationApi {
             content =
                 @Content(
                     mediaType = "application/json",
-                    array = @ArraySchema(schema = @Schema(implementation = ConfigOption.class)))),
+                    examples = @ExampleObject(value = "{ \"NEXT_INVOICE_NUMBER\": \"123\" }"))),
         @ApiResponse(
             responseCode = "401",
             description = "Non autorisé.",
@@ -68,7 +68,7 @@ public interface AppConfigurationApi {
                     mediaType = "application/json",
                     schema = @Schema(implementation = ErrorResponse.class)))
       })
-  List<ConfigOption> getAllConfigurations();
+  Map<ConfigKey, String> getAllConfigurations();
 
   @GetMapping("/{key}")
   @Operation(
@@ -82,7 +82,7 @@ public interface AppConfigurationApi {
             content =
                 @Content(
                     mediaType = "application/json",
-                    schema = @Schema(implementation = ConfigOption.class))),
+                    examples = @ExampleObject(value = "{ \"NEXT_INVOICE_NUMBER\": \"123\" }"))),
         @ApiResponse(
             responseCode = "401",
             description = "Non autorisé.",
@@ -115,7 +115,7 @@ public interface AppConfigurationApi {
   ConfigOption getConfigurationValue(
       @Parameter(
               description = "Clé de configuration",
-              example = "LAST_INVOICE_NUMBER",
+              example = "NEXT_INVOICE_NUMBER",
               schema = @Schema(implementation = ConfigKey.class))
           @PathVariable("key")
           ConfigKey key);
@@ -152,10 +152,5 @@ public interface AppConfigurationApi {
                     schema = @Schema(implementation = ErrorResponse.class)))
       })
   void setConfigurationValues(
-      @Parameter(
-              required = true,
-              array = @ArraySchema(schema = @Schema(implementation = ConfigOption.class)))
-          @RequestBody
-          @NotEmpty
-          List<ConfigOptionDto> configOptionDTOs);
+      @Parameter(required = true) @RequestBody @NotEmpty Map<ConfigKey, String> configOptions);
 }

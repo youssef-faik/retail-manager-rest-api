@@ -1,11 +1,21 @@
 package ma.ibsys.ibsysretailmanager.invoice;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.persistence.*;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.ForeignKey;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import java.math.BigDecimal;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import ma.ibsys.ibsysretailmanager.product.Product;
@@ -15,15 +25,17 @@ import ma.ibsys.ibsysretailmanager.product.Product;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
+@Builder
 @Schema(
     title = "Entité d'article de facture.",
     description = "Représente un article dans une facture.")
 public class InvoiceItem {
-  @EmbeddedId private InvoiceItemId id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private int id;
 
   @NotNull(message = "La facture est obligatoire.")
   @ManyToOne
-  @MapsId(value = "invoiceId")
   @JoinColumn(
       name = "invoice_id",
       referencedColumnName = "id",
@@ -32,7 +44,6 @@ public class InvoiceItem {
 
   @NotNull(message = "Le produit est obligatoire.")
   @ManyToOne(cascade = CascadeType.ALL)
-  @MapsId(value = "productId")
   @JoinColumn(
       name = "product_id",
       referencedColumnName = "id",

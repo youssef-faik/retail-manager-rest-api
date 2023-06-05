@@ -1,6 +1,6 @@
 package ma.ibsys.ibsysretailmanager.configuration;
 
-import java.util.List;
+import java.util.Map;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -10,7 +10,7 @@ public class AppConfigurationController implements AppConfigurationApi {
   AppConfiguration appConfiguration = AppConfiguration.getInstance();
 
   @Override
-  public List<ConfigOption> getAllConfigurations() {
+  public Map<ConfigKey, String> getAllConfigurations() {
     return appConfiguration.getAllConfigurations();
   }
 
@@ -20,7 +20,7 @@ public class AppConfigurationController implements AppConfigurationApi {
   }
 
   @Override
-  public void setConfigurationValues(@RequestBody List<ConfigOptionDto> configOptionDTOs) {
-    appConfiguration.setConfigurationValues(configOptionDTOs);
+  public void setConfigurationValues(@RequestBody Map<ConfigKey, String> configOptions) {
+    appConfiguration.setConfigurationValues(configOptions);
   }
 }

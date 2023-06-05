@@ -1,14 +1,13 @@
 package ma.ibsys.ibsysretailmanager.configuration;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Optional;
+import java.util.Map;
 import ma.ibsys.ibsysretailmanager.exceptions.BadRequestException;
 import ma.ibsys.ibsysretailmanager.invoice.Invoice;
 import ma.ibsys.ibsysretailmanager.invoice.InvoiceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
 @Component
 public class AppConfiguration {
@@ -22,16 +21,10 @@ public class AppConfiguration {
     AppConfiguration.configOptionRepository = configOptionRepository;
     AppConfiguration.invoiceRepository = invoiceRepository;
 
-    if (configOptionRepository.count() == 0) {
-      List<ConfigOption> defaultConfigurations = new ArrayList<>();
-      ConfigOption lastInvoice =
-          ConfigOption.builder().key(ConfigKey.LAST_INVOICE_NUMBER).value("0").build();
-      ConfigOption lastBL = ConfigOption.builder().key(ConfigKey.LAST_BL_NUMBER).value("0").build();
-
-      defaultConfigurations.add(lastInvoice);
-      defaultConfigurations.add(lastBL);
-
-      AppConfiguration.configOptionRepository.saveAll(defaultConfigurations);
+    if (configOptionRepository.findByKey(ConfigKey.NEXT_INVOICE_NUMBER).isEmpty()) {
+      ConfigOption nextInvoiceNumber =
+          ConfigOption.builder().key(ConfigKey.NEXT_INVOICE_NUMBER).value("1").build();
+      AppConfiguration.configOptionRepository.save(nextInvoiceNumber);
     }
   }
 
@@ -46,6 +39,39 @@ public class AppConfiguration {
     return instance;
   }
 
+  private static void validateNextInvoiceNumber(int nextInvoiceNumber) {
+    if (nextInvoiceNumber <= 0) {
+      throw new BadRequestException(
+          "Le numéro de facture suivante doit être strictement supérieur à 0");
+    }
+
+    if (invoiceRepository.count() > 0) {
+      Invoice invoice = invoiceRepository.findFirstByOrderByIdDesc().orElseThrow();
+      if (nextInvoiceNumber <= invoice.getId()) {
+        throw new BadRequestException(
+            "Le numéro de facture suivante doit être supérieur ou égal à " + (invoice.getId() + 1));
+      }
+    }
+  }
+
+  private static void updateOptionValue(ConfigKey key, String value) {
+    ConfigOption option =
+        configOptionRepository
+            .findByKey(key)
+            .orElseThrow(
+                () ->
+                    new RuntimeException(
+                        "Option introuvable avec la clé " + ConfigKey.NEXT_INVOICE_NUMBER.name()));
+
+    option.setValue(value);
+    configOptionRepository.save(option);
+  }
+
+  private static void updateNextInvoiceNumber(int nextInvoiceNumber) {
+    validateNextInvoiceNumber(nextInvoiceNumber);
+    updateOptionValue(ConfigKey.NEXT_INVOICE_NUMBER, String.valueOf(nextInvoiceNumber));
+  }
+
   public ConfigOption getConfigurationValue(ConfigKey key) {
     ConfigOption option =
         configOptionRepository
@@ -56,35 +82,21 @@ public class AppConfiguration {
     return option;
   }
 
-  @Transactional
-  public void setConfigurationValues(List<ConfigOptionDto> configOptionDTOs) {
-    for (ConfigOptionDto configOptionDto : configOptionDTOs) {
-      ConfigOption option =
-          configOptionRepository
-              .findByKey(configOptionDto.getKey())
-              .orElseThrow(
-                  () ->
-                      new RuntimeException(
-                          "Option introuvable avec la clé " + configOptionDto.getKey().name()));
-
-      if (option.getKey() == ConfigKey.LAST_INVOICE_NUMBER) {
-        Optional<Invoice> firstByIdDesc = invoiceRepository.findFirstByOrderByIdDesc();
-        if (firstByIdDesc.isPresent()) {
-          if (Integer.valueOf(configOptionDto.getValue()) < firstByIdDesc.get().getId()) {
-            System.out.println(configOptionDto);
-            throw new BadRequestException(
-                "Le dernier numéro de facture doit être supérieur ou égal à "
-                    + firstByIdDesc.get().getId());
-          }
-        }
-      }
-
-      option.setValue(configOptionDto.getValue());
-      configOptionRepository.save(option);
+  public void setConfigurationValues(Map<ConfigKey, String> configOptions) {
+    if (configOptions.containsKey(ConfigKey.NEXT_INVOICE_NUMBER)) {
+      updateNextInvoiceNumber(Integer.parseInt(configOptions.get(ConfigKey.NEXT_INVOICE_NUMBER)));
     }
   }
 
-  public List<ConfigOption> getAllConfigurations() {
-    return configOptionRepository.findAll();
+  public Map<ConfigKey, String> getAllConfigurations() {
+    Map<ConfigKey, String> options = new HashMap<>();
+
+    List<ConfigOption> rawOptions = configOptionRepository.findAll();
+
+    for (ConfigOption option : rawOptions) {
+      options.put(option.getKey(), option.getValue());
+    }
+
+    return options;
   }
 }
