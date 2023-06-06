@@ -1,5 +1,6 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {FactureService, InvoiceDto, InvoiceItemResponseDto, ProductResponseDto} from "../../../libs/openapi/out";
+import {ColumnMode, DatatableComponent} from "@swimlane/ngx-datatable";
 
 @Component({
   selector: 'app-invoices',
@@ -9,20 +10,32 @@ import {FactureService, InvoiceDto, InvoiceItemResponseDto, ProductResponseDto} 
 export class InvoicesComponent implements OnInit {
 
   invoices: InvoiceDto[];
+  temp: InvoiceDto[] = [];
+  loadingIndicator = true;
+  reorderable = true;
+  ColumnMode = ColumnMode;
+  @ViewChild(DatatableComponent) table: DatatableComponent;
 
   constructor(private invoiceService: FactureService) {
   }
 
   ngOnInit(): void {
-    this.invoiceService.getAllInvoices()
-      .subscribe(
-        data => {
-          this.invoices = data;
-        },
-        error => {
-          console.log(error)
-        }
-      );
+    this.invoiceService.getAllInvoices().subscribe(
+      data => {
+        // cache our list
+        this.temp = [...data];
+
+        // push our inital complete list
+        this.invoices = data;
+
+        setTimeout(() => {
+          this.loadingIndicator = false;
+        }, 1500);
+      },
+      error => {
+        console.log(error)
+      }
+    );
   }
 
 
@@ -82,5 +95,21 @@ export class InvoicesComponent implements OnInit {
     };
 
     return date.toLocaleDateString('en-GB', options);
+  }
+
+  updateFilter(event: KeyboardEvent) {
+    // @ts-ignore
+    const val = event.target.value.toLowerCase();
+
+    // filter our data
+    const temp = this.temp.filter(function (invoice) {
+      // @ts-ignore
+      return invoice.customer?.name.toLowerCase().indexOf(val) !== -1 || !val;
+    });
+
+    // update the rows
+    this.invoices = temp;
+    // Whenever the filter changes, always go back to the first page
+    this.table.offset = 0;
   }
 }

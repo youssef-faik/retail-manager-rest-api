@@ -1,6 +1,7 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {ProductResponseDto, ProduitService} from "../../../libs/openapi/out";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {ColumnMode, DatatableComponent} from "@swimlane/ngx-datatable";
 
 @Component({
   selector: 'app-products',
@@ -9,7 +10,12 @@ import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 })
 export class ProductsComponent implements OnInit {
   products: ProductResponseDto[];
+  temp: ProductResponseDto[] = [];
   recordIdToDelete?: number;
+  loadingIndicator = true;
+  reorderable = true;
+  ColumnMode = ColumnMode;
+  @ViewChild(DatatableComponent) table: DatatableComponent;
 
   constructor(
     private modalService: NgbModal,
@@ -63,6 +69,22 @@ export class ProductsComponent implements OnInit {
     }
   }
 
+  updateFilter(event: KeyboardEvent) {
+    // @ts-ignore
+    const val = event.target.value.toLowerCase();
+
+    // filter our data
+    const temp = this.temp.filter(function (product) {
+      // @ts-ignore
+      return product.name.toLowerCase().indexOf(val) !== -1 || !val;
+    });
+
+    // update the rows
+    this.products = temp;
+    // Whenever the filter changes, always go back to the first page
+    this.table.offset = 0;
+  }
+
   private loadProducts() {
     this.productService.getAllProducts(
       'body',
@@ -70,10 +92,18 @@ export class ProductsComponent implements OnInit {
       {httpHeaderAccept: 'application/json'}
     ).subscribe(
       (data) => {
-        console.log(data)
+        // cache our list
+        this.temp = [...data];
+
+        // push our inital complete list
         this.products = data;
+
+        setTimeout(() => {
+          this.loadingIndicator = false;
+        }, 1500);
       }, error => {
         console.log(error)
-      })
+      }
+    );
   }
 }

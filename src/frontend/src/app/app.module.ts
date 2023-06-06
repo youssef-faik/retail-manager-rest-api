@@ -36,7 +36,8 @@ import {SweetAlert2Module} from "@sweetalert2/ngx-sweetalert2";
 import {CategoriesComponent} from './categories/categories.component';
 import {AddCategoryComponent} from './categories/add-category/add-category.component';
 import {EditCategoryComponent} from './categories/edit-category/edit-category.component';
-import { ConfigurationComponent } from './configuration/configuration.component';
+import {ConfigurationComponent} from './configuration/configuration.component';
+import {NgxDatatableModule} from "@swimlane/ngx-datatable";
 
 
 @NgModule({
@@ -76,6 +77,7 @@ import { ConfigurationComponent } from './configuration/configuration.component'
     NgxQRCodeModule,
     SweetAlert2Module,
     SweetAlert2Module.forRoot(),
+    NgxDatatableModule,
   ],
   providers: [
     AuthGuard,

@@ -5,54 +5,101 @@
   </ol>
 </nav>
 
-<div class="row ">
-  <div class="col-md-12 grid-margin stretch-card d-flex justify-content-between">
-    <h2 class="ms-1">Utilisateurs</h2>
-    <button class="btn btn-primary" routerLink="add-user" type="button"><i class="feather icon-plus"></i>Ajouter
-    </button>
+<h2>Utilisateurs</h2>
+
+<div class="row my-0 mb-1">
+  <div class="col-md-12 grid-margin stretch-card my-1">
+    <div class="card">
+      <div class="card-body p-2">
+        <div class="row">
+          <div class="col-10">
+            <div class="input-group">
+              <div class="input-group-text col d-flex justify-content-center">
+                <i class="feather icon-search icon-md cursor-pointer"></i>
+              </div>
+              <div class="col-11">
+                <input
+                  (keyup)="updateFilter($event)"
+                  class="form-control"
+                  id="search"
+                  placeholder="Rechercher par nom de l'utilisateur ici..."
+                  type="text"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="col d-flex justify-content-center">
+            <button class="btn btn-primary w-100" routerLink="add-user" type="button"><i
+              class="feather icon-plus"></i>Ajouter
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
-<div class="row">
+
+<div class="row mt-0">
   <div class="col-md-12 stretch-card">
     <div class="card">
-      <div class="card-body">
+      <div class="card-body p-2">
+        <div class="table-responsive rounded">
+          <ngx-datatable
+            #table
+            [columnMode]="ColumnMode.force"
+            [footerHeight]="50"
+            [limit]="5"
+            [loadingIndicator]="loadingIndicator"
+            [rowHeight]="50"
+            [rows]="users"
+            [scrollbarH]="true"
+            class="bootstrap"
+          >
+            <ngx-datatable-column [sortable]="false" [width]="30">
+              <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                <img class="wd-30 ht-30 rounded-circle"
+                     src="https://eu.ui-avatars.com/api/?name={{row['firstName']}}+{{row['lastName']}}&size=30">
+              </ng-template>
+            </ngx-datatable-column>
 
-        <div class="table-responsive">
-          <table class="table table-hover" id="usersDataTable">
-            <thead>
-            <tr>
-              <th></th>
-              <th>Prénom</th>
-              <th>Nom</th>
-              <th>Email</th>
-              <th>Rôle</th>
-              <th></th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr *ngFor="let user of users">
-              <td>
-                <img class="wd-35 ht-35 rounded-circle"
-                     src="https://eu.ui-avatars.com/api/?name={{user.firstName}}+{{user.lastName}}&size=35">
-              </td>
-              <td>{{user.firstName}}</td>
-              <td>{{user.lastName|uppercase}}</td>
-              <td>{{user.email}}</td>
-              <td>{{user.role}}</td>
-              <td class="d-flex justify-content-end">
-                <div aria-label="Basic example" class="btn-group" role="group">
-                  <button class="btn btn-primary" routerLink="edit-user/{{ user.id }}" type="button">
+            <ngx-datatable-column name="Prénom" prop="firstName">
+              <ng-template let-column="column" ngx-datatable-header-template>
+                <span class="fw-bolder " title="Prénom">Prénom</span>
+              </ng-template>
+            </ngx-datatable-column>
+
+            <ngx-datatable-column name="Nom" prop="lastName">
+              <ng-template let-column="column" ngx-datatable-header-template>
+                <span class="fw-bolder " title="Nom">Nom</span>
+              </ng-template>
+            </ngx-datatable-column>
+
+            <ngx-datatable-column name="Email" prop="email">
+              <ng-template let-column="column" ngx-datatable-header-template>
+                <span class="fw-bolder " title="Email">Email</span>
+              </ng-template>
+            </ngx-datatable-column>
+
+            <ngx-datatable-column name="Rôle" prop="role">
+              <ng-template let-column="column" ngx-datatable-header-template>
+                <span class="fw-bolder " title="Rôle">Rôle</span>
+              </ng-template>
+            </ngx-datatable-column>
+
+            <ngx-datatable-column [sortable]="false">
+              <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                <div aria-label="Basic example" class="btn-group btn-group-sm" role="group">
+                  <button class="btn btn-primary" routerLink="edit-user/{{ row['id'] }}" type="button">
                     <i class="feather icon-edit"></i>
                   </button>
-                  <button (click)="openConfirmationModal(deleteConfirmationModal, user.id)" class="btn btn-danger">
+                  <button (click)="openConfirmationModal(deleteConfirmationModal, row['id'])" class="btn btn-danger">
                     <i class="feather icon-trash"></i>
                   </button>
                 </div>
-              </td>
-            </tr>
-            </tbody>
-          </table>
+              </ng-template>
+            </ngx-datatable-column>
+          </ngx-datatable>
         </div>
       </div>
     </div>

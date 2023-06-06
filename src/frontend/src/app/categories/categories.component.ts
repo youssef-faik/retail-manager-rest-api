@@ -1,6 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-import {CategorieService, Category, ProductResponseDto} from "../../../libs/openapi/out";
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {CategorieService, Category} from "../../../libs/openapi/out";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {ColumnMode, DatatableComponent} from "@swimlane/ngx-datatable";
 
 @Component({
   selector: 'app-categories',
@@ -9,7 +10,12 @@ import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 })
 export class CategoriesComponent implements OnInit {
   categories: Category[];
+  temp: Category[];
   recordIdToDelete?: number;
+  loadingIndicator = true;
+  reorderable = true;
+  ColumnMode = ColumnMode;
+  @ViewChild(DatatableComponent) table: DatatableComponent;
 
   constructor(
     private modalService: NgbModal,
@@ -48,6 +54,22 @@ export class CategoriesComponent implements OnInit {
     );
   }
 
+  updateFilter(event: KeyboardEvent) {
+    // @ts-ignore
+    const val = event.target.value.toLowerCase();
+
+    // filter our data
+    const temp = this.temp.filter(function (category) {
+      // @ts-ignore
+      return category.name.toLowerCase().indexOf(val) !== -1 || !val;
+    });
+
+    // update the rows
+    this.categories = temp;
+    // Whenever the filter changes, always go back to the first page
+    this.table.offset = 0;
+  }
+
   private loadCategories() {
     this.categorieService.getAllCategories(
       'body',
@@ -55,8 +77,15 @@ export class CategoriesComponent implements OnInit {
       {httpHeaderAccept: 'application/json'}
     ).subscribe(
       (data) => {
-        console.log(data)
+        // cache our list
+        this.temp = [...data];
+
+        // push our inital complete list
         this.categories = data;
+
+        setTimeout(() => {
+          this.loadingIndicator = false;
+        }, 1500);
       }, error => {
         console.log(error)
       })

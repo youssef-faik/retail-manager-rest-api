@@ -1,6 +1,7 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {UserDto, UtilisateurService} from "../../../libs/openapi/out";
+import {ColumnMode, DatatableComponent} from "@swimlane/ngx-datatable";
 
 @Component({
   selector: 'app-users',
@@ -9,7 +10,12 @@ import {UserDto, UtilisateurService} from "../../../libs/openapi/out";
 })
 export class UsersComponent implements OnInit {
   users: UserDto[];
+  temp: UserDto[];
   recordIdToDelete?: number;
+  loadingIndicator = true;
+  reorderable = true;
+  ColumnMode = ColumnMode;
+  @ViewChild(DatatableComponent) table: DatatableComponent;
 
   constructor(
     private modalService: NgbModal,
@@ -48,6 +54,21 @@ export class UsersComponent implements OnInit {
     );
   }
 
+  updateFilter(event: KeyboardEvent) {
+    // @ts-ignore
+    const val = event.target.value.toLowerCase();
+
+    // filter our data
+    const temp = this.temp.filter(function (user) {
+      // @ts-ignore
+      return user.lastName.toLowerCase().indexOf(val) !== -1 || !val;
+    });
+
+    // update the rows
+    this.users = temp;
+    // Whenever the filter changes, always go back to the first page
+    this.table.offset = 0;
+  }
 
   private loadUsers() {
     this.usersService.getAllUsers(
@@ -56,11 +77,19 @@ export class UsersComponent implements OnInit {
       {httpHeaderAccept: 'application/json'}
     ).subscribe(
       (data) => {
-        console.log(data)
+        // cache our list
+        this.temp = [...data];
+
+        // push our inital complete list
         this.users = data;
+
+        setTimeout(() => {
+          this.loadingIndicator = false;
+        }, 1500);
       }, error => {
         console.log(error)
-      })
+      }
+    );
   }
 
 }
