@@ -1,11 +1,15 @@
 package ma.ibsys.ibsysretailmanager;
 
+import com.github.javafaker.Faker;
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.enums.SecuritySchemeIn;
 import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
 import io.swagger.v3.oas.annotations.info.Info;
 import io.swagger.v3.oas.annotations.security.SecurityScheme;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 import lombok.RequiredArgsConstructor;
 import ma.ibsys.ibsysretailmanager.category.Category;
 import ma.ibsys.ibsysretailmanager.category.CategoryRepository;
@@ -95,11 +99,163 @@ public class IbsysRetailManagerApplication implements CommandLineRunner {
         Category.builder().name("Cuisine").description("Cuisine categorie").build();
     Category category3 =
         Category.builder().name("Cosmetique").description("Cosmetique categorie").build();
+    Category techCategory =
+        Category.builder().name("Informatique").description("Categorie Informatique ").build();
     categoryRepository.save(category);
 
+    Category tech = categoryRepository.save(techCategory);
     Category autre = categoryRepository.save(category1);
     Category cuisine = categoryRepository.save(category2);
     Category cosmetique = categoryRepository.save(category3);
+
+    List<String> frenchProductNames =
+        List.of(
+            "Ordinateur portable",
+            "Smartphone",
+            "Tablette",
+            "Imprimante",
+            "Disque dur externe",
+            "Casque audio",
+            "Enceinte Bluetooth",
+            "Appareil photo",
+            "Routeur WiFi",
+            "Clavier sans fil",
+            "Souris gamer",
+            "Écran LCD",
+            "Carte graphique",
+            "Processeur",
+            "Batterie externe",
+            "Câble USB",
+            "Webcam",
+            "Haut-parleurs",
+            "Lecteur DVD",
+            "Laptop",
+            "Microphone",
+            "Écouteurs sans fil",
+            "Smart TV",
+            "Console de jeux",
+            "Lunettes de réalité virtuelle",
+            "Disque SSD",
+            "Scanner",
+            "Moniteur",
+            "Baffle Bluetooth",
+            "Accessoires pour ordinateur",
+            "Écouteurs intra-auriculaires",
+            "Enregistreur vocal",
+            "Montre connectée",
+            "Clé USB",
+            "Adaptateur HDMI",
+            "Étui pour smartphone",
+            "Étui pour tablette",
+            "Enceinte intelligente",
+            "Chargeur sans fil",
+            "Éclairage LED pour PC",
+            "Projecteur",
+            "Imprimante 3D",
+            "Support pour ordinateur portable",
+            "Stylo 3D",
+            "Disque dur NAS",
+            "Raspberry Pi",
+            "Switch réseau",
+            "Carte mère",
+            "Ventilateur de refroidissement",
+            "Antenne WiFi",
+            "Imprimante laser",
+            "Micro-ondes",
+            "Réfrigérateur intelligent",
+            "Caméra de surveillance",
+            "Routeur 4G",
+            "Enregistreur vidéo",
+            "Lecteur de carte mémoire",
+            "Batterie de secours",
+            "Station d'accueil pour ordinateur portable",
+            "Télécommande universelle",
+            "Barre de son",
+            "Support mural pour TV",
+            "Souris sans fil",
+            "Adaptateur Bluetooth",
+            "Câble Ethernet",
+            "Haut-parleurs portables",
+            "Chargeur secteur",
+            "Clavier Bluetooth",
+            "Étui de protection pour ordinateur portable",
+            "Support pour tablette",
+            "Écran de projection",
+            "Tapis de souris",
+            "Webcam HD",
+            "Microphone USB",
+            "Imprimante photo",
+            "Clé USB OTG",
+            "Hub USB",
+            "Mini PC",
+            "Carte réseau",
+            "Stabilisateur d'image",
+            "Station météo",
+            "Casque de réalité virtuelle",
+            "Disque dur externe SSD",
+            "Multiprise intelligente",
+            "Lecteur de code-barres",
+            "Adaptateur secteur",
+            "Enceinte étanche",
+            "Carte son externe",
+            "Répéteur WiFi",
+            "Support pour casque audio",
+            "Stylo pour tablette graphique",
+            "Câble audio",
+            "Chargeur de voiture",
+            "Protection d'écran pour smartphone",
+            "Enceinte USB",
+            "Routeur Mesh",
+            "Clavier gamer",
+            "Étui de protection pour smartphone",
+            "Support pour moniteur",
+            "Microphone à condensateur",
+            "Imprimante laser couleur",
+            "Écran tactile",
+            "Casque antibruit",
+            "Station de charge sans fil",
+            "Souris gamer sans fil",
+            "Caméra de sport",
+            "Disque dur externe 2 To",
+            "Point d'accès WiFi",
+            "Télécommande universelle pour smartphone",
+            "Clé USB 3.0",
+            "Haut-parleur Bluetooth portable",
+            "Câble HDMI",
+            "Webcam Full HD",
+            "Souris ergonomique",
+            "Lecteur de DVD externe",
+            "Adaptateur USB-C",
+            "Support pour smartphone",
+            "Caméra de surveillance IP",
+            "Disque dur externe 1 To",
+            "Réveil intelligent",
+            "Chargeur solaire",
+            "Enceinte WiFi");
+
+    List<Product> products = new ArrayList<>();
+
+    Faker faker = new Faker(Locale.FRENCH);
+
+    for (int i = 1; i <= frenchProductNames.size(); i++) {
+      String barCode = faker.number().digits(13);
+      String name = frenchProductNames.get(faker.random().nextInt(frenchProductNames.size()));
+      TaxRate taxRate = TaxRate.TWENTY;
+      BigDecimal purchasePrice = BigDecimal.valueOf((int) faker.number().randomDouble(2, 10, 1000));
+      BigDecimal sellingPriceExcludingTax = purchasePrice.multiply(BigDecimal.valueOf(2));
+
+      Product product =
+          Product.builder()
+              .barCode(barCode)
+              .name(name)
+              .taxRate(taxRate)
+              .purchasePrice(purchasePrice)
+              .sellingPriceExcludingTax(sellingPriceExcludingTax)
+              .category(tech)
+              .build();
+
+      products.add(product);
+    }
 
     Product waterBottle =
         Product.builder()
@@ -151,11 +307,13 @@ public class IbsysRetailManagerApplication implements CommandLineRunner {
             .category(cuisine)
             .build();
 
-    productRepository.save(waterBottle);
-    productRepository.save(oilBottle);
-    productRepository.save(deodorantGel);
-    productRepository.save(cheese);
-    productRepository.save(handCream);
+    products.add(waterBottle);
+    products.add(oilBottle);
+    products.add(deodorantGel);
+    products.add(cheese);
+    products.add(handCream);
+
+    productRepository.saveAll(products);
 
     User user =
         User.builder()
