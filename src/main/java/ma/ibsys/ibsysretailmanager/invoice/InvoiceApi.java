@@ -111,6 +111,21 @@ public interface InvoiceApi {
       @Parameter(description = "ID de la facture à récupérer.", required = true, example = "1")
           @PathVariable
           int id);
+    @GetMapping("/{id}/pdf")
+    @Operation(
+            summary = "Obtenir un fichier PDF d'une facture.",
+            description = "Récupérer un fichier PDF de la facture avec l'identifiant fourni.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Fichier PDF de la facture généré.",
+                    content = @Content(mediaType = "application/pdf")),
+            @ApiResponse(responseCode = "404", description = "Facture non trouvée.",
+                    content = @Content(mediaType = "application/json")),
+            @ApiResponse(responseCode = "500", description = "Erreur interne du serveur.",
+                    content = @Content(mediaType = "application/json"))
+    })ResponseEntity getInvoiceReport(
+      @Parameter(description = "ID de la facture à récupérer.", required = true, example = "1")
+          @PathVariable
+          int id);
 
   @PostMapping
   @Operation(

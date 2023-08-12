@@ -22,6 +22,11 @@ public class InvoiceController implements InvoiceApi {
     return invoiceService.getInvoiceById(id);
   }
 
+    @Override
+    public ResponseEntity getInvoiceReport(int id) {
+      return invoiceService.getInvoiceReport(id);
+    }
+
   @Override
   public ResponseEntity<Void> createInvoice(@RequestBody InvoiceCreateDto invoiceCreateDto) {
     return invoiceService.createInvoice(invoiceCreateDto);

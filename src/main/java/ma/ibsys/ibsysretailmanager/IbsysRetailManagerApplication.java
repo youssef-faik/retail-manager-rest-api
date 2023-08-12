@@ -6,6 +6,7 @@ import io.swagger.v3.oas.annotations.enums.SecuritySchemeIn;
 import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
 import io.swagger.v3.oas.annotations.info.Info;
 import io.swagger.v3.oas.annotations.security.SecurityScheme;
+import jakarta.validation.Valid;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,12 +16,14 @@ import ma.ibsys.ibsysretailmanager.category.Category;
 import ma.ibsys.ibsysretailmanager.category.CategoryRepository;
 import ma.ibsys.ibsysretailmanager.customer.Customer;
 import ma.ibsys.ibsysretailmanager.customer.CustomerRepository;
+import ma.ibsys.ibsysretailmanager.invoice.*;
 import ma.ibsys.ibsysretailmanager.product.Product;
 import ma.ibsys.ibsysretailmanager.product.ProductRepository;
 import ma.ibsys.ibsysretailmanager.product.TaxRate;
 import ma.ibsys.ibsysretailmanager.user.Role;
 import ma.ibsys.ibsysretailmanager.user.User;
 import ma.ibsys.ibsysretailmanager.user.UserRepository;
+import net.sf.jasperreports.engine.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -49,6 +52,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class IbsysRetailManagerApplication implements CommandLineRunner {
   private final ProductRepository productRepository;
   private final CustomerRepository customerRepository;
+  private final InvoiceService invoiceService;
   private final UserRepository userRepository;
   private final CategoryRepository categoryRepository;
   private final PasswordEncoder passwordEncoder;
@@ -74,6 +78,14 @@ public class IbsysRetailManagerApplication implements CommandLineRunner {
 
   @Override
   public void run(String... args) throws Exception {
+    initializeUsersTable();
+    initializeCategoriesAndProductsTables();
+    initializeCustomersTable();
+
+    initializeInvoicesTable();
+  }
+
+  private void initializeCustomersTable() {
     Customer acmeCorp =
         Customer.builder()
             .ICE("563456789123456")
@@ -92,6 +104,47 @@ public class IbsysRetailManagerApplication implements CommandLineRunner {
             .email("my-corp@mail.ma")
             .build();
 
+    customerRepository.save(acmeCorp);
+    customerRepository.save(myCorp);
+  }
+
+  private void initializeUsersTable() {
+    User user =
+        User.builder()
+            .firstName("Youssef")
+            .lastName("Faik")
+            .email("yusef@mail.com")
+            .role(Role.ADMIN)
+            .password(passwordEncoder.encode("secret-password"))
+            .isEnabled(true)
+            .build();
+
+    User appUser =
+        User.builder()
+            .firstName("user")
+            .lastName("user")
+            .email("user@mail.com")
+            .role(Role.ADMIN)
+            .password(passwordEncoder.encode("secret-password"))
+            .isEnabled(true)
+            .build();
+
+    User admin =
+        User.builder()
+            .firstName("admin")
+            .lastName("admin")
+            .email("admin@mail.com")
+            .role(Role.ADMIN)
+            .password(passwordEncoder.encode("secret-password"))
+            .isEnabled(true)
+            .build();
+
+    userRepository.save(user);
+    userRepository.save(appUser);
+    userRepository.save(admin);
+  }
+
+  private void initializeCategoriesAndProductsTables() {
     Category category =
         Category.builder().name("Électronique").description("Électronique categorie").build();
     Category category1 = Category.builder().name("Autre").description("Autre categorie").build();
@@ -313,43 +366,48 @@ public class IbsysRetailManagerApplication implements CommandLineRunner {
     products.add(cheese);
     products.add(handCream);
 
+    products
+        .get(0)
+        .setName(
+            "Modèle : Hp Probook\n"
+                + "Processeur : intel Core i5 4300M\n"
+                + "Vitesse : 2.60 GHz 2.60 Ghz\n"
+                + "Mémoire Vive : 8Go \n"
+                + "Disque dur : 128Go  SSD \n"
+                + "Ecran : 14 pouces Led");
+
     productRepository.saveAll(products);
+  }
 
-    User user =
-        User.builder()
-            .firstName("Youssef")
-            .lastName("Faik")
-            .email("yusef@mail.com")
-            .role(Role.ADMIN)
-            .password(passwordEncoder.encode("secret-password"))
-            .isEnabled(true)
-            .build();
+  private void initializeInvoicesTable() {
+    Customer customer = customerRepository.findByICE("857356789123456").orElseThrow();
 
-    User appUser =
-        User.builder()
-            .firstName("user")
-            .lastName("user")
-            .email("user@mail.com")
-            .role(Role.ADMIN)
-            .password(passwordEncoder.encode("secret-password"))
-            .isEnabled(true)
-            .build();
+    InvoiceCreateDto invoiceCreateDto = new InvoiceCreateDto();
+    invoiceCreateDto.setCustomerICE(customer.getICE());
+    ArrayList<@Valid InvoiceItemDto> items = new ArrayList<>();
+    invoiceCreateDto.setItems(items);
 
-    User admin =
-        User.builder()
-            .firstName("admin")
-            .lastName("admin")
-            .email("admin@mail.com")
-            .role(Role.ADMIN)
-            .password(passwordEncoder.encode("secret-password"))
-            .isEnabled(true)
-            .build();
+      items.add(new InvoiceItemDto(1, 2, new BigDecimal("245.97")));
+      items.add(new InvoiceItemDto(2, 7, new BigDecimal("590.32")));
+      items.add(new InvoiceItemDto(3, 4, new BigDecimal("784.08")));
+      items.add(new InvoiceItemDto(4, 2, new BigDecimal("313.7")));
+      items.add(new InvoiceItemDto(5, 6, new BigDecimal("90.32")));
+      items.add(new InvoiceItemDto(6, 1, new BigDecimal("374.16")));
+      items.add(new InvoiceItemDto(7, 15, new BigDecimal("426.81")));
+      items.add(new InvoiceItemDto(8, 9, new BigDecimal("153.02")));
+      items.add(new InvoiceItemDto(9, 3, new BigDecimal("41.87")));
+      items.add(new InvoiceItemDto(10, 5, new BigDecimal("82.05")));
+      items.add(new InvoiceItemDto(11, 7, new BigDecimal("213.34")));
+      items.add(new InvoiceItemDto(12, 3, new BigDecimal("11.49")));
+      items.add(new InvoiceItemDto(13, 2, new BigDecimal("76.54")));
+      items.add(new InvoiceItemDto(14, 5, new BigDecimal("567.08")));
+//      items.add(new InvoiceItemDto(15, 9, new BigDecimal("531.5")));
+//      items.add(new InvoiceItemDto(16, 2, new BigDecimal("21.05")));
+//      items.add(new InvoiceItemDto(17, 4, new BigDecimal("87.45")));
+//      items.add(new InvoiceItemDto(18, 6, new BigDecimal("134.88")));
+//      items.add(new InvoiceItemDto(19, 2, new BigDecimal("87.4")));
+//      items.add(new InvoiceItemDto(20, 15, new BigDecimal("1.05")));
 
-    customerRepository.save(acmeCorp);
-    customerRepository.save(myCorp);
-
-    userRepository.save(user);
-    userRepository.save(appUser);
-    userRepository.save(admin);
+    invoiceService.createInvoice(invoiceCreateDto);
   }
 }

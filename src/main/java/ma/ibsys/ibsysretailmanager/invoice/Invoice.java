@@ -35,7 +35,7 @@ public class Invoice {
       foreignKey = @ForeignKey(name = "invoice_customer_ice_fk"))
   private Customer customer;
 
-  @OneToMany(cascade = CascadeType.ALL, mappedBy = "invoice")
+  @OneToMany(cascade = CascadeType.ALL, mappedBy = "invoice", fetch = FetchType.EAGER)
   private List<InvoiceItem> items = new ArrayList<>();
 
   public void addItem(InvoiceItem invoiceItem) {

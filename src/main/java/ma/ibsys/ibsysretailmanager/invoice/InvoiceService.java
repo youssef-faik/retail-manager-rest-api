@@ -1,6 +1,7 @@
 package ma.ibsys.ibsysretailmanager.invoice;
 
 import jakarta.persistence.EntityNotFoundException;
+import java.io.ByteArrayOutputStream;
 import java.net.URI;
 import java.util.List;
 import java.util.Map;
@@ -8,7 +9,12 @@ import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import ma.ibsys.ibsysretailmanager.configuration.AppConfiguration;
 import ma.ibsys.ibsysretailmanager.configuration.ConfigKey;
+import ma.ibsys.ibsysretailmanager.processor.InvoiceReportProcessor;
+import net.sf.jasperreports.engine.JRException;
 import org.modelmapper.ModelMapper;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,6 +25,7 @@ public class InvoiceService {
 
   private final InvoiceRepository invoiceRepository;
   private final ModelMapper modelMapper;
+  private final InvoiceReportProcessor invoiceReportProcessor;
 
   public ResponseEntity<List<InvoiceDto>> getAllInvoices() {
     List<InvoiceDto> invoices =
@@ -36,6 +43,18 @@ public class InvoiceService {
             .orElseThrow(
                 () -> new EntityNotFoundException("Facture non trouvée avec l'identifiant " + id));
     return ResponseEntity.ok(modelMapper.map(invoice, InvoiceDto.class));
+  }
+
+  public ResponseEntity getInvoiceReport(int id)  {
+    ByteArrayOutputStream reportStream = null;
+    try {
+      reportStream = invoiceReportProcessor.generateInvoice(id);
+    } catch (JRException e) {
+      throw new RuntimeException(e);
+    }
+    HttpHeaders httpHeaders=new HttpHeaders();
+    httpHeaders.setContentType(MediaType.APPLICATION_PDF) ;
+    return new ResponseEntity(reportStream.toByteArray(),httpHeaders, HttpStatus.OK);
   }
 
   @Transactional
