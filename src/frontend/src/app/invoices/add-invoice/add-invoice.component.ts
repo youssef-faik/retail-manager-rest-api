@@ -11,13 +11,13 @@ import {
 } from "../../../../libs/openapi/out";
 import {HttpResponse} from "@angular/common/http";
 import {ActivatedRoute, Router} from "@angular/router";
-import html2canvas from "html2canvas";
-import jsPDF from "jspdf";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {NgxQrcodeElementTypes, NgxQrcodeErrorCorrectionLevels} from "@techiediaries/ngx-qrcode";
 import {CartItemService} from "../../services/cartItem.service";
 import {ICartItem} from "../../services/cartItem.model";
 import {SwalComponent} from "@sweetalert2/ngx-sweetalert2";
+import {ViewerDirective} from "../../viewer.directive";
+import {PdfViewerComponent} from "../../pdf-viewer-component/pdf-viewer.component";
 
 @Component({
   selector: 'app-add-invoice',
@@ -40,6 +40,7 @@ export class AddInvoiceComponent implements OnInit {
   selectedUnitPrice: number | undefined = 0;
   item: InvoiceItemDto = {productId: 0, quantity: 1, unitPrice: 0};
 
+  id!: number;
   savedInvoice: InvoiceDto | undefined;
 
   totalIncluVTA: number = 0;
@@ -51,8 +52,10 @@ export class AddInvoiceComponent implements OnInit {
   errorCorrectionLevel: NgxQrcodeErrorCorrectionLevels = NgxQrcodeErrorCorrectionLevels.LOW;
 
   @ViewChild('swal')
+  @ViewChild(ViewerDirective, {static: true}) viewerHost!: ViewerDirective;
   public readonly swal!: SwalComponent;
   isScannerConnected: boolean = false;
+
 
   constructor(
     private customerService: ClientService,
@@ -281,68 +284,25 @@ export class AddInvoiceComponent implements OnInit {
     ).subscribe((response: HttpResponse<any>) => {
       // Access the Location header value
       const locationHeader: string = response.headers.get('Location') || '/api/v1/invoices/0';
-      console.log('Location header value:', locationHeader);
 
       const originalString = locationHeader;
       const prefix = '/api/v1/invoices/';
 
       const strippedId = originalString.replace(prefix, '');
-      console.log(strippedId);
+      this.id = Number(strippedId);
 
-
-      this.invoiceService.getInvoice(+strippedId)
-        .subscribe(
-          data => {
-            this.savedInvoice = data;
-
-            // @ts-ignore
-            for (let item of this.savedInvoice.items) {
-              // @ts-ignore
-              this.totalExcluVTA += item.quantity * item.unitPrice;
-
-              // @ts-ignore
-              this.totalIncluVTA += item.quantity * this.getSellingPriceIncludingTaxes(item.product?.taxRate, item.unitPrice);
-            }
-          }
-          , error => {
-            console.log(error)
-          }
-        )
-
+      this.displayInvoice();
     }, error => {
       console.log(error)
     })
   }
 
-  public convertToPDF() {
-    html2canvas(document.getElementById('invoice')!).then(canvas => {
-      // Few necessary setting options
-      const contentDataURL = canvas.toDataURL('image/png')
-
-      // A4 size page of PDF
-      // @ts-ignore
-      let pdf = new jsPDF('p', 'mm', 'a4');
-      var width = pdf.internal.pageSize.getWidth();
-      var height = canvas.height * width / canvas.width;
-      pdf.addImage(contentDataURL, 'PNG', 0, 0, width, height)
-
-      // Generated PDF
-      let filename = `facture${this.savedInvoice != undefined ? '-' + this.savedInvoice.id : ''}.pdf`;
-      pdf.save(filename);
-    });
+  displayInvoice() {
+    const viewContainerRef = this.viewerHost.viewContainerRef;
+    const componentRef = viewContainerRef.createComponent(PdfViewerComponent);
+    componentRef.instance.invoiceId = this.id;
   }
 
-  getDisplayDate(dateStr: string | undefined) {
-    // @ts-ignore
-    const date = new Date(dateStr);
-    const options: Intl.DateTimeFormatOptions = {
-      day: 'numeric',
-      month: 'long',
-      year: 'numeric'
-    };
-
-    return date.toLocaleDateString('en-GB', options);
-  }
 
   loadCustomers() {
     this.customerService.getAllCustomers(

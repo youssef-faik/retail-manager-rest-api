@@ -38,6 +38,10 @@ import {AddCategoryComponent} from './categories/add-category/add-category.compo
 import {EditCategoryComponent} from './categories/edit-category/edit-category.component';
 import {ConfigurationComponent} from './configuration/configuration.component';
 import {NgxDatatableModule} from "@swimlane/ngx-datatable";
+import {NgxExtendedPdfViewerModule} from 'ngx-extended-pdf-viewer';
+import {PdfViewerComponent} from './pdf-viewer-component/pdf-viewer.component';
+import {SafeUrlPipe} from './safe-url.pipe';
+import {ViewerDirective} from "./viewer.directive";
 
 
 @NgModule({
@@ -60,7 +64,10 @@ import {NgxDatatableModule} from "@swimlane/ngx-datatable";
     CategoriesComponent,
     AddCategoryComponent,
     EditCategoryComponent,
-    ConfigurationComponent
+    ConfigurationComponent,
+    PdfViewerComponent,
+    SafeUrlPipe,
+    ViewerDirective
   ],
   imports: [
     BrowserModule,
@@ -78,6 +85,7 @@ import {NgxDatatableModule} from "@swimlane/ngx-datatable";
     SweetAlert2Module,
     SweetAlert2Module.forRoot(),
     NgxDatatableModule,
+    NgxExtendedPdfViewerModule
   ],
   providers: [
     AuthGuard,

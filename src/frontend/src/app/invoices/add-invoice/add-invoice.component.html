@@ -100,11 +100,7 @@
                     xmlns="http://www.w3.org/2000/svg">
                     <path
                       d="M1.5 1a.5.5 0 0 0-.5.5v3a.5.5 0 0 1-1 0v-3A1.5 1.5 0 0 1 1.5 0h3a.5.5 0 0 1 0 1h-3zM11 .5a.5.5 0 0 1 .5-.5h3A1.5 1.5 0 0 1 16 1.5v3a.5.5 0 0 1-1 0v-3a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 1-.5-.5zM.5 11a.5.5 0 0 1 .5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 1 0 1h-3A1.5 1.5 0 0 1 0 14.5v-3a.5.5 0 0 1 .5-.5zm15 0a.5.5 0 0 1 .5.5v3a1.5 1.5 0 0 1-1.5 1.5h-3a.5.5 0 0 1 0-1h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 1 .5-.5zM3 4.5a.5.5 0 0 1 1 0v7a.5.5 0 0 1-1 0v-7zm2 0a.5.5 0 0 1 1 0v7a.5.5 0 0 1-1 0v-7zm2 0a.5.5 0 0 1 1 0v7a.5.5 0 0 1-1 0v-7zm2 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-7zm3 0a.5.5 0 0 1 1 0v7a.5.5 0 0 1-1 0v-7z"/>
-                  </svg>&nbsp;Connect scanner
-                  <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                    Nouveau
-                    <span class="visually-hidden">unread messages</span>
-                  </span>
+                  </svg>&nbsp;Connecter scanner
                 </button>
               </div>
             </div>
@@ -246,7 +242,8 @@
                              class="form-control form-control-sm" disabled name="unitPrice" type="text">
                     </td>
                     <td class="py-1">
-                      <input [value]="getItemSellingPriceIncludingTaxes(item).toFixed(2)" class="form-control form-control-sm"
+                      <input [value]="getItemSellingPriceIncludingTaxes(item).toFixed(2)"
+                             class="form-control form-control-sm"
                              disabled
                              type="text">
                     </td>
@@ -306,135 +303,10 @@
           <!-- START STEP 3 ----------------------------------------------------------------------------->
           <!--------------------------------------------------------------------------------------------->
           <aw-wizard-completion-step stepTitle="Imprimer la facture">
-            <div class="row my-3">
-              <div class="d-flex justify-content-end">
-                <button
-                  (click)="convertToPDF()"
-                  class="btn btn-primary float-end w-25">
-                  <i class="feather icon-printer"></i>
-                  Imprimer
-                </button>
-              </div>
-            </div>
-
-            <div class="col-md-12">
-              <div class="card" id="invoice" style="min-height: 1310px">
+            <div class="col-md-12 my-3">
+              <div class="card" id="invoice" style="min-height: 1510px">
                 <div class="card-body">
-                  <div class="container-fluid d-flex justify-content-between">
-                    <div class="col-lg-3 ps-0">
-                      <div class="mb-5 ">
-                        <a class="nobleui-logo mb-5" routerLink=".">
-                          <img
-                            alt="logo"
-                            class="rounded mx-auto d-block mb-4 mt-2"
-                            src="assets/images/logo-black.png"
-                            style="height: 88px;">
-                        </a>
-                      </div>
-                      <div class="my-5 pt-5">
-                        <h3 class="mb-2  pt-5 text-muted">Facture de :</h3>
-                        <table class="table">
-                          <tr>
-                            <th>Nom :</th>
-                            <td>IBSYS SARL AU</td>
-                          </tr>
-                          <tr>
-                            <th>Téléphone :</th>
-                            <td>0522456378</td>
-                          </tr>
-                          <tr>
-                            <th>Email :</th>
-                            <td>ibsys@mail.com</td>
-                          </tr>
-                          <tr>
-                            <th>Adresse :</th>
-                            <td>Boulevard Attawhid, Tit Mellil, Casablanca, 26490, Maroc.</td>
-                          </tr>
-                        </table>
-                      </div>
-                    </div>
-                    <div class="col-lg-3 pe-0">
-                      <div>
-                        <h4 class="fw-bold text-uppercase text-end mt-4 mb-5">Facture</h4>
-                        <h6 class="text-end mb-2"># FACT-{{savedInvoice?.id}}</h6>
-                        <h6 class="text-end fw-normal mb-5">
-                          <span class="text-muted">Date de la facture :</span>
-                          {{getDisplayDate(savedInvoice?.issueDate)}}
-                        </h6>
-                      </div>
-                      <div class="my-5 pt-2">
-                        <h3 class="mt-5 mb-2 text-muted">Facturé à :</h3>
-                        <table class="table">
-                          <tr>
-                            <th>Nom :</th>
-                            <td>{{savedInvoice?.customer?.name}}</td>
-                          </tr>
-                          <tr>
-                            <th>Téléphone :</th>
-                            <td>{{savedInvoice?.customer?.phone}}</td>
-                          </tr>
-                          <tr>
-                            <th>Email :</th>
-                            <td>{{savedInvoice?.customer?.email}}</td>
-                          </tr>
-                          <tr>
-                            <th>Adresse :</th>
-                            <td>{{savedInvoice?.customer?.address}}</td>
-                          </tr>
-                        </table>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="container-fluid my-5 d-flex justify-content-center w-100">
-                    <div class="table-responsive w-100 rounded">
-                      <table class="table table-bordered rounded table-striped">
-                        <thead class="table-dark">
-                        <tr>
-                          <th class="bolder">Code-barres</th>
-                          <th class="bolder">Description</th>
-                          <th class="text-end bolder">Quantité</th>
-                          <th class="text-end bolder">Prix unitaire</th>
-                          <th class="text-end bolder">Taux de taxe</th>
-                          <th class="text-end bolder">Total</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr *ngFor="let item of savedInvoice?.items" class="text-end">
-                          <td class="text-start">{{item?.product?.barCode}}</td>
-                          <td class="text-start">{{item?.product?.name}}</td>
-                          <td>{{item?.quantity}}</td>
-                          <td>{{item?.unitPrice}}</td>
-                          <td>{{getTaxRateDisplayValue(item?.product?.taxRate)}}</td>
-                          <td>{{  getSellingPriceIncludingTaxes(item?.product?.taxRate, item?.unitPrice) * (item?.quantity ?? 0)}}</td>
-                        </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-                  <div class="my-5 me-5 w-100 py-5">
-                    <div class="row ">
-                      <div class="col-md-6 ms-auto">
-                        <div class="card  table-responsive">
-                          <table class="table">
-                            <tbody>
-                            <tr>
-                              <td>Total exclu. TVA</td>
-                              <td class="text-end">{{totalExcluVTA}}</td>
-                            </tr>
-                            <tr>
-                              <td>TVA</td>
-                              <td class="text-end">{{totalIncluVTA - totalExcluVTA}}</td>
-                            </tr>
-                            <tr class="bg-light">
-                              <td class="text-bold-800">Total inclu. TVA</td>
-                              <td class="text-bold-800 text-end">{{totalIncluVTA}}</td>
-                            </tr>
-                            </tbody>
-                          </table>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                  <ng-template viewerHost></ng-template>
                 </div>
               </div>
             </div>
@@ -453,7 +325,7 @@
 
 <ng-template #generateQRCodeModal let-modal>
   <div class="modal-header">
-    <h4 class="modal-title text-center">Scan this QR Code to link you scanner.</h4>
+    <h4 class="modal-title text-center">Scannez ce code QR pour lier votre scanner.</h4>
     <button (click)="modal.dismiss('cancel')" aria-label="Close" class="btn-close" type="button"></button>
   </div>
   <div class="modal-body d-flex justify-content-center">

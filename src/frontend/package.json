@@ -56,6 +56,7 @@
     "ngx-color-picker": "^13.0.0",
     "ngx-custom-validators": "^8.0.0",
     "ngx-dropzone-wrapper": "^13.0.0",
+    "ngx-extended-pdf-viewer": "^18.0.0-beta.0",
     "ngx-highlightjs": "^7.0.1",
     "ngx-mask": "^14.2.4",
     "ngx-owl-carousel-o": "^14.0.1",

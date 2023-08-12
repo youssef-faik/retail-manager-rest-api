@@ -2152,6 +2152,64 @@
         ]
       }
     },
+    "/api/v1/invoices/{id}/pdf": {
+      "get": {
+        "tags": [
+          "Facture"
+        ],
+        "summary": "Obtenir un fichier PDF d'une facture.",
+        "description": "Récupérer un fichier PDF de la facture avec l'identifiant fourni.",
+        "operationId": "getInvoiceReport",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID de la facture à récupérer.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "example": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Fichier PDF de la facture généré.",
+            "content": {
+              "application/pdf": {}
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Facture non trouvée.",
+            "content": {
+              "application/json": {}
+            }
+          },
+          "500": {
+            "description": "Erreur interne du serveur.",
+            "content": {
+              "application/json": {}
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer_Authentication": []
+          }
+        ]
+      }
+    },
     "/api/v1/dashboard/sales": {
       "get": {
         "tags": [

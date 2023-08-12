@@ -1,11 +1,5 @@
 <div class="row mb-3">
   <div class="col">
-    <button
-      (click)="convertToPDF()"
-      class="btn btn-primary float-end">
-      <i class="feather icon-printer"></i>
-      Imprimer
-    </button>
     <a
       class="btn btn-outline-primary float-start"
       routerLink="/invoices">
@@ -18,121 +12,7 @@
   <div class="col-md-12">
     <div class="card" id="invoice" style="min-height: 1310px">
       <div class="card-body">
-        <div class="container-fluid d-flex justify-content-between">
-          <div class="col-lg-3 ps-0">
-            <div class="mb-5 ">
-              <a class="nobleui-logo mb-5" routerLink=".">
-                <img
-                  alt="logo"
-                  class="rounded mx-auto d-block mb-4 mt-2"
-                  src="assets/images/logo-black.png"
-                  style="height: 88px;">
-              </a>
-            </div>
-            <div class="my-5 pt-5">
-              <h3 class="mb-2  pt-5 text-muted">Facture de :</h3>
-              <table class="table">
-                <tr>
-                  <th>Nom :</th>
-                  <td>IBSYS SARL AU</td>
-                </tr>
-                <tr>
-                  <th>Téléphone :</th>
-                  <td>0522456378</td>
-                </tr>
-                <tr>
-                  <th>E-mail :</th>
-                  <td>ibsys@mail.com</td>
-                </tr>
-                <tr>
-                  <th>Adresse :</th>
-                  <td>Boulevard Attawhid, Tit Mellil, Casablanca, 26490, Maroc.</td>
-                </tr>
-              </table>
-            </div>
-          </div>
-          <div class="col-lg-3 pe-0">
-            <div>
-              <h4 class="fw-bold text-uppercase text-end mt-4 mb-5">facture</h4>
-              <h6 class="text-end mb-2"># FACT-{{invoice?.id}}</h6>
-              <h6 class="text-end fw-normal mb-5">
-                <span class="text-muted">Date de facturation :</span>
-                {{getDisplayDate(invoice?.issueDate)}}
-              </h6>
-            </div>
-            <div class="my-5 pt-2">
-              <h3 class="mt-5 mb-2 text-muted">Facturé à :</h3>
-              <table class="table">
-                <tr>
-                  <th>Nom :</th>
-                  <td>{{invoice?.customer?.name}}</td>
-                </tr>
-                <tr>
-                  <th>Téléphone :</th>
-                  <td>{{invoice?.customer?.phone}}</td>
-                </tr>
-                <tr>
-                  <th>E-mail :</th>
-                  <td>{{invoice?.customer?.email}}</td>
-                </tr>
-                <tr>
-                  <th>Adresse :</th>
-                  <td>{{invoice?.customer?.address}}</td>
-                </tr>
-              </table>
-            </div>
-          </div>
-        </div>
-        <div class="container-fluid my-5 d-flex justify-content-center w-100">
-          <div class="table-responsive w-100 rounded">
-            <table class="table table-bordered rounded table-striped">
-              <thead class="table-dark">
-              <tr>
-                <th class="bolder">Code-barres</th>
-                <th class="bolder">Description</th>
-                <th class="text-end bolder">Quantité</th>
-                <th class="text-end bolder">Prix unitaire</th>
-                <th class="text-end bolder">Taux de taxe</th>
-                <th class="text-end bolder">Total</th>
-              </tr>
-              </thead>
-              <tbody>
-              <tr *ngFor="let item of invoice?.items" class="text-end">
-                <td class="text-start">{{item?.product?.barCode}}</td>
-                <td class="text-start">{{item?.product?.name}}</td>
-                <td>{{item?.quantity}}</td>
-                <td>{{item?.unitPrice?.toFixed(2)}}</td>
-                <td>{{getTaxRateDisplayValue(item?.product?.taxRate)}}</td>
-                <td>{{  (getSellingPriceIncludingTaxes(item?.product?.taxRate, item?.unitPrice) * (item?.quantity ?? 0)).toFixed(2)}}</td>
-              </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-        <div class="my-5 me-5 w-100 py-5">
-          <div class="row ">
-            <div class="col-md-6 ms-auto">
-              <div class="card  table-responsive">
-                <table class="table">
-                  <tbody>
-                  <tr>
-                    <td>Total hors TVA</td>
-                    <td class="text-end">{{totalExcluVTA.toFixed(2)}}</td>
-                  </tr>
-                  <tr>
-                    <td>TVA</td>
-                    <td class="text-end">{{(totalIncluVTA - totalExcluVTA).toFixed(2)}}</td>
-                  </tr>
-                  <tr class="bg-light">
-                    <td class="text-bold-800">Total TTC</td>
-                    <td class="text-bold-800 text-end">{{totalIncluVTA.toFixed(2)}}</td>
-                  </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-        </div>
+        <app-pdf-viewer-component [invoiceId]="id"></app-pdf-viewer-component>
       </div>
     </div>
   </div>
