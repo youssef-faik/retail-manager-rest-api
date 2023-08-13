@@ -84,7 +84,7 @@
               </ng-template>
 
               <ng-template let-value="value"
-                           ngx-datatable-cell-template>{{getTotalExcluVTA(value).toFixed(2)}}</ng-template>
+                           ngx-datatable-cell-template>{{getTotalExcluVTA(value).toFormat('0,0.00')}}</ng-template>
             </ngx-datatable-column>
 
             <ngx-datatable-column name="Total Taxes (MAD)" prop="items">
@@ -92,7 +92,7 @@
                 <span class="fw-bolder " title="Total Taxes (MAD)">Total Taxes (MAD)</span>
               </ng-template>
               <ng-template let-value="value"
-                           ngx-datatable-cell-template>{{(getTotalIncluVTA(value) - getTotalExcluVTA(value)).toFixed(2)}}</ng-template>
+                           ngx-datatable-cell-template>{{(getTotalIncluVTA(value).subtract(getTotalExcluVTA(value))).toFormat('0,0.00')}}</ng-template>
 
             </ngx-datatable-column>
 
@@ -101,7 +101,7 @@
                 <span class="fw-bolder " title="Total TTC (MAD)">Total TTC (MAD)</span>
               </ng-template>
               <ng-template let-value="value"
-                           ngx-datatable-cell-template>{{getTotalIncluVTA(value).toFixed(2)}}</ng-template>
+                           ngx-datatable-cell-template>{{getTotalIncluVTA(value).toFormat('0,0.00')}}</ng-template>
 
             </ngx-datatable-column>
 

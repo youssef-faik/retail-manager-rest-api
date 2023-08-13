@@ -1,16 +1,14 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {
   ClientService,
   CustomerResponseDto,
   FactureService,
   InvoiceCreateDto,
-  InvoiceDto,
   InvoiceItemDto,
   ProductResponseDto,
   ProduitService
 } from "../../../../libs/openapi/out";
 import {HttpResponse} from "@angular/common/http";
-import {ActivatedRoute, Router} from "@angular/router";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {NgxQrcodeElementTypes, NgxQrcodeErrorCorrectionLevels} from "@techiediaries/ngx-qrcode";
 import {CartItemService} from "../../services/cartItem.service";
@@ -18,6 +16,7 @@ import {ICartItem} from "../../services/cartItem.model";
 import {SwalComponent} from "@sweetalert2/ngx-sweetalert2";
 import {ViewerDirective} from "../../viewer.directive";
 import {PdfViewerComponent} from "../../pdf-viewer-component/pdf-viewer.component";
+import Dinero from "dinero.js";
 
 @Component({
   selector: 'app-add-invoice',
@@ -31,8 +30,8 @@ export class AddInvoiceComponent implements OnInit {
   cart: any[] = [];
   taxPercentage = '-';
   amount: number = 0;
-  total: number = 0;
-  totalExcludingTaxes: number = 0;
+  totalDinero: Dinero.Dinero = Dinero({amount: 0, currency: 'MAD'});
+  totalExcludingTaxesDinero: Dinero.Dinero = Dinero({amount: 0, currency: 'MAD'});
   selectedCustomerIce: string;
   selectedProductId: string;
   selectedCustomer: CustomerResponseDto;
@@ -41,17 +40,13 @@ export class AddInvoiceComponent implements OnInit {
   item: InvoiceItemDto = {productId: 0, quantity: 1, unitPrice: 0};
 
   id!: number;
-  savedInvoice: InvoiceDto | undefined;
-
-  totalIncluVTA: number = 0;
-  totalExcluVTA: number = 0;
 
   cartId: string = (Math.floor(Math.random() * 9000000) + 1000000).toString();
 
   elementType: NgxQrcodeElementTypes = NgxQrcodeElementTypes.URL;
   errorCorrectionLevel: NgxQrcodeErrorCorrectionLevels = NgxQrcodeErrorCorrectionLevels.LOW;
 
-  @ViewChild('swal')
+  @ViewChild('swal', {static: true}) swalElement!: ElementRef;
   @ViewChild(ViewerDirective, {static: true}) viewerHost!: ViewerDirective;
   public readonly swal!: SwalComponent;
   isScannerConnected: boolean = false;
@@ -61,8 +56,6 @@ export class AddInvoiceComponent implements OnInit {
     private customerService: ClientService,
     private productService: ProduitService,
     private invoiceService: FactureService,
-    private route: ActivatedRoute,
-    private router: Router,
     private modalService: NgbModal,
     private cartItemService: CartItemService
   ) {
@@ -86,9 +79,17 @@ export class AddInvoiceComponent implements OnInit {
   }
 
   addItem() {
-    // @ts-ignore
-    this.total += this.getSellingPriceIncludingTaxes(this.selectedProduct.taxRate, this.item.unitPrice) * this.item.quantity;
-    this.totalExcludingTaxes += this.item.unitPrice * this.item.quantity;
+    let sellingPriceIncludingTaxes = this.getSellingPriceIncludingTaxesDinero(this.selectedProduct.taxRate, this.item.unitPrice).multiply(this.item.quantity);
+    this.totalDinero = this.totalDinero.add(sellingPriceIncludingTaxes);
+    let sellingPriceExcludingTaxes = Dinero({
+      amount: Math.trunc(100 * this.item.unitPrice),
+      currency: 'MAD'
+    }).multiply(this.item.quantity);
+    this.totalExcludingTaxesDinero = this.totalExcludingTaxesDinero.add(sellingPriceExcludingTaxes);
+
+    console.log(this.totalDinero.toFormat('0,0.00'))
+    console.log(this.totalExcludingTaxesDinero.toFormat('0,0.00'))
+
     this.items.push(this.item);
     this.cart.push(this.selectedProduct);
     this.products = this.products.filter(item => item.id !== this.selectedProduct.id);
@@ -116,11 +117,45 @@ export class AddInvoiceComponent implements OnInit {
       this.cart.splice(index, 1);
     }
 
-    this.total -= this.getSellingPriceIncludingTaxes(productToRemove.taxRate, item.unitPrice) * item.quantity;
-    this.totalExcludingTaxes -= item.unitPrice * item.quantity;
+    let sellingPriceIncludingTaxes = this.getSellingPriceIncludingTaxesDinero(productToRemove.taxRate, item.unitPrice).multiply(item.quantity);
+    this.totalDinero = this.totalDinero.subtract(sellingPriceIncludingTaxes);
+    let sellingPriceExcludingTaxes = Dinero({
+      amount: Math.trunc(100 * item.unitPrice),
+      currency: 'MAD'
+    }).multiply(item.quantity);
+    this.totalExcludingTaxesDinero = this.totalExcludingTaxesDinero.subtract(sellingPriceExcludingTaxes);
+
+    console.log(this.totalDinero.toFormat('0,0.00'))
+    console.log(this.totalExcludingTaxesDinero.toFormat('0,0.00'))
 
     this.products = [...this.products, productToRemove];
   }
+
+  getSellingPriceIncludingTaxesDinero(
+    taxRate: ProductResponseDto.TaxRateEnum | undefined,
+    sellingPriceExcludingTaxes: number | undefined
+  ): Dinero.Dinero {
+    let taxRatePercentage;
+
+    if (taxRate === ProductResponseDto.TaxRateEnum.Twenty) {
+      taxRatePercentage = 0.2;
+    } else if (taxRate === ProductResponseDto.TaxRateEnum.Fourteen) {
+      taxRatePercentage = 0.14;
+    } else if (taxRate === ProductResponseDto.TaxRateEnum.Ten) {
+      taxRatePercentage = 0.1;
+    } else if (taxRate === ProductResponseDto.TaxRateEnum.Seven) {
+      taxRatePercentage = 0.07;
+    } else {
+      taxRatePercentage = 0;
+    }
+
+    let dinero = Dinero({
+    // @ts-ignore
+      amount: Math.trunc(100 * sellingPriceExcludingTaxes), currency: 'MAD'
+    }).multiply(1 + taxRatePercentage);
+    return dinero;
+  }
+
 
   onChangeProduct() {
     if (this.selectedProductId) {
@@ -225,8 +260,8 @@ export class AddInvoiceComponent implements OnInit {
     return sellingPriceExcludingTaxes * (1 + taxRatePercentage);
   }
 
-  getItemSellingPriceIncludingTaxes(item: InvoiceItemDto): number {
-    return this.getSellingPriceIncludingTaxes(this.getProductById(item.productId).taxRate, item.unitPrice) * item.quantity;
+  getItemSellingPriceIncludingTaxes(item: InvoiceItemDto): Dinero.Dinero {
+    return this.getSellingPriceIncludingTaxesDinero(this.getProductById(item.productId).taxRate, item.unitPrice).multiply(item.quantity);
   }
 
   saveOldValue(event: KeyboardEvent) {
@@ -303,7 +338,6 @@ export class AddInvoiceComponent implements OnInit {
     componentRef.instance.invoiceId = this.id;
   }
 
-
   loadCustomers() {
     this.customerService.getAllCustomers(
       'body',
@@ -352,7 +386,6 @@ export class AddInvoiceComponent implements OnInit {
       }
     );
   }
-
 
   handleAddEvent(addedCartItem: ICartItem): void {
     console.log('updateEvents')

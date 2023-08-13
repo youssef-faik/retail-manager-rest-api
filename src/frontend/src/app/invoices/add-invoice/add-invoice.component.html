@@ -242,7 +242,7 @@
                              class="form-control form-control-sm" disabled name="unitPrice" type="text">
                     </td>
                     <td class="py-1">
-                      <input [value]="getItemSellingPriceIncludingTaxes(item).toFixed(2)"
+                      <input [value]="getItemSellingPriceIncludingTaxes(item).toFormat('0,0.00')"
                              class="form-control form-control-sm"
                              disabled
                              type="text">
@@ -273,11 +273,12 @@
                       <h4 class="my-1">Résumé</h4>
                     </div>
                     <div class="invoice-total-inner">
-                      <p>Total hors TVA <span>{{totalExcludingTaxes.toFixed(2)}}</span></p>
-                      <p>Montant taxable <span>{{(total - totalExcludingTaxes).toFixed(2)}}</span></p>
+                      <p>Total hors TVA <span>{{totalExcludingTaxesDinero.toFormat('0,0.00')}}</span></p>
+                      <p>Montant taxable
+                        <span>{{totalDinero.subtract(totalExcludingTaxesDinero).toFormat('0,0.00')}}</span></p>
                     </div>
                     <div class="invoice-total-footer">
-                      <h4>Total TTC <span>{{total.toFixed(2)}}</span></h4>
+                      <h4>Total TTC <span>{{totalDinero.toFormat('0,0.00')}}</span></h4>
                     </div>
                   </div>
                 </div>
@@ -304,7 +305,7 @@
           <!--------------------------------------------------------------------------------------------->
           <aw-wizard-completion-step stepTitle="Imprimer la facture">
             <div class="col-md-12 my-3">
-              <div class="card" id="invoice" style="min-height: 1510px">
+              <div class="card" id="invoice" style="min-height: 1310px">
                 <div class="card-body">
                   <ng-template viewerHost></ng-template>
                 </div>
