@@ -189,8 +189,12 @@ public class ModelMapperConfig {
     // Map InvoiceItemDto to InvoiceItem entity
     modelMapper
         .createTypeMap(InvoiceItemDto.class, InvoiceItem.class)
-        .addMappings(mapper -> mapper.map(InvoiceItemDto::getUnitPrice, InvoiceItem::setUnitPrice))
-        .addMappings(mapper -> mapper.map(InvoiceItemDto::getQuantity, InvoiceItem::setQuantity));
+            .addMappings(
+                    mapper -> {
+                        mapper.skip(InvoiceItem::setId);
+                    })
+            .addMappings(mapper -> mapper.map(InvoiceItemDto::getUnitPrice, InvoiceItem::setUnitPrice))
+            .addMappings(mapper -> mapper.map(InvoiceItemDto::getQuantity, InvoiceItem::setQuantity));
 
     // Map InvoiceItem entity to InvoiceItemDto
     modelMapper
