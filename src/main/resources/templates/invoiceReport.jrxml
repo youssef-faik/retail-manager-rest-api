@@ -503,7 +503,7 @@
                                     <font size="9" isBold="true"/>
                                 </textElement>
                                 <textFieldExpression>
-                                    <![CDATA[ String.format("%,.2f", $V{subTotal} )  + " MAD"]]></textFieldExpression>
+                                    <![CDATA[String.format("%,.2f", $V{subTotal} )  + " MAD"]]></textFieldExpression>
                             </textField>
                         </jr:columnFooter>
                         <jr:detailCell style="Table_TD" height="25">
@@ -585,7 +585,7 @@ Tél: 06.45.22.39.07 | Fix :08.08.61.19.46 | E-mail: ibsyssarl@gmail.com]]></tex
                         <font size="12" isBold="true"/>
                     </textElement>
                     <textFieldExpression>
-                        <![CDATA[String.format("%,.2f", $P{montantTTC})  + " MAD"]]></textFieldExpression>
+                        <![CDATA[String.format("%,.2f", new BigDecimal($P{montantTTC}.toString()).setScale(2, RoundingMode.DOWN)) + " MAD"]]></textFieldExpression>
                 </textField>
                 <textField textAdjust="StretchHeight">
                     <reportElement stretchType="ContainerHeight" x="377" y="25" width="80" height="25"
@@ -601,7 +601,7 @@ Tél: 06.45.22.39.07 | Fix :08.08.61.19.46 | E-mail: ibsyssarl@gmail.com]]></tex
                     </box>
                     <textElement textAlignment="Right" verticalAlignment="Top"/>
                     <textFieldExpression>
-                        <![CDATA[String.format("%,.2f", $P{montantTVA})  + " MAD"]]></textFieldExpression>
+                        <![CDATA[String.format("%,.2f", new BigDecimal($P{montantTVA}.toString()).setScale(2, RoundingMode.DOWN)) + " MAD"]]></textFieldExpression>
                 </textField>
                 <textField textAdjust="StretchHeight">
                     <reportElement stretchType="ContainerHeight" x="283" y="25" width="94" height="25"
@@ -618,7 +618,7 @@ Tél: 06.45.22.39.07 | Fix :08.08.61.19.46 | E-mail: ibsyssarl@gmail.com]]></tex
                     </box>
                     <textElement textAlignment="Right" verticalAlignment="Top"/>
                     <textFieldExpression>
-                        <![CDATA[String.format("%,.2f", $P{montantHT})  + " MAD"]]></textFieldExpression>
+                        <![CDATA[String.format("%,.2f", new BigDecimal($P{montantHT}.toString()).setScale(2, RoundingMode.DOWN)) + " MAD"]]></textFieldExpression>
                 </textField>
                 <staticText>
                     <reportElement x="283" y="0" width="94" height="25" uuid="e171ea5b-b591-4e54-bbba-484046d92298">

@@ -36,20 +36,21 @@ public class InvoiceReportProcessor {
         BigDecimal montantTTC = BigDecimal.ZERO;
 
         for (InvoiceItem item  : invoice.getItems()) {
-            BigDecimal prixHT = item.getUnitPrice().multiply(BigDecimal.valueOf(item.getQuantity()));
-            BigDecimal taxe = prixHT.multiply(BigDecimal.valueOf((float) item.getProduct().getTaxRate().getValue() / 100));
-            BigDecimal montant = prixHT.add(taxe);
+            BigDecimal prixHT = item.getUnitPrice().multiply(BigDecimal.valueOf(item.getQuantity()).setScale(2, RoundingMode.DOWN));
+            BigDecimal taxe = prixHT.multiply(BigDecimal.valueOf((item.getProduct().getTaxRate().getValue() / 100.0)).setScale(2, RoundingMode.DOWN));
+            BigDecimal montant = prixHT.add(taxe).setScale(2, RoundingMode.DOWN);
 
-            montantHT = montantHT.add(new BigDecimal(prixHT.toString()).setScale(2, RoundingMode.DOWN));
-            montantTVA = montantTVA.add(new BigDecimal(taxe.toString()).setScale(2, RoundingMode.DOWN));
-            montantTTC = montantTTC.add(new BigDecimal(montant.toString()).setScale(2, RoundingMode.DOWN));
+            montantHT = montantHT.add(prixHT);
+            montantTVA = montantTVA.add(taxe);
+            montantTTC = montantTTC.add(montant);
+
 
             InvoiceReportInvoiceItem invoiceReportInvoiceItem =
                     InvoiceReportInvoiceItem.builder()
                             .description(item.getProduct().getName())
                             .quantites(item.getQuantity())
                             .prixHT(item.getUnitPrice())
-                            .montant(new BigDecimal(montant.toString()).setScale(2, RoundingMode.DOWN))
+                            .montant(montant)
                             .taxeRate(item.getProduct().getTaxRate().getValue())
                             .build();
 
@@ -66,9 +67,9 @@ public class InvoiceReportProcessor {
         parameters.put("ICE", invoice.getCustomer().getICE());
         parameters.put("invoiceItemsDataSet", invoiceItemsDataSet);
         parameters.put("amountInWords", getMoneyIntoWords(montantTTC.toString()));
-        parameters.put("montantHT", new BigDecimal(montantHT.toString()).setScale(2, RoundingMode.DOWN));
-        parameters.put("montantTVA",new BigDecimal(montantTVA.toString()).setScale(2, RoundingMode.DOWN));
-        parameters.put("montantTTC",new BigDecimal(montantTTC.toString()).setScale(2, RoundingMode.DOWN));
+        parameters.put("montantHT", montantHT);
+        parameters.put("montantTVA",montantTVA);
+        parameters.put("montantTTC",montantTTC);
 
         String filePath = "/templates/invoiceReport.jrxml";
 
