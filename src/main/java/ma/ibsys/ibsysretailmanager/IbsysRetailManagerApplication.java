@@ -41,14 +41,14 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
     scheme = "bearer",
     in = SecuritySchemeIn.HEADER,
     description =
-        "Un jeton JWT est requis pour accéder à cette API.\nLe jeton JWT peut être obtenu en fournissant l'e-mail/le mot de passe à l'API d'authentification.")
+      "A JWT token is required to access this API. The JWT token can be obtained by providing the email/password to the authentication API.")
 @OpenAPIDefinition(
     info =
-        @Info(
-            title = "IBSYS RETAIL MANAGER API",
-            version = "${app.version}",
-            description =
-                "Cette API propose plusieurs points de terminaison pour gérer les opérations de vente au détail, telles que la création et la mise à jour de produits, la gestion des stocks et le traitement des commandes."))
+    @Info(
+        title = "IBSYS RETAIL MANAGER API",
+        version = "${app.version}",
+        description =
+                "This API offers several endpoints to manage retail operations, such as creating and updating products, managing inventory, and processing orders."))
 public class IbsysRetailManagerApplication implements CommandLineRunner {
   private final ProductRepository productRepository;
   private final CustomerRepository customerRepository;

@@ -20,6 +20,6 @@ public class CartItem {
   @Id @GeneratedValue private Long id;
   private int productId;
 
-  @Pattern(regexp = "^\\d*$", message = "Format de code-barres invalide.")
+  @Pattern(regexp = "^\\d*$", message = "Invalid barcode format.")
   private String barcode;
 }

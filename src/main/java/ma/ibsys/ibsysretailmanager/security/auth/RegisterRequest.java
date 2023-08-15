@@ -13,22 +13,22 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class RegisterRequest {
-  @Size(min = 2, max = 50, message = "Le prénom doit contenir entre {min} et {max} caractères.")
-  @NotBlank(message = "Le prénom est obligatoire.")
+  @Size(min = 2, max = 50, message = "First name must be between {min} and {max} characters.")
+  @NotBlank(message = "First name is required.")
   private String firstName;
 
-  @Size(min = 2, max = 50, message = "Le nom doit contenir entre {min} et {max} caractères.")
-  @NotBlank(message = "Le nom est obligatoire.")
+  @Size(min = 2, max = 50, message = "Last name must be between {min} and {max} characters.")
+  @NotBlank(message = "Last name is required.")
   private String lastName;
 
-  @Email(message = "L'email doit être valide.")
-  @NotBlank(message = "L'email est obligatoire.")
+  @Email(message = "Email must be valid.")
+  @NotBlank(message = "Email is required.")
   private String email;
 
-  @Size(min = 8, message = "Le mot de passe doit contenir entre {min} et {max} caractères.")
-  @NotBlank(message = "Le mot de passe est obligatoire.")
+  @Size(min = 8, message = "Password must be at least {min} characters.")
+  @NotBlank(message = "Password is required.")
   private String password;
 
-  @NotBlank(message = "Le rôle de l'utilisateur est obligatoire.")
+  @NotBlank(message = "User role is required.")
   private String role;
 }

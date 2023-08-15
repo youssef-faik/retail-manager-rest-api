@@ -20,44 +20,44 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/v1/cart-item")
 @SecurityRequirement(name = "Bearer_Authentication")
-@Tag(name = "Element Panier", description = "API pour gérer les éléments du panier.")
+@Tag(name = "Cart Item", description = "API to manage cart items.")
 public interface CartItemApi {
 
-  @GetMapping(value = "/{id}")
-  @Operation(
-      summary = "Obtenir un élément du panier par ID.",
-      description = "Récupère un élément du panier en utilisant son ID.")
-  @ApiResponses(
-      value = {
-        @ApiResponse(
-            responseCode = "200",
-            description = "Élément du panier trouvé.",
-            content =
-                @Content(
-                    mediaType = "application/json",
-                    schema = @Schema(implementation = CartItem.class))),
-        @ApiResponse(responseCode = "404", description = "Élément du panier non trouvé.")
-      })
-  ResponseEntity<CartItem> geCartItemById(
-      @Parameter(
-              description = "ID de l'élément du panier.",
-              required = true,
-              example = "563456789123456")
-          @PathVariable
-          Long id);
+    @GetMapping(value = "/{id}")
+    @Operation(
+            summary = "Get a cart item by ID.",
+            description = "Retrieve a cart item using its ID.")
+    @ApiResponses(
+            value = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "Cart item found.",
+                            content =
+                            @Content(
+                                    mediaType = "application/json",
+                                    schema = @Schema(implementation = CartItem.class))),
+                    @ApiResponse(responseCode = "404", description = "Cart item not found.")
+            })
+    ResponseEntity<CartItem> getCartItemById(
+            @Parameter(
+                    description = "ID of the cart item.",
+                    required = true,
+                    example = "563456789123456")
+            @PathVariable
+            Long id);
 
-  @PostMapping()
-  @Operation(
-      summary = "Enregistrer un élément du panier.",
-      description = "Enregistre un nouvel élément du panier.")
-  @ApiResponses(
-      value = {
-        @ApiResponse(responseCode = "200", description = "Élément du panier enregistré."),
-        @ApiResponse(responseCode = "404", description = "Produit non trouvé.")
-      })
-  ResponseEntity<Void> saveCartItem(
-      @Parameter(required = true, schema = @Schema(implementation = CartItemRequestDto.class))
-          @Valid
-          @RequestBody
-          CartItemRequestDto cartItemRequest);
+    @PostMapping()
+    @Operation(
+            summary = "Save a cart item.",
+            description = "Save a new cart item.")
+    @ApiResponses(
+            value = {
+                    @ApiResponse(responseCode = "200", description = "Cart item saved."),
+                    @ApiResponse(responseCode = "404", description = "Product not found.")
+            })
+    ResponseEntity<Void> saveCartItem(
+            @Parameter(required = true, schema = @Schema(implementation = CartItemRequestDto.class))
+            @Valid
+            @RequestBody
+            CartItemRequestDto cartItemRequest);
 }

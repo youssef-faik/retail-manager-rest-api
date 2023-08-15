@@ -7,17 +7,17 @@ import lombok.Data;
 
 @Data
 @Schema(
-    title = "Schéma de demande de modification du mot de passe.",
-    description = "Corps de la requête pour changer le mot de passe.")
+        title = "Change Password Request Schema",
+        description = "Request body for changing the user's password.")
 public class ChangePasswordRequest {
 
-  @Schema(description = "Ancien mot de passe de l'utilisateur.", required = true)
-  @Size(min = 8, message = "L'ancien mot de passe doit contenir entre {min} et {max} caractères.")
-  @NotBlank(message = "oldPassword est obligatoire.")
+  @Schema(description = "User's old password.", required = true)
+  @Size(min = 8, message = "The old password must be between {min} and {max} characters.")
+  @NotBlank(message = "oldPassword is required.")
   private String oldPassword;
 
-  @Schema(description = "Nouveau mot de passe de l'utilisateur.", required = true)
-  @Size(min = 8, message = "Le nouveau mot de passe doit contenir entre {min} et {max} caractères.")
-  @NotBlank(message = "newPassword est obligatoire.")
+  @Schema(description = "User's new password.", required = true)
+  @Size(min = 8, message = "The new password must be between {min} and {max} characters.")
+  @NotBlank(message = "newPassword is required.")
   private String newPassword;
 }

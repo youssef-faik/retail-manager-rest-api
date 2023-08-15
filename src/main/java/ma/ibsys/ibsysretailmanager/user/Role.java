@@ -2,12 +2,12 @@ package ma.ibsys.ibsysretailmanager.user;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 
-@Schema(name = "Rôle", description = "Énumération des rôles utilisateur")
+@Schema(name = "Role", description = "Enumeration of user roles")
 public enum Role {
-  @Schema(name = "Le rôle administrateur")
+  @Schema(name = "Administrator role")
   ADMIN,
-  @Schema(name = "Le rôle gestionnaire")
+  @Schema(name = "Manager role")
   MANAGER,
-  @Schema(name = "Le rôle caissier")
+  @Schema(name = "Cashier role")
   CASHIER
 }

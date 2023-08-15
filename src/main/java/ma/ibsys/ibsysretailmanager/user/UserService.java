@@ -28,9 +28,9 @@ public class UserService {
 
   public ResponseEntity<UserDto> getUserById(int id) {
     User user =
-        userRepository
-            .findById(id)
-            .orElseThrow(() -> new EntityNotFoundException("Utilisateur introuvable avec l'ID" + id));
+            userRepository
+                    .findById(id)
+                    .orElseThrow(() -> new EntityNotFoundException("User not found with ID: " + id));
     return ResponseEntity.ok(modelMapper.map(user, UserDto.class));
   }
 
@@ -43,9 +43,9 @@ public class UserService {
 
   public ResponseEntity<UserDto> updateUser(int id, UserUpdateDto userUpdateDto) {
     User user =
-        userRepository
-            .findById(id)
-            .orElseThrow(() -> new EntityNotFoundException("Utilisateur introuvable avec l'ID" + id));
+            userRepository
+                    .findById(id)
+                    .orElseThrow(() -> new EntityNotFoundException("User not found with ID: " + id));
     user.setFirstName(userUpdateDto.getFirstName());
     user.setLastName(userUpdateDto.getLastName());
     user.setEmail(userUpdateDto.getEmail());
@@ -68,12 +68,12 @@ public class UserService {
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
     String userEmail = authentication.getName();
 
-    // retrieve user from database
+    // retrieve user from the database
     User user =
-        userRepository
-            .findByEmail(userEmail)
-            .orElseThrow(
-                () -> new EntityNotFoundException("Utilisateur introuvable avec l'adresse e-mail " + userEmail));
+            userRepository
+                    .findByEmail(userEmail)
+                    .orElseThrow(
+                            () -> new EntityNotFoundException("User not found with email address: " + userEmail));
 
     // verify old password
     if (!passwordEncoder.matches(changePasswordRequest.getOldPassword(), user.getPassword())) {

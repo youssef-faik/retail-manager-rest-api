@@ -13,20 +13,20 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Schema(
-    title = "Schéma des éléments de facture.",
-    description = "Représente un article inclus dans une facture.")
+        title = "Invoice Item Schema",
+        description = "Represents an item included in an invoice.")
 public class InvoiceItemDto {
-  @Schema(description = "L'ID du produit facturé.")
-  @NotNull(message = "L'ID du produit ne peut pas être null.")
+  @Schema(description = "The ID of the billed product.")
+  @NotNull(message = "The product ID cannot be null.")
   private Integer productId;
 
-  @Schema(description = "La quantité du produit facturé.")
-  @NotNull(message = "La quantité ne peut pas être null.")
-  @Min(value = 1, message = "La quantité doit être d'au moins 1.")
+  @Schema(description = "The quantity of the billed product.")
+  @NotNull(message = "The quantity cannot be null.")
+  @Min(value = 1, message = "The quantity must be at least 1.")
   private Integer quantity;
 
-  @Schema(description = "Le prix unitaire du produit facturé.")
-  @NotNull(message = "Le prix unitaire ne peut pas être null.")
-  @DecimalMin(value = "1", message = "Le prix unitaire doit être supérieur ou égal à {value}.")
+  @Schema(description = "The unit price of the billed product.")
+  @NotNull(message = "The unit price cannot be null.")
+  @DecimalMin(value = "1", message = "The unit price must be greater than or equal to {value}.")
   private BigDecimal unitPrice;
 }

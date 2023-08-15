@@ -20,18 +20,18 @@ public class ProductService {
 
   public ResponseEntity<List<ProductResponseDto>> getAllProducts() {
     List<ProductResponseDto> products =
-        productRepository.findAll().stream()
-            .map(product -> modelMapper.map(product, ProductResponseDto.class))
-            .collect(Collectors.toList());
+            productRepository.findAll().stream()
+                    .map(product -> modelMapper.map(product, ProductResponseDto.class))
+                    .collect(Collectors.toList());
 
     return ResponseEntity.ok(products);
   }
 
   public ResponseEntity<ProductResponseDto> getProductById(int id) {
     Product product =
-        productRepository
-            .findById(id)
-            .orElseThrow(() -> new EntityNotFoundException("Produit non trouvé avec l'ID " + id));
+            productRepository
+                    .findById(id)
+                    .orElseThrow(() -> new EntityNotFoundException("Product not found with ID " + id));
 
     return ResponseEntity.ok(modelMapper.map(product, ProductResponseDto.class));
   }
@@ -43,19 +43,19 @@ public class ProductService {
   }
 
   public ResponseEntity<ProductResponseDto> updateProduct(
-      int id, ProductRequestDto productRequestDto) {
+          int id, ProductRequestDto productRequestDto) {
     Product product =
-        productRepository
-            .findById(id)
-            .orElseThrow(() -> new EntityNotFoundException("Produit non trouvé avec l'ID " + id));
+            productRepository
+                    .findById(id)
+                    .orElseThrow(() -> new EntityNotFoundException("Product not found with ID " + id));
 
     Category category =
-        categoryRepository
-            .findById(productRequestDto.getCategory())
-            .orElseThrow(
-                () ->
-                    new EntityNotFoundException(
-                        "Categorie introuvable avec l'ID " + productRequestDto.getCategory()));
+            categoryRepository
+                    .findById(productRequestDto.getCategory())
+                    .orElseThrow(
+                            () ->
+                                    new EntityNotFoundException(
+                                            "Category not found with ID " + productRequestDto.getCategory()));
 
     product.setBarCode(productRequestDto.getBarCode());
     product.setTaxRate(productRequestDto.getTaxRate());
@@ -70,9 +70,9 @@ public class ProductService {
 
   public ResponseEntity<Void> deleteProduct(int id) {
     Product product =
-        productRepository
-            .findById(id)
-            .orElseThrow(() -> new EntityNotFoundException("Produit non trouvé avec l'ID " + id));
+            productRepository
+                    .findById(id)
+                    .orElseThrow(() -> new EntityNotFoundException("Product not found with ID " + id));
     productRepository.delete(product);
 
     return ResponseEntity.noContent().build();

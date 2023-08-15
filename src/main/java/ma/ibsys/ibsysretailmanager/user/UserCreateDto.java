@@ -9,33 +9,33 @@ import lombok.Data;
 
 @Data
 @Schema(
-    title = "Schéma de requête de création d'utilisateur.",
-    description = "Corps de la requête pour créer un nouvel utilisateur.")
+        title = "User Creation Request Schema",
+        description = "Request body for creating a new user.")
 public class UserCreateDto {
-  @Schema(description = "Prénom de l'utilisateur.", required = true, example = "Said")
-  @Size(min = 2, max = 50, message = "Le prénom doit comporter entre {min} et {max} caractères.")
-  @NotBlank(message = "Le prénom est obligatoire.")
+  @Schema(description = "User's first name.", required = true, example = "Said")
+  @Size(min = 2, max = 50, message = "First name must be between {min} and {max} characters.")
+  @NotBlank(message = "First name is required.")
   private String firstName;
 
-  @Schema(description = "Le nom de l'utilisateur.", required = true, example = "Alami")
-  @Size(min = 2, max = 50, message = "Le nom doit comporter entre {min} et {max} caractères.")
-  @NotBlank(message = "Le nom est obligatoire.")
+  @Schema(description = "User's last name.", required = true, example = "Alami")
+  @Size(min = 2, max = 50, message = "Last name must be between {min} and {max} characters.")
+  @NotBlank(message = "Last name is required.")
   private String lastName;
 
   @Schema(
-      description = "Adresse e-mail de l'utilisateur.",
-      required = true,
-      example = "said.alami@example.com")
-  @Email(message = "Adresse e-mail doit être valide.")
-  @NotBlank(message = "Adresse e-mail est obligatoire.")
+          description = "User's email address.",
+          required = true,
+          example = "said.alami@example.com")
+  @Email(message = "Email address must be valid.")
+  @NotBlank(message = "Email address is required.")
   private String email;
 
-  @Schema(description = "Mot de passe de l'utilisateur.", required = true, example = "mot-de-passe")
-  @Size(min = 8, message = "Le mot de passe doit comporter au moins {min} caractères.")
-  @NotBlank(message = "Mot de passe est obligatoire.")
+  @Schema(description = "User's password.", required = true, example = "password")
+  @Size(min = 8, message = "Password must be at least {min} characters long.")
+  @NotBlank(message = "Password is required.")
   private String password;
 
-  @Schema(description = "Rôle de l'utilisateur.", required = true, example = "MANAGER")
-  @NotNull(message = "Rôle est obligatoire.")
+  @Schema(description = "User's role.", required = true, example = "MANAGER")
+  @NotNull(message = "Role is required.")
   private Role role;
 }

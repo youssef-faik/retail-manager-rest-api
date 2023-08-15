@@ -9,31 +9,31 @@ import lombok.Data;
 
 @Data
 @Schema(
-    title = "Schéma de demande de mise à jour d'utilisateur",
-    description = "Corps de la demande de mise à jour d'un utilisateur existant.")
+        title = "User Update Request Schema",
+        description = "Request body for updating an existing user.")
 public class UserUpdateDto {
-  @Schema(description = "Prénom de l'utilisateur.", required = true, example = "Said")
-  @Size(min = 2, max = 50, message = "Le prénom doit contenir entre {min} et {max} caractères.")
-  @NotBlank(message = "Le prénom est obligatoire.")
+  @Schema(description = "User's first name.", required = true, example = "Said")
+  @Size(min = 2, max = 50, message = "First name must be between {min} and {max} characters.")
+  @NotBlank(message = "First name is required.")
   private String firstName;
 
-  @Schema(description = "Nom de famille de l'utilisateur.", required = true, example = "Alami")
+  @Schema(description = "User's last name.", required = true, example = "Alami")
   @Size(
-      min = 2,
-      max = 50,
-      message = "Le nom de famille doit contenir entre {min} et {max} caractères.")
-  @NotBlank(message = "Le nom de famille est obligatoire.")
+          min = 2,
+          max = 50,
+          message = "Last name must be between {min} and {max} characters.")
+  @NotBlank(message = "Last name is required.")
   private String lastName;
 
   @Schema(
-      description = "Adresse e-mail de l'utilisateur.",
-      required = true,
-      example = "said.alami@example.com")
-  @Email(message = "L'adresse e-mail doit être valide.")
-  @NotBlank(message = "L'adresse e-mail est obligatoire.")
+          description = "User's email address.",
+          required = true,
+          example = "said.alami@example.com")
+  @Email(message = "Email address must be valid.")
+  @NotBlank(message = "Email address is required.")
   private String email;
 
-  @Schema(description = "Rôle de l'utilisateur.", required = true, example = "MANAGER")
-  @NotNull(message = "Le rôle est obligatoire.")
+  @Schema(description = "User's role.", required = true, example = "MANAGER")
+  @NotNull(message = "Role is required.")
   private Role role;
 }

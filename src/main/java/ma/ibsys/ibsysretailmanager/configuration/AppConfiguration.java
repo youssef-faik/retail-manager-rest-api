@@ -17,13 +17,13 @@ public class AppConfiguration {
 
   @Autowired
   protected AppConfiguration(
-      ConfigOptionRepository configOptionRepository, InvoiceRepository invoiceRepository) {
+          ConfigOptionRepository configOptionRepository, InvoiceRepository invoiceRepository) {
     AppConfiguration.configOptionRepository = configOptionRepository;
     AppConfiguration.invoiceRepository = invoiceRepository;
 
     if (configOptionRepository.findByKey(ConfigKey.NEXT_INVOICE_NUMBER).isEmpty()) {
       ConfigOption nextInvoiceNumber =
-          ConfigOption.builder().key(ConfigKey.NEXT_INVOICE_NUMBER).value("1").build();
+              ConfigOption.builder().key(ConfigKey.NEXT_INVOICE_NUMBER).value("1").build();
       AppConfiguration.configOptionRepository.save(nextInvoiceNumber);
     }
   }
@@ -42,26 +42,26 @@ public class AppConfiguration {
   private static void validateNextInvoiceNumber(int nextInvoiceNumber) {
     if (nextInvoiceNumber <= 0) {
       throw new BadRequestException(
-          "Le numéro de facture suivante doit être strictement supérieur à 0");
+              "The next invoice number must be strictly greater than 0.");
     }
 
     if (invoiceRepository.count() > 0) {
       Invoice invoice = invoiceRepository.findFirstByOrderByIdDesc().orElseThrow();
       if (nextInvoiceNumber <= invoice.getId()) {
         throw new BadRequestException(
-            "Le numéro de facture suivante doit être supérieur ou égal à " + (invoice.getId() + 1));
+                "The next invoice number must be greater than or equal to " + (invoice.getId() + 1));
       }
     }
   }
 
   private static void updateOptionValue(ConfigKey key, String value) {
     ConfigOption option =
-        configOptionRepository
-            .findByKey(key)
-            .orElseThrow(
-                () ->
-                    new RuntimeException(
-                        "Option introuvable avec la clé " + ConfigKey.NEXT_INVOICE_NUMBER.name()));
+            configOptionRepository
+                    .findByKey(key)
+                    .orElseThrow(
+                            () ->
+                                    new RuntimeException(
+                                            "Option not found with key " + ConfigKey.NEXT_INVOICE_NUMBER.name()));
 
     option.setValue(value);
     configOptionRepository.save(option);
@@ -74,10 +74,10 @@ public class AppConfiguration {
 
   public ConfigOption getConfigurationValue(ConfigKey key) {
     ConfigOption option =
-        configOptionRepository
-            .findByKey(key)
-            .orElseThrow(
-                () -> new RuntimeException("Option introuvable avec la clé " + key.name()));
+            configOptionRepository
+                    .findByKey(key)
+                    .orElseThrow(
+                            () -> new RuntimeException("Option not found with key " + key.name()));
 
     return option;
   }

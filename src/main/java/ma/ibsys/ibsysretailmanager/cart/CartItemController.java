@@ -13,7 +13,7 @@ public class CartItemController implements CartItemApi {
   private final CartItemService cartItemService;
 
   @Override
-  public ResponseEntity<CartItem> geCartItemById(@PathVariable Long id) {
+  public ResponseEntity<CartItem> getCartItemById(@PathVariable Long id) {
     CartItem cartItem = cartItemService.getCartItem(id);
     return ResponseEntity.ok(cartItem);
   }

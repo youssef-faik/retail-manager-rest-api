@@ -1,6 +1,15 @@
 package ma.ibsys.ibsysretailmanager.user;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -19,8 +28,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 @Entity(name = "User")
 @Table(
-    name = "_user",
-    uniqueConstraints = {@UniqueConstraint(name = "user_email_unique", columnNames = "email")})
+        name = "_user",
+        uniqueConstraints = {@UniqueConstraint(name = "user_email_unique", columnNames = "email")})
 @Builder
 @Data
 @NoArgsConstructor
@@ -31,32 +40,32 @@ public class User implements UserDetails {
   @Column(name = "id", updatable = false)
   private int id;
 
-  @Size(min = 2, max = 50, message = "Le prénom doit comporter entre {min} et {max} caractères.")
-  @NotBlank(message = "Le prénom est obligatoire.")
+  @Size(min = 2, max = 50, message = "First name must be between {min} and {max} characters.")
+  @NotBlank(message = "First name is required.")
   @Column(name = "first_name", nullable = false)
   private String firstName;
 
-  @Size(min = 2, max = 50, message = "Le nom doit comporter entre {min} et {max} caractères.")
-  @NotBlank(message = "Le nom est obligatoire.")
+  @Size(min = 2, max = 50, message = "Last name must be between {min} and {max} characters.")
+  @NotBlank(message = "Last name is required.")
   @Column(name = "last_name", nullable = false)
   private String lastName;
 
-  @Email(message = "L'adresse e-mail doit être valide.")
-  @NotBlank(message = "L'adresse e-mail est obligatoire.")
+  @Email(message = "Email must be valid.")
+  @NotBlank(message = "Email is required.")
   @Column(name = "email", nullable = false)
   private String email;
 
-  @Size(min = 8, message = "Le mot de passe doit comporter entre {min} et {max} caractères.")
-  @NotBlank(message = "Le mot de passe est obligatoire.")
+  @Size(min = 8, message = "Password must be between {min} and {max} characters.")
+  @NotBlank(message = "Password is required.")
   @Column(name = "password", nullable = false)
   private String password;
 
   @Enumerated(EnumType.STRING)
-  @NotNull(message = "Le rôle est obligatoire.")
+  @NotNull(message = "Role is required.")
   @Column(name = "role", nullable = false)
   private Role role;
 
-  @NotNull(message = "est activé est obligatoire.")
+  @NotNull(message = "Enabled status is required.")
   @Column(name = "is_enabled", nullable = false)
   private boolean isEnabled = true;
 

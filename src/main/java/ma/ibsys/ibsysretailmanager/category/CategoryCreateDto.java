@@ -13,17 +13,17 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Schema(
-    title = "Schéma de requête de création/mise a jour d'une catégorie",
-    description = "Corps de requête pour créer/mise a jour d'une catégorie")
+        title = "Schema for creating/updating a category",
+        description = "Request body for creating/updating a category")
 public class CategoryCreateDto {
-  @NotBlank(message = "Le nom de la catégorie est requis")
-  @Size(max = 100, message = "Le nom de la catégorie ne doit pas dépasser {max} caractères")
-  @Schema(description = "Nom de la catégorie", example = "Électronique")
+  @NotBlank(message = "Category name is required.")
+  @Size(max = 100, message = "Category name must not exceed {max} characters.")
+  @Schema(description = "Category name", example = "Electronics")
   private String name;
 
-  @Size(max = 500, message = "La description de la catégorie ne doit pas dépasser {max} caractères")
+  @Size(max = 500, message = "Category description must not exceed {max} characters.")
   @Schema(
-      description = "Description de la catégorie",
-      example = "Catégorie pour les produits électroniques")
+          description = "Category description",
+          example = "Category for electronic products")
   private String description;
 }

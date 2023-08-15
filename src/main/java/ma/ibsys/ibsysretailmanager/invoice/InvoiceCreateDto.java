@@ -13,16 +13,16 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Schema(
-    title = "Schéma de demande de facture.",
-    description = "Corps de la demande pour créer une facture.")
+        title = "Invoice Create Request Schema",
+        description = "Request body for creating an invoice.")
 public class InvoiceCreateDto {
   @Schema(
-      description = "Le numéro ICE du client auquel la facture est émise.",
-      example = "563456789123456")
-  @NotNull(message = "customerICE ne peut pas être null.")
+          description = "The ICE number of the customer to whom the invoice is issued.",
+          example = "563456789123456")
+  @NotNull(message = "customerICE cannot be null.")
   private String customerICE;
 
-  @Schema(description = "La liste des articles et de leurs quantités à inclure dans la facture.")
-  @NotEmpty(message = "La liste des articles ne peut pas être vide.")
+  @Schema(description = "The list of items and their quantities to include in the invoice.")
+  @NotEmpty(message = "The list of items cannot be empty.")
   private List<@Valid InvoiceItemDto> items;
 }

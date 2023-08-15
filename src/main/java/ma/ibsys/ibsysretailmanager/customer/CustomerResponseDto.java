@@ -12,26 +12,26 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Schema(title = "Schéma de réponse du client.", description = "Corps de réponse pour un client.")
+@Schema(title = "Schema for Customer Response.", description = "Response body for a customer.")
 public class CustomerResponseDto {
-  @Schema(description = "ICE du client.", example = "563456789123456", required = true)
+  @Schema(description = "Customer's ICE.", example = "563456789123456", required = true)
   private String ice;
 
-  @Schema(description = "Nom du client.", example = "Acme Corp", required = true)
+  @Schema(description = "Customer's name.", example = "Acme Corp", required = true)
   private String name;
 
   @Schema(
-      description = "Adresse e-mail du client.",
-      example = "acme-corp@example.com",
-      required = true)
+          description = "Customer's email address.",
+          example = "acme-corp@example.com",
+          required = true)
   private String email;
 
-  @Schema(description = "Numéro de téléphone du client.", example = "0522567890", required = true)
+  @Schema(description = "Customer's phone number.", example = "0522567890", required = true)
   private String phone;
 
   @Schema(
-      description = "Adresse du client.",
-      example = "123 Rue Principale, Ville, État, Code postal.",
-      required = true)
+          description = "Customer's address.",
+          example = "123 Main Street, City, State, Postal Code.",
+          required = true)
   private String address;
 }

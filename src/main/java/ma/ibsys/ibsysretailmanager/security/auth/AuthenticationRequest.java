@@ -13,15 +13,15 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Schema(
-    title = "Schéma de la demande d'authentification.",
-    description = "Corps de la demande d'authentification de l'utilisateur.")
+        title = "Authentication Request Schema",
+        description = "Request body for user authentication.")
 public class AuthenticationRequest {
-  @Schema(description = "Email de l'utilisateur.", example = "admin@mail.com")
-  @Email(message = "l'email doit être valide.")
-  @NotBlank(message = "l'email est obligatoire.")
+  @Schema(description = "User's email.", example = "admin@mail.com")
+  @Email(message = "Email must be valid.")
+  @NotBlank(message = "Email is required.")
   private String email;
 
-  @Schema(description = "Mot de passe de l'utilisateur.", example = "secret-password")
-  @NotBlank(message = "le mot de passe est obligatoire.")
+  @Schema(description = "User's password.", example = "secret-password")
+  @NotBlank(message = "Password is required.")
   private String password;
 }

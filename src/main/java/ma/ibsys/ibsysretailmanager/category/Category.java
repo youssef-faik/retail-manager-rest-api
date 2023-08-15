@@ -26,12 +26,12 @@ public class Category {
   @Column(name = "id", updatable = false)
   private int id;
 
-  @NotBlank(message = "Le nom de catégorie est obligatoire")
+  @NotBlank(message = "Category name is required.")
   @Column(name = "name", nullable = false)
   private String name;
 
-  @Size(max = 500, message = "La description de la catégorie ne doit pas dépasser {max} caractères")
-  @NotNull(message = "La description de la catégorie est obligatoire.")
+  @Size(max = 500, message = "Category description must not exceed {max} characters.")
+  @NotNull(message = "Category description is required.")
   @Column(name = "description", nullable = false)
   private String description;
 }

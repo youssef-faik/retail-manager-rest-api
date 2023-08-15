@@ -1,8 +1,10 @@
 package ma.ibsys.ibsysretailmanager.product;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.persistence.Column;
-import jakarta.validation.constraints.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.Size;
 import java.math.BigDecimal;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,37 +16,36 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Schema(
-    title = "Schéma de demande de produit.",
-    description = "Corps de la demande pour la création/mise à jour d'un produit.")
+        title = "Product Request Schema",
+        description = "Request body for creating/updating a product.")
 public class ProductRequestDto {
-  @Schema(description = "Code-barres du produit.", example = "1234567890", required = true)
-  @NotBlank(message = "Le code-barres est obligatoire")
+  @Schema(description = "Product barcode.", example = "1234567890", required = true)
+  @NotBlank(message = "Barcode is required")
   private String barCode;
 
-  @Schema(description = "Nom du produit.", example = "Ordinateur portable", required = true)
-  @Size(min = 2, max = 1000, message = "Le nom doit comporter entre {min} et {max} caractères.")
-  @NotBlank(message = "Le nom est obligatoire")
-  @Column(name = "name", nullable = false)
+  @Schema(description = "Product name.", example = "Laptop", required = true)
+  @Size(min = 2, max = 1000, message = "Name must be between {min} and {max} characters.")
+  @NotBlank(message = "Name is required")
   private String name;
 
   @Schema(
-      description = "Prix de vente du produit hors taxe.",
-      example = "12999.99",
-      required = true)
-  @NotBlank(message = "Le prix de vente hors taxe est obligatoire.")
-  @Positive(message = "Le prix de vente hors taxe doit être un nombre positif.")
+          description = "Selling price of the product excluding tax.",
+          example = "12999.99",
+          required = true)
+  @NotBlank(message = "Selling price excluding tax is required.")
+  @Positive(message = "Selling price must be a positive number.")
   private BigDecimal sellingPriceExcludingTax;
 
-  @Schema(description = "Prix d'achat du produit.", example = "10000.99", required = true)
-  @NotNull(message = "Le prix d'achat est obligatoire.")
-  @Positive(message = "Le prix d'achat doit être un nombre positif et superior a zero.")
+  @Schema(description = "Purchase price of the product.", example = "10000.99", required = true)
+  @NotNull(message = "Purchase price is required.")
+  @Positive(message = "Purchase price must be a positive number.")
   private BigDecimal purchasePrice;
 
-  @Schema(description = "Taux de taxe du produit.", example = "TEN", required = true)
-  @NotBlank(message = "Le taux de taxe est obligatoire.")
+  @Schema(description = "Tax rate of the product.", example = "TEN", required = true)
+  @NotBlank(message = "Tax rate is required.")
   private TaxRate taxRate;
 
-  @Schema(description = "ID de la catégorie du produit.", example = "1", required = true)
-  @NotNull(message = "ID de la catégorie est obligatoire")
+  @Schema(description = "ID of the product's category.", example = "1", required = true)
+  @NotNull(message = "Category ID is required")
   private int category;
 }

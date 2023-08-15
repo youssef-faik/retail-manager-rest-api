@@ -5,21 +5,21 @@ import lombok.Data;
 
 @Data
 @Schema(
-    title = "Schéma de réponse utilisateur",
-    description = "Corps de réponse pour les détails de l'utilisateur.")
+        title = "User Response Schema",
+        description = "Response body for user details.")
 public class UserDto {
-  @Schema(description = "ID de l'utilisateur.", example = "2")
+  @Schema(description = "User ID.", example = "2")
   private int id;
 
-  @Schema(description = "Prénom de l'utilisateur.", example = "Said")
+  @Schema(description = "User's first name.", example = "Said")
   private String firstName;
 
-  @Schema(description = "Nom de famille de l'utilisateur.", example = "Alami")
+  @Schema(description = "User's last name.", example = "Alami")
   private String lastName;
 
-  @Schema(description = "Adresse e-mail de l'utilisateur.", example = "said.alami@example.com")
+  @Schema(description = "User's email address.", example = "said.alami@example.com")
   private String email;
 
-  @Schema(description = "Rôle de l'utilisateur.", example = "MANAGER")
+  @Schema(description = "User's role.", example = "MANAGER")
   private Role role;
 }

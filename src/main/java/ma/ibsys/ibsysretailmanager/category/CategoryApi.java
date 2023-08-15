@@ -13,239 +13,245 @@ import jakarta.validation.Valid;
 import java.util.List;
 import ma.ibsys.ibsysretailmanager.handlers.ErrorResponse;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/v1/categories")
 @SecurityRequirement(name = "Bearer_Authentication")
 @Tag(
-    name = "Categorie",
-    description =
-        "L'API Catégorie. Contient toutes les opérations pouvant être effectuées sur une Catégorie.")
+        name = "Category",
+        description = "Category API. Contains all operations that can be performed on a Category.")
 public interface CategoryApi {
 
-  @GetMapping
-  @Operation(
-      summary = "Obtenir toutes les catégories.",
-      description = "Obtenir une liste de toutes les catégories.")
-  @ApiResponses(
-      value = {
-        @ApiResponse(
-            responseCode = "200",
-            description = "Catégories récupérées avec succès.",
-            content =
-                @Content(
-                    mediaType = "application/json",
-                    array = @ArraySchema(schema = @Schema(implementation = Category.class)))),
-        @ApiResponse(
-            responseCode = "401",
-            description = "Non autorisé.",
-            content =
-                @Content(
-                    mediaType = "application/json",
-                    schema = @Schema(implementation = ErrorResponse.class))),
-        @ApiResponse(
-            responseCode = "403",
-            description = "Accès interdit.",
-            content =
-                @Content(
-                    mediaType = "application/json",
-                    schema = @Schema(implementation = ErrorResponse.class))),
-        @ApiResponse(
-            responseCode = "500",
-            description = "Erreur interne du serveur.",
-            content =
-                @Content(
-                    mediaType = "application/json",
-                    schema = @Schema(implementation = ErrorResponse.class)))
-      })
-  ResponseEntity<List<Category>> getAllCategories();
+    @GetMapping
+    @Operation(
+            summary = "Get all categories.",
+            description = "Get a list of all categories.")
+    @ApiResponses(
+            value = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "Categories retrieved successfully.",
+                            content =
+                            @Content(
+                                    mediaType = "application/json",
+                                    array = @ArraySchema(schema = @Schema(implementation = Category.class)))),
+                    @ApiResponse(
+                            responseCode = "401",
+                            description = "Unauthorized.",
+                            content =
+                            @Content(
+                                    mediaType = "application/json",
+                                    schema = @Schema(implementation = ErrorResponse.class))),
+                    @ApiResponse(
+                            responseCode = "403",
+                            description = "Forbidden access.",
+                            content =
+                            @Content(
+                                    mediaType = "application/json",
+                                    schema = @Schema(implementation = ErrorResponse.class))),
+                    @ApiResponse(
+                            responseCode = "500",
+                            description = "Internal server error.",
+                            content =
+                            @Content(
+                                    mediaType = "application/json",
+                                    schema = @Schema(implementation = ErrorResponse.class)))
+            })
+    ResponseEntity<List<Category>> getAllCategories();
 
-  @GetMapping("/{id}")
-  @Operation(
-      summary = "Obtenir les détails d'une catégorie.",
-      description = "Obtenir les détails d'une catégorie avec le numéro ID donné.")
-  @ApiResponses(
-      value = {
-        @ApiResponse(
-            responseCode = "200",
-            description = "Catégorie récupérée avec succès.",
-            content =
-                @Content(
-                    mediaType = "application/json",
-                    schema = @Schema(implementation = Category.class))),
-        @ApiResponse(
-            responseCode = "401",
-            description = "Non autorisé.",
-            content =
-                @Content(
-                    mediaType = "application/json",
-                    schema = @Schema(implementation = ErrorResponse.class))),
-        @ApiResponse(
-            responseCode = "403",
-            description = "Accès interdit.",
-            content =
-                @Content(
-                    mediaType = "application/json",
-                    schema = @Schema(implementation = ErrorResponse.class))),
-        @ApiResponse(
-            responseCode = "404",
-            description = "Catégorie non trouvée.",
-            content =
-                @Content(
-                    mediaType = "application/json",
-                    schema = @Schema(implementation = ErrorResponse.class))),
-        @ApiResponse(
-            responseCode = "500",
-            description = "Erreur interne du serveur.",
-            content =
-                @Content(
-                    mediaType = "application/json",
-                    schema = @Schema(implementation = ErrorResponse.class)))
-      })
-  ResponseEntity<Category> getCategoryById(
-      @Parameter(
-              description = "Numéro ID de la catégorie à récupérer.",
-              required = true,
-              example = "1")
-          @PathVariable
-          int id);
+    @GetMapping("/{id}")
+    @Operation(
+            summary = "Get category details.",
+            description = "Get details of a category using the given ID.")
+    @ApiResponses(
+            value = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "Category retrieved successfully.",
+                            content =
+                            @Content(
+                                    mediaType = "application/json",
+                                    schema = @Schema(implementation = Category.class))),
+                    @ApiResponse(
+                            responseCode = "401",
+                            description = "Unauthorized.",
+                            content =
+                            @Content(
+                                    mediaType = "application/json",
+                                    schema = @Schema(implementation = ErrorResponse.class))),
+                    @ApiResponse(
+                            responseCode = "403",
+                            description = "Forbidden access.",
+                            content =
+                            @Content(
+                                    mediaType = "application/json",
+                                    schema = @Schema(implementation = ErrorResponse.class))),
+                    @ApiResponse(
+                            responseCode = "404",
+                            description = "Category not found.",
+                            content =
+                            @Content(
+                                    mediaType = "application/json",
+                                    schema = @Schema(implementation = ErrorResponse.class))),
+                    @ApiResponse(
+                            responseCode = "500",
+                            description = "Internal server error.",
+                            content =
+                            @Content(
+                                    mediaType = "application/json",
+                                    schema = @Schema(implementation = ErrorResponse.class)))
+            })
+    ResponseEntity<Category> getCategoryById(
+            @Parameter(
+                    description = "ID of the category to retrieve.",
+                    required = true,
+                    example = "1")
+            @PathVariable
+            int id);
 
-  @PostMapping
-  @Operation(
-      summary = "Créer une catégorie.",
-      description = "Créer une nouvelle catégorie avec les détails donnés.")
-  @ApiResponses(
-      value = {
-        @ApiResponse(responseCode = "201", description = "Catégorie créée avec succès."),
-        @ApiResponse(
-            responseCode = "400",
-            description = "Entrée non valide.",
-            content =
-                @Content(
-                    mediaType = "application/json",
-                    schema = @Schema(implementation = ErrorResponse.class))),
-        @ApiResponse(
-            responseCode = "401",
-            description = "Non autorisé.",
-            content =
-                @Content(
-                    mediaType = "application/json",
-                    schema = @Schema(implementation = ErrorResponse.class))),
-        @ApiResponse(
-            responseCode = "403",
-            description = "Accès interdit",
-            content =
-                @Content(
-                    mediaType = "application/json",
-                    schema = @Schema(implementation = ErrorResponse.class))),
-        @ApiResponse(
-            responseCode = "500",
-            description = "Erreur interne du serveur.",
-            content =
-                @Content(
-                    mediaType = "application/json",
-                    schema = @Schema(implementation = ErrorResponse.class)))
-      })
-  ResponseEntity<Void> createCategory(
-      @Parameter(required = true, schema = @Schema(implementation = CategoryCreateDto.class))
-          @Valid
-          @RequestBody
-          CategoryCreateDto categoryCreateDto);
+    @PostMapping
+    @Operation(
+            summary = "Create a category.",
+            description = "Create a new category with the given details.")
+    @ApiResponses(
+            value = {
+                    @ApiResponse(responseCode = "201", description = "Category created successfully."),
+                    @ApiResponse(
+                            responseCode = "400",
+                            description = "Invalid input.",
+                            content =
+                            @Content(
+                                    mediaType = "application/json",
+                                    schema = @Schema(implementation = ErrorResponse.class))),
+                    @ApiResponse(
+                            responseCode = "401",
+                            description = "Unauthorized.",
+                            content =
+                            @Content(
+                                    mediaType = "application/json",
+                                    schema = @Schema(implementation = ErrorResponse.class))),
+                    @ApiResponse(
+                            responseCode = "403",
+                            description = "Forbidden access.",
+                            content =
+                            @Content(
+                                    mediaType = "application/json",
+                                    schema = @Schema(implementation = ErrorResponse.class))),
+                    @ApiResponse(
+                            responseCode = "500",
+                            description = "Internal server error.",
+                            content =
+                            @Content(
+                                    mediaType = "application/json",
+                                    schema = @Schema(implementation = ErrorResponse.class)))
+            })
+    ResponseEntity<Void> createCategory(
+            @Parameter(required = true, schema = @Schema(implementation = CategoryCreateDto.class))
+            @Valid
+            @RequestBody
+            CategoryCreateDto categoryCreateDto);
 
-  @PutMapping("/{id}")
-  @Operation(
-      summary = "Mettre à jour les détails de la catégorie.",
-      description = "Mettre à jour les détails de la catégorie avec l'ID donné.")
-  @ApiResponses(
-      value = {
-        @ApiResponse(responseCode = "200", description = "Catégorie mise à jour avec succès."),
-        @ApiResponse(
-            responseCode = "400",
-            description = "Entrée non valide.",
-            content =
-                @Content(
-                    mediaType = "application/json",
-                    schema = @Schema(implementation = ErrorResponse.class))),
-        @ApiResponse(
-            responseCode = "401",
-            description = "Non autorisé",
-            content =
-                @Content(
-                    mediaType = "application/json",
-                    schema = @Schema(implementation = ErrorResponse.class))),
-        @ApiResponse(
-            responseCode = "403",
-            description = "Accès interdit.",
-            content =
-                @Content(
-                    mediaType = "application/json",
-                    schema = @Schema(implementation = ErrorResponse.class))),
-        @ApiResponse(
-            responseCode = "404",
-            description = "Catégorie introuvable.",
-            content =
-                @Content(
-                    mediaType = "application/json",
-                    schema = @Schema(implementation = ErrorResponse.class))),
-        @ApiResponse(
-            responseCode = "500",
-            description = "Erreur interne du serveur.",
-            content =
-                @Content(
-                    mediaType = "application/json",
-                    schema = @Schema(implementation = ErrorResponse.class)))
-      })
-  ResponseEntity<Void> updateCategory(
-      @Parameter(
-              description = "ID de la catégorie à mettre à jour.",
-              required = true,
-              example = "1")
-          @PathVariable
-          int id,
-      @Parameter(required = true, schema = @Schema(implementation = CategoryCreateDto.class))
-          @Valid
-          @RequestBody
-          CategoryCreateDto categoryCreateDto);
+    @PutMapping("/{id}")
+    @Operation(
+            summary = "Update category details.",
+            description = "Update the details of a category with the given ID.")
+    @ApiResponses(
+            value = {
+                    @ApiResponse(responseCode = "200", description = "Category updated successfully."),
+                    @ApiResponse(
+                            responseCode = "400",
+                            description = "Invalid input.",
+                            content =
+                            @Content(
+                                    mediaType = "application/json",
+                                    schema = @Schema(implementation = ErrorResponse.class))),
+                    @ApiResponse(
+                            responseCode = "401",
+                            description = "Unauthorized.",
+                            content =
+                            @Content(
+                                    mediaType = "application/json",
+                                    schema = @Schema(implementation = ErrorResponse.class))),
+                    @ApiResponse(
+                            responseCode = "403",
+                            description = "Forbidden access.",
+                            content =
+                            @Content(
+                                    mediaType = "application/json",
+                                    schema = @Schema(implementation = ErrorResponse.class))),
+                    @ApiResponse(
+                            responseCode = "404",
+                            description = "Category not found.",
+                            content =
+                            @Content(
+                                    mediaType = "application/json",
+                                    schema = @Schema(implementation = ErrorResponse.class))),
+                    @ApiResponse(
+                            responseCode = "500",
+                            description = "Internal server error.",
+                            content =
+                            @Content(
+                                    mediaType = "application/json",
+                                    schema = @Schema(implementation = ErrorResponse.class)))
+            })
+    ResponseEntity<Void> updateCategory(
+            @Parameter(
+                    description = "ID of the category to update.",
+                    required = true,
+                    example = "1")
+            @PathVariable
+            int id,
+            @Parameter(required = true, schema = @Schema(implementation = CategoryCreateDto.class))
+            @Valid
+            @RequestBody
+            CategoryCreateDto categoryCreateDto);
 
-  @DeleteMapping("/{id}")
-  @Operation(
-      summary = "Supprimer une catégorie.",
-      description = "Supprimer une catégorie avec l'ID donné.")
-  @ApiResponses(
-      value = {
-        @ApiResponse(responseCode = "204", description = "Catégorie supprimée avec succès."),
-        @ApiResponse(
-            responseCode = "401",
-            description = "Non autorisé.",
-            content =
-                @Content(
-                    mediaType = "application/json",
-                    schema = @Schema(implementation = ErrorResponse.class))),
-        @ApiResponse(
-            responseCode = "403",
-            description = "Accès interdit.",
-            content =
-                @Content(
-                    mediaType = "application/json",
-                    schema = @Schema(implementation = ErrorResponse.class))),
-        @ApiResponse(
-            responseCode = "404",
-            description = "Catégorie introuvable.",
-            content =
-                @Content(
-                    mediaType = "application/json",
-                    schema = @Schema(implementation = ErrorResponse.class))),
-        @ApiResponse(
-            responseCode = "500",
-            description = "Erreur interne du serveur.",
-            content =
-                @Content(
-                    mediaType = "application/json",
-                    schema = @Schema(implementation = ErrorResponse.class)))
-      })
-  ResponseEntity<Void> deleteCategory(
-      @Parameter(description = "ID de la catégorie à supprimer.", required = true, example = "1")
-          @PathVariable
-          int id);
+    @DeleteMapping("/{id}")
+    @Operation(
+            summary = "Delete a category.",
+            description = "Delete a category with the given ID.")
+    @ApiResponses(
+            value = {
+                    @ApiResponse(responseCode = "204", description = "Category deleted successfully."),
+                    @ApiResponse(
+                            responseCode = "401",
+                            description = "Unauthorized.",
+                            content =
+                            @Content(
+                                    mediaType = "application/json",
+                                    schema = @Schema(implementation = ErrorResponse.class))),
+                    @ApiResponse(
+                            responseCode = "403",
+                            description = "Forbidden access.",
+                            content =
+                            @Content(
+                                    mediaType = "application/json",
+                                    schema = @Schema(implementation = ErrorResponse.class))),
+                    @ApiResponse(
+                            responseCode = "404",
+                            description = "Category not found.",
+                            content =
+                            @Content(
+                                    mediaType = "application/json",
+                                    schema = @Schema(implementation = ErrorResponse.class))),
+                    @ApiResponse(
+                            responseCode = "500",
+                            description = "Internal server error.",
+                            content =
+                            @Content(
+                                    mediaType = "application/json",
+                                    schema = @Schema(implementation = ErrorResponse.class)))
+            })
+    ResponseEntity<Void> deleteCategory(
+            @Parameter(description = "ID of the category to delete.", required = true, example = "1")
+            @PathVariable
+            int id);
 }

@@ -14,14 +14,14 @@ import lombok.Setter;
 @AllArgsConstructor
 @Builder
 @Schema(
-    title = "Schéma d'un paramètre de configuration.",
-    description = "Représente un paramètre de configuration.")
+    title = "Configuration Parameter Schema",
+    description = "Represents a configuration parameter.")
 public class ConfigOptionDto {
-  @Schema(description = "Clé du paramètre.", example = "LAST_INVOICE_NUMBER", required = true)
-  @NotBlank(message = "La clé est obligatoire.")
+  @Schema(description = "Parameter key.", example = "LAST_INVOICE_NUMBER", required = true)
+  @NotBlank(message = "Key is required.")
   private ConfigKey key;
 
-  @Schema(description = "Valeur du paramètre.", example = "12", required = true)
-  @NotBlank(message = "La valeur est obligatoire.")
+  @Schema(description = "Parameter value.", example = "12", required = true)
+  @NotBlank(message = "Value is required.")
   private String value;
 }

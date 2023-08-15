@@ -21,40 +21,40 @@ import lombok.NoArgsConstructor;
 import ma.ibsys.ibsysretailmanager.product.Product;
 
 @Entity(name = "InvoiceItem")
-@Table(name = "invoice-item")
+@Table(name = "invoice_item")
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
 @Builder
 @Schema(
-    title = "Entité d'article de facture.",
-    description = "Représente un article dans une facture.")
+        title = "Invoice Item Entity",
+        description = "Represents an item in an invoice.")
 public class InvoiceItem {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private int id;
 
-  @NotNull(message = "La facture est obligatoire.")
+  @NotNull(message = "The invoice is required.")
   @ManyToOne
   @JoinColumn(
-      name = "invoice_id",
-      referencedColumnName = "id",
-      foreignKey = @ForeignKey(name = "invoice_item_invoice_id_fk"))
+          name = "invoice_id",
+          referencedColumnName = "id",
+          foreignKey = @ForeignKey(name = "invoice_item_invoice_id_fk"))
   private Invoice invoice;
 
-  @NotNull(message = "Le produit est obligatoire.")
+  @NotNull(message = "The product is required.")
   @ManyToOne(cascade = CascadeType.ALL)
   @JoinColumn(
-      name = "product_id",
-      referencedColumnName = "id",
-      foreignKey = @ForeignKey(name = "invoice_item_product_id_fk"))
+          name = "product_id",
+          referencedColumnName = "id",
+          foreignKey = @ForeignKey(name = "invoice_item_product_id_fk"))
   private Product product;
 
-  @Positive(message = "La quantité doit être supérieure à zéro.")
+  @Positive(message = "The quantity must be greater than zero.")
   @Column(name = "quantity", nullable = false, updatable = false)
   private int quantity;
 
-  @NotNull(message = "Le prix unitaire est obligatoire.")
+  @NotNull(message = "The unit price is required.")
   @Column(name = "unit_price", nullable = false)
   private BigDecimal unitPrice;
 }

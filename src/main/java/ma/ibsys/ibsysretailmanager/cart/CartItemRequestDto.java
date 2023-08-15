@@ -10,15 +10,15 @@ import lombok.Data;
 @Builder
 @Data
 @AllArgsConstructor
-@Schema(description = "Schéma de demande pour l'élément du panier.")
+@Schema(description = "Request schema for cart item.")
 public class CartItemRequestDto {
-  @NotNull(message = "L'ID du panier est requis.")
-  @Pattern(regexp = "^\\d{7}$", message = "Format d'ID du panier invalide.")
-  @Schema(description = "L'ID du panier.", example = "1234567")
+  @NotNull(message = "Cart ID is required.")
+  @Pattern(regexp = "^\\d{7}$", message = "Invalid cart ID format.")
+  @Schema(description = "Cart ID.", example = "1234567")
   private String cartId;
 
-  @NotNull(message = "Le code-barres est requis.")
-  @Pattern(regexp = "^\\d*$", message = "Format de code-barres invalide.")
-  @Schema(description = "Le code-barres du produit.", example = "1234567890")
+  @NotNull(message = "Barcode is required.")
+  @Pattern(regexp = "^\\d*$", message = "Invalid barcode format.")
+  @Schema(description = "Product barcode.", example = "1234567890")
   private String barcode;
 }

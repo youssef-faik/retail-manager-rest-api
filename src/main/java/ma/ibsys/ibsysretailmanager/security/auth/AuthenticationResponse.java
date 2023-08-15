@@ -11,24 +11,24 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Schema(
-    title = "Schéma de la réponse d'authentification",
-    description = "Corps de la réponse d'authentification de l'utilisateur")
+        title = "Authentication Response Schema",
+        description = "Response body for user authentication.")
 public class AuthenticationResponse {
-  @Schema(description = "Jeton JWT", example = "eyJhbGciOiJIUzI1NiJ9...")
+  @Schema(description = "JWT Token", example = "eyJhbGciOiJIUzI1NiJ9...")
   private String token;
 
-  @Schema(description = "ID de l'utilisateur", example = "1")
+  @Schema(description = "User ID", example = "1")
   private Long id;
 
-  @Schema(description = "Prénom", example = "Youssef")
+  @Schema(description = "First Name", example = "Youssef")
   private String firstName;
 
-  @Schema(description = "Nom", example = "Faik")
+  @Schema(description = "Last Name", example = "Faik")
   private String lastName;
 
   @Schema(description = "Email", example = "yusef@mail.com")
   private String email;
 
-  @Schema(description = "Rôle de l'utilisateur", example = "ADMIN")
+  @Schema(description = "User Role", example = "ADMIN")
   private String role;
 }

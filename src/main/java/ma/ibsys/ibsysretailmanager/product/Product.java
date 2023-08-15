@@ -12,7 +12,10 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
-import jakarta.validation.constraints.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.Size;
 import java.math.BigDecimal;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -22,10 +25,10 @@ import ma.ibsys.ibsysretailmanager.category.Category;
 
 @Entity(name = "Product")
 @Table(
-    name = "product",
-    uniqueConstraints = {
-      @UniqueConstraint(name = "product_bar_code_unique", columnNames = "bar_code")
-    })
+        name = "product",
+        uniqueConstraints = {
+                @UniqueConstraint(name = "product_bar_code_unique", columnNames = "bar_code")
+        })
 @Builder
 @Data
 @NoArgsConstructor
@@ -36,31 +39,31 @@ public class Product {
   @Column(name = "id", updatable = false)
   private int id;
 
-  @NotBlank(message = "BarCode est obligatoire")
+  @NotBlank(message = "BarCode is mandatory")
   @Column(name = "bar_code", nullable = false)
   private String barCode;
 
-  @Size(min = 2, max = 1000, message = "Le nom doit comporter entre {min} et {max} caractères")
-  @NotBlank(message = "Le nom est obligatoire")
+  @Size(min = 2, max = 1000, message = "Name must be between {min} and {max} characters")
+  @NotBlank(message = "Name is mandatory")
   @Column(name = "name", nullable = false)
   private String name;
 
-  @NotNull(message = "Le prix de vente hors taxe est obligatoire")
-  @Positive(message = "Le prix de vente hors taxe doit être un nombre positif et superior a zero.")
+  @NotNull(message = "Selling price excluding tax is mandatory")
+  @Positive(message = "Selling price excluding tax must be a positive number and greater than zero.")
   @Column(name = "selling_price_excluding_tax", nullable = false)
   private BigDecimal sellingPriceExcludingTax;
 
-  @NotNull(message = "Le prix d'achat est obligatoire")
-  @Positive(message = "Le prix d'achat doit être un nombre positif et superior a zero.")
-  @Column(name = "purchase-price", nullable = false)
+  @NotNull(message = "Purchase price is mandatory")
+  @Positive(message = "Purchase price must be a positive number and greater than zero.")
+  @Column(name = "purchase_price", nullable = false)
   private BigDecimal purchasePrice;
 
   @Enumerated(EnumType.STRING)
-  @NotNull(message = "Le taux de TVA est obligatoire")
+  @NotNull(message = "Tax rate is mandatory")
   @Column(name = "tax_rate", nullable = false)
   private TaxRate taxRate;
 
-  @NotNull(message = "La catégorie est obligatoire")
+  @NotNull(message = "Category is mandatory")
   @ManyToOne(cascade = CascadeType.MERGE)
   @JoinColumn(name = "category_id", nullable = false)
   private Category category;
